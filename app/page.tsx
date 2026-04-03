@@ -2,6 +2,10 @@
 import Image from 'next/image';
 import { getTours, getArticles, getSiteSettings, imageUrlFor } from '@/lib/sanity';
 
+// 🚀 关键修复：强制每次请求都重新渲染，不缓存页面
+// 这样你在 Sanity 发布内容后，刷新首页即可看到，无需重新部署 Vercel！
+export const dynamic = 'force-dynamic';
+
 // 首页主组件（Server Component）
 export default async function Home() {
   // 从 Sanity 动态获取数据
@@ -132,7 +136,6 @@ export default async function Home() {
             <h3 className="text-4xl font-bold text-gray-800 mb-4">Featured Tour Packages</h3>
             <p className="text-xl text-gray-600">Handpicked itineraries for unforgettable experiences</p>
           </div>
-
           {tours && tours.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {tours.map((tour: any) => (
@@ -145,7 +148,6 @@ export default async function Home() {
               <p className="mt-2">Check back soon or contact us for custom tours!</p>
             </div>
           )}
-
           <div className="text-center mt-12">
             <button className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition">
               View All Tours →
@@ -161,7 +163,6 @@ export default async function Home() {
             <h3 className="text-4xl font-bold text-gray-800 mb-4">Travel Guides</h3>
             <p className="text-xl text-gray-600">Tips and stories from the Silk Road</p>
           </div>
-
           {articles && articles.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {articles.map((article: any) => (
@@ -217,7 +218,6 @@ export default async function Home() {
               </ul>
             </div>
           </div>
-
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
             <p>&copy; 2026 Xinjiang Travel. All rights reserved.</p>
           </div>
@@ -248,12 +248,7 @@ function TourCard({ tour }: { tour: any }) {
   return (
     <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition">
       <div className="relative h-56">
-        <Image
-          src={imageUrlFor(tour.image, 800)}
-          alt={tour.title}
-          fill
-          className="object-cover"
-        />
+        <Image src={imageUrlFor(tour.image, 800)} alt={tour.title} fill className="object-cover" />
         {tour.published && (
           <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
             Available
@@ -289,12 +284,7 @@ function ArticleCard({ article }: { article: any }) {
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
       <div className="relative h-48">
-        <Image
-          src={imageUrlFor(article.mainImage, 600)}
-          alt={article.title}
-          fill
-          className="object-cover"
-        />
+        <Image src={imageUrlFor(article.mainImage, 600)} alt={article.title} fill className="object-cover" />
       </div>
       <div className="p-6">
         <h4 className="text-xl font-bold mb-2 text-gray-800">{article.title}</h4>
