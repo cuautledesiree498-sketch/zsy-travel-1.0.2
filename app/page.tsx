@@ -1,9 +1,9 @@
 ﻿// app/page.tsx - 动态首页（从 Sanity 读取数据）
 import Image from 'next/image';
-import { getTours, getArticles, getSiteSettings, imageUrlFor } from '@/lib/sanity';
+import Link from 'next/link';
+import { getTours, getArticles, getSiteSettings, getHomeSettings, imageUrlFor } from '@/lib/sanity';
 
 // 🚀 关键修复：强制每次请求都重新渲染，不缓存页面
-// 这样你在 Sanity 发布内容后，刷新首页即可看到，无需重新部署 Vercel！
 export const dynamic = 'force-dynamic';
 
 // 首页主组件（Server Component）
@@ -12,6 +12,15 @@ export default async function Home() {
   const tours = await getTours();
   const articles = await getArticles();
   const settings = await getSiteSettings();
+  const homeSettings = await getHomeSettings();
+
+  // 使用 homeSettings 中的配置，如果没有则使用默认值
+  const heroTitle = homeSettings?.heroTitle || `Discover the Magic of Xinjiang`;
+  const heroSubtitle = homeSettings?.heroSubtitle || 'Ancient Silk Road • Stunning Landscapes • Rich Culture';
+  const heroImage = homeSettings?.heroImage || settings?.heroImage;
+  const showDestinations = homeSettings?.showDestinations !== false;
+  const showTours = homeSettings?.showTours !== false;
+  const showArticles = homeSettings?.showArticles !== false;
 
   return (
     <div className="min-h-screen">
@@ -44,9 +53,9 @@ export default async function Home() {
             </div>
 
             {/* CTA 按钮 */}
-            <button className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg">
+            <a href="/contact" className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg inline-block">
               Get a Quote
-            </button>
+            </a>
           </div>
         </div>
       </nav>
@@ -78,18 +87,18 @@ export default async function Home() {
         {/* 文字内容 */}
         <div className="relative z-10 text-center text-white px-4 max-w-4xl">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl">
-            Discover the Magic of {settings?.siteTitle?.includes('Xinjiang') ? 'Xinjiang' : 'Xinjiang'}
+            {heroTitle}
           </h2>
           <p className="text-xl md:text-2xl mb-8 drop-shadow-lg text-gray-200">
-            {settings?.siteDescription || 'Ancient Silk Road • Stunning Landscapes • Rich Culture'}
+            {heroSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-blue-600 text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-blue-700 transition shadow-2xl">
+            <a href="#tours" className="bg-blue-600 text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-blue-700 transition shadow-2xl inline-block">
               Explore Tours
-            </button>
-            <button className="bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-white/30 transition border-2 border-white">
+            </a>
+            <a href="/contact" className="bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-white/30 transition border-2 border-white inline-block">
               Plan My Trip
-            </button>
+            </a>
           </div>
         </div>
 
@@ -101,7 +110,8 @@ export default async function Home() {
         </div>
       </main>
 
-      {/* ========== 热门目的地（暂时静态，后续可从 Sanity 读取） ========== */}
+      {/* ========== 热门目的地（条件渲染） ========== */}
+      {showDestinations && (
       <section id="destinations" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -109,7 +119,6 @@ export default async function Home() {
             <p className="text-xl text-gray-600">Explore the most breathtaking places in Xinjiang</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* 目的地卡片 - 静态示例 */}
             <DestinationCard
               name="Kanas Lake"
               description="Kanas Lake - God's Garden"
@@ -128,8 +137,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* ========== 旅游套餐（动态从 Sanity 读取） ========== */}
+      {/* ========== 旅游套餐（条件渲染） ========== */}
+      {showTours && (
       <section id="tours" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -149,14 +160,16 @@ export default async function Home() {
             </div>
           )}
           <div className="text-center mt-12">
-            <button className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition">
+            <a href="/debug" className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition inline-block">
               View All Tours →
-            </button>
+            </a>
           </div>
         </div>
       </section>
+      )}
 
-      {/* ========== 旅游攻略（动态从 Sanity 读取） ========== */}
+      {/* ========== 旅游攻略（条件渲染） ========== */}
+      {showArticles && (
       <section id="articles" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -177,6 +190,7 @@ export default async function Home() {
           )}
         </div>
       </section>
+      )}
 
       {/* ========== 底部 ========== */}
       <footer id="contact" className="bg-gray-900 text-white py-16">
@@ -246,9 +260,9 @@ function DestinationCard({ name, description, image }: { name: string; descripti
 // 旅游套餐卡片组件
 function TourCard({ tour }: { tour: any }) {
   return (
-    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition">
+    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition group cursor-pointer">
       <div className="relative h-56">
-        <Image src={imageUrlFor(tour.image, 800)} alt={tour.title} fill className="object-cover" />
+        <Image src={imageUrlFor(tour.image, 800)} alt={tour.title} fill className="object-cover group-hover:scale-105 transition duration-300" />
         {tour.published && (
           <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
             Available
@@ -270,9 +284,12 @@ function TourCard({ tour }: { tour: any }) {
               ${tour.price || '699'}
             </span>
           </div>
-          <button className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition font-semibold">
-            Book Now
-          </button>
+          <a 
+            href={`/tours/${tour.slug}`}
+            className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition font-semibold inline-block"
+          >
+            View →
+          </a>
         </div>
       </div>
     </div>
@@ -282,18 +299,21 @@ function TourCard({ tour }: { tour: any }) {
 // 攻略文章卡片组件
 function ArticleCard({ article }: { article: any }) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition group cursor-pointer">
       <div className="relative h-48">
-        <Image src={imageUrlFor(article.mainImage, 600)} alt={article.title} fill className="object-cover" />
+        <Image src={imageUrlFor(article.mainImage, 600)} alt={article.title} fill className="object-cover group-hover:scale-105 transition duration-300" />
       </div>
       <div className="p-6">
         <h4 className="text-xl font-bold mb-2 text-gray-800">{article.title}</h4>
         {article.author && (
           <p className="text-sm text-gray-500 mb-4">By {article.author}</p>
         )}
-        <button className="text-blue-600 font-semibold hover:text-blue-700">
+        <a 
+          href={`/articles/${article.slug}`}
+          className="text-blue-600 font-semibold hover:text-blue-700 inline-block"
+        >
           Read More →
-        </button>
+        </a>
       </div>
     </div>
   );

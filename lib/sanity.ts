@@ -27,7 +27,7 @@ export function imageUrlFor(source: any, width = 800) {
 export async function getTours() {
   try {
     const tours = await client.fetch(`
-      *[_type == "tour" && published == true] | order(_createdAt desc) {
+      *[_type == "tour" && published == true] | order(order asc, _createdAt desc) {
         _id,
         title,
         "slug": slug.current,
@@ -36,6 +36,7 @@ export async function getTours() {
         image,
         description,
         published,
+        order,
         _createdAt
       }
     `);
@@ -43,6 +44,32 @@ export async function getTours() {
   } catch (error) {
     console.error('Error fetching tours:', error);
     return [];
+  }
+}
+
+// 获取单个旅游套餐详情
+export async function getTourBySlug(slug: string) {
+  try {
+    const tour = await client.fetch(`
+      *[_type == "tour" && slug.current == $slug][0] {
+        _id,
+        title,
+        "slug": slug.current,
+        price,
+        duration,
+        image,
+        description,
+        published,
+        order,
+        highlights,
+        itinerary,
+        _createdAt
+      }
+    `, { slug });
+    return tour;
+  } catch (error) {
+    console.error('Error fetching tour by slug:', error);
+    return null;
   }
 }
 
@@ -64,6 +91,29 @@ export async function getArticles() {
   } catch (error) {
     console.error('Error fetching articles:', error);
     return [];
+  }
+}
+
+// 获取单个文章详情
+export async function getArticleBySlug(slug: string) {
+  try {
+    const article = await client.fetch(`
+      *[_type == "article" && slug.current == $slug][0] {
+        _id,
+        title,
+        "slug": slug.current,
+        author,
+        publishDate,
+        content,
+        mainImage,
+        published,
+        _createdAt
+      }
+    `, { slug });
+    return article;
+  } catch (error) {
+    console.error('Error fetching article by slug:', error);
+    return null;
   }
 }
 
@@ -89,6 +139,28 @@ export async function getSiteSettings() {
   }
 }
 
+// 获取首页配置
+export async function getHomeSettings() {
+  try {
+    const settings = await client.fetch(`
+      *[_type == "homeSettings"][0] {
+        _id,
+        heroTitle,
+        heroSubtitle,
+        heroImage,
+        showDestinations,
+        showTours,
+        showArticles,
+        "featuredTourIds": featuredTourIds[]->{_id, title, "slug": slug.current}
+      }
+    `);
+    return settings;
+  } catch (error) {
+    console.error('Error fetching home settings:', error);
+    return null;
+  }
+}
+
 // 获取热门目的地
 export async function getDestinations() {
   try {
@@ -108,3 +180,4 @@ export async function getDestinations() {
     return [];
   }
 }
+
