@@ -50,10 +50,10 @@ export default {
   title: '⚙️ 网站全局设置',
   type: 'document',
   groups: [
-    { name: 'branding', title: '品牌信息' },
-    { name: 'contact', title: '联系方式' },
-    { name: 'navigation', title: '导航与页脚' },
-    { name: 'faq', title: 'FAQ 页面' },
+    { name: 'branding', title: '1. 品牌信息' },
+    { name: 'contact', title: '2. 联系方式' },
+    { name: 'navigation', title: '3. 导航与页脚' },
+    { name: 'faq', title: '4. FAQ 页面' },
   ],
   fields: [
     { name: 'siteTitle', title: '网站标题', type: 'string', group: 'branding' },
@@ -66,17 +66,19 @@ export default {
     { name: 'address', title: '地址', type: 'string', group: 'contact' },
     {
       name: 'headerCtaText',
-      title: '顶部导航按钮文字',
+      title: '顶部按钮文字',
       type: 'string',
       initialValue: 'Get a Quote',
       group: 'navigation',
+      description: '显示在网站右上角按钮上',
     },
     {
       name: 'headerCtaLink',
-      title: '顶部导航按钮跳转',
+      title: '顶部按钮跳转',
       type: 'string',
       initialValue: '/contact',
       group: 'navigation',
+      description: '例如 /contact 或 https://...',
     },
     {
       name: 'footerIntro',
@@ -88,11 +90,12 @@ export default {
     },
     {
       name: 'socialLinks',
-      title: '社交/客服链接',
+      title: '社交 / 客服链接',
       type: 'array',
       of: [{ type: 'socialLink' }],
       options: { sortable: true },
       group: 'navigation',
+      description: '可拖动排序，例如 WhatsApp、Instagram、Email 等',
     },
     {
       name: 'faqTitle',
@@ -116,6 +119,7 @@ export default {
       of: [{ type: 'faqItem' }],
       options: { sortable: true },
       group: 'faq',
+      description: '可拖动排序，排在前面的会优先显示。',
       initialValue: [
         { question: 'What is the best time to visit Xinjiang?', answer: 'The best time to visit Xinjiang is from May to October when the weather is mild and pleasant.' },
         { question: 'Do I need a visa to visit Xinjiang?', answer: 'Visa requirements depend on your nationality. Please check with the nearest Chinese embassy or consulate.' },

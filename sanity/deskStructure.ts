@@ -5,24 +5,24 @@ export const deskStructure: StructureResolver = (S) =>
     .title('ZSY Travel 后台')
     .items([
       S.listItem()
-        .title('🏠 首页搭积木')
+        .title('🏠 首页内容编辑')
         .id('homeSettings')
         .child(
           S.document()
             .schemaType('homeSettings')
             .documentId('homeSettings')
-            .title('首页搭积木配置')
+            .title('首页内容编辑')
         ),
       S.listItem()
-        .title('⚙️ 网站全局设置')
+        .title('⚙️ 网站基础信息')
         .id('siteSettings')
         .child(
           S.document()
             .schemaType('siteSettings')
             .documentId('siteSettings')
-            .title('网站全局设置')
+            .title('网站基础信息')
         ),
       S.divider(),
-      S.documentTypeListItem('tour').title('🏔️ 旅游线路管理'),
-      S.documentTypeListItem('article').title('📝 攻略文章管理'),
+      S.documentTypeListItem('tour').title('🏔️ 旅游线路'),
+      S.documentTypeListItem('article').title('📝 攻略文章'),
     ])
