@@ -3,20 +3,17 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, projectId } from './sanity/env'
-import tour from './sanity/schemaTypes/tour'
-import article from './sanity/schemaTypes/article'
-import siteSettings from './sanity/schemaTypes/siteSettings'
+import { schema } from './sanity/schemaTypes'
+import { deskStructure } from './sanity/deskStructure'
 
 export default defineConfig({
   name: 'default',
   title: 'ZSY Travel CMS',
   projectId,
   dataset,
-  schema: {
-    types: [tour, article, siteSettings],
-  },
+  schema: schema as any,
   plugins: [
-    structureTool(),
+    structureTool({ structure: deskStructure }),
     visionTool({ defaultApiVersion: apiVersion }),
   ],
 })
