@@ -2,15 +2,18 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getTourBySlug, getSiteSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { getTourBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { getFeaturedCaseCopy } from '@/lib/featuredCases';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
+const CONTACT_EMAIL = '1484818239@qq.com';
+const WECHAT_ID = 'Superstar-_o';
+
 export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
-  const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
   const siteTitle = 'ZSY Travel';
 
@@ -33,7 +36,6 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
 export default async function TourDetailPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }) {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
-  const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
   const t = uiText[lang];
 
@@ -42,7 +44,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   }
 
   const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 案例详情页；未填好的字段会显示测试标记。' : 'ZSY Travel case detail page; unfinished fields are displayed with test markers.';
+  const footerIntro = lang === 'zh' ? 'ZSY Travel 案例详情页；已加入真实咨询入口，支付按钮目前为占位状态。' : 'ZSY Travel case detail page; real inquiry entry is now connected, and payment buttons are currently placeholders.';
   const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待填写：案例标题' : 'Case title to be filled'));
   const tourDescription = markPlaceholder(pickLocalized(tour.description, lang) || (lang === 'zh' ? '待填写：路线概览' : 'Overview to be filled'));
   const tourHighlights = Array.isArray(tour.highlights) && tour.highlights.length ? tour.highlights.map((item: any) => markPlaceholder(pickLocalized(item, lang) || '待填写')).filter(Boolean) : [markPlaceholder(lang === 'zh' ? '待填写：亮点 1' : 'Highlight 1 to be filled'), markPlaceholder(lang === 'zh' ? '待填写：亮点 2' : 'Highlight 2 to be filled')];
@@ -53,6 +55,14 @@ export default async function TourDetailPage({ params, searchParams }: { params:
         description: markPlaceholder(pickLocalized(day?.description, lang) || (lang === 'zh' ? '待填写：行程描述' : 'Itinerary description to be filled')),
       }))
     : [{ day: 1, title: markPlaceholder(lang === 'zh' ? '待填写：第 1 天行程' : 'Day 1 itinerary to be filled'), description: markPlaceholder(lang === 'zh' ? '待填写：第 1 天说明' : 'Day 1 description to be filled') }];
+  const caseCopy = getFeaturedCaseCopy(String(tour.slug || slug), lang);
+  const displayDescription = (tourDescription.includes('测试待填写') || !pickLocalized(tour.description, lang)) ? caseCopy.overview : tourDescription;
+  const displayHighlights = (!Array.isArray(tour.highlights) || tour.highlights.length === 0 || tourHighlights.some((item: string) => item.includes('测试待填写')))
+    ? caseCopy.highlights
+    : tourHighlights;
+  const displayItinerary = (!Array.isArray(tour.itinerary) || tour.itinerary.length === 0 || itinerary.some((day: any) => day.title?.includes('测试待填写') || day.description?.includes('测试待填写')))
+    ? caseCopy.itinerary.map((day: any, index: number) => ({ day: index + 1, ...day }))
+    : itinerary;
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -93,14 +103,20 @@ export default async function TourDetailPage({ params, searchParams }: { params:
           <div className="space-y-8">
             <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '路线概览' : 'Overview'}</p>
-              <p className="mt-5 text-base leading-8 text-[var(--color-muted)] md:text-lg">{tourDescription}</p>
+              <p className="mt-5 text-base leading-8 text-[var(--color-muted)] md:text-lg">{displayDescription}</p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <CaseMiniCard title={lang === 'zh' ? '适合人群' : 'Best For'} value={caseCopy.audience} />
+              <CaseMiniCard title={lang === 'zh' ? '旅行风格' : 'Travel Style'} value={caseCopy.style} />
+              <CaseMiniCard title={lang === 'zh' ? '建议使用方式' : 'How To Use This Case'} value={caseCopy.cta} />
             </div>
 
             {tourHighlights.length > 0 && (
               <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_18px_46px_rgba(10,27,52,0.05)] md:p-10">
                 <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '亮点' : 'Highlights'}</p>
                 <ul className="mt-5 space-y-4">
-                  {tourHighlights.map((item: string, i: number) => (
+                  {displayHighlights.map((item: string, i: number) => (
                     <li key={i} className="flex items-start gap-3 text-[var(--color-slate)]">
                       <span className="mt-1 text-[var(--color-navy)]">✦</span>
                       <span className="leading-8">{item}</span>
@@ -114,7 +130,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
                 <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '行程安排' : 'Itinerary'}</p>
                 <div className="mt-6 space-y-6">
-                  {itinerary.map((day: any, i: number) => (
+                  {displayItinerary.map((day: any, i: number) => (
                     <div key={i} className="flex gap-4">
                       <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--color-navy)] text-sm font-semibold text-white">
                         {lang === 'zh' ? `第${day.day || i + 1}天` : `Day ${day.day || i + 1}`}
@@ -143,15 +159,22 @@ export default async function TourDetailPage({ params, searchParams }: { params:
                   <span className="font-semibold text-[var(--color-navy)]">{tour.price ? `$${tour.price}` : markPlaceholder(lang === 'zh' ? '待填写：预算' : 'Budget to be filled')}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span>{lang === 'zh' ? '类型' : 'Type'}</span>
-                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '定制案例' : 'Custom Case'}</span>
+                  <span>{lang === 'zh' ? '联系邮箱' : 'Email'}</span>
+                  <span className="font-semibold text-[var(--color-navy)] break-all">{CONTACT_EMAIL}</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span>WeChat</span>
+                  <span className="font-semibold text-[var(--color-navy)]">{WECHAT_ID}</span>
                 </div>
               </div>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">{lang === 'zh' ? '这类页面更适合作为灵感案例和定制参考，不代表唯一固定可售产品。你可以直接联系我们，基于你的时间、客群和目的地偏好重新定制。' : 'This page is designed as an inspiration case and planning reference, not the only fixed product. You can contact us directly to reshape it around your travel dates, traveler type and destination preferences.'}</p>
               <div className="mt-7 flex flex-col gap-3">
-                <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
-                  {lang === 'zh' ? '咨询这个方向' : 'Discuss This Journey'}
-                </Link>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+                  {lang === 'zh' ? '邮件咨询这个方向' : 'Discuss by Email'}
+                </a>
+                <button className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)]" type="button">
+                  {lang === 'zh' ? '测试待接入：支付定金' : 'Test: Deposit Pending'}
+                </button>
                 <Link href={withLang('/#cases', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '返回案例区' : 'Back to Cases'}
                 </Link>
@@ -171,7 +194,11 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   );
 }
 
-
-function displayText(value: any, fallback = '测试待补充') {
-  return markPlaceholder(value || fallback);
+function CaseMiniCard({ title, value }: { title: string; value: string }) {
+  return (
+    <div className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
+      <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{title}</p>
+      <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{value}</p>
+    </div>
+  );
 }

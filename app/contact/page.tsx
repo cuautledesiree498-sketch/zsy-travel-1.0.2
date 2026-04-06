@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import InquiryForm from '@/components/InquiryForm';
 import { getSiteSettings } from '@/lib/sanity';
-import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder } from '@/lib/i18n';
+import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
+
+const BRAND_NAME = '无限旅途国际旅行社';
+const CONTACT_EMAIL = '1484818239@qq.com';
+const WECHAT_ID = 'Superstar-_o';
 
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -23,15 +28,17 @@ export default async function ContactPage({ searchParams }: any) {
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
   const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 专注中国高端定制旅行；空缺字段已加测试标记，方便继续填充。' : 'ZSY Travel focuses on premium tailor-made China journeys; empty areas are marked as test content for easy completion.';
-  const contactAddress = markPlaceholder(pickLocalized(settings?.address, lang) || (lang === 'zh' ? '待填写：办公地点 / 服务基地' : 'Location / service base to be filled'));
-  const contactHeroTitle = pickLocalized(settings?.contactHeroTitle, lang) || 'Let’s plan a more refined journey across China.';
-  const contactHeroSubtitle = pickLocalized(settings?.contactHeroSubtitle, lang) || 'Tell us your travel time, preferred destinations and traveler profile.';
-  const contactGuideTitle = pickLocalized(settings?.contactGuideTitle, lang) || 'What to send us for a faster proposal';
-  const contactGuideItems = settings?.contactGuideItems?.length ? settings.contactGuideItems.map((item: string) => markPlaceholder(pickLocalized(item, lang) || '待填写')) : [markPlaceholder(lang === 'zh' ? '待填写：出行月份 / 天数' : 'Travel month / length to be filled'), markPlaceholder(lang === 'zh' ? '待填写：人数与客群类型' : 'Traveler count / profile to be filled'), markPlaceholder(lang === 'zh' ? '待填写：目的地偏好与预算范围' : 'Destination preference / budget range to be filled')];
-  const contactStatusNote = pickLocalized(settings?.contactStatusNote, lang) || 'This page is ready as a presentation and planning entry point.';
-  const contactCtaTitle = pickLocalized(settings?.contactCtaTitle, lang) || 'We can begin with a simple message and shape the rest with you.';
-  const contactCtaSubtitle = pickLocalized(settings?.contactCtaSubtitle, lang) || 'If you are not sure where to start, simply tell us the month, destinations and traveler type.';
+  const footerIntro = lang === 'zh' ? '无限旅途国际旅行社当前已开放邮件与微信沟通；支付入口已预留，等 PingPong 收款链接补齐后即可启用。' : 'Infinite Travel currently accepts inquiries by email and WeChat; the payment area is ready and can be activated as soon as the PingPong payment link is provided.';
+  const contactAddress = lang === 'zh' ? '测试待填写：办公地点 / 服务基地' : 'Test: location / service base to be added';
+  const contactHeroTitle = lang === 'zh' ? '联系无限旅途国际旅行社' : 'Contact Infinite Travel';
+  const contactHeroSubtitle = lang === 'zh' ? '现在已经可以通过邮件和微信发起咨询。你只需要告诉我们出行时间、目的地偏好、人数和大致需求，我们会基于你的情况继续沟通。' : 'You can now start your inquiry by email or WeChat. Just tell us your travel timing, destination ideas, traveler count and general expectations, and we will continue from there.';
+  const contactGuideTitle = lang === 'zh' ? '为了更快给你方案，建议先提供这些信息' : 'What To Send Us For A Faster Proposal';
+  const contactGuideItems = lang === 'zh'
+    ? ['出行月份或预计日期', '目的地偏好（北京 / 上海 / 新疆 / 云南 / 多城组合）', '人数与客群类型（情侣 / 家庭 / 私人小团 / 商务）', '预算方向（定金咨询 / 全款规划 / 待沟通）']
+    : ['Travel month or estimated dates', 'Preferred destinations (Beijing / Shanghai / Xinjiang / Yunnan / multi-city combinations)', 'Traveler profile (couple / family / private small group / executive)', 'Budget direction (deposit inquiry / full payment / to be discussed)'];
+  const contactStatusNote = lang === 'zh' ? '当前页面已经具备真实承接能力：可直接邮件咨询、查看微信号，并使用下方询盘表单快速生成咨询邮件。' : 'This page now works as a real intake point: you can email us directly, use the WeChat contact, and generate a ready-to-send inquiry email through the form below.';
+  const contactCtaTitle = lang === 'zh' ? '支付入口已准备好' : 'Payment Area Is Ready';
+  const contactCtaSubtitle = lang === 'zh' ? 'PingPong 收款链接暂未提供，所以这里先保留支付入口占位。你补上链接后，我们可以立即启用“支付定金 / 支付全款”按钮。' : 'The PingPong payment link has not been provided yet, so the payment area is currently reserved as a placeholder. Once the link is available, we can immediately activate the deposit and full-payment buttons.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -65,42 +72,46 @@ export default async function ContactPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
-            <InfoCard title="Email" value={markPlaceholder(settings?.contactEmail || '待填写：联系邮箱')} desc={lang === 'en' ? 'Suitable for itinerary requests, partnership communication and detailed planning needs.' : '适合提交定制需求、合作沟通与较详细的行程讨论。'} />
-            <InfoCard title="Phone / WhatsApp" value={markPlaceholder(settings?.contactPhone || settings?.whatsappNumber || '待填写：电话 / WhatsApp')} desc={lang === 'en' ? 'Useful for faster communication, urgent planning questions or direct follow-up.' : '适合更快速沟通、紧急咨询与直接跟进。'} />
-            <InfoCard title="WeChat" value={markPlaceholder(settings?.wechat || '待填写：微信号')} desc={lang === 'en' ? 'Ideal for Chinese-speaking customers or clients already using WeChat.' : '适合中文客户或习惯使用微信沟通的客人。'} />
-            <InfoCard title={lang === 'en' ? 'Location' : '所在地'} value={contactAddress} desc={lang === 'en' ? 'Your actual office or service base can be updated later in the CMS.' : '后续可在后台继续更新真实办公地址或服务基地。'} />
+            <InfoCard title="Brand" value={BRAND_NAME} desc={lang === 'en' ? 'Current public-facing brand name used for this site.' : '当前网站对外使用的品牌名称。'} />
+            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'This is the main inquiry mailbox. All form submissions currently route here.' : '当前主询盘邮箱，表单咨询也会发送到这里。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Preferred for Chinese-speaking customers and direct follow-up.' : '适合中文客户以及后续直接沟通。'} />
+            <InfoCard title={lang === 'en' ? 'Location' : '所在地'} value={contactAddress} desc={lang === 'en' ? 'You can replace this with your real office or service base later.' : '后续可替换为真实办公地点或服务基地。'} />
           </div>
 
-          <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_25px_70px_rgba(10,27,52,0.06)] md:p-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.quickInquiryGuide}</p>
-            <h3 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{contactGuideTitle}</h3>
-            <div className="mt-6 space-y-5 text-base leading-8 text-[var(--color-muted)]">
-              {contactGuideItems.map((item: string, index: number) => (
-                <p key={index}>{item}</p>
-              ))}
+          <div className="grid gap-8">
+            <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_25px_70px_rgba(10,27,52,0.06)] md:p-10">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.quickInquiryGuide}</p>
+              <h3 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{contactGuideTitle}</h3>
+              <div className="mt-6 space-y-5 text-base leading-8 text-[var(--color-muted)]">
+                {contactGuideItems.map((item: string, index: number) => (
+                  <p key={index}>• {item}</p>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6">
+                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{t.currentStatus}</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contactStatusNote}</p>
+              </div>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Email Us' : '邮件联系'}</a>
+                <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? `WeChat: ${WECHAT_ID}` : `微信：${WECHAT_ID}`}</button>
+              </div>
             </div>
 
-            <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6">
-              <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{t.currentStatus}</p>
-              <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contactStatusNote}</p>
-            </div>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <a href={`mailto:${settings?.contactEmail || 'info@example.com'}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Email Us' : '邮件联系'}</a>
-              <Link href={withLang('/about', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{t.about}</Link>
-            </div>
+            <InquiryForm lang={lang} email={CONTACT_EMAIL} />
           </div>
         </div>
       </section>
 
       <section className="bg-[#f8fbff] px-6 py-20">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] px-8 py-14 text-center text-white shadow-[0_35px_80px_rgba(10,27,52,0.14)] md:px-16">
-          <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{t.needStartingPoint}</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{lang === 'zh' ? '支付入口' : 'Payment Entry'}</p>
           <h3 className="mt-4 text-3xl font-semibold md:text-5xl">{contactCtaTitle}</h3>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{contactCtaSubtitle}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href={`mailto:${settings?.contactEmail || 'info@example.com'}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-accent)]">{lang === 'en' ? 'Start By Email' : '从邮件开始'}</a>
-            <Link href={withLang('/', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{t.home}</Link>
+            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] opacity-80" type="button">{lang === 'zh' ? '测试待接入：支付定金' : 'Test: Deposit Payment Pending'}</button>
+            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white opacity-80" type="button">{lang === 'zh' ? '测试待接入：支付全款' : 'Test: Full Payment Pending'}</button>
           </div>
         </div>
       </section>
@@ -123,9 +134,4 @@ function InfoCard({ title, value, desc }: { title: string; value: string; desc: 
       <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{desc}</p>
     </div>
   );
-}
-
-
-function displayText(value: any, fallback = '测试待补充') {
-  return markPlaceholder(value || fallback);
 }
