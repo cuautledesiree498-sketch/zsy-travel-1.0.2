@@ -505,7 +505,7 @@ function TourCard({ tour, lang }: { tour: any; lang: Lang }) {
             <span className="text-sm text-[var(--color-muted)]">{uiText[lang].reference}</span>
             <span className="ml-2 text-lg font-semibold text-[var(--color-navy)]">{uiText[lang].privatePlanning}</span>
           </div>
-          <Link href={withLang(`/tours/${tour.slug}`, lang)} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'View' : '查看'}</Link>
+          <Link href={withLang(`/tours/${encodeURIComponent(tour.slug)}`, lang)} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'View' : '查看'}</Link>
         </div>
       </div>
     </div>
