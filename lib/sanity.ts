@@ -9,9 +9,17 @@ export const client = createClient({
   useCdn: false,
 });
 
-export function imageUrlFor(source: any, width = 800) {
+const fallbackImages = {
+  hero: '/media/custom/hero/hero-nature.jpg',
+  tour: '/media/custom/hero/hero-nature.jpg',
+  article: '/media/custom/hero/hero-nature.jpg',
+  destination: '/media/custom/destinations/beijing/beijing-1.jpg',
+  icon: '/media/custom/hero/hero-nature.jpg',
+};
+
+export function imageUrlFor(source: any, width = 800, fallback = fallbackImages.hero) {
   if (!source?._ref) {
-    return 'https://images.unsplash.com/photo-1548685913-fe6678babe8d?w=800';
+    return fallback;
   }
 
   const src = source._ref || source;
@@ -20,6 +28,8 @@ export function imageUrlFor(source: any, width = 800) {
 
   return `https://cdn.sanity.io/images/${projectId}/${dataset}/${assetId}.jpg?w=${width}&auto=format`;
 }
+
+export { fallbackImages };
 
 export async function getTours() {
   try {
@@ -34,6 +44,8 @@ export async function getTours() {
         description,
         published,
         order,
+        highlights,
+        itinerary,
         _createdAt
       }
     `);
@@ -77,6 +89,7 @@ export async function getArticles() {
         author,
         publishDate,
         mainImage,
+        content,
         _createdAt
       }
     `);
@@ -114,7 +127,6 @@ export async function getSiteSettings() {
         _id,
         siteTitle,
         siteDescription,
-        heroImage,
         heroBackground,
         contactEmail,
         contactPhone,
@@ -124,9 +136,28 @@ export async function getSiteSettings() {
         headerCtaText,
         headerCtaLink,
         footerIntro,
-        socialLinks[],
+        socialLinks[]{...},
+        aboutHeroTitle,
+        aboutHeroSubtitle,
+        aboutIntroTitle,
+        aboutIntroBody,
+        aboutPositioningTitle,
+        aboutPositioningItems[],
+        aboutWhyTitle,
+        aboutWhyItems[],
+        aboutCtaTitle,
+        aboutCtaSubtitle,
+        contactHeroTitle,
+        contactHeroSubtitle,
+        contactGuideTitle,
+        contactGuideItems[],
+        contactStatusNote,
+        contactCtaTitle,
+        contactCtaSubtitle,
         faqTitle,
         faqSubtitle,
+        faqCtaTitle,
+        faqCtaSubtitle,
         faqItems[]
       }
     `);
@@ -154,6 +185,8 @@ export async function getHomeSettings() {
             description,
             published,
             order,
+            highlights,
+            itinerary,
             _createdAt
           },
           selectedArticles[]->{
@@ -163,6 +196,7 @@ export async function getHomeSettings() {
             author,
             publishDate,
             mainImage,
+            content,
             published,
             _createdAt
           },

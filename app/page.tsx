@@ -1,135 +1,196 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTours, getArticles, getSiteSettings, getHomeSettings, imageUrlFor } from '@/lib/sanity';
+import { getTours, getArticles, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
+
+const destinationFallbackMap = [
+  '/media/custom/destinations/beijing/beijing-1.jpg',
+  '/media/custom/destinations/shanghai/shanghai-1.jpg',
+  '/media/custom/destinations/shenzhen/shenzhen-1.jpg',
+  '/media/custom/destinations/chengdu/chengdu-1.jpg',
+  '/media/custom/destinations/xinjiang/xinjiang-1.jpg',
+  '/media/destinations/shaanxi.jpg',
+  '/media/destinations/chongqing.jpg',
+];
 
 export const dynamic = 'force-dynamic';
 
-export default async function Home() {
+export default async function Home({ searchParams }: any) {
   const tours = await getTours();
   const articles = await getArticles();
   const settings = await getSiteSettings();
   const homeSettings = await getHomeSettings();
+  const lang = normalizeLang((await searchParams)?.lang);
+  const t = uiText[lang];
 
   const sections = Array.isArray(homeSettings?.sections) ? homeSettings.sections.filter((section: any) => section?.enabled !== false) : [];
   const heroSection = sections.find((section: any) => section._type === 'heroSection');
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
-  const heroTitle = heroSection?.title || 'Discover the Magic of Xinjiang';
-  const heroSubtitle = heroSection?.subtitle || 'Ancient Silk Road • Stunning Landscapes • Rich Culture';
+  const heroTitle = lang === 'zh' ? 'ZSY Travel｜中国高端定制旅行' : 'ZSY Travel | Tailor-Made Luxury Journeys Across China';
+  const heroSubtitle = lang === 'zh' ? '面向全球旅客的中国高端定制旅行品牌，围绕客群、节奏与旅行目的，设计更完整、更省心、更有质感的中国旅程。' : 'A premium China travel brand creating tailor-made journeys around traveler type, pace and purpose — more refined, more flexible, and more thoughtfully designed.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
-  const footerIntro = settings?.footerIntro || 'Your trusted local expert for unforgettable Xinjiang adventures.';
-  const navCtaText = settings?.headerCtaText || heroSection?.primaryButtonText || 'Get a Quote';
+  const heroVideoUrl = heroSection?.backgroundVideoUrl;
+  const footerIntro = lang === 'zh' ? 'ZSY Travel 专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'ZSY Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
+  const contactAddress = pickLocalized(settings?.address, lang) || '';
+  const navCtaText = lang === 'zh' ? '定制我的旅程' : 'Tailor My Journey';
   const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink);
   const faqItems = Array.isArray(settings?.faqItems) ? settings.faqItems : [];
+  const siteTitle = 'ZSY Travel';
+  const siteDescription = lang === 'zh' ? '中国高端定制旅行品牌，覆盖城市、人文、山河、商务与家庭等多类出行场景。' : 'A premium China travel brand for tailor-made journeys across cities, culture, landscapes, executive travel and family experiences.';
+  const languageSwitchLabel = t.language;
+  const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex justify-between items-center gap-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-3xl">🏔️</span>
-              <h1 className="text-2xl font-bold text-gray-800">{settings?.siteTitle || 'Xinjiang Travel'}</h1>
-            </div>
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex items-center justify-between gap-4">
+            <Link href={withLang('/', lang)} className="flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+                <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
+              </div>
+            </Link>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden items-center gap-8 md:flex">
               {sections.filter((section: any) => section?.anchorId).map((section: any, index: number) => (
-                <a key={`${section._type}-${index}`} href={`#${section.anchorId}`} className="text-gray-700 hover:text-blue-600 font-medium">
-                  {section.title || getDefaultSectionLabel(section._type)}
+                <a key={`${section._type}-${index}`} href={`#${section.anchorId}`} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">
+                  {getDefaultSectionLabel(section._type, lang)}
                 </a>
               ))}
-              <Link href="/faq" className="text-gray-700 hover:text-blue-600 font-medium">FAQ</Link>
-              <a href="#footer-contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.about}</Link>
+              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.contact}</Link>
+              <Link href={withLang('/', switchLang)} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)] hover:border-[rgba(10,27,52,0.28)]">{languageSwitchLabel}</Link>
             </div>
 
-            <SmartLink href={navCtaLink} className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg inline-block">
+            <SmartLink href={navCtaLink} lang={lang} className="inline-flex items-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-navy)] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[var(--color-navy-soft)]">
               {navCtaText}
             </SmartLink>
           </div>
         </div>
       </nav>
 
-      <main className="relative h-screen flex items-center justify-center">
+      <main className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24">
         <div className="absolute inset-0">
-          <Image src={imageUrlFor(heroImage, 1600)} alt={settings?.siteTitle || 'Xinjiang Landscape'} fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
+          {heroVideoUrl ? (
+            <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
+              <source src={heroVideoUrl} />
+            </video>
+          ) : null}
+          <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
+            <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={siteTitle} fill className="object-cover" priority />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12),rgba(4,10,18,0.36),rgba(4,10,18,0.66))]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_30%)]"></div>
         </div>
 
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl">{heroTitle}</h2>
-          <p className="text-xl md:text-2xl mb-8 drop-shadow-lg text-gray-200">{heroSubtitle}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {heroSection?.primaryButtonText && <SmartLink href={resolveManagedLink(heroSection.primaryButtonTarget, heroSection.primaryButtonLink) || '#tours'} newTab={heroSection.primaryButtonNewTab} className="bg-blue-600 text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-blue-700 transition shadow-2xl inline-block">{heroSection.primaryButtonText}</SmartLink>}
-            {heroSection?.secondaryButtonText && <SmartLink href={resolveManagedLink(heroSection.secondaryButtonTarget, heroSection.secondaryButtonLink) || '/contact'} newTab={heroSection.secondaryButtonNewTab} className="bg-white/20 backdrop-blur-sm text-white px-10 py-4 rounded-full text-xl font-semibold hover:bg-white/30 transition border-2 border-white inline-block">{heroSection.secondaryButtonText}</SmartLink>}
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <div className="text-white">
+            <p className="mb-5 text-xs uppercase tracking-[0.45em] text-[rgba(255,255,255,0.76)]">{t.tailorMadeLuxuryTravelInChina}</p>
+            <h2 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h2>
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-[rgba(255,255,255,0.82)] md:text-xl">{heroSubtitle}</p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              {heroSection?.primaryButtonText && (
+                <SmartLink href={resolveManagedLink(heroSection.primaryButtonTarget, heroSection.primaryButtonLink) || '#destinations'} lang={lang} newTab={heroSection.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">
+                  {useDisplayText(heroSection.primaryButtonText, lang)}
+                </SmartLink>
+              )}
+              {heroSection?.secondaryButtonText && (
+                <SmartLink href={resolveManagedLink(heroSection.secondaryButtonTarget, heroSection.secondaryButtonLink) || '/contact'} lang={lang} newTab={heroSection.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/18">
+                  {useDisplayText(heroSection.secondaryButtonText, lang)}
+                </SmartLink>
+              )}
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.brandPositioning}</p>
+              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Travel solutions designed for different people, not one fixed route.' : '围绕不同人群设计旅行方案，而不是出售一条固定线路。'}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'From couples and family travel to executive visits and private cultural journeys, we design China experiences around people, pace and purpose.' : '从情侣、家庭、商务接待到私人文化深度旅行，我们围绕客户类型、节奏与需求来设计中国定制体验。'}</p>
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <HeroStat label={lang === 'en' ? 'Positioning' : '定位'} value={lang === 'en' ? 'Tailor-Made' : '定制'} />
+                <HeroStat label={lang === 'en' ? 'Coverage' : '范围'} value={lang === 'en' ? 'China-wide' : '中国全域'} />
+                <HeroStat label={lang === 'en' ? 'Style' : '方式'} value={lang === 'en' ? 'Private' : '私享'} />
+                <HeroStat label={lang === 'en' ? 'Service' : '服务'} value={lang === 'en' ? 'Premium' : '高端'} />
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
       </main>
+
+      <section className="relative z-20 -mt-14 px-6">
+        <div className="mx-auto grid max-w-7xl gap-5 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-5 shadow-[0_28px_80px_rgba(0,0,0,0.12)] md:grid-cols-3 md:p-7">
+          <HighlightChip title={lang === 'en' ? 'Tailor-Made' : '定制方案'} desc={lang === 'en' ? 'Every journey is shaped around traveler type, pace and purpose.' : '每段旅程都围绕客群类型、节奏与真实需求来设计。'} />
+          <HighlightChip title={lang === 'en' ? 'China-Wide' : '中国全域'} desc={lang === 'en' ? 'Megacities, heritage regions and remote landscapes in one planning system.' : '都市、文化古都与山河边疆都可纳入同一套规划逻辑。'} />
+          <HighlightChip title={lang === 'en' ? 'Premium' : '高端体验'} desc={lang === 'en' ? 'A more refined travel process with stronger curation and personal support.' : '更注重品质、策划深度与一对一支持。'} />
+        </div>
+      </section>
 
       {nonHeroSections.map((section: any, index: number) => {
         switch (section._type) {
           case 'featureIconsSection':
-            return <FeatureIconsSection key={`${section._type}-${index}`} section={section} />;
+            return <FeatureIconsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
+          case 'audienceSolutionsSection':
+            return <AudienceSolutionsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'destinationCardsSection':
-            return <DestinationCardsSection key={`${section._type}-${index}`} section={section} />;
+            return <DestinationCardsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'tourListSection': {
             const list = section.sourceMode === 'manual' ? (section.selectedTours || []).filter((item: any) => item?.published !== false) : tours.slice(0, section.maxItems || 6);
-            return <TourListSection key={`${section._type}-${index}`} section={section} tours={list} />;
+            return <CaseInspirationsSection key={`${section._type}-${index}`} section={section} tours={list} lang={lang} />;
           }
           case 'articleListSection': {
             const list = section.sourceMode === 'manual' ? (section.selectedArticles || []).filter((item: any) => item?.published !== false) : articles.slice(0, section.maxItems || 3);
-            return <ArticleListSection key={`${section._type}-${index}`} section={section} articles={list} />;
+            return <ArticleListSection key={`${section._type}-${index}`} section={section} articles={list} lang={lang} />;
           }
           case 'faqPreviewSection':
-            return <FaqPreviewSection key={`${section._type}-${index}`} section={section} faqItems={faqItems} />;
+            return <FaqPreviewSection key={`${section._type}-${index}`} section={section} faqItems={faqItems} lang={lang} />;
           case 'testimonialsSection':
-            return <TestimonialsSection key={`${section._type}-${index}`} section={section} />;
+            return <TestimonialsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'statsSection':
-            return <StatsSection key={`${section._type}-${index}`} section={section} />;
+            return <StatsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'ctaSection':
-            return <CtaSection key={`${section._type}-${index}`} section={section} />;
+            return <CtaSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           default:
             return null;
         }
       })}
 
-      <footer id="footer-contact" className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer id="footer-contact" className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-18 text-[var(--color-navy)]">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div>
-              <div className="flex items-center space-x-2 mb-4"><span className="text-3xl">🏔️</span><h4 className="text-xl font-bold">{settings?.siteTitle || 'Xinjiang Travel'}</h4></div>
-              <p className="text-gray-400 mb-4">{footerIntro}</p>
+              <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">Infinite Journeys</p>
+              <h4 className="mt-3 text-2xl font-semibold text-[var(--color-navy)]">{siteTitle}</h4>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--color-muted)]">{footerIntro}</p>
             </div>
             <div>
-              <h5 className="text-lg font-bold mb-4">Contact Us</h5>
-              <ul className="space-y-3 text-gray-400">
-                {settings?.contactEmail && <li className="flex items-center gap-2"><span>📧</span><span>{settings.contactEmail}</span></li>}
-                {(settings?.contactPhone || settings?.whatsappNumber) && <li className="flex items-center gap-2"><span>📱</span><span>{settings.contactPhone || settings.whatsappNumber}</span></li>}
-                {settings?.wechat && <li className="flex items-center gap-2"><span>💬</span><span>WeChat: {settings.wechat}</span></li>}
-                {settings?.address && <li className="flex items-center gap-2"><span>📍</span><span>{settings.address}</span></li>}
+              <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.contact}</h5>
+              <ul className="mt-4 space-y-3 text-sm text-[var(--color-slate)]">
+                {settings?.contactEmail && <li>{settings.contactEmail}</li>}
+                {(settings?.contactPhone || settings?.whatsappNumber) && <li>{settings.contactPhone || settings.whatsappNumber}</li>}
+                {settings?.wechat && <li>WeChat: {settings.wechat}</li>}
+                {contactAddress && <li>{contactAddress}</li>}
               </ul>
             </div>
             <div>
-              <h5 className="text-lg font-bold mb-4">Quick Links</h5>
-              <ul className="space-y-3 text-gray-400">
-                <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
-                <li><Link href="/faq" className="hover:text-white transition">FAQ</Link></li>
-                <li><Link href="/about" className="hover:text-white transition">About</Link></li>
+              <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.quickLinks}</h5>
+              <ul className="mt-4 space-y-3 text-sm text-[var(--color-slate)]">
+                <li><Link href={withLang('/contact', lang)} className="transition hover:text-[var(--color-navy)]">{t.contact}</Link></li>
+                <li><Link href={withLang('/faq', lang)} className="transition hover:text-[var(--color-navy)]">{t.faq}</Link></li>
+                <li><Link href={withLang('/about', lang)} className="transition hover:text-[var(--color-navy)]">{t.about}</Link></li>
               </ul>
             </div>
             <div>
-              <h5 className="text-lg font-bold mb-4">Follow / Connect</h5>
-              <div className="space-y-3">
-                {(settings?.socialLinks || []).map((item: any, index: number) => <SmartLink key={index} href={item?.url} newTab={item?.newTab} className="flex items-center gap-2 text-gray-400 hover:text-white transition"><span>{socialIconMap[item?.platform] || '🔗'}</span><span>{item?.label || item?.platform || 'Link'}</span></SmartLink>)}
-              </div>
+              <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.siteIntro}</h5>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{siteDescription}</p>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500"><p>&copy; 2026 {settings?.siteTitle || 'Xinjiang Travel'}. All rights reserved.</p></div>
+          <div className="mt-12 border-t border-[rgba(10,27,52,0.08)] pt-6 text-center text-sm text-[var(--color-muted)]">
+            <p>&copy; 2026 {siteTitle}. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
@@ -142,29 +203,344 @@ function resolveManagedLink(target?: string, custom?: string) {
   return target;
 }
 
-function SmartLink({ href, newTab, className, children }: any) {
-  if (!href) return <span className={className}>{children}</span>;
-  const isAnchor = href.startsWith('#');
-  const isInternal = href.startsWith('/') || isAnchor;
-  if (isInternal) return <Link href={href} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</Link>;
-  return <a href={href} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</a>;
+function useDisplayText(value: any, lang: Lang, fallback = '') {
+  const picked = pickLocalized(value, lang) || fallback;
+  return markPlaceholder(picked);
 }
 
-function SectionHeader({ title, subtitle }: { title?: string; subtitle?: string }) { return <div className="text-center mb-16 max-w-3xl mx-auto px-4">{title && <h3 className="text-4xl font-bold text-gray-800 mb-4">{title}</h3>}{subtitle && <p className="text-xl text-gray-600">{subtitle}</p>}</div>; }
-function FeatureIconsSection({ section }: { section: any }) { return <section className="py-20 bg-gray-50"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} /><div className="grid grid-cols-1 md:grid-cols-3 gap-8">{(section.items || []).map((item: any, index: number) => <IconInfoCard key={index} item={item} compact />)}</div></div></section>; }
-function DestinationCardsSection({ section }: { section: any }) { return <section id={section.anchorId || undefined} className="py-20 bg-white"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} /><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">{(section.items || []).map((item: any, index: number) => <DestinationCard key={index} item={item} />)}</div></div></section>; }
-function TourListSection({ section, tours }: { section: any; tours: any[] }) { return <section id={section.anchorId || undefined} className="py-20 bg-gray-50"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} />{tours && tours.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-3 gap-8">{tours.map((tour: any) => <TourCard key={tour._id} tour={tour} />)}</div> : <div className="text-center text-gray-500 py-12"><p className="text-xl">No tour packages available yet.</p></div>}{section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && <div className="text-center mt-12"><SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} newTab={section.viewMoreNewTab} className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition inline-block">{section.viewMoreText} →</SmartLink></div>}</div></section>; }
-function ArticleListSection({ section, articles }: { section: any; articles: any[] }) { return <section id={section.anchorId || undefined} className="py-20 bg-white"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} />{articles && articles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-3 gap-8">{articles.map((article: any) => <ArticleCard key={article._id} article={article} />)}</div> : <div className="text-center text-gray-500 py-12"><p className="text-xl">No articles yet.</p></div>}{section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && <div className="text-center mt-12"><SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} newTab={section.viewMoreNewTab} className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition inline-block">{section.viewMoreText} →</SmartLink></div>}</div></section>; }
-function StatsSection({ section }: { section: any }) { return <section className="py-20 bg-blue-50"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} /><div className="grid grid-cols-2 md:grid-cols-4 gap-6">{(section.items || []).map((item: any, index: number) => <div key={index} className="bg-white rounded-2xl p-8 text-center shadow-sm border"><div className="text-4xl font-bold text-blue-600 mb-2">{item.number}</div><div className="text-gray-700 font-medium">{item.label}</div></div>)}</div></div></section>; }
-function TestimonialsSection({ section }: { section: any }) { return <section className="py-20 bg-white"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} /><div className="grid grid-cols-1 md:grid-cols-3 gap-8">{(section.items || []).map((item: any, index: number) => <div key={index} className="bg-gray-50 rounded-2xl p-8 shadow-sm border"><div className="text-yellow-500 mb-4">{'★'.repeat(Math.max(1, Math.min(5, Number(item.rating || 5))))}</div><p className="text-gray-700 mb-6">“{item.quote}”</p><div className="font-bold text-gray-900">{item.name}</div><div className="text-sm text-gray-500">{item.country}</div></div>)}</div></div></section>; }
-function FaqPreviewSection({ section, faqItems }: { section: any; faqItems: any[] }) { const list = faqItems.slice(0, section.maxItems || 4); return <section className="py-20 bg-gray-50"><div className="container mx-auto px-4"><SectionHeader title={section.title} subtitle={section.subtitle} /><div className="max-w-4xl mx-auto space-y-4">{list.map((faq: any, index: number) => <details key={index} className="bg-white rounded-xl border p-5"><summary className="font-semibold cursor-pointer text-gray-800">{faq.question}</summary><div className="mt-3 text-gray-600">{faq.answer}</div></details>)}</div>{section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && <div className="text-center mt-12"><SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} className="bg-white border-2 border-blue-600 text-blue-600 px-10 py-3 rounded-full text-lg font-semibold hover:bg-blue-50 transition inline-block">{section.viewMoreText} →</SmartLink></div>}</div></section>; }
-function CtaSection({ section }: { section: any }) { return <section className="py-20 bg-blue-700 text-white relative overflow-hidden"><div className="container mx-auto px-4 text-center max-w-4xl relative z-10">{section.backgroundImage && <div className="absolute inset-0 opacity-20 -z-10"><Image src={imageUrlFor(section.backgroundImage, 1400)} alt={section.title || 'CTA background'} fill className="object-cover" /></div>}<h3 className="text-4xl md:text-5xl font-bold mb-6">{section.title}</h3>{section.subtitle && <p className="text-xl text-blue-100 mb-8">{section.subtitle}</p>}<div className="flex flex-col sm:flex-row gap-4 justify-center">{section.primaryButtonText && <SmartLink href={resolveManagedLink(section.primaryButtonTarget, section.primaryButtonLink)} newTab={section.primaryButtonNewTab} className="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition inline-block">{section.primaryButtonText}</SmartLink>}{section.secondaryButtonText && <SmartLink href={resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink)} newTab={section.secondaryButtonNewTab} className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition inline-block">{section.secondaryButtonText}</SmartLink>}</div></div></section>; }
-function IconInfoCard({ item, compact = false }: { item: any; compact?: boolean }) { const icon = renderManagedIcon(item, compact ? 'text-4xl' : 'text-5xl'); return <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition border border-gray-100"><div className="flex justify-center mb-5">{icon}</div><h4 className="text-xl font-bold mb-3 text-gray-800">{item.title}</h4>{item.description && <p className="text-gray-600 mb-5">{item.description}</p>}{resolveManagedLink(item.linkTarget, item.link) && item.linkText && <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} newTab={item.newTab} className="text-blue-600 font-semibold hover:text-blue-700 inline-block">{item.linkText} →</SmartLink>}</div>; }
-function DestinationCard({ item }: { item: any }) { return <SmartCardLink href={resolveManagedLink(item.linkTarget, item.link)} newTab={item.newTab} className="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer block min-h-[20rem]"><div className="relative h-80 bg-gray-200">{item.backgroundImage ? <Image src={imageUrlFor(item.backgroundImage, 900)} alt={item.title || 'Destination'} fill className="object-cover group-hover:scale-110 transition duration-500" /> : <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">{renderManagedIcon(item, 'text-7xl text-white')}</div>}<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div><div className="absolute bottom-0 left-0 right-0 p-6 text-white"><h4 className="text-2xl font-bold mb-2">{item.title}</h4><p className="text-gray-200">{item.description}</p></div></div></SmartCardLink>; }
-function SmartCardLink({ href, newTab, className, children }: any) { if (!href) return <div className={className}>{children}</div>; const isInternal = href.startsWith('/') || href.startsWith('#'); if (isInternal) return <Link href={href} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</Link>; return <a href={href} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</a>; }
-function TourCard({ tour }: { tour: any }) { return <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition group cursor-pointer"><div className="relative h-56"><Image src={imageUrlFor(tour.image, 800)} alt={tour.title} fill className="object-cover group-hover:scale-105 transition duration-300" />{tour.published && <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">Available</div>}</div><div className="p-6"><div className="flex items-center gap-2 mb-3"><span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">{tour.duration} Days</span></div><h4 className="text-xl font-bold mb-2 text-gray-800">{tour.title}</h4><p className="text-gray-600 mb-4 line-clamp-2">{tour.description}</p><div className="flex justify-between items-center pt-4 border-t"><div><span className="text-gray-400 line-through text-sm">${tour.price ? tour.price + 99 : '899'}</span><span className="text-3xl font-bold text-blue-600 ml-2">${tour.price || '699'}</span></div><Link href={`/tours/${tour.slug}`} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition font-semibold inline-block">View →</Link></div></div></div>; }
-function ArticleCard({ article }: { article: any }) { return <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition group cursor-pointer"><div className="relative h-48"><Image src={imageUrlFor(article.mainImage, 600)} alt={article.title} fill className="object-cover group-hover:scale-105 transition duration-300" /></div><div className="p-6"><h4 className="text-xl font-bold mb-2 text-gray-800">{article.title}</h4>{article.author && <p className="text-sm text-gray-500 mb-4">By {article.author}</p>}<Link href={`/articles/${article.slug}`} className="text-blue-600 font-semibold hover:text-blue-700 inline-block">Read More →</Link></div></div>; }
-function renderManagedIcon(item: any, className = 'text-5xl') { if (item?.iconType === 'upload' && item?.uploadedIcon) return <div className="relative w-16 h-16"><Image src={imageUrlFor(item.uploadedIcon, 128)} alt={item.title || 'Icon'} fill className="object-contain" /></div>; if (item?.iconType === 'emoji' && item?.emoji) return <span className={className}>{item.emoji}</span>; return <span className={className}>{presetIconMap[item?.presetIcon] || '🧭'}</span>; }
-const presetIconMap: Record<string, string> = { compass: '🧭', map: '🗺️', camera: '📷', star: '⭐', shield: '🛡️', chat: '💬', plane: '✈️', mountain: '🏔️', heart: '❤️', clock: '⏰' };
-const socialIconMap: Record<string, string> = { whatsapp: '💬', wechat: '🟢', instagram: '📸', facebook: '📘', youtube: '▶️', tiktok: '🎵', email: '📧', custom: '🔗' };
-function getDefaultSectionLabel(type: string) { const map: Record<string, string> = { heroSection: 'Home', featureIconsSection: 'Highlights', destinationCardsSection: 'Destinations', tourListSection: 'Tours', articleListSection: 'Guides', faqPreviewSection: 'FAQ', statsSection: 'Stats', testimonialsSection: 'Reviews', ctaSection: 'Plan Your Trip' }; return map[type] || 'Section'; }
+function SmartLink({ href, newTab, className, children, lang }: any) {
+  if (!href) return <span className={className}>{children}</span>;
+  const finalHref = withLang(href, lang || 'en');
+  const isAnchor = finalHref.startsWith('#');
+  const isInternal = finalHref.startsWith('/') || isAnchor;
+  if (isInternal) return <Link href={finalHref} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</Link>;
+  return <a href={finalHref} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</a>;
+}
+
+function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title?: string; subtitle?: string }) {
+  return (
+    <div className="mx-auto mb-14 max-w-3xl px-6 text-center">
+      {eyebrow && <p className="text-xs uppercase tracking-[0.34em] text-[var(--color-muted)]">{eyebrow}</p>}
+      {title && <p className="mt-4 text-3xl font-semibold tracking-[0.02em] text-[var(--color-navy)] md:text-5xl">{title}</p>}
+      {subtitle && <p className="mt-4 text-base leading-8 text-[var(--color-muted)] md:text-lg">{subtitle}</p>}
+    </div>
+  );
+}
+
+function HighlightChip({ title, desc }: { title: string; desc: string }) {
+  return (
+    <div className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5">
+      <div className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{title}</div>
+      <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{desc}</p>
+    </div>
+  );
+}
+
+function HeroStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.2rem] border border-[rgba(10,27,52,0.08)] bg-white p-4">
+      <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-muted)]">{label}</div>
+      <div className="mt-2 text-lg font-semibold text-[var(--color-navy)]">{value}</div>
+    </div>
+  );
+}
+
+function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
+  return (
+    <section id={section.anchorId || 'travel-styles'} className="bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].capabilities} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
+          {(section.items || []).map((item: any, index: number) => <IconInfoCard key={index} item={item} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang }) {
+  return (
+    <section id={section.anchorId || 'audiences'} className="bg-[#f8fbff] py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].audienceSolutions} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
+          {(section.items || []).map((item: any, index: number) => <AudienceCard key={index} item={item} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DestinationCardsSection({ section, lang }: { section: any; lang: Lang }) {
+  const items = section.items || [];
+  return (
+    <section id={section.anchorId || 'destinations'} className="bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].destinations} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="mb-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5 shadow-[0_20px_60px_rgba(10,27,52,0.08)]">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="text-sm uppercase tracking-[0.2em] text-[var(--color-muted)]">{uiText[lang].featuredDestinations}</div>
+            <div className="flex flex-wrap gap-3">
+              {items.map((item: any, index: number) => (
+                <SmartLink key={index} href={resolveManagedLink(item.linkTarget, item.link) || '/contact'} lang={lang} newTab={item.newTab} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-sm text-[var(--color-navy)] transition hover:border-[var(--color-navy)] hover:bg-white">
+                  {useDisplayText(item.title, lang)}
+                </SmartLink>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {items.map((item: any, index: number) => <DestinationCard key={index} item={item} index={index} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaseInspirationsSection({ section, tours, lang }: { section: any; tours: any[]; lang: Lang }) {
+  return (
+    <section id={section.anchorId || 'cases'} className="bg-[#f8fbff] py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].sampleCases} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        {tours && tours.length > 0 ? (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{tours.map((tour: any) => <TourCard key={tour._id} tour={tour} lang={lang} />)}</div>
+        ) : (
+          <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-white px-6 py-16 text-center text-[var(--color-muted)]">
+            <p className="text-lg">{uiText[lang].sampleCasesCanBeAdded}</p>
+          </div>
+        )}
+        {section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && (
+          <div className="mt-12 text-center">
+            <SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+              {useDisplayText(section.viewMoreText, lang)}
+            </SmartLink>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function ArticleListSection({ section, articles, lang }: { section: any; articles: any[]; lang: Lang }) {
+  return (
+    <section id={section.anchorId || 'articles'} className="bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].insights} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        {articles && articles.length > 0 ? (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{articles.map((article: any) => <ArticleCard key={article._id} article={article} lang={lang} />)}</div>
+        ) : (
+          <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-[var(--color-soft-white)] px-6 py-16 text-center text-[var(--color-muted)]">
+            <p className="text-lg">{uiText[lang].planningInsightsCanBeAdded}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function StatsSection({ section, lang }: { section: any; lang: Lang }) {
+  return (
+    <section className="bg-[var(--color-navy)] py-28 text-white">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].whyUs} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+          {(section.items || []).map((item: any, index: number) => (
+            <div key={index} className="rounded-[1.75rem] border border-white/10 bg-white/6 p-8 text-center backdrop-blur-sm">
+              <div className="text-3xl font-semibold tracking-[0.03em] text-white md:text-4xl">{useDisplayText(item.number, lang)}</div>
+              <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
+  return (
+    <section className="bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeader eyebrow={uiText[lang].testimonials} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {(section.items || []).map((item: any, index: number) => (
+            <div key={index} className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_20px_50px_rgba(10,27,52,0.06)]">
+              <div className="mb-4 text-[var(--color-navy)]">{'★'.repeat(Math.max(1, Math.min(5, Number(item.rating || 5))))}</div>
+              <p className="text-base leading-8 text-[var(--color-slate)]">“{useDisplayText(item.quote, lang)}”</p>
+              <div className="mt-6 text-sm uppercase tracking-[0.18em] text-[var(--color-muted)]">{item.name} · {item.country}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems: any[]; lang: Lang }) {
+  const list = faqItems.slice(0, section.maxItems || 4);
+  return (
+    <section className="bg-[#f8fbff] py-28">
+      <div className="mx-auto max-w-5xl px-6">
+        <SectionHeader eyebrow={uiText[lang].faq} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="space-y-4">
+          {list.map((faq: any, index: number) => (
+            <details key={index} className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_12px_30px_rgba(10,27,52,0.05)]">
+              <summary className="cursor-pointer text-base font-semibold text-[var(--color-navy)]">{useDisplayText(faq.question, lang)}</summary>
+              <div className="mt-4 text-[var(--color-muted)] leading-8">{useDisplayText(faq.answer, lang)}</div>
+            </details>
+          ))}
+        </div>
+        {section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && (
+          <div className="mt-10 text-center">
+            <SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} lang={lang} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+              {useDisplayText(section.viewMoreText, lang)}
+            </SmartLink>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function CtaSection({ section, lang }: { section: any; lang: Lang }) {
+  return (
+    <section className="bg-white py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#0f2239,#183459)] px-8 py-14 text-center text-white shadow-[0_35px_80px_rgba(10,27,52,0.14)] md:px-16">
+          {section.backgroundImage && (
+            <div className="absolute inset-0 opacity-16">
+              <Image src={imageUrlFor(section.backgroundImage, 1400, fallbackImages.destination)} alt={useDisplayText(section.title, lang) || 'CTA background'} fill className="object-cover" />
+            </div>
+          )}
+          <div className="relative z-10">
+            <h3 className="text-3xl font-semibold md:text-5xl">{useDisplayText(section.title, lang)}</h3>
+            {section.subtitle && <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{useDisplayText(section.subtitle, lang)}</p>}
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              {section.primaryButtonText && <SmartLink href={resolveManagedLink(section.primaryButtonTarget, section.primaryButtonLink)} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">{useDisplayText(section.primaryButtonText, lang)}</SmartLink>}
+              {section.secondaryButtonText && <SmartLink href={resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink)} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{useDisplayText(section.secondaryButtonText, lang)}</SmartLink>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IconInfoCard({ item, lang }: { item: any; lang: Lang }) {
+  const icon = renderManagedIcon(item, 'text-4xl');
+  return (
+    <div className="flex h-full flex-col rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-7 shadow-[0_16px_40px_rgba(10,27,52,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(10,27,52,0.08)]">
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(10,27,52,0.08)] bg-white text-[var(--color-navy)] shadow-sm">{icon}</div>
+      <h4 className="text-xl font-semibold text-[var(--color-navy)]">{useDisplayText(item.title, lang)}</h4>
+      {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
+      {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
+        <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
+          {useDisplayText(item.linkText, lang)}
+        </SmartLink>
+      )}
+    </div>
+  );
+}
+
+function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
+  const icon = renderManagedIcon(item, 'text-4xl');
+  return (
+    <div className="flex h-full flex-col rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_16px_40px_rgba(10,27,52,0.06)]">
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] text-[var(--color-navy)]">{icon}</div>
+      <h4 className="text-xl font-semibold text-[var(--color-navy)]">{useDisplayText(item.title, lang)}</h4>
+      {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
+      {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
+        <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
+          {useDisplayText(item.linkText, lang)}
+        </SmartLink>
+      )}
+    </div>
+  );
+}
+
+function DestinationCard({ item, index, lang }: { item: any; index: number; lang: Lang }) {
+  const fallback = destinationFallbackMap[index % destinationFallbackMap.length] || fallbackImages.destination;
+
+  return (
+    <SmartCardLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
+      <div className="relative h-[24rem] bg-[var(--color-navy)]">
+        {item.backgroundImage ? (
+          <Image src={imageUrlFor(item.backgroundImage, 1000, fallback)} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
+        ) : (
+          <Image src={fallback} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
+        )}
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.78),rgba(4,10,18,0.14),rgba(4,10,18,0.08))]"></div>
+        <div className="absolute left-0 right-0 top-0 flex justify-end p-6 text-4xl text-white/90">{renderManagedIcon(item, 'text-4xl')}</div>
+        <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
+          <h4 className="text-2xl font-semibold">{useDisplayText(item.title, lang)}</h4>
+          <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.8)]">{useDisplayText(item.description, lang)}</p>
+        </div>
+      </div>
+    </SmartCardLink>
+  );
+}
+
+function SmartCardLink({ href, newTab, className, children, lang }: any) {
+  if (!href) return <div className={className}>{children}</div>;
+  const finalHref = withLang(href, lang || 'en');
+  const isInternal = finalHref.startsWith('/') || finalHref.startsWith('#');
+  if (isInternal) return <Link href={finalHref} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</Link>;
+  return <a href={finalHref} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</a>;
+}
+
+function TourCard({ tour, lang }: { tour: any; lang: Lang }) {
+  const tourTitle = useDisplayText(tour.title, lang);
+  const tourDescription = useDisplayText(tour.description, lang);
+
+  return (
+    <div className="overflow-hidden rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_20px_50px_rgba(10,27,52,0.08)] transition hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(10,27,52,0.12)]">
+      <div className="relative h-64">
+        <Image src={imageUrlFor(tour.image, 900, fallbackImages.tour)} alt={tourTitle || 'Tour'} fill className="object-cover" />
+      </div>
+      <div className="p-7">
+        <div className="mb-4 inline-flex rounded-full border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)]">{uiText[lang].sampleCase}</div>
+        <h4 className="text-2xl font-semibold text-[var(--color-navy)]">{tourTitle}</h4>
+        <p className="mt-3 line-clamp-3 text-sm leading-7 text-[var(--color-muted)]">{tourDescription}</p>
+        <div className="mt-6 flex items-center justify-between border-t border-[rgba(10,27,52,0.08)] pt-5">
+          <div>
+            <span className="text-sm text-[var(--color-muted)]">{uiText[lang].reference}</span>
+            <span className="ml-2 text-lg font-semibold text-[var(--color-navy)]">{uiText[lang].privatePlanning}</span>
+          </div>
+          <Link href={withLang(`/tours/${tour.slug}`, lang)} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'View' : '查看'}</Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArticleCard({ article, lang }: { article: any; lang: Lang }) {
+  const articleTitle = useDisplayText(article.title, lang);
+
+  return (
+    <div className="overflow-hidden rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] shadow-[0_20px_50px_rgba(10,27,52,0.06)]">
+      <div className="relative h-56">
+        <Image src={imageUrlFor(article.mainImage, 700, fallbackImages.article)} alt={articleTitle || 'Article'} fill className="object-cover" />
+      </div>
+      <div className="p-7">
+        <h4 className="text-2xl font-semibold text-[var(--color-navy)]">{articleTitle}</h4>
+        {article.author && <p className="mt-3 text-sm uppercase tracking-[0.15em] text-[var(--color-muted)]">{uiText[lang].by} {article.author}</p>}
+        <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">{uiText[lang].readMore}</Link>
+      </div>
+    </div>
+  );
+}
+
+function renderManagedIcon(item: any, className = 'text-5xl') {
+  if (item?.iconType === 'upload' && item?.uploadedIcon) return <div className="relative h-16 w-16"><Image src={imageUrlFor(item.uploadedIcon, 128, fallbackImages.icon)} alt={item.title || 'Icon'} fill className="object-contain" /></div>;
+  if (item?.iconType === 'emoji' && item?.emoji) return <span className={className}>{item.emoji}</span>;
+  return <span className={className}>{presetIconMap[item?.presetIcon] || '✦'}</span>;
+}
+
+const presetIconMap: Record<string, string> = { compass: '✦', map: '◌', camera: '◈', star: '✧', shield: '⬒', chat: '◍', plane: '➝', mountain: '△', heart: '♡', clock: '◷' };
+
+function getDefaultSectionLabel(type: string, lang: Lang) {
+  const map = {
+    en: { heroSection: 'Home', featureIconsSection: 'Services', audienceSolutionsSection: 'Solutions', destinationCardsSection: 'Destinations', tourListSection: 'Cases', articleListSection: 'Insights', faqPreviewSection: 'FAQ', statsSection: 'Why Us', testimonialsSection: 'Reviews', ctaSection: 'Contact' },
+    zh: { heroSection: '首页', featureIconsSection: '服务优势', audienceSolutionsSection: '人群方案', destinationCardsSection: '目的地', tourListSection: '案例灵感', articleListSection: '灵感内容', faqPreviewSection: '常见问题', statsSection: '为什么选择我们', testimonialsSection: '客户评价', ctaSection: '联系我们' },
+  } as const
+  return map[lang][type as keyof typeof map.en] || 'Section'
+}

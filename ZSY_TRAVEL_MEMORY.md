@@ -1,314 +1,278 @@
-# ZSY Travel 项目核心记忆库 (2026-04-04 更新)
+# ZSY Travel 项目核心记忆库 (2026-04-06 更新)
 
-> **更新时间**: 2026-04-04 13:06
+> **更新时间**: 2026-04-06 17:06 GMT+8
 > **负责人**: 昊昊 (CTO) / 虾虾 (AI 助手)
-> **当前状态**: ✅ 第一阶段完成，基础体验上线
+> **当前状态**: ✅ 已完成第二轮品牌化与 CMS 双语正规化，首页/关于/联系/FAQ 已进入可继续精修阶段，可安全开启新会话继续开发
 
 ---
 
-## 🎯 今日里程碑：第一阶段完善基础体验圆满完成
+## 🧾 本次会话完整总结（给下一个 session 的接力说明）
 
-### 核心成果（2026-04-04）
-
-**第一阶段目标**：完善基础体验，让用户能点得动、看得全，后台能管得住。
-
-#### 1. Schema 优化与数据模型增强
-- ✅ 升级 `tour.ts`：添加 `order`（排序号）、`highlights`（亮点列表）、`itinerary`（每日行程）字段
-- ✅ 升级 `article.ts`：添加 `published` 字段（发布状态控制）
-- ✅ 创建 `homeSettings.ts`：首页配置单例，包含主标题、副标题、背景图、板块显隐开关、置顶套餐等
-- ✅ 注册新 Schema 到 `sanity/schemaTypes/index.ts`
-
-**技术亮点**：
-- Sanity 单例模式实现全局配置管理
-- 数组字段支持复杂数据结构（行程、亮点）
-- 引用字段实现套餐置顶功能
-
-#### 2. 数据查询函数完善（lib/sanity.ts）
-- ✅ `getTourBySlug(slug)` - 获取单个旅游套餐详情
-- ✅ `getArticleBySlug(slug)` - 获取单个文章详情
-- ✅ `getHomeSettings()` - 获取首页配置
-- ✅ 优化 `getTours()` - 按 `order` 字段排序
-
-**技术亮点**：
-- 参数化查询防止注入
-- 错误处理和降级方案
-- 图片 CDN URL 构建优化
-
-#### 3. 动态路由页面开发（Next.js）
-
-**旅游套餐详情页** (`/tours/[slug]/page.tsx`)
-- 动态路由参数获取
-- 完整的套餐信息展示（标题、价格、天数、简介）
-- 亮点列表展示
-- 每日行程时间线展示
-- 右侧预订卡片（价格、预订按钮）
-- 返回首页导航
-
-**攻略文章详情页** (`/articles/[slug]/page.tsx`)
-- 动态路由参数获取
-- 富文本内容渲染（使用 `@portabletext/react`）
-- 文章元信息展示（作者、发布日期）
-- 返回文章列表导航
-
-**关于我们页** (`/app/about/page.tsx`)
-- 公司介绍和使命陈述
-- 为什么选择我们的优势列表
-- 联系我们跳转
-
-**联系页** (`/app/contact/page.tsx`)
-- 完整表单（姓名、邮箱、电话、主题、消息）
-- 前端表单验证和提交反馈
-- 其他联系方式展示（邮箱、WhatsApp、地址）
-- 表单提交成功提示
-
-**常见问题页** (`/app/faq/page.tsx`)
-- 10 个常见问题的可展开式 FAQ 列表
-- 原生 HTML `<details>` 标签实现
-- 联系支持跳转
-
-**调试页** (`/app/debug/page.tsx`)
-- 列出所有可用的旅游套餐和文章 slug
-- 直接跳转链接便于测试
-- 其他页面快速导航
-
-#### 4. 首页集成与跳转功能
-
-**首页动态配置**
-- 读取 `homeSettings` 配置首页主视觉（标题、副标题、背景图）
-- 条件渲染首页板块（Destinations、Tours、Articles）
-- 根据配置动态显示/隐藏不同板块
-
-**卡片跳转链接**
-- 旅游套餐卡片：点击"View"按钮跳转到 `/tours/[slug]`
-- 攻略文章卡片：点击"Read More"链接跳转到 `/articles/[slug]`
-- 首页按钮优化：
-  - "Explore Tours" 锚点跳转到套餐板块
-  - "Plan My Trip" 跳转到联系页
-  - "Get a Quote" 跳转到联系页
-  - "View All Tours" 跳转到调试页
-
-**导航优化**
-- 顶部菜单锚点导航（Destinations、Tour Packages、Travel Guide、Contact）
-- 所有详情页都有返回首页/列表的导航
-- 响应式菜单设计
-
-#### 5. 技术架构确认
-
-| 模块 | 技术选型 | 状态 | 备注 |
-| :--- | :--- | :--- | :--- |
-| **前端框架** | Next.js 16 + React 19 | ✅ 运行中 | Turbopack 编译 |
-| **CMS** | Sanity.io (v3) | ✅ 运行中 | 配置了 `structureTool` |
-| **图片存储** | Sanity CDN | ✅ 运行中 | 使用 `imageUrlFor` 动态构建 URL |
-| **部署平台** | Vercel | ✅ 运行中 | 关联 GitHub `main` 分支 |
-| **代码仓库** | GitHub | ✅ 运行中 | `cuautledesiree498-sketch/zsy-travel-1.0.2` |
-| **动态渲染** | `force-dynamic` | ✅ 启用 | 确保实时数据更新 |
+### 本次会话主要做了什么
+本次会话重点不是新增很多新页面，而是围绕以下四件事继续推进：
+1. **继续把首页打磨成更像品牌官网的首页**
+2. **继续把 CMS 双语结构正规化**
+3. **继续接入并使用本地品牌图片作为 fallback / 默认图**
+4. **继续清理旧的混合文案和历史兼容问题**
 
 ---
 
-## 📂 第一阶段完成的文件清单
+## 🎯 本轮里程碑：品牌化首页精修 + CMS 双语结构正规化
 
-### Schema 文件（sanity/schemaTypes/）
-- ✅ `tour.ts` - 旅游套餐 Schema（增强版）
-- ✅ `article.ts` - 攻略文章 Schema（增强版）
-- ✅ `homeSettings.ts` - 首页配置单例 Schema（新建）
-- ✅ `index.ts` - Schema 注册文件（更新）
+### 本轮核心成果（2026-04-06）
 
-### 数据层（lib/）
-- ✅ `sanity.ts` - 数据查询函数（完善版）
+#### 1. 首页继续升级为更成熟的品牌站首页
+已完成首页第二轮精修，方向从“基础 CMS 首页”推进到“更像高端定制旅行品牌官网”。
 
-### 页面文件（app/）
-- ✅ `page.tsx` - 首页（完整集成版）
-- ✅ `tours/[slug]/page.tsx` - 旅游套餐详情页（新建）
-- ✅ `articles/[slug]/page.tsx` - 攻略文章详情页（新建）
-- ✅ `about/page.tsx` - 关于我们页（新建）
-- ✅ `contact/page.tsx` - 联系页（新建）
-- ✅ `faq/page.tsx` - 常见问题页（新建）
-- ✅ `debug/page.tsx` - 调试页（新建）
+本轮首页重点调整：
+- Hero 区视觉、文案、按钮结构进一步优化
+- 首页模块顺序与默认文案更贴近“高端中国定制旅行”定位
+- 新增并强化以下首页模块逻辑：
+  - 卖点图标区
+  - 按人群定制方案区
+  - 目的地卡片区
+  - 案例灵感区
+  - 数据统计区
+  - 用户评价区
+  - 文章灵感区
+  - FAQ 预览区
+  - 底部 CTA
+- 首页顶部导航支持根据模块锚点自动生成入口
+- 首页英文/中文切换已统一走 `?lang=en / ?lang=zh`
 
----
+#### 2. 首页图片替换策略已接入到代码层
+已经把一批本地品牌图片接入当前站点作为 fallback / 默认图资源，避免页面继续大量使用泛默认素材。
 
-## 🧠 虾虾的技术学习与进化
+已接入资源目录：
+- `public/media/custom/hero/hero-nature.jpg`
+- `public/media/custom/destinations/beijing/beijing-1.jpg`
+- `public/media/custom/destinations/shanghai/shanghai-1.jpg`
+- `public/media/custom/destinations/shenzhen/shenzhen-1.jpg`
+- `public/media/custom/destinations/chengdu/chengdu-1.jpg`
+- `public/media/custom/destinations/xinjiang/xinjiang-1.jpg`
 
-### 学到的技术模式
+当前图片策略：
+- 首页 Hero 默认 fallback 已改为自定义 hero 图
+- destination cards 已按城市 fallback map 接入本地图
+- About 页 Hero 也已改为优先读取 CMS 里的 `heroBackground / heroImage`
+- Sanity 若有正式上传图片，会优先用 CMS 图；没有则退回本地 fallback 图
 
-1. **Next.js 动态路由与 Server Components**
-   - 使用 `[slug]` 动态路由参数
-   - `generateMetadata` 动态生成页面标题
-   - `notFound()` 处理 404 场景
-   - `force-dynamic` 强制动态渲染
+#### 3. CMS 双语结构完成一轮正规化
+Sanity schema 已从“部分字段双语 + 部分历史字段混用”进一步整理为更清晰的双语结构。
 
-2. **Sanity CMS 高级特性**
-   - 单例文档模式（`singleton: true`）
-   - 数组字段和对象字段嵌套
-   - 引用字段（`reference`）实现关联
-   - GROQ 查询语言参数化查询
+已处理：
+- `siteSettings.ts` 重写为更系统的分组结构：
+  - 品牌信息
+  - 联系方式
+  - 导航与页脚
+  - About 页面
+  - Contact 页面
+  - FAQ 页面
+- 新增/整理双语对象：
+  - `socialLink`
+  - `faqItem`
+  - `whyItem`
+- `homeSections.ts` 重写为更规范的积木区 schema：
+  - 统一 link target 下拉
+  - 图标来源规范化（preset / emoji / upload）
+  - CTA 字段结构统一
+  - 各 section 支持双语 title/subtitle/button 文案
+- `homeSettings.ts` 重写为更适合小白编辑的“首页搭积木配置”文档
+  - 带默认 section 初始值
+  - 带后台编辑说明
+  - 默认首页模块顺序更合理
 
-3. **React 富文本渲染**
-   - `@portabletext/react` 库用法
-   - 块级内容（block）的渲染
+#### 4. 残留混合文案清理已进行一轮
+本轮已清理大量旧的“中英混杂 / 旧定位 / 旧按钮语气”问题，重点转向以下品牌语气：
+- Tailor-made China journeys
+- China-wide premium travel
+- 按人群做定制
+- 不强调低端团游，强调高端、私享、策划感
 
-4. **响应式设计与 Tailwind CSS**
-   - 条件渲染实现板块显隐
-   - 移动端友好的菜单设计
-   - 图片懒加载和优化
+已覆盖清理范围：
+- 首页默认 CMS 文案
+- 首页 CTA 逻辑
+- About 默认文案
+- Contact 默认文案
+- FAQ 默认文案
+- 首页模块名与 section 默认标签
+- 部分按钮话术与模块标题
 
-5. **前端表单处理**
-   - React `useState` 管理表单状态
-   - 表单验证和提交反馈
-   - 异步操作和加载状态
+但**仍未完全清空所有历史英文字段或旧 schema 兼容字段**，因为当前 `lib/sanity.ts` 仍保留了旧字段抓取兼容层（如 `xxxEn / xxxZh`），这是为了不破坏现有数据读取。
 
-### 可复用的代码模板
+#### 5. 页面联动继续增强
+本轮完成了几个重要联动修正：
+- 首页 footer 地址已改为 `pickLocalized(settings.address, lang)`，不会再直接渲染对象
+- Contact 页地址展示已改为读取双语地址
+- About 页 Hero 图已改为优先读取 CMS 品牌图
+- FAQ 页继续走 `faqItems` 双语结构
+- 首页、About、Contact、FAQ 基本都已统一接入 `pickLocalized(...)`
 
-- **动态详情页模板**：`/tours/[slug]` 和 `/articles/[slug]` 可作为其他动态页面的参考
-- **表单组件**：`/contact` 页面的表单可复用于其他需要用户输入的场景
-- **FAQ 组件**：`<details>` 标签实现的可展开列表可用于其他信息展示
-- **调试页模板**：`/debug` 页面的数据列表展示可用于后续的管理后台
+#### 6. 构建验证通过
+已执行：
+- `npm run build`
 
----
+结果：✅ build 成功
 
-## 🚀 本地预览与测试
-
-### 启动开发服务器
-```powershell
-cd C:\Users\Administrator\travel-website\my-travel-site
-npm install  # 如果还没装过依赖
-npm run dev
-```
-
-### 可访问的页面 URL
-- 首页：`http://localhost:3000`
-- 旅游套餐详情：`http://localhost:3000/tours/[slug]`（需替换为实际 slug）
-- 攻略文章详情：`http://localhost:3000/articles/[slug]`（需替换为实际 slug）
-- 关于我们：`http://localhost:3000/about`
-- 联系我们：`http://localhost:3000/contact`
-- 常见问题：`http://localhost:3000/faq`
-- 调试页（查看所有 slug）：`http://localhost:3000/debug`
-
-### 测试流程
-1. 访问首页，查看动态配置是否生效
-2. 点击旅游套餐卡片，跳转到详情页
-3. 点击攻略文章卡片，跳转到文章页
-4. 测试各页面的返回导航
-5. 在联系页填写表单，验证提交反馈
-6. 访问 `/debug` 页面查看所有可用数据
-
----
-
-## 📋 第一阶段完成情况总结
-
-| 任务 | 状态 | 完成时间 |
-| :--- | :--- | :--- |
-| Schema 优化 | ✅ 完成 | 2026-04-04 08:51 |
-| 数据查询函数 | ✅ 完成 | 2026-04-04 09:00 |
-| 旅游套餐详情页 | ✅ 完成 | 2026-04-04 09:05 |
-| 攻略文章详情页 | ✅ 完成 | 2026-04-04 09:10 |
-| 关于我们页 | ✅ 完成 | 2026-04-04 09:15 |
-| 联系页 | ✅ 完成 | 2026-04-04 09:25 |
-| 常见问题页 | ✅ 完成 | 2026-04-04 09:35 |
-| 调试页 | ✅ 完成 | 2026-04-04 09:40 |
-| 首页集成与跳转 | ✅ 完成 | 2026-04-04 12:50 |
-| 响应式微调 | ✅ 完成 | 2026-04-04 13:00 |
-| **第一阶段总体** | ✅ **完成** | **2026-04-04 13:06** |
-
----
-
-## 🗺️ 下一步行动路线图（P1 - 第二阶段）
-
-### 第二阶段（P1）—— 功能增强与交互（近期）
-
-#### 1. 多语言支持  
-- 1.1 为首页、详情页、文章页添加中英文切换功能  
-- 1.2 国际化内容翻译支持和字体兼容  
-
-#### 2. 预订流程优化  
-- 2.1 多步分步骤表单设计，带进度条展示  
-- 2.2 表单实时校验与错误提示  
-- 2.3 集成多渠道支付接口（微信、支付宝、银行卡）  
-
-#### 3. 客服与交互提升  
-- 3.1 右下角悬浮客服按钮集成微信、WhatsApp 和 Telegram 快捷联系  
-- 3.2 FAQ 搜索功能及智能问答机器人初步实现  
-
-#### 4. 内容丰富度初步提升  
-- 4.1 旅游攻略内容添加图片及视频插入支持  
-- 4.2 套餐详情页增加地图组件展示景点分布  
+当前主要路由均正常：
+- `/`
+- `/about`
+- `/contact`
+- `/faq`
+- `/articles/[slug]`
+- `/tours/[slug]`
+- `/studio/[[...tool]]`
 
 ---
 
-### 第三阶段（P2）—— 视觉优化与响应式设计（中期）
+## 📂 本轮重点修改文件
 
-#### 1. 视觉风格统一  
-- 1.1 优化网站主色调和字体，设计专属品牌图标  
-- 1.2 首页及详情页添加动效和切换动画  
+### 已重写 / 大改
+- `sanity/schemaTypes/siteSettings.ts`
+- `sanity/schemaTypes/homeSections.ts`
+- `sanity/schemaTypes/homeSettings.ts`
 
-#### 2. 移动端体验优化  
-- 2.1 支持手机端滑动，手势优化  
-- 2.2 移动端交互按钮尺寸和布局调整  
+### 已继续精修
+- `app/page.tsx`
+- `app/about/page.tsx`
+- `app/contact/page.tsx`
+- `app/faq/page.tsx`
+- `lib/sanity.ts`
+- `lib/i18n.ts`
 
-#### 3. 智能推荐功能  
-- 3.1 基于用户行为推荐相关套餐和攻略  
-- 3.2 新用户个性化首页展示策略  
-
----
-
-### 第四阶段（P3）—— 运营与商业转化（长期）
-
-#### 1. 线索和客户管理  
-- 1.1 后台集成客户线索管理系统  
-- 1.2 数据报表，来源监测与效率分析  
-
-#### 2. 营销自动化  
-- 2.1 限时优惠、推荐奖励模块开发  
-- 2.2 邮件订阅功能和定期推送  
-
-#### 3. SEO 和社交整合  
-- 3.1 页面 SEO 优化（语义结构、元标签）  
-- 3.2 社交分享和评论模块  
+### 本次会话里确认存在的重要资源与文件
+- `public/media/custom/hero/hero-nature.jpg`
+- `public/media/custom/destinations/beijing/beijing-1.jpg`
+- `public/media/custom/destinations/shanghai/shanghai-1.jpg`
+- `public/media/custom/destinations/shenzhen/shenzhen-1.jpg`
+- `public/media/custom/destinations/chengdu/chengdu-1.jpg`
+- `public/media/custom/destinations/xinjiang/xinjiang-1.jpg`
+- 记忆文件：`ZSY_TRAVEL_MEMORY.md`
 
 ---
 
-## 📊 参考网站与设计灵感（2026-04-04 13:14 更新）
+## 🖼 当前图片与视觉状态
 
-**参考网站列表**：
-- https://www.chinahighlights.com/ - 中国旅游信息门户，内容丰富、结构清晰
-- https://secure.travelchinaguide.com/reserve/tailormade.htm - 定制旅游预订平台，表单和流程设计值得参考
-- https://www.lonelyplanet.com/destinations/china - 国际旅游指南，内容组织和视觉设计专业
-- https://wildchina.com/ - 高端定制旅游，品牌和用户体验设计精致
-- https://www.thechinaguide.com/ - 中国旅游综合指南，信息架构完善
+### 已接入本地自定义图片
+目前代码里已经确实在用这些图片：
+- Hero fallback：`/media/custom/hero/hero-nature.jpg`
+- 北京：`/media/custom/destinations/beijing/beijing-1.jpg`
+- 上海：`/media/custom/destinations/shanghai/shanghai-1.jpg`
+- 深圳：`/media/custom/destinations/shenzhen/shenzhen-1.jpg`
+- 成都：`/media/custom/destinations/chengdu/chengdu-1.jpg`
+- 新疆：`/media/custom/destinations/xinjiang/xinjiang-1.jpg`
 
-**参考重点**：
-- 页面布局和信息架构
-- 表单设计和用户流程
-- 内容组织方式
-- 视觉设计和交互细节
-- 多语言支持实现
-- 客户推荐和评价展示
-- 预订流程优化
-
----
-
-## 🗺️ 下一步行动路线图（P1 - 第二阶段）
+### 仍可继续做的图片工作
+后续还可以继续：
+- 给 About 页单独补更合适的品牌图
+- 给 Contact 页加背景图或品牌配图
+- 给 FAQ 页增加轻背景 / 品牌图形层
+- 给 destination cards 的每个目的地继续替换成更统一审美的一套图
+- 给 testimonials / article / tour 卡片补更高一致性的视觉策略
 
 ---
 
-## 💡 项目管理建议
+## 🧠 当前架构判断
 
-1. **后续开发流程**：
-   - 在 Sanity 后台创建测试数据（旅游套餐、文章）
-   - 邀请合作方（老板）以 Editor 角色进入后台
-   - 定期备份 Sanity 数据
+### 现状
+项目已经不再只是“有 CMS 的 demo 站”，而是具备以下能力的运营网站雏形：
+- 首页积木化
+- 站点全局信息集中管理
+- About / Contact / FAQ 可通过 CMS 驱动主文案
+- 前台双语切换统一
+- 默认品牌文案更接近高端旅行定制定位
 
-2. **部署与上线**：
-   - 确认 Vercel 环境变量配置完整
-   - 执行完整的功能测试
-   - 准备上线前的最终检查清单
-
-3. **维护与迭代**：
-   - 收集用户反馈
-   - 根据反馈优化 P1、P2 功能
-   - 定期更新内容和数据
+### 仍保留的技术债
+以下内容还没有彻底完成，只是进入“可继续清理”状态：
+1. `lib/sanity.ts` 里还保留部分旧字段兼容抓取
+2. article / tour schema 可能仍然偏旧结构，尚未完全并入新的 localized 对象体系
+3. metadata 仍是静态写法，未完全接入 CMS 双语 SEO
+4. footer 的社交链接虽然 schema 已有，但前台还没完整渲染成品牌化社媒入口
+5. About / Contact / FAQ 的页面视觉还可以继续统一成更强的品牌系统
+6. 首页还有一些文案可以继续压缩、统一语气、提高高级感
 
 ---
 
-*此文件为 ZSY Travel 项目的核心记忆库，所有重大决策、技术选型、完成情况均以此为准。*
-*最后更新：2026-04-04 13:06 by 虾虾*
+## ✅ 当前结论
+
+当前版本已经达到：
+**P1.5：品牌化 CMS 网站阶段**
+
+相比上一版，核心变化不是“功能更多”而是：
+- 品牌定位更清晰
+- 双语结构更正规
+- 默认内容更像可交付站点
+- 页面间联动更顺
+- 图片 fallback 更符合品牌调性
+
+---
+
+## 🔜 下一轮建议优先级
+
+### P2 推荐继续做
+1. **彻底正规化 tour / article 双语 schema**
+   - 从 `title/titleEn/titleZh` 迁移到 localized object
+   - 前台 slug 页面也统一 `pickLocalized`
+
+2. **继续做站点视觉统一**
+   - About / Contact / FAQ 增加更一致的品牌背景图与模块节奏
+   - 统一卡片圆角、阴影、留白、标题层级
+
+3. **把 footer 社交链接前台真正渲染出来**
+   - 读取 `socialLinks[]`
+   - 支持 WhatsApp / WeChat / Instagram / Email 等展示
+
+4. **做 CMS SEO 层**
+   - 首页 / About / Contact / FAQ metadata 改成动态读取 CMS 双语字段
+
+5. **继续清理遗留混合文案**
+   - 尤其是 tours/articles 详情页
+   - 清理旧按钮词、旧导语、旧 fallback 话术
+
+6. **如果要正式交付运营**
+   - 需要补一次 production dataset seed / 内容检查
+   - 确保新 schema 默认文档在生产环境可见
+
+---
+
+## 🚨 新会话最应该知道的注意事项
+
+### 1. 不要误进错目录
+真正项目目录是：
+- `C:\Users\Administrator\travel-website\my-travel-site`
+
+不是之前提过的抓取数据目录。
+
+### 2. 当前 schema 已经被重写过
+下个 session 如果继续改 Sanity：
+- 先读 `siteSettings.ts`
+- 再读 `homeSections.ts`
+- 再读 `homeSettings.ts`
+- 再读 `lib/sanity.ts`
+
+因为现在 schema 结构已经和更早版本不一样了。
+
+### 3. `lib/sanity.ts` 目前是“新旧兼容态”
+不要直接粗暴删掉 `xxxEn / xxxZh` 这些抓取字段，除非同步把 production 数据也迁移了。
+当前做法是：
+- schema 往 localized object 靠拢
+- 读取层暂时兼容旧数据
+
+### 4. 本轮只验证了 build，通过但未做线上内容录入
+也就是说：
+- 代码结构已准备好
+- 但 Sanity production 里不一定已经有完整新文档内容
+- 新 session 如果要交付展示，建议检查 Studio 中 `siteSettings` 和 `homeSettings` 实际数据
+
+### 5. About / Contact / FAQ 现在可用，但还能继续美化
+这三个页面目前：
+- 逻辑是通的
+- 双语读取基本正确
+- 视觉还可以继续统一成更高端的一套系统
+
+---
+
+## 📌 当前最重要的一句话总结
+
+ZSY Travel 目前已经从“可编辑 CMS 站”继续推进到：
+**一个具备高端中国定制旅行品牌雏形、双语结构更正规、首页与关键页面已进入精修阶段的运营网站。**

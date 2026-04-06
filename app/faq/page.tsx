@@ -1,61 +1,100 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getSiteSettings } from '@/lib/sanity';
+import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = {
-  title: 'FAQ - Xinjiang Travel',
-  description: 'Frequently asked questions about our tours and services.',
-};
-
-export default async function FAQPage() {
+export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
+  const lang = normalizeLang((await searchParams)?.lang);
+  const siteTitle = 'ZSY Travel';
+  const title = lang === 'zh' ? `常见问题 - ${siteTitle}` : `FAQ - ${siteTitle}`;
+  const description = pickLocalized(settings?.faqSubtitle, lang)
+    || pickLocalized(settings?.siteDescription, lang)
+    || 'Frequently asked questions about our tailor-made China travel services.';
+
+  return { title, description };
+}
+
+export default async function FAQPage({ searchParams }: any) {
+  const settings = await getSiteSettings();
+  const lang = normalizeLang((await searchParams)?.lang);
+  const t = uiText[lang];
+  const switchLang = lang === 'en' ? 'zh' : 'en';
+  const siteTitle = 'ZSY Travel';
+  const footerIntro = lang === 'zh' ? 'ZSY Travel 专注中国高端定制旅行；FAQ 未填字段会显示测试标记。' : 'ZSY Travel focuses on premium tailor-made China journeys; unfinished FAQ content is marked as test content.';
   const faqs = settings?.faqItems?.length
     ? settings.faqItems
     : [
-        { question: 'What is the best time to visit Xinjiang?', answer: 'The best time to visit Xinjiang is from May to October when the weather is mild and pleasant.' },
-        { question: 'Do I need a visa to visit Xinjiang?', answer: 'Visa requirements depend on your nationality. Please check with the nearest Chinese embassy or consulate.' },
-        { question: 'Can I customize a tour package?', answer: 'Absolutely! We offer custom tour packages tailored to your interests, budget, and schedule.' },
+        { question: markPlaceholder(lang === 'zh' ? '待填写：FAQ 问题 1' : 'FAQ question 1 to be filled'), answer: markPlaceholder(lang === 'zh' ? '待填写：FAQ 回答 1' : 'FAQ answer 1 to be filled') },
+        { question: markPlaceholder(lang === 'zh' ? '待填写：FAQ 问题 2' : 'FAQ question 2 to be filled'), answer: markPlaceholder(lang === 'zh' ? '待填写：FAQ 回答 2' : 'FAQ answer 2 to be filled') },
       ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-3xl">🏔️</span>
-            <h1 className="text-2xl font-bold text-gray-800">{settings?.siteTitle || 'Xinjiang Travel'}</h1>
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <Link href={withLang('/', lang)} className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+              <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
+            </div>
           </Link>
-          <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">← Back Home</Link>
+          <div className="flex items-center gap-4 md:gap-6">
+            <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.16em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.about}</Link>
+            <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.16em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.contact}</Link>
+            <Link href={withLang('/faq', switchLang)} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)] hover:border-[rgba(10,27,52,0.28)]">{t.language}</Link>
+          </div>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-24 mt-16">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">{settings?.faqTitle || 'Frequently Asked Questions'}</h1>
-          <p className="text-gray-600 text-lg mb-12">{settings?.faqSubtitle || 'Find answers to common questions about our tours, booking process, and travel tips.'}</p>
+      <section className="px-6 pt-32 pb-16">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="text-xs uppercase tracking-[0.42em] text-[var(--color-muted)]">{t.faq}</p>
+          <h2 className="mt-5 text-5xl font-semibold leading-[1.04] text-[var(--color-navy)] md:text-7xl">{markPlaceholder(pickLocalized(settings?.faqTitle, lang) || (lang === 'zh' ? '待填写：FAQ 标题' : 'FAQ title to be filled'))}</h2>
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[var(--color-muted)] md:text-xl">{markPlaceholder(pickLocalized(settings?.faqSubtitle, lang) || (lang === 'zh' ? '待填写：FAQ 副标题' : 'FAQ subtitle to be filled'))}</p>
+        </div>
+      </section>
 
-          <div className="space-y-6">
-            {faqs.map((faq: any, index: number) => (
-              <details key={index} className="group bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 transition">
-                <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-gray-800 hover:text-blue-600 transition">
-                  <span>{faq.question}</span>
-                  <span className="text-2xl text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-200">{faq.answer}</div>
-              </details>
-            ))}
-          </div>
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-5xl space-y-5">
+          {faqs.map((faq: any, index: number) => (
+            <details key={index} className="group overflow-hidden rounded-[1.6rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_16px_40px_rgba(10,27,52,0.04)]">
+              <summary className="flex cursor-pointer items-center justify-between gap-6 px-7 py-6 text-left text-lg font-semibold text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
+                <span>{markPlaceholder(pickLocalized(faq.question, lang) || (lang === 'zh' ? '待填写：FAQ 问题' : 'FAQ question to be filled'))}</span>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-soft-white)] text-[var(--color-navy)] transition group-open:rotate-45">+</span>
+              </summary>
+              <div className="border-t border-[rgba(10,27,52,0.08)] px-7 py-6 text-[15px] leading-8 text-[var(--color-muted)]">{markPlaceholder(pickLocalized(faq.answer, lang) || (lang === 'zh' ? '待填写：FAQ 回答' : 'FAQ answer to be filled'))}</div>
+            </details>
+          ))}
+        </div>
+      </section>
 
-          <div className="mt-12 pt-8 border-t border-gray-200 bg-blue-50 p-8 rounded-lg text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">Didn't find your answer?</h2>
-            <p className="text-gray-600 mb-6">Our support team is here to help. Feel free to reach out with any questions.</p>
-            <Link href="/contact" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Contact Us</Link>
+      <section className="bg-[#f8fbff] px-6 py-20">
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] px-8 py-14 text-center text-white shadow-[0_35px_80px_rgba(10,27,52,0.14)] md:px-16">
+          <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{t.needMoreGuidance}</p>
+          <h3 className="mt-4 text-3xl font-semibold md:text-5xl">{markPlaceholder(pickLocalized(settings?.faqCtaTitle, lang) || (lang === 'zh' ? '待填写：FAQ CTA 标题' : 'FAQ CTA title to be filled'))}</h3>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{markPlaceholder(pickLocalized(settings?.faqCtaSubtitle, lang) || (lang === 'zh' ? '待填写：FAQ CTA 副标题' : 'FAQ CTA subtitle to be filled'))}</p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href={withLang('/contact', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-accent)]">{t.contact}</Link>
+            <Link href={withLang('/about', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{t.about}</Link>
           </div>
         </div>
-      </div>
+      </section>
 
-      <footer className="bg-gray-900 text-white py-8 mt-12"><div className="container mx-auto px-4 text-center text-gray-500"><p>&copy; 2026 {settings?.siteTitle || 'Xinjiang Travel'}. All rights reserved.</p></div></footer>
+      <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
+        <div className="mx-auto max-w-7xl px-6">
+          <p>{footerIntro}</p>
+          <p className="mt-4">&copy; 2026 {siteTitle}. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
+}
+
+
+function displayText(value: any, fallback = '测试待补充') {
+  return markPlaceholder(value || fallback);
 }
