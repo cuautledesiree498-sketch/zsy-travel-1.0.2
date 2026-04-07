@@ -47,37 +47,36 @@ export default {
       initialValue: [
         {
           _type: 'heroSection',
-          title: { en: 'Private China journeys shaped around people, pace and purpose.', zh: '围绕人、节奏与需求设计的中国高端定制旅程。' },
-          subtitle: { en: 'Infinite Journeys creates tailor-made travel solutions across China, connecting mountain landscapes, iconic skylines, culture and premium service into one more refined journey.', zh: '无限旅途国际旅游提供中国全域高端定制方案，把山河风景、城市天际线、人文深度与高标准服务整合成更完整的一段旅程。' },
-          primaryButtonText: { en: 'Explore Destinations', zh: '探索目的地' },
-          primaryButtonTarget: '#destinations',
-          secondaryButtonText: { en: 'Tailor My Journey', zh: '定制我的旅程' },
-          secondaryButtonTarget: '/contact',
+          title: { en: 'Explore China in 20 Days, from Major Cities to Western Landscapes', zh: '20天玩转中国，深度体验北京、上海、深圳、重庆、成都、陕西、新疆及更多目的地' },
+          subtitle: { en: 'We focus on China and provide group tours, educational tours, private tailor-made trips, and corporate travel solutions for different needs, creating a more complete and refined travel experience.', zh: '我们以中国为重点，提供团队游、研学游、个人定制与企业定制服务，为不同需求打造更完整、更高品质的中国旅行体验。' },
+          primaryButtonText: { en: 'Plan My Trip', zh: '立即定制行程' },
+          primaryButtonTarget: '/contact',
+          secondaryButtonText: { en: 'Explore the 20-Day China Journey', zh: '查看20天中国行程' },
+          secondaryButtonTarget: '#case-inspirations',
           backgroundVideoUrl: 'https://cdn.coverr.co/videos/coverr-aerial-view-of-mountains-1562142401487?download=1080p',
         },
         {
           _type: 'featureIconsSection',
-          title: { en: 'High-end travel designed around how you actually travel.', zh: '围绕真实出行需求来设计的高端旅行。' },
-          subtitle: { en: 'We are not focused on fixed group packages. Our strength is shaping people-specific China journeys for different travel goals, styles and expectations.', zh: '我们不以固定跟团产品为核心，而是更擅长根据不同客户类型、节奏与预期，设计真正适合的中国定制方案。' },
+          title: { en: 'Why Travel With Us', zh: '为什么选择我们' },
+          subtitle: { en: 'We do more than single-destination tours. Our journeys are designed around China’s breadth, travel efficiency, and experience quality.', zh: '我们不只做单一目的地，而是围绕中国全景、行程效率与体验质量，设计更适合你的出行方案。' },
           anchorId: 'travel-styles',
           items: [
-            { title: { en: 'Tailor-Made Planning', zh: '定制策划' }, description: { en: 'Every route is shaped around real travel goals instead of copied from a standard package.', zh: '每条路线都围绕真实需求设计，而不是复制标准产品。' }, iconType: 'preset', presetIcon: 'map', linkText: { en: 'Learn More', zh: '了解更多' }, linkTarget: '/contact' },
-            { title: { en: 'Luxury Family Travel', zh: '高端家庭旅行' }, description: { en: 'Designed for families, multi-generation groups and comfort-first private journeys.', zh: '适合亲子家庭、多代同行和更重视舒适度的出行。' }, iconType: 'preset', presetIcon: 'heart', linkText: { en: 'Customize', zh: '定制咨询' }, linkTarget: '/contact' },
-            { title: { en: 'Executive & Business', zh: '商务与企业出行' }, description: { en: 'Well-structured planning for executive visits, incentive groups and business travel.', zh: '适合商务接待、企业团组和更讲求结构化安排的出行。' }, iconType: 'preset', presetIcon: 'shield', linkText: { en: 'Contact Us', zh: '联系我们' }, linkTarget: '/contact' },
-            { title: { en: 'Culture & Heritage', zh: '人文与文化深度' }, description: { en: 'For travelers who want more depth, context and meaningful local experiences.', zh: '适合想要更深入人文体验和在地内容的客户。' }, iconType: 'preset', presetIcon: 'star', linkText: { en: 'Explore', zh: '查看灵感' }, linkTarget: '/contact' },
-            { title: { en: '1-to-1 Concierge', zh: '一对一服务' }, description: { en: 'From the first conversation to in-trip support, the service stays personal and refined.', zh: '从前期沟通到落地执行，始终保持更细致的一对一服务。' }, iconType: 'preset', presetIcon: 'chat', linkText: { en: 'Start Planning', zh: '开始规划' }, linkTarget: '/contact' }
+            { title: { en: 'True Tailor-Made Travel', zh: '真正的定制旅行' }, description: { en: 'Every itinerary is built around your schedule, interests, and budget — not copied from a fixed template.', zh: '根据你的时间、兴趣与预算设计行程，而不是套用固定模板。' }, iconType: 'preset', presetIcon: 'map', linkText: { en: 'Plan With Us', zh: '咨询定制' }, linkTarget: '/contact' },
+            { title: { en: 'Nationwide China Coverage', zh: '中国全境覆盖' }, description: { en: 'From major cities to western landscapes, from modern skylines to historic cultural destinations, we offer a broad range of China travel options.', zh: '从一线城市到西部风光，从现代都市到人文古城，提供更丰富的中国旅行选择。' }, iconType: 'preset', presetIcon: 'compass', linkText: { en: 'Explore China', zh: '查看方向' }, linkTarget: '#destinations' },
+            { title: { en: 'Four Core Service Types', zh: '四大业务方向' }, description: { en: 'Group tours, educational tours, private tailor-made trips, and corporate travel solutions cover different audiences, budgets, and travel goals.', zh: '团队游、研学游、个人定制与企业定制并行，满足不同人群、预算与出行目标。' }, iconType: 'preset', presetIcon: 'star', linkText: { en: 'See Services', zh: '查看服务' }, linkTarget: '#audience-solutions' },
+            { title: { en: 'Designed for International Travelers', zh: '更适合海外游客' }, description: { en: 'Clearer itineraries, smoother service flow, and more efficient communication reduce cross-language and cross-cultural friction.', zh: '行程表达更清晰，服务流程更顺畅，沟通更高效，降低跨语言与跨文化沟通成本。' }, iconType: 'preset', presetIcon: 'chat', linkText: { en: 'Talk to Us', zh: '联系我们' }, linkTarget: '/contact' },
+            { title: { en: 'Flexible Planning with Professional Support', zh: '灵活定制与专业支持' }, description: { en: 'Trips can be adjusted based on time, interests, and group needs to deliver a better-fit travel solution.', zh: '可根据时间、兴趣和团队需求进行调整，获得更合适的旅行方案。' }, iconType: 'preset', presetIcon: 'shield', linkText: { en: 'Start Planning', zh: '开始规划' }, linkTarget: '/contact' }
           ]
         },
         {
           _type: 'audienceSolutionsSection',
-          title: { en: 'Tailor-made solutions for different traveler types.', zh: '针对不同客群的中国定制方案。' },
-          subtitle: { en: 'Different travelers need different routes, pacing and service logic. We do not push the same itinerary to everyone.', zh: '不同客群，对路线、节奏与服务逻辑的要求不同。我们不会把同一条路线卖给所有人。' },
+          title: { en: 'Our Four Core Service Types', zh: '我们的四大业务方向' },
+          subtitle: { en: 'Whether you are planning a group trip, an educational journey, a private tour, or corporate hosting, we can build the right solution for you.', zh: '不论是团队出行、学习交流，还是私人旅行与企业接待，我们都能提供对应方案。' },
           items: [
-            { title: { en: 'Couples & Honeymoon', zh: '情侣与蜜月' }, description: { en: 'Romantic city stays, scenic landscapes and a slower rhythm designed for two.', zh: '适合情侣、纪念日和蜜月场景，强调风景、氛围与节奏感。' }, iconType: 'preset', presetIcon: 'heart', linkText: { en: 'Tailor This Style', zh: '定制这一类' }, linkTarget: '/contact' },
-            { title: { en: 'Family Travel', zh: '家庭出行' }, description: { en: 'Comfort, safety, rhythm and family-friendly experiences arranged together.', zh: '更重视舒适、安全、节奏控制和适合家庭的体验组合。' }, iconType: 'preset', presetIcon: 'shield', linkText: { en: 'Plan for Family', zh: '家庭方案' }, linkTarget: '/contact' },
-            { title: { en: 'Executive Travel', zh: '商务高端出行' }, description: { en: 'Business efficiency combined with hospitality and local depth when needed.', zh: '商务效率与高标准接待并重，必要时兼顾在地深度体验。' }, iconType: 'preset', presetIcon: 'plane', linkText: { en: 'Discuss Needs', zh: '沟通需求' }, linkTarget: '/contact' },
-            { title: { en: 'Education & Study Trips', zh: '教育与研学' }, description: { en: 'Structured planning for school groups, institutions and learning-focused journeys.', zh: '适合学校、机构和更强调学习目标的组织型出行。' }, iconType: 'preset', presetIcon: 'star', linkText: { en: 'Learn More', zh: '了解更多' }, linkTarget: '/contact' },
-            { title: { en: 'VIP Private Journeys', zh: '私人高端定制' }, description: { en: 'For travelers seeking privacy, curation and elevated service standards.', zh: '适合更重视私密性、策划质感和高标准服务的旅客。' }, iconType: 'preset', presetIcon: 'compass', linkText: { en: 'Private Planning', zh: '私人定制' }, linkTarget: '/contact' }
+            { title: { en: 'Group Tours', zh: '团队游' }, description: { en: 'Ideal for larger parties that value organized planning, good value, and travel efficiency.', zh: '适合多人同行，注重整体安排、性价比与出行效率。' }, iconType: 'preset', presetIcon: 'map', linkText: { en: 'Explore Group Travel', zh: '查看团队游' }, linkTarget: '/contact' },
+            { title: { en: 'Educational Tours', zh: '研学游' }, description: { en: 'Designed for schools, institutions, and youth groups with an emphasis on learning, experience, and program design.', zh: '面向学校、机构与青少年群体，强调学习、体验与内容设计。' }, iconType: 'preset', presetIcon: 'star', linkText: { en: 'Explore Educational Trips', zh: '查看研学游' }, linkTarget: '/contact' },
+            { title: { en: 'Private Tailor-Made Trips', zh: '个人定制' }, description: { en: 'For solo travelers, couples, and families seeking a more flexible and private travel experience.', zh: '面向个人、情侣与家庭，提供更灵活、更私密的专属行程。' }, iconType: 'preset', presetIcon: 'heart', linkText: { en: 'Tailor My Trip', zh: '定制行程' }, linkTarget: '/contact' },
+            { title: { en: 'Corporate Travel Solutions', zh: '企业定制' }, description: { en: 'For business hosting, team building, client visits, and premium corporate travel needs.', zh: '适合商务接待、企业团建、客户拜访与高端接待需求。' }, iconType: 'preset', presetIcon: 'shield', linkText: { en: 'Discuss Corporate Needs', zh: '沟通企业需求' }, linkTarget: '/contact' }
           ]
         },
         {
@@ -95,11 +94,11 @@ export default {
         },
         {
           _type: 'tourListSection',
-          title: { en: 'Sample cases and inspiration references.', zh: '案例参考与灵感路线。' },
-          subtitle: { en: 'These are inspiration examples, not the only products we sell. They help show how different traveler needs can turn into different China journeys.', zh: '这些内容更适合作为灵感案例，而不是固定产品清单，用来帮助理解不同需求如何转化成不同的中国定制方案。' },
+          title: { en: '20-Day China Journey Inspiration', zh: '20天中国行程灵感参考' },
+          subtitle: { en: 'Use this featured case as inspiration for a broader China journey covering iconic cities, cultural destinations, and western landscapes.', zh: '你可以把这条精选案例作为灵感，了解如何把代表性城市、文化目的地与西部风景组合成一条更完整的中国旅程。' },
           sourceMode: 'auto',
           maxItems: 6,
-          viewMoreText: { en: 'Discuss Your Own Plan', zh: '沟通你的定制方案' },
+          viewMoreText: { en: 'Get a Custom Plan', zh: '获取专属方案' },
           viewMoreTarget: '/contact'
         },
         {
@@ -142,11 +141,11 @@ export default {
         },
         {
           _type: 'ctaSection',
-          title: { en: 'Start shaping your own China journey.', zh: '开始规划属于你的中国定制旅程。' },
-          subtitle: { en: 'Tell us your traveler type, preferred destinations, pace and travel style, and we will help turn that into a more suitable plan.', zh: '告诉我们你的客群类型、偏好目的地、节奏与旅行风格，我们会帮助你把想法整理成更合适的中国定制方案。' },
-          primaryButtonText: { en: 'Contact Us', zh: '联系我们' },
+          title: { en: 'Start Your Deep Journey Across China', zh: '开启你的中国深度之旅' },
+          subtitle: { en: 'Share your schedule, group size, and travel needs, and we will create the most suitable itinerary for you.', zh: '告诉我们你的时间、人数与需求，我们将为你设计最合适的中国行程。' },
+          primaryButtonText: { en: 'Get a Custom Plan', zh: '获取专属方案' },
           primaryButtonTarget: '/contact',
-          secondaryButtonText: { en: 'Tailor My Trip', zh: '定制我的行程' },
+          secondaryButtonText: { en: 'Contact Us', zh: '联系我们' },
           secondaryButtonTarget: '/contact'
         }
       ]

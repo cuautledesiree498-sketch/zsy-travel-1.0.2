@@ -28,17 +28,17 @@ export default async function ContactPage({ searchParams }: any) {
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
   const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? '无限旅途国际旅行社当前已开放邮件与微信沟通；支付入口已预留，等 PingPong 收款链接补齐后即可启用。' : 'Infinite Travel currently accepts inquiries by email and WeChat; the payment area is ready and can be activated as soon as the PingPong payment link is provided.';
-  const contactAddress = lang === 'zh' ? '测试待填写：办公地点 / 服务基地' : 'Test: location / service base to be added';
-  const contactHeroTitle = lang === 'zh' ? '联系无限旅途国际旅行社' : 'Contact Infinite Travel';
-  const contactHeroSubtitle = lang === 'zh' ? '现在已经可以通过邮件和微信发起咨询。你只需要告诉我们出行时间、目的地偏好、人数和大致需求，我们会基于你的情况继续沟通。' : 'You can now start your inquiry by email or WeChat. Just tell us your travel timing, destination ideas, traveler count and general expectations, and we will continue from there.';
-  const contactGuideTitle = lang === 'zh' ? '为了更快给你方案，建议先提供这些信息' : 'What To Send Us For A Faster Proposal';
+  const footerIntro = lang === 'zh' ? '无限旅途国际旅行社当前已开放邮件与微信沟通；支付入口已预留，等 PingPong 收款链接补齐后即可启用。' : 'Infinite Travel currently accepts inquiries by email and WeChat. The payment section is already in place and can go live as soon as the PingPong payment link is added.';
+  const contactAddress = lang === 'zh' ? '中国' : 'China';
+  const contactHeroTitle = lang === 'zh' ? '联系我们' : 'Contact Us';
+  const contactHeroSubtitle = lang === 'zh' ? '准备好开启你的中国之旅了吗？请告诉我们你的初步想法，我们将为你量身定制专属行程。' : 'Ready to start your China journey? Share your initial ideas with us, and we will tailor a unique itinerary just for you.';
+  const contactGuideTitle = lang === 'zh' ? '为了更快为您提供专属方案，建议在咨询中包含以下信息：' : 'To help us design your plan faster, please consider including the following details in your message:';
   const contactGuideItems = lang === 'zh'
-    ? ['出行月份或预计日期', '目的地偏好（北京 / 上海 / 新疆 / 云南 / 多城组合）', '人数与客群类型（情侣 / 家庭 / 私人小团 / 商务）', '预算方向（定金咨询 / 全款规划 / 待沟通）']
-    : ['Travel month or estimated dates', 'Preferred destinations (Beijing / Shanghai / Xinjiang / Yunnan / multi-city combinations)', 'Traveler profile (couple / family / private small group / executive)', 'Budget direction (deposit inquiry / full payment / to be discussed)'];
-  const contactStatusNote = lang === 'zh' ? '当前页面已经具备真实承接能力：可直接邮件咨询、查看微信号，并使用下方询盘表单快速生成咨询邮件。' : 'This page now works as a real intake point: you can email us directly, use the WeChat contact, and generate a ready-to-send inquiry email through the form below.';
-  const contactCtaTitle = lang === 'zh' ? '支付入口已准备好' : 'Payment Area Is Ready';
-  const contactCtaSubtitle = lang === 'zh' ? 'PingPong 收款链接暂未提供，所以这里先保留支付入口占位。你补上链接后，我们可以立即启用“支付定金 / 支付全款”按钮。' : 'The PingPong payment link has not been provided yet, so the payment area is currently reserved as a placeholder. Once the link is available, we can immediately activate the deposit and full-payment buttons.';
+    ? ['预计出行时间与天数', '出行人数与人员结构（成人与儿童比例）', '偏好的旅行类型（团队游、研学游、个人定制或企业定制）', '期待的目的地或体验（如新疆风光、北京历史、成都体验等）', '大致预算与特殊需求（如住宿标准、饮食禁忌等）']
+    : ['Expected travel dates and trip duration', 'Number of travelers, including the ratio of adults to children', 'Preferred travel type: group tour, educational tour, private tailor-made trip, or corporate travel', 'Destinations or experiences you hope to include, such as Xinjiang landscapes, Beijing history, or Chengdu lifestyle', 'Your approximate budget range and any special requirements, such as hotel standards or dietary restrictions'];
+  const contactStatusNote = lang === 'zh' ? '我们的旅行顾问会在收到信息的 24 小时内与您联系，提供初步的行程建议与报价。' : 'Our travel consultants will get back to you within 24 hours with initial itinerary suggestions and a tailored quote.';
+  const contactCtaTitle = lang === 'zh' ? '安全灵活的支付方式' : 'Secure and Flexible Payment Options';
+  const contactCtaSubtitle = lang === 'zh' ? '我们支持多种国际主流支付方式。详细的支付流程与退改政策将在方案确认后，随行程合同一并发送给您。' : 'We support a range of major international payment methods. Detailed payment instructions and cancellation policies will be shared together with your travel agreement once the itinerary is confirmed.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -72,10 +72,10 @@ export default async function ContactPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
-            <InfoCard title="Brand" value={BRAND_NAME} desc={lang === 'en' ? 'Current public-facing brand name used for this site.' : '当前网站对外使用的品牌名称。'} />
-            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'This is the main inquiry mailbox. All form submissions currently route here.' : '当前主询盘邮箱，表单咨询也会发送到这里。'} />
-            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Preferred for Chinese-speaking customers and direct follow-up.' : '适合中文客户以及后续直接沟通。'} />
-            <InfoCard title={lang === 'en' ? 'Location' : '所在地'} value={contactAddress} desc={lang === 'en' ? 'You can replace this with your real office or service base later.' : '后续可替换为真实办公地点或服务基地。'} />
+            <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={BRAND_NAME} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
+            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'This is the main inbox for travel inquiries and follow-up communication.' : '当前主要用于接收旅行咨询与后续沟通的邮箱。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Suitable for Chinese-speaking clients and direct one-to-one follow-up.' : '适合中文客户咨询，也方便后续一对一跟进沟通。'} />
+            <InfoCard title={lang === 'en' ? 'Location' : '服务地区'} value={contactAddress} desc={lang === 'en' ? 'Our current service focus is China travel.' : '当前服务重点为中国旅行相关业务。'} />
           </div>
 
           <div className="grid gap-8">
@@ -89,7 +89,7 @@ export default async function ContactPage({ searchParams }: any) {
               </div>
 
               <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6">
-                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{t.currentStatus}</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '状态说明' : 'Current Response Time'}</p>
                 <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contactStatusNote}</p>
               </div>
 

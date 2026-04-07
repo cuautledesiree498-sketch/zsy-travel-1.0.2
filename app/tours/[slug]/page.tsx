@@ -44,7 +44,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   }
 
   const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 案例详情页；已加入真实咨询入口，支付按钮目前为占位状态。' : 'ZSY Travel case detail page; real inquiry entry is now connected, and payment buttons are currently placeholders.';
+  const footerIntro = lang === 'zh' ? 'ZSY Travel 案例详情页；如你希望把现有案例改成更适合你的版本，可以直接联系我们继续定制。' : 'This case page is designed as an inspiration reference. If you would like to adapt it into a version that suits you better, feel free to contact us for further customization.';
   const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待填写：案例标题' : 'Case title to be filled'));
   const tourDescription = markPlaceholder(pickLocalized(tour.description, lang) || (lang === 'zh' ? '待填写：路线概览' : 'Overview to be filled'));
   const tourHighlights = Array.isArray(tour.highlights) && tour.highlights.length ? tour.highlights.map((item: any) => markPlaceholder(pickLocalized(item, lang) || '待填写')).filter(Boolean) : [markPlaceholder(lang === 'zh' ? '待填写：亮点 1' : 'Highlight 1 to be filled'), markPlaceholder(lang === 'zh' ? '待填写：亮点 2' : 'Highlight 2 to be filled')];
@@ -63,6 +63,8 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   const displayItinerary = (!Array.isArray(tour.itinerary) || tour.itinerary.length === 0 || itinerary.some((day: any) => day.title?.includes('测试待填写') || day.description?.includes('测试待填写')))
     ? caseCopy.itinerary.map((day: any, index: number) => ({ day: index + 1, ...day }))
     : itinerary;
+  const bestSeason = lang === 'zh' ? '春季、秋季以及各地景观最适合出行的季节；新疆建议结合具体线路选择最佳月份。' : 'Spring and autumn are generally best; for Xinjiang, the ideal month depends on the specific route and scenery.';
+  const extensions = lang === 'zh' ? '可根据客户需求延展为北京 + 上海、成都 + 重庆、陕西 + 新疆等组合，也可扩展为更长的全国多地线路。' : 'This route can be extended into combinations such as Beijing + Shanghai, Chengdu + Chongqing, Shaanxi + Xinjiang, or developed into a longer multi-city China journey.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -144,6 +146,11 @@ export default async function TourDetailPage({ params, searchParams }: { params:
                 </div>
               </div>
             )}
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <CaseMiniCard title={lang === 'zh' ? '最佳出行季节' : 'Best Time to Travel'} value={bestSeason} />
+              <CaseMiniCard title={lang === 'zh' ? '可延展方向' : 'Possible Extensions'} value={extensions} />
+            </div>
           </div>
 
           <aside>
