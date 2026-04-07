@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { withLang, normalizeLang } from '@/lib/i18n';
 
@@ -18,13 +19,55 @@ export default async function DestinationsPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const isZh = lang === 'zh';
   const destinations = [
-    ['北京', 'Beijing'],
-    ['上海', 'Shanghai'],
-    ['深圳', 'Shenzhen'],
-    ['重庆', 'Chongqing'],
-    ['成都', 'Chengdu'],
-    ['陕西', 'Shaanxi'],
-    ['新疆', 'Xinjiang'],
+    {
+      zh: '北京',
+      en: 'Beijing',
+      image: '/media/custom/destinations/beijing/beijing-1.jpg',
+      textZh: '适合首次来华、文化体验、亲子家庭与经典中国行程开场。',
+      textEn: 'Ideal for first-time China trips, cultural exploration, family travel, and classic itinerary starts.',
+    },
+    {
+      zh: '上海',
+      en: 'Shanghai',
+      image: '/media/custom/destinations/shanghai/shanghai-1.jpg',
+      textZh: '适合都市体验、商务接待、高端酒店与现代中国印象。',
+      textEn: 'Well suited to city experiences, business hosting, premium hotels, and a modern China impression.',
+    },
+    {
+      zh: '深圳',
+      en: 'Shenzhen',
+      image: '/media/custom/destinations/shenzhen/shenzhen-1.jpg',
+      textZh: '适合商务出行、科技产业参访与粤港澳联动路线。',
+      textEn: 'Suitable for business travel, tech-industry visits, and Greater Bay Area routing.',
+    },
+    {
+      zh: '重庆',
+      en: 'Chongqing',
+      image: '/media/destinations/chongqing.jpg',
+      textZh: '适合山城城市景观、美食体验和西南路线串联。',
+      textEn: 'Great for mountain-city views, food experiences, and southwest route combinations.',
+    },
+    {
+      zh: '成都',
+      en: 'Chengdu',
+      image: '/media/custom/destinations/chengdu/chengdu-1.jpg',
+      textZh: '适合慢节奏旅行、熊猫主题、人文生活方式与川西延展。',
+      textEn: 'Excellent for slower travel, panda-themed experiences, local lifestyle, and western Sichuan extensions.',
+    },
+    {
+      zh: '陕西',
+      en: 'Shaanxi',
+      image: '/media/destinations/shaanxi.jpg',
+      textZh: '适合历史文化深度游、古都线路与中华文明主题行程。',
+      textEn: 'Strong for heritage travel, ancient-capital routes, and civilization-focused journeys.',
+    },
+    {
+      zh: '新疆',
+      en: 'Xinjiang',
+      image: '/media/custom/destinations/xinjiang/xinjiang-1.jpg',
+      textZh: '适合自然风光、公路旅行、民族文化与高辨识度长线产品。',
+      textEn: 'Ideal for landscapes, road trips, ethnic culture, and distinctive long-haul itineraries.',
+    },
   ];
 
   return (
@@ -43,12 +86,20 @@ export default async function DestinationsPage({ searchParams }: any) {
           </p>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {destinations.map(([zh, en]) => (
-              <div key={en} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
-                <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{isZh ? zh : en}</h2>
-                <p className="mt-4 leading-8 text-[var(--color-muted)]">
-                  {isZh ? `${zh} 可作为独立目的地，也可与其他城市或地区组合成更完整的中国行程。` : `${en} can be experienced as a standalone destination or combined with other regions to create a richer journey across China.`}
-                </p>
+            {destinations.map((destination) => (
+              <div key={destination.en} className="overflow-hidden rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
+                <div className="relative h-56">
+                  <Image src={destination.image} alt={isZh ? destination.zh : destination.en} fill className="object-cover" />
+                </div>
+                <div className="p-8">
+                  <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{isZh ? destination.zh : destination.en}</h2>
+                  <p className="mt-4 leading-8 text-[var(--color-muted)]">
+                    {isZh ? destination.textZh : destination.textEn}
+                  </p>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                    {isZh ? `${destination.zh} 可作为独立目的地，也可与其他城市或地区组合成更完整的中国行程。` : `${destination.en} can be experienced as a standalone destination or combined with other regions to create a richer journey across China.`}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

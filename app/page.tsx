@@ -126,7 +126,7 @@ export default async function Home({ searchParams }: any) {
       </main>
 
       <section className="relative z-20 -mt-14 px-6">
-        <div className="mx-auto grid max-w-7xl gap-5 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-5 shadow-[0_28px_80px_rgba(0,0,0,0.12)] md:grid-cols-3 md:p-7">
+        <div className="mx-auto grid max-w-7xl gap-5 rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:grid-cols-3 md:p-7">
           <HighlightChip title={lang === 'en' ? 'Tailor-Made' : '定制方案'} desc={lang === 'en' ? 'Every journey is shaped around traveler type, pace and purpose.' : '每段旅程都围绕客群类型、节奏与真实需求来设计。'} />
           <HighlightChip title={lang === 'en' ? 'China-Wide' : '中国全域'} desc={lang === 'en' ? 'Megacities, heritage regions and remote landscapes in one planning system.' : '都市、文化古都与山河边疆都可纳入同一套规划逻辑。'} />
           <HighlightChip title={lang === 'en' ? 'Premium' : '高端体验'} desc={lang === 'en' ? 'A more refined travel process with stronger curation and personal support.' : '更注重品质、策划深度与一对一支持。'} />
@@ -237,7 +237,7 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title?:
 
 function HighlightChip({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5">
+    <div className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5 transition hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(10,27,52,0.08)]">
       <div className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{title}</div>
       <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{desc}</p>
     </div>
@@ -256,6 +256,9 @@ function HeroStat({ label, value }: { label: string; value: string }) {
 function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
     <section id={section.anchorId || 'travel-styles'} className="bg-white py-28">
+      <div className="mx-auto mb-8 max-w-7xl px-6">
+        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
+      </div>
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].capabilities} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
@@ -269,6 +272,9 @@ function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
 function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
     <section id={section.anchorId || 'audiences'} className="bg-[#f8fbff] py-28">
+      <div className="mx-auto mb-8 max-w-7xl px-6">
+        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
+      </div>
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].audienceSolutions} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
@@ -283,6 +289,9 @@ function DestinationCardsSection({ section, lang }: { section: any; lang: Lang }
   const items = section.items || [];
   return (
     <section id={section.anchorId || 'destinations'} className="bg-white py-28">
+      <div className="mx-auto mb-8 max-w-7xl px-6">
+        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
+      </div>
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].destinations} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="mb-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5 shadow-[0_20px_60px_rgba(10,27,52,0.08)]">
