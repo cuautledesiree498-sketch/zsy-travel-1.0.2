@@ -60,6 +60,10 @@ export default async function Home({ searchParams }: any) {
                   {getDefaultSectionLabel(section._type, lang)}
                 </a>
               ))}
+              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '服务' : 'Services'}</Link>
+              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
+              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
+              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '支付' : 'Payment'}</Link>
               <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.about}</Link>
               <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.contact}</Link>
               <Link href={withLang('/', switchLang)} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)] hover:border-[rgba(10,27,52,0.28)]">{languageSwitchLabel}</Link>
@@ -178,6 +182,10 @@ export default async function Home({ searchParams }: any) {
             <div>
               <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.quickLinks}</h5>
               <ul className="mt-4 space-y-3 text-sm text-[var(--color-slate)]">
+                <li><Link href={withLang('/services', lang)} className="transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '服务' : 'Services'}</Link></li>
+                <li><Link href={withLang('/destinations', lang)} className="transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '目的地' : 'Destinations'}</Link></li>
+                <li><Link href={withLang('/insights', lang)} className="transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '灵感' : 'Insights'}</Link></li>
+                <li><Link href={withLang('/payment', lang)} className="transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '支付' : 'Payment'}</Link></li>
                 <li><Link href={withLang('/contact', lang)} className="transition hover:text-[var(--color-navy)]">{t.contact}</Link></li>
                 <li><Link href={withLang('/faq', lang)} className="transition hover:text-[var(--color-navy)]">{t.faq}</Link></li>
                 <li><Link href={withLang('/about', lang)} className="transition hover:text-[var(--color-navy)]">{t.about}</Link></li>

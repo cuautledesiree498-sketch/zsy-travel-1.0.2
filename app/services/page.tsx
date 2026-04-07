@@ -46,26 +46,44 @@ export default async function ServicesPage({ searchParams }: any) {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)] px-6 py-24">
-      <div className="mx-auto max-w-6xl">
-        <Link href={withLang('/', lang)} className="text-sm text-[var(--color-muted)] hover:text-[var(--color-navy)]">
-          {isZh ? '← 返回首页' : '← Back to Home'}
-        </Link>
-        <h1 className="mt-6 text-5xl font-semibold text-[var(--color-navy)]">{isZh ? '服务类型' : 'Our Services'}</h1>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">
-          {isZh
-            ? '我们围绕不同客群与出行目标，提供团队游、研学游、个人定制与企业定制四大服务方向。'
-            : 'We provide four core service types built around different traveler profiles and travel goals: group tours, educational tours, private tailor-made trips, and corporate travel solutions.'}
-        </p>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {services.map((service) => (
-            <div key={service.title} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
-              <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{service.title}</h2>
-              <p className="mt-4 leading-8 text-[var(--color-muted)]">{service.desc}</p>
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <Link href={withLang('/', lang)} className="text-sm text-[var(--color-muted)] hover:text-[var(--color-navy)]">
+            {isZh ? '← 返回首页' : '← Back to Home'}
+          </Link>
+          <p className="mt-6 text-xs uppercase tracking-[0.38em] text-[var(--color-muted)]">{isZh ? '服务类型' : 'Services'}</p>
+          <h1 className="mt-4 text-5xl font-semibold text-[var(--color-navy)] md:text-7xl">{isZh ? '我们的四大业务方向' : 'Our Four Core Service Types'}</h1>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">
+            {isZh
+              ? '不论是团队出行、学习交流，还是私人旅行与企业接待，我们都能提供对应方案。'
+              : 'Whether you are planning a group trip, an educational journey, a private tour, or corporate hosting, we can build the right solution for you.'}
+          </p>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {services.map((service) => (
+              <div key={service.title} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
+                <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{service.title}</h2>
+                <p className="mt-4 leading-8 text-[var(--color-muted)]">{service.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] px-8 py-10 text-white">
+            <h3 className="text-2xl font-semibold">{isZh ? '如果你不确定选哪种服务' : 'If you are not sure which service fits best'}</h3>
+            <p className="mt-4 max-w-3xl leading-8 text-[rgba(255,255,255,0.82)]">
+              {isZh
+                ? '告诉我们你的出行时间、人数、预算和旅行目标，我们会帮你从四种方向里选出最合适的方案。'
+                : 'Share your travel dates, group size, budget, and travel goal, and we will help you choose the best direction from the four options.'}
+            </p>
+            <div className="mt-8">
+              <Link href={withLang('/contact', lang)} className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">
+                {isZh ? '开始咨询' : 'Start Planning'}
+              </Link>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
