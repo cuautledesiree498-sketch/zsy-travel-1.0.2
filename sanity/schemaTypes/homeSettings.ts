@@ -81,8 +81,8 @@ export default {
         },
         {
           _type: 'destinationCardsSection',
-          title: { en: 'Explore China through destinations and travel moods.', zh: '从目的地与旅行气质，开启你的中国定制旅程。' },
-          subtitle: { en: 'From skyline cities to western frontiers, these places can be shaped into very different experiences depending on traveler type, pace and purpose.', zh: '从城市天际线到边疆山河，不同目的地会因为客群、节奏与需求不同，而被设计成完全不同的体验。' },
+          title: { en: 'Explore China Through Its Destinations', zh: '探索中国代表性目的地' },
+          subtitle: { en: 'From major cities to western landscapes, from modern skylines to cultural heartlands, we can shape different destination combinations into a more complete China journey.', zh: '从一线城市到西部风光，从现代都市到人文腹地，我们可以把不同目的地组合成更完整的中国旅程。' },
           items: [
             { title: { en: 'Beijing', zh: '北京' }, description: { en: 'Imperial landmarks, heritage depth and a capital-city rhythm with ceremony and scale.', zh: '皇城地标、人文深度与首都城市节奏兼具。' }, iconType: 'preset', presetIcon: 'star', linkTarget: '/contact' },
             { title: { en: 'Shanghai', zh: '上海' }, description: { en: 'Global skyline, design-led urban life and polished premium city moments.', zh: '国际化天际线、都市生活方式与更现代的高端感。' }, iconType: 'preset', presetIcon: 'plane', linkTarget: '/contact' },
@@ -103,19 +103,19 @@ export default {
         },
         {
           _type: 'statsSection',
-          title: { en: 'Why travelers choose Infinite Journeys.', zh: '为什么选择无限旅途。' },
-          subtitle: { en: 'The value is not just where you go, but how the journey is designed around your people, pace and expectations.', zh: '我们真正提供的价值，不只是去哪里，而是如何围绕你的客群、节奏与预期来设计这段旅程。' },
+          title: { en: 'What Defines Our Travel Experience', zh: '我们的旅行体验核心' },
+          subtitle: { en: 'What matters is not only where you go, but how the journey is planned, explained, and delivered around your actual needs.', zh: '真正重要的不只是去哪里，而是整段旅程如何围绕你的真实需求被规划、表达与执行。' },
           items: [
-            { number: { en: 'Tailor-Made', zh: '定制' }, label: { en: 'People-specific journey design', zh: '围绕不同客群做设计' } },
-            { number: { en: 'China-Wide', zh: '全域' }, label: { en: 'Coverage across China destinations', zh: '覆盖中国全域目的地' } },
-            { number: { en: 'Premium', zh: '高端' }, label: { en: 'More refined travel positioning', zh: '更高标准的体验感' } },
-            { number: { en: '1-to-1', zh: '一对一' }, label: { en: 'Dedicated planning and support', zh: '专属沟通与服务支持' } }
+            { number: { en: 'Tailor-Made', zh: '定制' }, label: { en: 'Designed around different traveler needs', zh: '围绕不同客群需求设计' } },
+            { number: { en: 'China-Wide', zh: '全域' }, label: { en: 'Coverage across major China destinations', zh: '覆盖中国主要目的地' } },
+            { number: { en: 'Premium', zh: '高品质' }, label: { en: 'A more refined travel experience', zh: '更完整、更高品质的体验' } },
+            { number: { en: 'Bilingual', zh: '双语' }, label: { en: 'Clearer communication for international travelers', zh: '更适合海外游客沟通理解' } }
           ]
         },
         {
           _type: 'testimonialsSection',
-          title: { en: 'What travelers appreciate most.', zh: '客户最看重的体验。' },
-          subtitle: { en: 'Placeholder testimonials for now. These can be replaced with real feedback later from the CMS.', zh: '这里目前是展示型评价，后续可在后台替换成真实客户反馈。' },
+          title: { en: 'What Travelers Value Most', zh: '旅行者最看重的体验' },
+          subtitle: { en: 'These sample comments reflect the kind of experience we aim to deliver: clearer planning, smoother service, and a trip that feels better matched to the traveler.', zh: '这些展示型评价主要体现我们希望带来的体验：更清晰的规划、更顺畅的服务，以及更贴合客人的行程设计。' },
           items: [
             { name: 'Anna', country: 'UK', quote: { en: 'The trip felt much more tailored than a normal package, with a better balance between landmark highlights and our personal rhythm.', zh: '这次旅行比普通旅游产品更像是专门为我们设计的，地标体验和节奏都更适合我们。' }, rating: 5 },
             { name: 'Michael', country: 'Singapore', quote: { en: 'What impressed me most was not just the destinations, but how clearly the plan matched our business schedule and comfort expectations.', zh: '最打动我的不只是目的地本身，而是整个计划非常贴合我们的商务节奏和舒适度要求。' }, rating: 5 },
@@ -124,17 +124,17 @@ export default {
         },
         {
           _type: 'articleListSection',
-          title: { en: 'Inspiration and planning insights.', zh: '灵感内容与策划建议。' },
-          subtitle: { en: 'Articles here are meant to inspire destination ideas, planning logic and tailor-made travel thinking rather than sell fixed products.', zh: '这里的文章更偏灵感与策划思路，用来启发目的地选择和定制逻辑，而不是售卖固定产品。' },
+          title: { en: 'Travel Insights and Inspiration', zh: '旅行灵感与策划建议' },
+          subtitle: { en: 'These articles are here to help you explore destination ideas, planning logic, and different ways to understand a tailor-made journey in China.', zh: '这些内容用于帮助你了解目的地灵感、规划思路，以及中国定制旅行可以如何展开。' },
           sourceMode: 'auto',
           maxItems: 3,
-          viewMoreText: { en: 'Talk to Us Instead', zh: '直接咨询我们' },
+          viewMoreText: { en: 'Explore More Insights', zh: '查看更多灵感' },
           viewMoreTarget: '/contact'
         },
         {
           _type: 'faqPreviewSection',
-          title: { en: 'Frequently asked questions.', zh: '常见问题。' },
-          subtitle: { en: 'Before contacting us, get a quick sense of how tailor-made China travel works and what to expect from the planning process.', zh: '在联系前，你可以先快速了解中国高端定制旅行的服务方式，以及整个咨询流程会如何展开。' },
+          title: { en: 'Frequently Asked Questions', zh: '常见问题' },
+          subtitle: { en: 'Before reaching out, take a quick look at the most common questions about our services, planning process, and China travel arrangements.', zh: '在联系我们之前，你可以先快速了解关于服务内容、规划流程与中国旅行安排的常见问题。' },
           maxItems: 4,
           viewMoreText: { en: 'View All FAQ', zh: '查看全部 FAQ' },
           viewMoreTarget: '/faq'
