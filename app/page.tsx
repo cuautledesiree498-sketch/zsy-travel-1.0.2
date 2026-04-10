@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTours, getArticles, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
 
 const destinationFallbackMap = [
@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 export default async function Home({ searchParams }: any) {
   const tours = await getTours();
   const articles = await getArticles();
+  const destinations = await getDestinations();
   const settings = await getSiteSettings();
   const homeSettings = await getHomeSettings();
   const lang = normalizeLang((await searchParams)?.lang);
@@ -142,7 +143,7 @@ export default async function Home({ searchParams }: any) {
           case 'audienceSolutionsSection':
             return <AudienceSolutionsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'destinationCardsSection':
-            return <DestinationCardsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
+            return <DestinationCardsSection key={`${section._type}-${index}`} section={section} destinations={destinations} lang={lang} />;
           case 'tourListSection': {
             const autoTours = Array.isArray(tours) ? tours.filter((item: any) => item?.published !== false) : [];
             const list = section.sourceMode === 'manual'
@@ -290,8 +291,19 @@ function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang 
   );
 }
 
-function DestinationCardsSection({ section, lang }: { section: any; lang: Lang }) {
-  const items = section.items || [];
+function DestinationCardsSection({ section, destinations, lang }: { section: any; destinations: any[]; lang: Lang }) {
+  const manualItems = Array.isArray(section.items) ? section.items : [];
+  const autoItems = Array.isArray(destinations)
+    ? destinations.slice(0, Math.max(section.maxItems || 6, 6)).map((destination: any) => ({
+        title: destination.name,
+        description: destination.tagline || destination.description,
+        linkTarget: destination.slug ? `/destinations/${encodeURIComponent(destination.slug)}` : '/destinations',
+        backgroundImage: destination.image,
+        iconType: 'preset',
+        presetIcon: 'compass',
+      }))
+    : [];
+  const items = manualItems.length > 0 ? manualItems : autoItems;
   return (
     <section id={section.anchorId || 'destinations'} className="bg-white py-28">
       <div className="mx-auto mb-8 max-w-7xl px-6">

@@ -23,6 +23,7 @@ export const deskStructure: StructureResolver = (S) =>
             .title('网站基础信息')
         ),
       S.divider(),
+      S.documentTypeListItem('destination').title('📍 目的地'),
       S.documentTypeListItem('tour').title('🏔️ 旅游线路'),
       S.documentTypeListItem('article').title('📝 攻略文章'),
     ])

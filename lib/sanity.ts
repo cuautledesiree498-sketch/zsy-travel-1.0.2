@@ -42,6 +42,12 @@ export async function getTours() {
         duration,
         image,
         description,
+        tagline,
+        idealFor,
+        travelStyle,
+        howToUse,
+        bestTime,
+        extensions,
         published,
         order,
         highlights,
@@ -66,6 +72,12 @@ export async function getTourBySlug(slug: string) {
         duration,
         image,
         description,
+        tagline,
+        idealFor,
+        travelStyle,
+        howToUse,
+        bestTime,
+        extensions,
         published,
         order,
         highlights,
@@ -88,6 +100,9 @@ export async function getArticles() {
         "slug": slug.current,
         author,
         publishDate,
+        excerpt,
+        tagline,
+        heroFacts,
         mainImage,
         content,
         _createdAt
@@ -108,6 +123,9 @@ export async function getArticleBySlug(slug: string) {
         "slug": slug.current,
         author,
         publishDate,
+        excerpt,
+        tagline,
+        heroFacts,
         content,
         mainImage,
         published,
@@ -218,17 +236,57 @@ export async function getHomeSettings() {
 export async function getDestinations() {
   try {
     return await client.fetch(`
-      *[_type == "destination" && published == true] | order(order asc) {
+      *[_type == "destination" && published == true] | order(order asc, _createdAt desc) {
         _id,
         name,
         "slug": slug.current,
+        tagline,
         description,
         image,
-        order
+        highlights,
+        idealFor,
+        bestTime,
+        suggestedStay,
+        heroFacts,
+        experiences,
+        samplePlan,
+        gallery,
+        published,
+        order,
+        _createdAt
       }
     `);
   } catch (error) {
     console.error('Error fetching destinations:', error);
     return [];
+  }
+}
+
+export async function getDestinationBySlug(slug: string) {
+  try {
+    return await client.fetch(`
+      *[_type == "destination" && slug.current == $slug][0] {
+        _id,
+        name,
+        "slug": slug.current,
+        tagline,
+        description,
+        image,
+        highlights,
+        idealFor,
+        bestTime,
+        suggestedStay,
+        heroFacts,
+        experiences,
+        samplePlan,
+        gallery,
+        published,
+        order,
+        _createdAt
+      }
+    `, { slug });
+  } catch (error) {
+    console.error('Error fetching destination by slug:', error);
+    return null;
   }
 }

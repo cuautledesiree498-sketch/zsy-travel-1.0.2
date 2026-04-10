@@ -25,7 +25,7 @@ export default async function ToursPage({ searchParams }: any) {
             <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{lang === 'zh' ? tour.title?.zh : tour.title?.en}</h2>
             <p className="mt-3 text-[var(--color-muted)] leading-7">{lang === 'zh' ? tour.description?.zh : tour.description?.en}</p>
             <div className="mt-6">
-              <Link href={withLang(`/tours/${tour.slug?.current || ''}`, lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+              <Link href={withLang(`/tours/${encodeURIComponent(tour.slug || '')}`, lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
                 {lang === 'zh' ? '查看详情' : 'View Details'}
               </Link>
             </div>

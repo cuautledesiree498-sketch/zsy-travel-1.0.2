@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { normalizeLang, withLang } from '@/lib/i18n';
+import { normalizeLang, withLang, pickLocalized, markPlaceholder } from '@/lib/i18n';
+import { getArticles } from '@/lib/sanity';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,14 +10,10 @@ export const metadata: Metadata = {
   description: 'Travel guides, planning notes and inspiration for tailor-made journeys across China.',
 };
 
-const posts = [
-  { title: { en: 'How to Plan a Multi-City China Trip', zh: '如何规划一条多城市中国旅行路线' }, desc: { en: 'A simple framework for combining Beijing, Shanghai, Xinjiang and other destinations.', zh: '如何把北京、上海、新疆等目的地组合成清晰路线。' } },
-  { title: { en: 'Choosing the Right Pace for Your Journey', zh: '如何选择适合自己的旅行节奏' }, desc: { en: 'Why pace matters more than distance when planning premium travel.', zh: '高品质旅行里，节奏往往比距离更重要。' } },
-  { title: { en: 'What First-Time Visitors Should Know', zh: '首次来华游客需要知道什么' }, desc: { en: 'Useful notes for international travelers coming to China for the first time.', zh: '给第一次来华的海外游客的一些实用建议。' } },
-];
-
-export default function InsightsPage({ searchParams }: any) {
+export default async function InsightsPage({ searchParams }: any) {
   const lang = normalizeLang(searchParams?.lang);
+  const articles = await getArticles();
+
   return (
     <main className="mx-auto max-w-6xl px-6 py-24">
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{lang === 'zh' ? '无限旅途' : 'Infinite Travel'}</p>
@@ -24,12 +21,25 @@ export default function InsightsPage({ searchParams }: any) {
       <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '帮助你规划旅程的建议与故事。' : 'Tips and stories for planning your journey.'}</p>
 
       <section className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {posts.map((item) => (
-          <article key={item.title.zh} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
-            <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{lang === 'zh' ? item.title.zh : item.title.en}</h2>
-            <p className="mt-3 text-[var(--color-muted)] leading-7">{lang === 'zh' ? item.desc.zh : item.desc.en}</p>
-          </article>
-        ))}
+        {articles.length > 0 ? articles.map((item: any) => {
+          const title = markPlaceholder(pickLocalized(item.title, lang) || (lang === 'zh' ? '文章标题待补充' : 'Article title coming soon'));
+          const desc = markPlaceholder(pickLocalized(item.excerpt, lang) || (lang === 'zh' ? '文章摘要待补充' : 'Article excerpt coming soon'));
+          return (
+            <article key={item._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
+              <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{title}</h2>
+              <p className="mt-3 text-[var(--color-muted)] leading-7 line-clamp-4">{desc}</p>
+              <div className="mt-6">
+                <Link href={withLang(`/articles/${encodeURIComponent(item.slug || '')}`, lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+                  {lang === 'zh' ? '查看详情' : 'View Details'}
+                </Link>
+              </div>
+            </article>
+          );
+        }) : (
+          <div className="col-span-full rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-[var(--color-soft-white)] px-6 py-16 text-center text-[var(--color-muted)]">
+            {lang === 'zh' ? '后台添加文章后，这里会自动生成列表和详情页入口。' : 'Once articles are added in the CMS, the list and detail page links will appear here automatically.'}
+          </div>
+        )}
       </section>
 
       <div className="mt-14">

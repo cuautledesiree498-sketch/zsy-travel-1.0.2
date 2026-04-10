@@ -10,6 +10,12 @@ export default {
     { name: 'duration', title: '天数 / Duration', type: 'number' },
     { name: 'image', title: '封面图 / Cover image', type: 'image', options: { hotspot: true } },
     { name: 'description', title: '简介（双语） / Description', type: 'localizedText' },
+    { name: 'tagline', title: '一句话定位（双语） / Tagline', type: 'localizedString' },
+    { name: 'idealFor', title: '适合人群（双语） / Ideal for', type: 'localizedText' },
+    { name: 'travelStyle', title: '旅行风格（双语） / Travel style', type: 'localizedText' },
+    { name: 'howToUse', title: '页面使用说明（双语） / How to use', type: 'localizedText' },
+    { name: 'bestTime', title: '最佳时间（双语） / Best time', type: 'localizedText' },
+    { name: 'extensions', title: '可延展方向（双语） / Extensions', type: 'localizedText' },
     { name: 'published', title: '已上架 / Published', type: 'boolean', initialValue: true },
     {
       name: 'order',
