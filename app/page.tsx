@@ -27,17 +27,18 @@ export default async function Home({ searchParams }: any) {
   const heroSection = sections.find((section: any) => section._type === 'heroSection');
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
-  const heroTitle = lang === 'zh' ? 'ZSY Travel｜中国高端定制旅行' : 'ZSY Travel | Tailor-Made Luxury Journeys Across China';
-  const heroSubtitle = lang === 'zh' ? '面向全球旅客的中国高端定制旅行品牌，围绕客群、节奏与旅行目的，设计更完整、更省心、更有质感的中国旅程。' : 'A premium China travel brand creating tailor-made journeys around traveler type, pace and purpose — more refined, more flexible, and more thoughtfully designed.';
+  const heroTitle = 'Infinite Travel / 无限旅途';
+  const heroSubtitle = lang === 'zh' ? 'Tailor-Made China Journeys' : 'Tailor-Made China Journeys';
+  const heroSupporting = lang === 'zh' ? 'Multi-city private travel across China for global travelers' : 'Multi-city private travel across China for global travelers';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'ZSY Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
+  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
   const contactAddress = pickLocalized(settings?.address, lang) || '';
   const navCtaText = lang === 'zh' ? '定制我的旅程' : 'Tailor My Journey';
   const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink);
   const faqItems = Array.isArray(settings?.faqItems) ? settings.faqItems : [];
-  const siteTitle = 'ZSY Travel';
-  const siteDescription = lang === 'zh' ? '中国高端定制旅行品牌，覆盖城市、人文、山河、商务与家庭等多类出行场景。' : 'A premium China travel brand for tailor-made journeys across cities, culture, landscapes, executive travel and family experiences.';
+  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteDescription = lang === 'zh' ? 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
   const languageSwitchLabel = t.language;
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
 
@@ -49,7 +50,7 @@ export default async function Home({ searchParams }: any) {
             <Link href={withLang('/', lang)} className="flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
               <div>
-                <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+                <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
                 <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
               </div>
             </Link>
@@ -94,7 +95,8 @@ export default async function Home({ searchParams }: any) {
           <div className="text-white">
             <p className="mb-5 text-xs uppercase tracking-[0.45em] text-[rgba(255,255,255,0.76)]">{t.tailorMadeLuxuryTravelInChina}</p>
             <h2 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h2>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-[rgba(255,255,255,0.82)] md:text-xl">{heroSubtitle}</p>
+            <p className="mt-7 max-w-3xl text-2xl font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-3xl">{heroSubtitle}</p>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-[rgba(255,255,255,0.82)] md:text-xl">{heroSupporting}</p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               {heroSection?.primaryButtonText && (
                 <SmartLink href={resolveManagedLink(heroSection.primaryButtonTarget, heroSection.primaryButtonLink) || '#destinations'} lang={lang} newTab={heroSection.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">
@@ -142,7 +144,10 @@ export default async function Home({ searchParams }: any) {
           case 'destinationCardsSection':
             return <DestinationCardsSection key={`${section._type}-${index}`} section={section} lang={lang} />;
           case 'tourListSection': {
-            const list = section.sourceMode === 'manual' ? (section.selectedTours || []).filter((item: any) => item?.published !== false) : tours.slice(0, section.maxItems || 6);
+            const autoTours = Array.isArray(tours) ? tours.filter((item: any) => item?.published !== false) : [];
+            const list = section.sourceMode === 'manual'
+              ? (section.selectedTours || []).filter((item: any) => item?.published !== false)
+              : autoTours.slice(0, Math.max(section.maxItems || 6, 4));
             return <CaseInspirationsSection key={`${section._type}-${index}`} section={section} tours={list} lang={lang} />;
           }
           case 'articleListSection': {
@@ -166,7 +171,7 @@ export default async function Home({ searchParams }: any) {
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">Infinite Journeys</p>
+              <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">Infinite Travel</p>
               <h4 className="mt-3 text-2xl font-semibold text-[var(--color-navy)]">{siteTitle}</h4>
               <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--color-muted)]">{footerIntro}</p>
             </div>

@@ -133,6 +133,86 @@ export const featuredCaseCopy = {
       ],
     },
   },
+  beijingGreatWall: {
+    en: {
+      audience: 'Ideal for first-time visitors, families, overseas guests and short premium China trips focused on iconic cultural landmarks.',
+      style: 'Classic Beijing highlights, cultural depth, world-famous landmarks and a polished first-time China experience.',
+      cta: 'Use this case as a high-recognition Beijing route for first-time China travelers or combine it with Shanghai and Xi’an for a broader journey.',
+      overview:
+        'This Beijing and Great Wall route is designed for travelers who want the most recognizable cultural landmarks of China in one refined, easy-to-understand itinerary. It is especially suitable for first-time visitors who want strong visual icons, clear cultural meaning and a smoother planning experience.\n\nThe route focuses on Beijing as the historical and symbolic center of China, combining the Great Wall, the Forbidden City and more local city texture through hutongs and urban heritage. Compared with a generic city break, this version is more structured, more sellable to international guests and easier to extend into a wider China itinerary.',
+      highlights: [
+        'Includes the Great Wall and Forbidden City in one clear first-time China route.',
+        'Strong fit for families, overseas guests and short premium visits.',
+        'Easy to combine with Shanghai or Xi’an for a wider China journey.',
+      ],
+      itinerary: [
+        {
+          title: 'Arrival in Beijing',
+          description:
+            'Airport pickup, hotel check-in and a gentle first introduction to the capital before the main sightseeing begins.',
+        },
+        {
+          title: 'Forbidden City and Imperial Center',
+          description:
+            'Explore Beijing’s imperial core and major heritage landmarks, building a strong cultural foundation for first-time visitors.',
+        },
+        {
+          title: 'Great Wall Experience',
+          description:
+            'Spend a focused day at one of China’s most iconic world heritage sites, combining scenery, history and high recognition value.',
+        },
+        {
+          title: 'Hutongs and Local Lifestyle',
+          description:
+            'Step beyond major landmarks to experience a more human and local side of Beijing through hutongs, food and slower city texture.',
+        },
+        {
+          title: 'Departure or Extension',
+          description:
+            'Finish in Beijing or continue the route toward Shanghai, Xi’an or other cities for a broader China journey.',
+        },
+      ],
+    },
+    zh: {
+      audience: '适合首次来华游客、家庭客群、海外访客以及时间较短但希望看核心地标的高品质中国行。',
+      style: '以北京经典地标、文化深度和高识别度景观为核心的首次来华体验路线。',
+      cta: '你可以把这条路线作为首次来华客户的高识别度北京案例，也可以与上海、西安组合成更完整的中国旅程。',
+      overview:
+        '这条北京与长城路线适合希望用一段更清晰、更容易理解的行程，快速抓住中国最具代表性文化地标的客人。它尤其适合第一次来中国的海外游客：既想看“最中国”的世界级符号，也希望整段路线不要太乱、太散。\n\n路线以北京作为中国历史与国家形象的核心入口，围绕长城、故宫以及更有生活感的胡同城市体验展开。相比普通的城市打卡路线，这一版结构更完整、对海外客户更好卖，也更适合继续延展成更大的中国旅行。',
+      highlights: [
+        '一条路线覆盖长城与故宫两大首次来华核心地标。',
+        '适合家庭、海外游客与短时高品质访华行程。',
+        '可与上海或西安灵活组合成更完整的中国旅程。',
+      ],
+      itinerary: [
+        {
+          title: '抵达北京',
+          description:
+            '接机入住，先用更从容的节奏进入北京，方便后续展开经典地标行程。',
+        },
+        {
+          title: '故宫与中轴线文化',
+          description:
+            '围绕北京皇城核心与代表性历史地标展开，帮助首次来华客户快速建立对中国文化中心的认知。',
+        },
+        {
+          title: '长城经典体验',
+          description:
+            '用一整天聚焦中国最具代表性的世界文化遗产之一，把风景、历史与识别度全部拉满。',
+        },
+        {
+          title: '胡同与在地生活',
+          description:
+            '在经典地标之外，看见更生活化、更有人情味的北京，让路线不只停留在大景点层面。',
+        },
+        {
+          title: '返程或延展',
+          description:
+            '可北京返程，也可自然延展到上海、西安等城市，变成更完整的中国多城行程。',
+        },
+      ],
+    },
+  },
   xinjiang: {
     en: {
       audience: 'Best for landscape-focused travelers, photographers and longer private journeys.',
@@ -256,8 +336,12 @@ export const featuredCaseCopy = {
 };
 
 export function getFeaturedCaseCopy(slug: string, lang: 'en' | 'zh') {
-  const key = slug.includes('xinjiang') || slug.includes('beijiang') ? 'xinjiang'
-    : slug.includes('yunnan') || slug.includes('lijiang') || slug.includes('dali') ? 'yunnan'
-    : 'beijing';
+  const key = slug.includes('great-wall') || slug.includes('beijing-great-wall')
+    ? 'beijingGreatWall'
+    : slug.includes('xinjiang') || slug.includes('beijiang')
+      ? 'xinjiang'
+      : slug.includes('yunnan') || slug.includes('lijiang') || slug.includes('dali')
+        ? 'yunnan'
+        : 'beijing';
   return featuredCaseCopy[key][lang];
 }

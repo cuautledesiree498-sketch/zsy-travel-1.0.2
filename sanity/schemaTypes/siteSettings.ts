@@ -76,7 +76,7 @@ export default {
       title: '网站标题（双语）',
       type: 'localizedString',
       group: 'branding',
-      initialValue: { en: 'Infinite Journeys', zh: '无限旅途国际旅游' },
+      initialValue: { en: 'Infinite Travel / 无限旅途', zh: 'Infinite Travel / 无限旅途' },
     },
     {
       name: 'siteDescription',
@@ -84,8 +84,8 @@ export default {
       type: 'localizedText',
       group: 'branding',
       initialValue: {
-        en: 'Tailor-made luxury travel experiences across China, connecting vast landscapes, iconic skylines and deeper cultural moments.',
-        zh: '无限旅途国际旅游专注中国全域高端定制旅行，连接壮阔山河、世界级城市天际线与深度文化体验。',
+        en: 'Infinite Travel focuses on tailor-made travel across China, connecting vast landscapes, iconic skylines and deeper cultural moments.',
+        zh: 'Infinite Travel / 无限旅途专注中国高端定制旅行，连接壮阔山河、世界级城市天际线与深度文化体验。',
       },
     },
     { name: 'heroBackground', title: '默认首页背景图', type: 'image', options: { hotspot: true }, group: 'branding', description: '如果首页头图区没有单独上传背景图，就会优先使用这里。' },
@@ -118,8 +118,8 @@ export default {
       group: 'navigation',
       description: '显示在页脚左侧的网站介绍文案',
       initialValue: {
-        en: 'Infinite Journeys focuses on premium tailor-made travel across China, from mountain landscapes to urban skylines, for travelers who need a more thoughtful and flexible journey design.',
-        zh: '无限旅途国际旅游专注中国全域高端定制旅行，从山河风景到城市天际线，为全球旅客提供更灵活、更省心的深度旅行体验。',
+        en: 'Infinite Travel focuses on premium tailor-made travel across China, from mountain landscapes to urban skylines, for travelers who need a more thoughtful and flexible journey design.',
+        zh: 'Infinite Travel / 无限旅途专注中国高端定制旅行，从山河风景到城市天际线，为全球旅客提供更灵活、更省心的深度旅行体验。',
       },
     },
     {
@@ -133,7 +133,7 @@ export default {
     },
 
     { name: 'aboutHeroTitle', title: 'About 首屏标题（双语）', type: 'localizedString', group: 'about', initialValue: { en: 'A more refined way to experience China.', zh: '一种更克制、更高级的中国旅行方式。' } },
-    { name: 'aboutHeroSubtitle', title: 'About 首屏副标题（双语）', type: 'localizedText', group: 'about', initialValue: { en: 'We focus on tailor-made China journeys that combine cities, culture, landscapes and a more elevated standard of travel support.', zh: '无限旅途国际旅游专注中国全域高端定制旅行，结合城市地标、文化深度、自然山河与更高标准的服务体验。' } },
+    { name: 'aboutHeroSubtitle', title: 'About 首屏副标题（双语）', type: 'localizedText', group: 'about', initialValue: { en: 'Infinite Travel focuses on multi-city journeys in China, offering group tours, study tours, private and corporate travel services.', zh: 'Infinite Travel / 无限旅途专注于中国多城市定制旅行，提供团队游、研学游、个人定制与企业定制服务。' } },
     { name: 'aboutIntroTitle', title: 'About 介绍标题（双语）', type: 'localizedString', group: 'about', initialValue: { en: 'We design China journeys around people, not templates.', zh: '我们围绕人来设计旅程，而不是套用模板。' } },
     { name: 'aboutIntroBody', title: 'About 介绍正文（双语）', type: 'localizedText', group: 'about', initialValue: { en: 'Our work is not simply to arrange hotels and transport. We shape pace, destination logic, travel style and service expectations into a China journey that actually fits the traveler.\n\nFrom Beijing, Shanghai and Shenzhen to Xi’an, Sichuan and Xinjiang, we care less about selling one fixed route and more about combining places into a coherent premium experience.\n\nDifferent travelers need different planning logic: executive efficiency, family comfort, photography focus, cultural depth or private high-end pacing all require different solutions.', zh: '我们的工作不只是帮客户订酒店和交通，更是把旅行节奏、目的地组合、风格偏好与服务体验整合成一条真正适合客户的中国定制路线。\n\n从北京、上海、深圳的城市天际线，到西安、四川与新疆的人文和自然高光，我们更关注“怎样把这些体验组合成一段完整且高级的旅程”。\n\n我们理解，不同客群的需求并不一样：有人看重商务效率，有人重视亲子体验，有人更在意摄影、人文或深度在地内容。因此我们的核心不是卖固定产品，而是围绕不同人群设计不同的定制方案。' } },
     { name: 'aboutPositioningTitle', title: 'About 定位标题（双语）', type: 'localizedString', group: 'about', initialValue: { en: 'Our Positioning', zh: '我们的定位' } },

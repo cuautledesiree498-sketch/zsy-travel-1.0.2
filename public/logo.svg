@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="180" viewBox="0 0 640 180" role="img" aria-labelledby="title desc">
+  <title id="title">Infinite Travel / 无限旅途</title>
+  <desc id="desc">Brand logo for Infinite Travel</desc>
+  <rect width="640" height="180" rx="24" fill="#ffffff"/>
+  <g fill="#10233d">
+    <circle cx="72" cy="90" r="28" fill="none" stroke="#10233d" stroke-width="6"/>
+    <path d="M72 52 C108 52 126 70 126 90 C126 110 108 128 72 128" fill="none" stroke="#c8a96b" stroke-width="6" stroke-linecap="round"/>
+    <path d="M72 52 C36 52 18 70 18 90 C18 110 36 128 72 128" fill="none" stroke="#10233d" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+    <text x="170" y="82" font-family="Georgia, 'Times New Roman', serif" font-size="42" letter-spacing="1.2">Infinite Travel</text>
+    <text x="172" y="126" font-family="'Noto Serif SC', 'Songti SC', serif" font-size="24" letter-spacing="2">无限旅途</text>
+  </g>
+</svg>

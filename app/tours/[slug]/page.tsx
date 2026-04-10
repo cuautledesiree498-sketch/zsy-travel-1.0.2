@@ -8,14 +8,14 @@ import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder } from 
 
 export const dynamic = 'force-dynamic';
 
-const CONTACT_EMAIL = '1484818239@qq.com';
-const WECHAT_ID = 'Superstar-_o';
+const CONTACT_EMAIL = 'To be added';
+const WECHAT_ID = 'To be added';
 
 export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'ZSY Travel';
+  const siteTitle = 'Infinite Travel / 无限旅途';
 
   if (!tour) {
     return {
@@ -43,8 +43,8 @@ export default async function TourDetailPage({ params, searchParams }: { params:
     notFound();
   }
 
-  const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 案例详情页；如你希望把现有案例改成更适合你的版本，可以直接联系我们继续定制。' : 'This case page is designed as an inspiration reference. If you would like to adapt it into a version that suits you better, feel free to contact us for further customization.';
+  const siteTitle = 'Infinite Travel / 无限旅途';
+  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 案例详情页；如你希望把现有案例改成更适合你的版本，可以直接联系我们继续定制。' : 'This case page is designed as an inspiration reference. If you would like to adapt it into a version that suits you better, feel free to contact us for further customization.';
   const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待填写：案例标题' : 'Case title to be filled'));
   const tourDescription = markPlaceholder(pickLocalized(tour.description, lang) || (lang === 'zh' ? '待填写：路线概览' : 'Overview to be filled'));
   const tourHighlights = Array.isArray(tour.highlights) && tour.highlights.length ? tour.highlights.map((item: any) => markPlaceholder(pickLocalized(item, lang) || '待填写')).filter(Boolean) : [markPlaceholder(lang === 'zh' ? '待填写：亮点 1' : 'Highlight 1 to be filled'), markPlaceholder(lang === 'zh' ? '待填写：亮点 2' : 'Highlight 2 to be filled')];
@@ -73,7 +73,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
           <Link href={withLang('/', lang)} className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
             <div>
-              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
               <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
             </div>
           </Link>
@@ -176,11 +176,11 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               </div>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">{lang === 'zh' ? '这类页面更适合作为灵感案例和定制参考，不代表唯一固定可售产品。你可以直接联系我们，基于你的时间、客群和目的地偏好重新定制。' : 'This page is designed as an inspiration case and planning reference, not the only fixed product. You can contact us directly to reshape it around your travel dates, traveler type and destination preferences.'}</p>
               <div className="mt-7 flex flex-col gap-3">
-                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
-                  {lang === 'zh' ? '邮件咨询这个方向' : 'Discuss by Email'}
+                <a href={CONTACT_EMAIL === 'To be added' ? withLang('/contact', lang) : `mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+                  {lang === 'zh' ? '咨询这个方向' : 'Discuss This Itinerary'}
                 </a>
                 <button className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)]" type="button">
-                  {lang === 'zh' ? '测试待接入：支付定金' : 'Test: Deposit Pending'}
+                  {lang === 'zh' ? '联系信息待补充' : 'Contact Details Pending'}
                 </button>
                 <Link href={withLang('/#cases', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '返回案例区' : 'Back to Cases'}

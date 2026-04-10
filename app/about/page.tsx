@@ -9,11 +9,11 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'ZSY Travel';
+  const siteTitle = 'Infinite Travel / 无限旅途';
   const title = lang === 'zh' ? `关于我们 - ${siteTitle}` : `About Us - ${siteTitle}`;
   const description = pickLocalized(settings?.aboutHeroSubtitle, lang)
     || pickLocalized(settings?.siteDescription, lang)
-    || 'Learn about Infinite Journeys and our approach to tailor-made luxury travel across China.';
+    || 'Learn about Infinite Travel and our approach to tailor-made travel across China.';
 
   return { title, description };
 }
@@ -23,20 +23,45 @@ export default async function AboutPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
-  const siteTitle = 'ZSY Travel';
-  const siteDescription = lang === 'zh' ? 'ZSY Travel 是面向全球旅客的中国高端定制旅行品牌。' : 'ZSY Travel is a premium China travel brand for tailor-made journeys.';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 专注中国高端定制旅行；后台未填的部分会以测试标记显示。' : 'ZSY Travel focuses on premium tailor-made journeys across China; unfilled CMS content is marked as test content.';
-  const aboutHeroTitle = pickLocalized(settings?.aboutHeroTitle, lang) || (lang === 'zh' ? '关于我们' : 'About Us');
-  const aboutHeroSubtitle = pickLocalized(settings?.aboutHeroSubtitle, lang) || (lang === 'zh' ? '专注中国深度旅行、团队游、研学游、个人定制与企业定制服务' : 'Focused on deep China travel, group tours, educational tours, private tailor-made trips, and corporate travel solutions.');
+  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteDescription = lang === 'zh' ? 'Infinite Travel / 无限旅途 是面向全球旅客的中国高端定制旅行品牌。' : 'Infinite Travel is a premium China travel brand for tailor-made journeys.';
+  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 专注中国高端定制旅行。' : 'Infinite Travel focuses on premium tailor-made journeys across China.';
+  const aboutHeroTitle = lang === 'zh' ? '关于我们：重新定义你的中国旅行' : 'About Us: Redefining Your Journey in China';
+  const aboutHeroSubtitle = lang === 'zh' ? '无限旅途专注于中国多城市定制旅行，提供团队游、研学游、个人定制与企业定制服务。' : 'Infinite Travel focuses on multi-city travel in China, offering group tours, study tours, private and corporate travel services.';
   const aboutHeroImage = settings?.heroBackground || settings?.heroImage;
-  const aboutIntroTitle = pickLocalized(settings?.aboutIntroTitle, lang) || (lang === 'zh' ? '我们专注于中国目的地的深度旅行设计' : 'We design deep travel experiences across China.');
-  const aboutIntroBody = pickLocalized(settings?.aboutIntroBody, lang) || (lang === 'zh' ? 'ZSY Travel 以中国为重点，围绕北京、上海、深圳、重庆、成都、陕西、新疆以及更多目的地，提供更完整、更有层次的旅行体验。\n\n我们不是单纯销售标准化产品，而是根据不同客群的目标，提供团队游、研学游、个人定制与企业定制四类服务。\n\n对于希望更高效地了解中国、体验中国文化、完成商务接待或组织教育型出行的客户，我们都可以提供对应的线路设计与服务支持。\n\n我们的目标，是让每一次旅行都更清晰、更顺畅，也更符合实际需求，而不是把旅行做成一个“复制粘贴”的产品。' : 'ZSY Travel focuses on China as a whole, with journeys across Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, Xinjiang, and many more destinations.\n\nRather than offering only standard products, we provide four core service types: group tours, educational tours, private tailor-made trips, and corporate travel.\n\nFor travelers who want a more efficient way to experience China, understand its culture, host business guests, or organize educational programs, we can provide matching itinerary design and service support.\n\nOur goal is to make every trip clearer, smoother, and better matched to real needs — instead of turning travel into a copy-and-paste product.');
-  const aboutPositioningTitle = pickLocalized(settings?.aboutPositioningTitle, lang) || 'Our Positioning';
-  const aboutPositioningItems = settings?.aboutPositioningItems?.length ? settings.aboutPositioningItems.map((item: string) => markPlaceholder(pickLocalized(item, lang) || '待填写')) : [markPlaceholder('待填写：品牌定位 1'), markPlaceholder('待填写：品牌定位 2'), markPlaceholder('待填写：品牌定位 3')];
-  const aboutWhyTitle = pickLocalized(settings?.aboutWhyTitle, lang) || 'A clearer, calmer and more polished planning experience.';
-  const aboutWhyItems = settings?.aboutWhyItems?.length ? settings.aboutWhyItems.map((item: any) => ({ title: markPlaceholder(pickLocalized(item?.title, lang) || '待填写'), desc: markPlaceholder(pickLocalized(item?.desc, lang) || '待填写') })) : [{ title: markPlaceholder('待填写：优势标题 1'), desc: markPlaceholder('待填写：优势说明 1') }, { title: markPlaceholder('待填写：优势标题 2'), desc: markPlaceholder('待填写：优势说明 2') }, { title: markPlaceholder('待填写：优势标题 3'), desc: markPlaceholder('待填写：优势说明 3') }, { title: markPlaceholder('待填写：优势标题 4'), desc: markPlaceholder('待填写：优势说明 4') }];
-  const aboutCtaTitle = pickLocalized(settings?.aboutCtaTitle, lang) || 'Tell us what kind of China journey you want to create.';
-  const aboutCtaSubtitle = pickLocalized(settings?.aboutCtaSubtitle, lang) || 'We help shape travel solutions for families, private guests, executive groups and culture-focused travelers.';
+  const aboutIntroTitle = lang === 'zh' ? '我们是谁' : 'Who We Are';
+  const aboutIntroBody = lang === 'zh'
+    ? '无限旅途是一家专注于中国多城市旅行的定制服务品牌，我们致力于为全球游客提供更轻松、更深入的中国旅行体验。我们的服务覆盖北京、上海、深圳、重庆、成都、陕西以及新疆等多个目的地，可根据客户需求自由组合线路。无论是家庭出游、团队旅行，还是研学项目与企业定制，我们都可以提供对应的解决方案。相比传统旅行产品，我们更强调灵活性与真实体验，让每一段行程都更贴合客户本身。'
+    : 'Infinite Travel is a custom travel brand focused on multi-city journeys across China, providing easier and deeper travel experiences for global travelers. Our services cover destinations such as Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi and Xinjiang, with flexible route combinations. We serve families, groups, study tours and corporate clients with tailored solutions. Compared with traditional travel products, we focus more on flexibility and real experiences.';
+  const aboutPositioningTitle = lang === 'zh' ? '品牌定位' : 'Brand Positioning';
+  const aboutPositioningItems = [
+    lang === 'zh' ? '中国多城市旅行服务' : 'Multi-city China travel service',
+    lang === 'zh' ? '高自由度定制方案' : 'Flexible custom solutions',
+    lang === 'zh' ? '多客群覆盖（家庭 / 团队 / 企业）' : 'Multi-segment coverage',
+    lang === 'zh' ? '注重真实体验' : 'Experience-focused travel',
+    lang === 'zh' ? '中英文双语服务' : 'Bilingual service',
+  ];
+  const aboutWhyTitle = lang === 'zh' ? '为什么选择我们' : 'Why Choose Us';
+  const aboutWhyItems = [
+    {
+      title: lang === 'zh' ? '多城市资源' : 'Multi-city coverage',
+      desc: lang === 'zh' ? '覆盖中国核心城市，可自由组合。' : 'Covering key destinations across China with flexible route combinations.',
+    },
+    {
+      title: lang === 'zh' ? '灵活定制' : 'Flexible customization',
+      desc: lang === 'zh' ? '可根据需求调整行程。' : 'Itineraries can be adjusted based on your needs.',
+    },
+    {
+      title: lang === 'zh' ? '适配多种人群' : 'For different travelers',
+      desc: lang === 'zh' ? '家庭、团队、企业客户都可服务。' : 'Suitable for families, groups and corporate clients.',
+    },
+    {
+      title: lang === 'zh' ? '执行落地强' : 'Strong execution',
+      desc: lang === 'zh' ? '不仅设计路线，更关注实际体验。' : 'We do more than design routes — we care about the real travel experience.',
+    },
+  ];
+  const aboutCtaTitle = lang === 'zh' ? '开始规划你的中国之旅' : 'Start Planning Your China Trip';
+  const aboutCtaSubtitle = lang === 'zh' ? '告诉我们你的需求，我们为你定制行程' : 'Tell us your needs and we will design your trip';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -45,7 +70,7 @@ export default async function AboutPage({ searchParams }: any) {
           <Link href={withLang('/', lang)} className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
             <div>
-              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
               <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
             </div>
           </Link>

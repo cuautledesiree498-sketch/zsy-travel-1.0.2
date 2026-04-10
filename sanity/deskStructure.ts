@@ -2,7 +2,7 @@ import {StructureResolver} from 'sanity/structure'
 
 export const deskStructure: StructureResolver = (S) =>
   S.list()
-    .title('ZSY Travel 后台')
+    .title('Infinite Travel 后台')
     .items([
       S.listItem()
         .title('🏠 首页内容编辑')

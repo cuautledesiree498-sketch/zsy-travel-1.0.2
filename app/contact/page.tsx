@@ -6,18 +6,22 @@ import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
-const BRAND_NAME = '无限旅途国际旅行社';
-const CONTACT_EMAIL = '1484818239@qq.com';
-const WECHAT_ID = 'Superstar-_o';
+const BRAND_NAME_ZH = 'Infinite Travel / 无限旅途';
+const BRAND_NAME_EN = 'Infinite Travel';
+const CONTACT_EMAIL = 'To be added';
+const WECHAT_ID = 'To be added';
+const WHATSAPP = 'To be added';
+const OFFICE_LOCATION_ZH = '待补充';
+const OFFICE_LOCATION_EN = 'To be added';
 
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'ZSY Travel';
+  const siteTitle = 'Infinite Travel / 无限旅途';
   const title = lang === 'zh' ? `联系我们 - ${siteTitle}` : `Contact - ${siteTitle}`;
   const description = pickLocalized(settings?.contactHeroSubtitle, lang)
     || pickLocalized(settings?.siteDescription, lang)
-    || 'Contact Infinite Journeys for tailor-made China travel planning.';
+    || 'Contact Infinite Travel for tailor-made China travel planning.';
 
   return { title, description };
 }
@@ -27,18 +31,18 @@ export default async function ContactPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
-  const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? '无限旅途国际旅行社当前已开放邮件与微信沟通；支付入口已预留，等 PingPong 收款链接补齐后即可启用。' : 'Infinite Travel currently accepts inquiries by email and WeChat. The payment section is already in place and can go live as soon as the PingPong payment link is added.';
-  const contactAddress = lang === 'zh' ? '中国' : 'China';
-  const contactHeroTitle = lang === 'zh' ? '联系我们' : 'Contact Us';
-  const contactHeroSubtitle = lang === 'zh' ? '准备好开启你的中国之旅了吗？请告诉我们你的初步想法，我们将为你量身定制专属行程。' : 'Ready to start your China journey? Share your initial ideas with us, and we will tailor a unique itinerary just for you.';
-  const contactGuideTitle = lang === 'zh' ? '为了更快为您提供专属方案，建议在咨询中包含以下信息：' : 'To help us design your plan faster, please consider including the following details in your message:';
+  const siteTitle = 'Infinite Travel / 无限旅途';
+  const footerIntro = lang === 'zh' ? 'Infinite Travel 当前联系信息与支付信息仍在补充中；你可以先通过咨询表单提交需求，我们会在信息完善后继续对接。' : 'Infinite Travel is still completing its contact and payment details. You can submit your needs through the inquiry form first, and we will continue the conversation once the details are finalized.';
+  const contactAddress = lang === 'zh' ? OFFICE_LOCATION_ZH : OFFICE_LOCATION_EN;
+  const contactHeroTitle = lang === 'zh' ? '联系我们，开始你的中国旅程' : 'Contact Us to Start Your Journey in China';
+  const contactHeroSubtitle = lang === 'zh' ? '告诉我们你的出行时间、人数、目的地和预算，我们会尽快为你安排合适的咨询方式。' : 'Share your travel dates, group size, destinations and budget, and we will arrange the right consultation for you as soon as possible.';
+  const contactGuideTitle = lang === 'zh' ? '咨询前请准备以下信息' : 'Please Prepare the Following Information Before Inquiry';
   const contactGuideItems = lang === 'zh'
-    ? ['预计出行时间与天数', '出行人数与人员结构（成人与儿童比例）', '偏好的旅行类型（团队游、研学游、个人定制或企业定制）', '期待的目的地或体验（如新疆风光、北京历史、成都体验等）', '大致预算与特殊需求（如住宿标准、饮食禁忌等）']
-    : ['Expected travel dates and trip duration', 'Number of travelers, including the ratio of adults to children', 'Preferred travel type: group tour, educational tour, private tailor-made trip, or corporate travel', 'Destinations or experiences you hope to include, such as Xinjiang landscapes, Beijing history, or Chengdu lifestyle', 'Your approximate budget range and any special requirements, such as hotel standards or dietary restrictions'];
-  const contactStatusNote = lang === 'zh' ? '我们的旅行顾问会在收到信息的 24 小时内与您联系，提供初步的行程建议与报价。' : 'Our travel consultants will get back to you within 24 hours with initial itinerary suggestions and a tailored quote.';
-  const contactCtaTitle = lang === 'zh' ? '安全灵活的支付方式' : 'Secure and Flexible Payment Options';
-  const contactCtaSubtitle = lang === 'zh' ? '我们支持多种国际主流支付方式。详细的支付流程与退改政策将在方案确认后，随行程合同一并发送给您。' : 'We support a range of major international payment methods. Detailed payment instructions and cancellation policies will be shared together with your travel agreement once the itinerary is confirmed.';
+    ? ['1️⃣ 出行日期和大致天数', '2️⃣ 同行人数和成员情况', '3️⃣ 想去的城市或地区', '4️⃣ 预算范围', '5️⃣ 是否有特殊需求（饮食 / 语言 / 节奏等）']
+    : ['1️⃣ Travel dates and trip length', '2️⃣ Group size and traveler type', '3️⃣ Preferred destinations', '4️⃣ Budget range', '5️⃣ Any special needs (diet / language / pace)'];
+  const contactStatusNote = lang === 'zh' ? '我们会在收到信息后尽快回复，通常会在 24 小时内与您取得联系。' : 'We will reply as soon as possible after receiving your message, usually within 24 hours.';
+  const contactCtaTitle = lang === 'zh' ? '支付方式说明' : 'Payment Methods';
+  const contactCtaSubtitle = lang === 'zh' ? '如需确认订单或支付定金，我们会在沟通后提供对应的支付方式与流程。' : 'If a deposit or booking payment is needed, we will provide the payment methods and process after consultation.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -47,7 +51,7 @@ export default async function ContactPage({ searchParams }: any) {
           <Link href={withLang('/', lang)} className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
             <div>
-              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
               <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
             </div>
           </Link>
@@ -72,10 +76,11 @@ export default async function ContactPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
-            <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={BRAND_NAME} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
-            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'This is the main inbox for travel inquiries and follow-up communication.' : '当前主要用于接收旅行咨询与后续沟通的邮箱。'} />
-            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Suitable for Chinese-speaking clients and direct one-to-one follow-up.' : '适合中文客户咨询，也方便后续一对一跟进沟通。'} />
-            <InfoCard title={lang === 'en' ? 'Location' : '服务地区'} value={contactAddress} desc={lang === 'en' ? 'Our current service focus is China travel.' : '当前服务重点为中国旅行相关业务。'} />
+            <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
+            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
+            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务基地'} value={contactAddress} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
           </div>
 
           <div className="grid gap-8">
@@ -94,12 +99,14 @@ export default async function ContactPage({ searchParams }: any) {
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Email Us' : '邮件联系'}</a>
-                <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? `WeChat: ${WECHAT_ID}` : `微信：${WECHAT_ID}`}</button>
+                <a href={CONTACT_EMAIL === 'To be added' ? '#inquiry-form' : `mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Send Inquiry' : '提交咨询'}</a>
+                <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? 'Contact Details Pending' : '联系信息待补充'}</button>
               </div>
             </div>
 
-            <InquiryForm lang={lang} email={CONTACT_EMAIL} />
+            <div id="inquiry-form">
+              <InquiryForm lang={lang} email={CONTACT_EMAIL === 'To be added' ? 'contact@infinitravel.net' : CONTACT_EMAIL} />
+            </div>
           </div>
         </div>
       </section>
@@ -110,8 +117,8 @@ export default async function ContactPage({ searchParams }: any) {
           <h3 className="mt-4 text-3xl font-semibold md:text-5xl">{contactCtaTitle}</h3>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{contactCtaSubtitle}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] opacity-80" type="button">{lang === 'zh' ? '测试待接入：支付定金' : 'Test: Deposit Payment Pending'}</button>
-            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white opacity-80" type="button">{lang === 'zh' ? '测试待接入：支付全款' : 'Test: Full Payment Pending'}</button>
+            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] opacity-80" type="button">{lang === 'zh' ? '沟通后提供支付方式' : 'Payment Details After Consultation'}</button>
+            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white opacity-80" type="button">{lang === 'zh' ? '定金 / 订单支付流程待确认' : 'Deposit / Booking Process To Be Confirmed'}</button>
           </div>
         </div>
       </section>

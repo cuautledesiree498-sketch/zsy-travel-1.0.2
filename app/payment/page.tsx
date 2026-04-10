@@ -7,10 +7,10 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '支付说明 - ZSY Travel' : 'Payment - ZSY Travel',
+    title: lang === 'zh' ? '支付说明 - Infinite Travel / 无限旅途' : 'Payment - Infinite Travel / 无限旅途',
     description: lang === 'zh'
-      ? '查看 ZSY Travel 的支付说明与后续支付流程安排。'
-      : 'Review payment information and the expected payment process for ZSY Travel bookings.',
+      ? '查看 Infinite Travel / 无限旅途 的支付说明与后续支付流程安排。'
+      : 'Review payment information and the expected payment process for Infinite Travel bookings.',
   };
 }
 

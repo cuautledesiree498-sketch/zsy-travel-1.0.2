@@ -7,10 +7,10 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '服务类型 - ZSY Travel' : 'Services - ZSY Travel',
+    title: lang === 'zh' ? '服务类型 - Infinite Travel / 无限旅途' : 'Services - Infinite Travel / 无限旅途',
     description: lang === 'zh'
-      ? '查看 ZSY Travel 提供的团队游、研学游、个人定制与企业定制服务。'
-      : 'Explore ZSY Travel services including group tours, educational tours, private tailor-made trips, and corporate travel solutions.',
+      ? '查看 Infinite Travel / 无限旅途 提供的团队游、研学游、个人定制与企业定制服务。'
+      : 'Explore Infinite Travel services including group tours, educational tours, private tailor-made trips, and corporate travel solutions.',
   };
 }
 

@@ -19,7 +19,7 @@ export default function InquiryForm({
   });
 
   const subject = useMemo(
-    () => (lang === 'zh' ? '网站咨询表单提交 - 无限旅途国际旅行社' : 'Website Inquiry - Infinite Travel'),
+    () => (lang === 'zh' ? '网站咨询表单提交 - Infinite Travel' : 'Website Inquiry - Infinite Travel'),
     [lang]
   );
 
@@ -49,14 +49,14 @@ export default function InquiryForm({
   const labels = lang === 'zh'
     ? {
         title: '快速询盘表单',
-        subtitle: '填写后会直接打开你的邮箱客户端，并把内容带入邮件中发送给我们。',
+        subtitle: '填写后会直接打开你的邮箱客户端，并把内容带入邮件中发送。',
         name: '姓名',
         contact: '联系方式（邮箱 / 微信 / WhatsApp）',
         month: '出行时间',
         destinations: '目的地偏好',
         travelers: '人数 / 客群',
         notes: '需求说明',
-        submit: '填写完成，发邮件咨询',
+        submit: '填写完成，生成咨询邮件',
       }
     : {
         title: 'Quick Inquiry Form',

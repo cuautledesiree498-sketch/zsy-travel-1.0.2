@@ -8,7 +8,7 @@ import { deskStructure } from './sanity/deskStructure'
 
 export default defineConfig({
   name: 'default',
-  title: 'ZSY Travel CMS',
+  title: 'Infinite Travel CMS',
   projectId,
   dataset,
   schema: schema as any,

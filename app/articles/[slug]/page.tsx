@@ -13,7 +13,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
   const article = await getArticleBySlug(slug);
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'ZSY Travel';
+  const siteTitle = 'Infinite Travel / 无限旅途';
 
   if (!article) {
     return {
@@ -39,8 +39,8 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
     notFound();
   }
 
-  const siteTitle = 'ZSY Travel';
-  const footerIntro = lang === 'zh' ? 'ZSY Travel 灵感内容页；缺少正文或字段时会显示测试标记。' : 'ZSY Travel insights page; missing fields are intentionally shown with test markers.';
+  const siteTitle = 'Infinite Travel / 无限旅途';
+  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 灵感内容页；缺少正文或字段时会显示测试标记。' : 'Infinite Travel insights page; missing fields are intentionally shown with test markers.';
   const articleTitle = markPlaceholder(pickLocalized(article.title, lang) || (lang === 'zh' ? '待填写：文章标题' : 'Article title to be filled'));
   const formattedDate = article.publishDate
     ? new Date(article.publishDate).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', {
@@ -55,7 +55,7 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
           <Link href={withLang('/', lang)} className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
             <div>
-              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'China Private Journeys' : '中国高端定制旅行'}</p>
+              <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
               <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
             </div>
           </Link>

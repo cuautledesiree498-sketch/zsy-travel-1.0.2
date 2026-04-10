@@ -8,10 +8,10 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '目的地 - ZSY Travel' : 'Destinations - ZSY Travel',
+    title: lang === 'zh' ? '目的地 - Infinite Travel / 无限旅途' : 'Destinations - Infinite Travel / 无限旅途',
     description: lang === 'zh'
-      ? '查看 ZSY Travel 重点覆盖的中国目的地，包括北京、上海、深圳、重庆、成都、陕西、新疆等。'
-      : 'Explore the China destinations covered by ZSY Travel, including Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, and Xinjiang.',
+      ? '查看 Infinite Travel / 无限旅途 重点覆盖的中国目的地，包括北京、上海、深圳、重庆、成都、陕西、新疆等。'
+      : 'Explore the China destinations covered by Infinite Travel, including Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, and Xinjiang.',
   };
 }
 

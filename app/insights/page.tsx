@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '旅行灵感 - ZSY Travel' : 'Insights - ZSY Travel',
+    title: lang === 'zh' ? '旅行灵感 - Infinite Travel / 无限旅途' : 'Insights - Infinite Travel / 无限旅途',
     description: lang === 'zh'
-      ? '查看 ZSY Travel 的旅行灵感与中国定制旅行相关建议。'
+      ? '查看 Infinite Travel / 无限旅途 的旅行灵感与中国定制旅行相关建议。'
       : 'Explore travel inspiration and planning insights for tailor-made journeys across China.',
   };
 }

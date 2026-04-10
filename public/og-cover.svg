@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10233d"/>
+      <stop offset="55%" stop-color="#1c3558"/>
+      <stop offset="100%" stop-color="#3d5f7d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="160" cy="162" r="42" fill="none" stroke="#ffffff" stroke-width="8"/>
+  <path d="M160 104 C214 104 244 132 244 162 C244 192 214 220 160 220" fill="none" stroke="#d2b074" stroke-width="8" stroke-linecap="round"/>
+  <path d="M160 104 C106 104 76 132 76 162 C76 192 106 220 160 220" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <text x="80" y="320" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="74">Infinite Travel / 无限旅途</text>
+  <text x="80" y="395" fill="#d9e3ef" font-family="Arial, sans-serif" font-size="42" letter-spacing="2">Tailor-Made China Journeys</text>
+  <text x="80" y="455" fill="#d9e3ef" font-family="Arial, sans-serif" font-size="28">Multi-city private travel across China for global travelers</text>
+</svg>
