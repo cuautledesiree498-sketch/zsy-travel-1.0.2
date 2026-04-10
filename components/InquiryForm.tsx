@@ -97,7 +97,9 @@ export default function InquiryForm({
       const result = await response.json();
 
       if (!response.ok || !result?.ok) {
-        throw new Error(result?.error || labels.error);
+        const details = typeof result?.details === 'string' ? result.details : '';
+        const message = [result?.error || labels.error, details].filter(Boolean).join(' | ');
+        throw new Error(message || labels.error);
       }
 
       setStatus('success');

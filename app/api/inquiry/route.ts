@@ -5,7 +5,7 @@ const REQUIRED_ENV_VARS = [
   'ALIBABA_CLOUD_ACCESS_KEY_SECRET',
 ] as const;
 
-const API_VERSION = '2021-10-01';
+const API_VERSION = '2015-11-23';
 const ENDPOINT = 'https://dm.aliyuncs.com/';
 const ACCOUNT_NAME = 'contact@infinitravel.net';
 const TO_ADDRESS = '1484818239@qq.com,1489235683@qq.com';
@@ -176,9 +176,33 @@ export async function POST(request: Request) {
   const response = await fetch(url, { method: 'POST' });
   const text = await response.text();
 
+  console.error('[inquiry-mail] aliyun response', {
+    status: response.status,
+    statusText: response.statusText,
+    body: text,
+  });
+
   if (!response.ok) {
     return NextResponse.json(
       { ok: false, error: 'Aliyun DirectMail request failed.', details: text },
+      { status: 502 }
+    );
+  }
+
+  let parsed: any = null;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    parsed = null;
+  }
+
+  if (parsed?.Code || parsed?.code) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: parsed?.Message || parsed?.message || 'Aliyun DirectMail returned an error.',
+        details: text,
+      },
       { status: 502 }
     );
   }
