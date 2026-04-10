@@ -27,18 +27,18 @@ export default async function Home({ searchParams }: any) {
   const heroSection = sections.find((section: any) => section._type === 'heroSection');
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
-  const heroTitle = 'Infinite Travel / 无限旅途';
-  const heroSubtitle = lang === 'zh' ? 'Tailor-Made China Journeys' : 'Tailor-Made China Journeys';
-  const heroSupporting = lang === 'zh' ? 'Multi-city private travel across China for global travelers' : 'Multi-city private travel across China for global travelers';
+  const heroTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const heroSubtitle = lang === 'zh' ? '中国高端定制旅行' : 'Tailor-Made China Journeys';
+  const heroSupporting = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅程。' : 'Multi-city private travel across China for global travelers.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
-  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
+  const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
   const contactAddress = pickLocalized(settings?.address, lang) || '';
   const navCtaText = lang === 'zh' ? '定制我的旅程' : 'Tailor My Journey';
   const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink);
   const faqItems = Array.isArray(settings?.faqItems) ? settings.faqItems : [];
-  const siteTitle = 'Infinite Travel / 无限旅途';
-  const siteDescription = lang === 'zh' ? 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const siteDescription = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅行，覆盖北京、上海、成都、新疆等多个目的地。' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
   const languageSwitchLabel = t.language;
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
 
@@ -202,7 +202,7 @@ export default async function Home({ searchParams }: any) {
             </div>
           </div>
           <div className="mt-12 border-t border-[rgba(10,27,52,0.08)] pt-6 text-center text-sm text-[var(--color-muted)]">
-            <p>&copy; 2026 {siteTitle}. All rights reserved.</p>
+            <p>{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
           </div>
         </div>
       </footer>
@@ -314,6 +314,11 @@ function DestinationCardsSection({ section, lang }: { section: any; lang: Lang }
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {items.map((item: any, index: number) => <DestinationCard key={index} item={item} index={index} lang={lang} />)}
         </div>
+        <div className="mt-12 text-center">
+          <SmartLink href={withLang('/destinations', lang)} lang={lang} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+            {lang === 'zh' ? '查看更多目的地' : 'View More Destinations'}
+          </SmartLink>
+        </div>
       </div>
     </section>
   );
@@ -392,6 +397,11 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
             </div>
           ))}
         </div>
+        <div className="mt-10 text-center">
+          <SmartLink href={withLang('/about', lang)} lang={lang} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+            {lang === 'zh' ? '查看更多客户反馈' : 'View More Testimonials'}
+          </SmartLink>
+        </div>
       </div>
     </section>
   );
@@ -410,6 +420,11 @@ function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems
               <div className="mt-4 text-[var(--color-muted)] leading-8">{useDisplayText(faq.answer, lang)}</div>
             </details>
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <SmartLink href={withLang('/faq', lang)} lang={lang} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+            {lang === 'zh' ? '查看更多常见问题' : 'View More FAQ'}
+          </SmartLink>
         </div>
         {section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && (
           <div className="mt-10 text-center">

@@ -8,14 +8,14 @@ import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder } from 
 
 export const dynamic = 'force-dynamic';
 
-const CONTACT_EMAIL = 'To be added';
-const WECHAT_ID = 'To be added';
+const CONTACT_EMAIL = 'contact@infinitravel.net';
+const WECHAT_ID = '待补充';
 
 export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
 
   if (!tour) {
     return {
@@ -23,7 +23,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
     };
   }
 
-  const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待填写：案例标题' : 'Case title to be filled'));
+  const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待补充案例标题' : 'Case title coming soon'));
   const description = pickLocalized(tour.description, lang)
     || (lang === 'zh' ? '中国高端定制旅行案例参考。' : 'A premium China travel inspiration case.');
 
@@ -43,18 +43,18 @@ export default async function TourDetailPage({ params, searchParams }: { params:
     notFound();
   }
 
-  const siteTitle = 'Infinite Travel / 无限旅途';
-  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 案例详情页；如你希望把现有案例改成更适合你的版本，可以直接联系我们继续定制。' : 'This case page is designed as an inspiration reference. If you would like to adapt it into a version that suits you better, feel free to contact us for further customization.';
-  const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待填写：案例标题' : 'Case title to be filled'));
-  const tourDescription = markPlaceholder(pickLocalized(tour.description, lang) || (lang === 'zh' ? '待填写：路线概览' : 'Overview to be filled'));
-  const tourHighlights = Array.isArray(tour.highlights) && tour.highlights.length ? tour.highlights.map((item: any) => markPlaceholder(pickLocalized(item, lang) || '待填写')).filter(Boolean) : [markPlaceholder(lang === 'zh' ? '待填写：亮点 1' : 'Highlight 1 to be filled'), markPlaceholder(lang === 'zh' ? '待填写：亮点 2' : 'Highlight 2 to be filled')];
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const footerIntro = lang === 'zh' ? '这是无限旅途的案例详情页，你可以基于现有路线继续延展成更适合自己的定制版本。' : 'This page presents an inspiration case that can be reshaped into a more suitable tailor-made itinerary for you.';
+  const tourTitle = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '待补充案例标题' : 'Case title coming soon'));
+  const tourDescription = markPlaceholder(pickLocalized(tour.description, lang) || (lang === 'zh' ? '路线概览即将补充' : 'Overview coming soon'));
+  const tourHighlights = Array.isArray(tour.highlights) && tour.highlights.length ? tour.highlights.map((item: any) => markPlaceholder(pickLocalized(item, lang) || '待补充')).filter(Boolean) : [markPlaceholder(lang === 'zh' ? '亮点内容即将补充' : 'Highlights coming soon'), markPlaceholder(lang === 'zh' ? '更多亮点即将补充' : 'More highlights coming soon')];
   const itinerary = Array.isArray(tour.itinerary) && tour.itinerary.length
     ? tour.itinerary.map((day: any) => ({
         day: day?.day,
-        title: markPlaceholder(pickLocalized(day?.title, lang) || (lang === 'zh' ? '待填写：行程标题' : 'Itinerary title to be filled')),
-        description: markPlaceholder(pickLocalized(day?.description, lang) || (lang === 'zh' ? '待填写：行程描述' : 'Itinerary description to be filled')),
+        title: markPlaceholder(pickLocalized(day?.title, lang) || (lang === 'zh' ? '行程标题即将补充' : 'Itinerary title coming soon')),
+        description: markPlaceholder(pickLocalized(day?.description, lang) || (lang === 'zh' ? '行程描述即将补充' : 'Itinerary description coming soon')),
       }))
-    : [{ day: 1, title: markPlaceholder(lang === 'zh' ? '待填写：第 1 天行程' : 'Day 1 itinerary to be filled'), description: markPlaceholder(lang === 'zh' ? '待填写：第 1 天说明' : 'Day 1 description to be filled') }];
+    : [{ day: 1, title: markPlaceholder(lang === 'zh' ? '第 1 天行程即将补充' : 'Day 1 itinerary coming soon'), description: markPlaceholder(lang === 'zh' ? '第 1 天说明即将补充' : 'Day 1 description coming soon') }];
   const caseCopy = getFeaturedCaseCopy(String(tour.slug || slug), lang);
   const displayDescription = (tourDescription.includes('待填写') || !pickLocalized(tour.description, lang)) ? caseCopy.overview : tourDescription;
   const displayHighlights = (!Array.isArray(tour.highlights) || tour.highlights.length === 0 || tourHighlights.some((item: string) => item.includes('待填写')))
@@ -159,11 +159,11 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               <div className="mt-5 space-y-4 border-y border-[rgba(10,27,52,0.08)] py-5 text-sm text-[var(--color-slate)]">
                 <div className="flex items-center justify-between gap-4">
                   <span>{lang === 'zh' ? '时长' : 'Duration'}</span>
-                  <span className="font-semibold text-[var(--color-navy)]">{tour.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'Days'}` : markPlaceholder(lang === 'zh' ? '待填写：时长' : 'Duration to be filled')}</span>
+                  <span className="font-semibold text-[var(--color-navy)]">{tour.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'Days'}` : markPlaceholder(lang === 'zh' ? '时长即将补充' : 'Duration coming soon')}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span>{lang === 'zh' ? '参考预算' : 'Reference Budget'}</span>
-                  <span className="font-semibold text-[var(--color-navy)]">{tour.price ? `$${tour.price}` : markPlaceholder(lang === 'zh' ? '待填写：预算' : 'Budget to be filled')}</span>
+                  <span className="font-semibold text-[var(--color-navy)]">{tour.price ? `$${tour.price}` : markPlaceholder(lang === 'zh' ? '预算即将补充' : 'Budget coming soon')}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span>{lang === 'zh' ? '联系邮箱' : 'Email'}</span>
@@ -176,7 +176,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               </div>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">{lang === 'zh' ? '这类页面更适合作为灵感案例和定制参考，不代表唯一固定可售产品。你可以直接联系我们，基于你的时间、客群和目的地偏好重新定制。' : 'This page is designed as an inspiration case and planning reference, not the only fixed product. You can contact us directly to reshape it around your travel dates, traveler type and destination preferences.'}</p>
               <div className="mt-7 flex flex-col gap-3">
-                <a href={CONTACT_EMAIL === 'To be added' ? withLang('/contact', lang) : `mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '咨询这个方向' : 'Discuss This Itinerary'}
                 </a>
                 <button className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)]" type="button">
@@ -194,7 +194,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
       <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
         <div className="mx-auto max-w-7xl px-6">
           <p>{footerIntro}</p>
-          <p className="mt-4">&copy; 2026 {siteTitle}. All rights reserved.</p>
+          <p className="mt-4">{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
         </div>
       </footer>
     </div>

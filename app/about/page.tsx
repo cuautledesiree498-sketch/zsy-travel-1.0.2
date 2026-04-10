@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
   const title = lang === 'zh' ? `关于我们 - ${siteTitle}` : `About Us - ${siteTitle}`;
   const description = pickLocalized(settings?.aboutHeroSubtitle, lang)
     || pickLocalized(settings?.siteDescription, lang)
@@ -23,9 +23,9 @@ export default async function AboutPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
-  const siteTitle = 'Infinite Travel / 无限旅途';
-  const siteDescription = lang === 'zh' ? 'Infinite Travel / 无限旅途 是面向全球旅客的中国高端定制旅行品牌。' : 'Infinite Travel is a premium China travel brand for tailor-made journeys.';
-  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 专注中国高端定制旅行。' : 'Infinite Travel focuses on premium tailor-made journeys across China.';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const siteDescription = lang === 'zh' ? '无限旅途是面向全球旅客的中国高端定制旅行品牌。' : 'Infinite Travel is a premium China travel brand for tailor-made journeys.';
+  const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行。' : 'Infinite Travel focuses on premium tailor-made journeys across China.';
   const aboutHeroTitle = lang === 'zh' ? '关于我们：重新定义你的中国旅行' : 'About Us: Redefining Your Journey in China';
   const aboutHeroSubtitle = lang === 'zh' ? '无限旅途专注于中国多城市定制旅行，提供团队游、研学游、个人定制与企业定制服务。' : 'Infinite Travel focuses on multi-city travel in China, offering group tours, study tours, private and corporate travel services.';
   const aboutHeroImage = settings?.heroBackground || settings?.heroImage;
@@ -158,7 +158,7 @@ export default async function AboutPage({ searchParams }: any) {
       <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
         <div className="mx-auto max-w-7xl px-6">
           <p>{footerIntro}</p>
-          <p className="mt-4">&copy; 2026 {siteTitle}. All rights reserved.</p>
+          <p className="mt-4">{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
         </div>
       </footer>
     </div>

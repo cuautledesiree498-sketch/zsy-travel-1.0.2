@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '支付说明 - Infinite Travel / 无限旅途' : 'Payment - Infinite Travel / 无限旅途',
+    title: lang === 'zh' ? '支付说明 - 无限旅途' : 'Payment - Infinite Travel',
     description: lang === 'zh'
-      ? '查看 Infinite Travel / 无限旅途 的支付说明与后续支付流程安排。'
+      ? '查看无限旅途的支付说明与后续支付流程安排。'
       : 'Review payment information and the expected payment process for Infinite Travel bookings.',
   };
 }

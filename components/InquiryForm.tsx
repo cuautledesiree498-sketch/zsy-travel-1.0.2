@@ -19,7 +19,7 @@ export default function InquiryForm({
   });
 
   const subject = useMemo(
-    () => (lang === 'zh' ? '网站咨询表单提交 - Infinite Travel' : 'Website Inquiry - Infinite Travel'),
+    () => (lang === 'zh' ? '网站咨询表单提交 - 无限旅途' : 'Website Inquiry - Infinite Travel'),
     [lang]
   );
 

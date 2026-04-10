@@ -29,6 +29,8 @@ export function markPlaceholder(value: any) {
 export function withLang(path: string, lang: Lang) {
   if (!path) return path
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('mailto:') || path.startsWith('tel:')) return path
+  if (path.startsWith('#')) return path
+  if (/([?&])lang=(en|zh)\b/.test(path)) return path
   const separator = path.includes('?') ? '&' : '?'
   return `${path}${separator}lang=${lang}`
 }

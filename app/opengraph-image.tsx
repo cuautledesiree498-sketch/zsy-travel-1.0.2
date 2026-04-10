@@ -23,7 +23,7 @@ export default function OpenGraphImage() {
           fontFamily: 'Georgia, serif',
         }}
       >
-        <div style={{ fontSize: 58, lineHeight: 1.15, marginBottom: 24 }}>Infinite Travel / 无限旅途</div>
+        <div style={{ fontSize: 58, lineHeight: 1.15, marginBottom: 24 }}>Infinite Travel</div>
         <div style={{ fontSize: 34, fontFamily: 'Arial, sans-serif', marginBottom: 18, color: '#e7eef7' }}>
           Tailor-Made China Journeys
         </div>

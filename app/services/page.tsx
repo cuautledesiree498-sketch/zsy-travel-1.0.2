@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '服务类型 - Infinite Travel / 无限旅途' : 'Services - Infinite Travel / 无限旅途',
+    title: lang === 'zh' ? '服务类型 - 无限旅途' : 'Services - Infinite Travel',
     description: lang === 'zh'
-      ? '查看 Infinite Travel / 无限旅途 提供的团队游、研学游、个人定制与企业定制服务。'
+      ? '查看无限旅途提供的团队游、研学游、个人定制与企业定制服务。'
       : 'Explore Infinite Travel services including group tours, educational tours, private tailor-made trips, and corporate travel solutions.',
   };
 }

@@ -13,7 +13,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
   const article = await getArticleBySlug(slug);
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
 
   if (!article) {
     return {
@@ -21,7 +21,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
     };
   }
 
-  const articleTitle = markPlaceholder(pickLocalized(article.title, lang) || (lang === 'zh' ? '待填写：文章标题' : 'Article title to be filled'));
+  const articleTitle = markPlaceholder(pickLocalized(article.title, lang) || (lang === 'zh' ? '待补充文章标题' : 'Article title coming soon'));
   return {
     title: `${articleTitle} - ${siteTitle}`,
     description: lang === 'zh' ? '旅行灵感与定制策划内容。' : 'Travel inspiration and tailor-made planning insights.',
@@ -39,9 +39,9 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
     notFound();
   }
 
-  const siteTitle = 'Infinite Travel / 无限旅途';
-  const footerIntro = lang === 'zh' ? 'Infinite Travel / 无限旅途 灵感内容页；缺少正文或字段时会显示测试标记。' : 'Infinite Travel insights page; missing fields are intentionally shown with test markers.';
-  const articleTitle = markPlaceholder(pickLocalized(article.title, lang) || (lang === 'zh' ? '待填写：文章标题' : 'Article title to be filled'));
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const footerIntro = lang === 'zh' ? '无限旅途的灵感内容页，用于展示旅行观点、路线思路与规划建议。' : 'Infinite Travel insights pages share travel ideas, route inspiration, and planning notes.';
+  const articleTitle = markPlaceholder(pickLocalized(article.title, lang) || (lang === 'zh' ? '待补充文章标题' : 'Article title coming soon'));
   const formattedDate = article.publishDate
     ? new Date(article.publishDate).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
@@ -76,7 +76,7 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
           </Link>
           <h2 className="mt-5 max-w-4xl text-4xl font-semibold leading-[1.08] md:text-6xl">{articleTitle}</h2>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-white/76">
-            <span>{t.by} {markPlaceholder(article.author || (lang === 'zh' ? '待填写：作者' : 'Author to be filled'))}</span>
+            <span>{t.by} {markPlaceholder(article.author || (lang === 'zh' ? '待补充作者信息' : 'Author details coming soon'))}</span>
             {formattedDate && <span>• {formattedDate}</span>}
           </div>
         </div>
@@ -89,7 +89,7 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
               <PortableText value={article.content} />
             </div>
           ) : (
-            <p className="py-12 text-center text-[var(--color-muted)]">{markPlaceholder(lang === 'zh' ? '待填写：文章正文' : 'Article body to be filled')}</p>
+            <p className="py-12 text-center text-[var(--color-muted)]">{markPlaceholder(lang === 'zh' ? '正文内容即将补充' : 'Article content coming soon')}</p>
           )}
 
           <div className="mt-12 border-t border-[rgba(10,27,52,0.08)] pt-8 text-center">
@@ -103,7 +103,7 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
       <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
         <div className="mx-auto max-w-7xl px-6">
           <p>{footerIntro}</p>
-          <p className="mt-4">&copy; 2026 {siteTitle}. All rights reserved.</p>
+          <p className="mt-4">{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
         </div>
       </footer>
     </div>

@@ -6,18 +6,18 @@ import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
-const BRAND_NAME_ZH = 'Infinite Travel / 无限旅途';
+const BRAND_NAME_ZH = '无限旅途';
 const BRAND_NAME_EN = 'Infinite Travel';
-const CONTACT_EMAIL = 'To be added';
-const WECHAT_ID = 'To be added';
-const WHATSAPP = 'To be added';
+const CONTACT_EMAIL = 'contact@infinitravel.net';
+const WECHAT_ID = '待补充';
+const WHATSAPP = 'Coming soon';
 const OFFICE_LOCATION_ZH = '待补充';
-const OFFICE_LOCATION_EN = 'To be added';
+const OFFICE_LOCATION_EN = 'Coming soon';
 
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
   const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = 'Infinite Travel / 无限旅途';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
   const title = lang === 'zh' ? `联系我们 - ${siteTitle}` : `Contact - ${siteTitle}`;
   const description = pickLocalized(settings?.contactHeroSubtitle, lang)
     || pickLocalized(settings?.siteDescription, lang)
@@ -31,8 +31,8 @@ export default async function ContactPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
-  const siteTitle = 'Infinite Travel / 无限旅途';
-  const footerIntro = lang === 'zh' ? 'Infinite Travel 当前联系信息与支付信息仍在补充中；你可以先通过咨询表单提交需求，我们会在信息完善后继续对接。' : 'Infinite Travel is still completing its contact and payment details. You can submit your needs through the inquiry form first, and we will continue the conversation once the details are finalized.';
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const footerIntro = lang === 'zh' ? '无限旅途的联系信息与支付信息仍在补充中；你可以先通过咨询表单提交需求，我们会在信息完善后继续对接。' : 'Infinite Travel is still completing its contact and payment details. You can submit your needs through the inquiry form first, and we will continue the conversation once the details are finalized.';
   const contactAddress = lang === 'zh' ? OFFICE_LOCATION_ZH : OFFICE_LOCATION_EN;
   const contactHeroTitle = lang === 'zh' ? '联系我们，开始你的中国旅程' : 'Contact Us to Start Your Journey in China';
   const contactHeroSubtitle = lang === 'zh' ? '告诉我们你的出行时间、人数、目的地和预算，我们会尽快为你安排合适的咨询方式。' : 'Share your travel dates, group size, destinations and budget, and we will arrange the right consultation for you as soon as possible.';
@@ -77,10 +77,10 @@ export default async function ContactPage({ searchParams }: any) {
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
             <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
-            <InfoCard title="Email" value={CONTACT_EMAIL} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
-            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
-            <InfoCard title="WhatsApp" value={WHATSAPP} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
-            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务基地'} value={contactAddress} desc={lang === 'en' ? 'To be added.' : '待补充。'} />
+            <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Available for inquiries.' : '可用于咨询联系。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
+            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务基地'} value={contactAddress} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
           </div>
 
           <div className="grid gap-8">
@@ -99,13 +99,13 @@ export default async function ContactPage({ searchParams }: any) {
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a href={CONTACT_EMAIL === 'To be added' ? '#inquiry-form' : `mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Send Inquiry' : '提交咨询'}</a>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Send Inquiry' : '提交咨询'}</a>
                 <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? 'Contact Details Pending' : '联系信息待补充'}</button>
               </div>
             </div>
 
             <div id="inquiry-form">
-              <InquiryForm lang={lang} email={CONTACT_EMAIL === 'To be added' ? 'contact@infinitravel.net' : CONTACT_EMAIL} />
+              <InquiryForm lang={lang} email={CONTACT_EMAIL} />
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default async function ContactPage({ searchParams }: any) {
       <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
         <div className="mx-auto max-w-7xl px-6">
           <p>{footerIntro}</p>
-          <p className="mt-4">&copy; 2026 {siteTitle}. All rights reserved.</p>
+          <p className="mt-4">{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
         </div>
       </footer>
     </div>
