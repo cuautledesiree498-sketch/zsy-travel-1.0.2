@@ -99,13 +99,13 @@ export default async function ContactPage({ searchParams }: any) {
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Send Inquiry' : '提交咨询'}</a>
+                <a href="#inquiry-form" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Go to Inquiry Form' : '前往咨询表单'}</a>
                 <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? 'Contact Details Pending' : '联系信息待补充'}</button>
               </div>
             </div>
 
             <div id="inquiry-form">
-              <InquiryForm lang={lang} email={CONTACT_EMAIL} />
+              <InquiryForm lang={lang} />
             </div>
           </div>
         </div>

@@ -2,89 +2,144 @@
 
 import { useMemo, useState } from 'react';
 
+type FormState = {
+  name: string;
+  email: string;
+  whatsapp: string;
+  destination: string;
+  travelDate: string;
+  groupSize: string;
+  budget: string;
+  hotelPreference: string;
+  message: string;
+};
+
+const INITIAL_FORM: FormState = {
+  name: '',
+  email: '',
+  whatsapp: '',
+  destination: '',
+  travelDate: '',
+  groupSize: '',
+  budget: '',
+  hotelPreference: '',
+  message: '',
+};
+
 export default function InquiryForm({
   lang,
-  email,
 }: {
   lang: 'en' | 'zh';
-  email: string;
 }) {
-  const [form, setForm] = useState({
-    name: '',
-    contact: '',
-    month: '',
-    destinations: '',
-    travelers: '',
-    notes: '',
-  });
+  const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const subject = useMemo(
-    () => (lang === 'zh' ? '网站咨询表单提交 - 无限旅途' : 'Website Inquiry - Infinite Travel'),
+  const labels = useMemo(
+    () => (lang === 'zh'
+      ? {
+          title: '快速咨询表单',
+          subtitle: '填写后将由网站直接提交，我们会把询盘通知发送到业务邮箱。',
+          name: '姓名',
+          email: '邮箱',
+          whatsapp: 'WhatsApp',
+          destination: '目的地',
+          travelDate: '出行日期',
+          groupSize: '人数',
+          budget: '预算',
+          hotelPreference: '酒店偏好',
+          message: '留言',
+          submit: '提交咨询',
+          sending: '提交中...',
+          success: '提交成功，我们会尽快查看并跟进。',
+          error: '提交失败，请稍后重试。',
+        }
+      : {
+          title: 'Quick Inquiry Form',
+          subtitle: 'When you submit, the website will send your inquiry directly to our business inbox.',
+          name: 'Name',
+          email: 'Email',
+          whatsapp: 'WhatsApp',
+          destination: 'Destination',
+          travelDate: 'Travel Date',
+          groupSize: 'Group Size',
+          budget: 'Budget',
+          hotelPreference: 'Hotel Preference',
+          message: 'Message',
+          submit: 'Submit Inquiry',
+          sending: 'Submitting...',
+          success: 'Inquiry submitted successfully. We will review it and follow up soon.',
+          error: 'Submission failed. Please try again later.',
+        }),
     [lang]
   );
 
-  const body = useMemo(() => {
-    const rows = lang === 'zh'
-      ? [
-          `姓名：${form.name || '未填写'}`,
-          `联系方式：${form.contact || '未填写'}`,
-          `出行时间：${form.month || '未填写'}`,
-          `目的地偏好：${form.destinations || '未填写'}`,
-          `出行人数 / 客群：${form.travelers || '未填写'}`,
-          `需求说明：${form.notes || '未填写'}`,
-        ]
-      : [
-          `Name: ${form.name || 'Not provided'}`,
-          `Contact: ${form.contact || 'Not provided'}`,
-          `Travel time: ${form.month || 'Not provided'}`,
-          `Preferred destinations: ${form.destinations || 'Not provided'}`,
-          `Travelers / profile: ${form.travelers || 'Not provided'}`,
-          `Notes: ${form.notes || 'Not provided'}`,
-        ];
-    return rows.join('\n');
-  }, [form, lang]);
+  const setField = (key: keyof FormState, value: string) => {
+    setForm((current) => ({ ...current, [key]: value }));
+  };
 
-  const mailtoHref = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setStatus('idle');
+    setErrorMessage('');
 
-  const labels = lang === 'zh'
-    ? {
-        title: '快速询盘表单',
-        subtitle: '填写后会直接打开你的邮箱客户端，并把内容带入邮件中发送。',
-        name: '姓名',
-        contact: '联系方式（邮箱 / 微信 / WhatsApp）',
-        month: '出行时间',
-        destinations: '目的地偏好',
-        travelers: '人数 / 客群',
-        notes: '需求说明',
-        submit: '填写完成，生成咨询邮件',
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...form, lang }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || labels.error);
       }
-    : {
-        title: 'Quick Inquiry Form',
-        subtitle: 'When you submit, your mail app will open with the inquiry details prefilled and ready to send.',
-        name: 'Name',
-        contact: 'Contact method (email / WeChat / WhatsApp)',
-        month: 'Travel time',
-        destinations: 'Preferred destinations',
-        travelers: 'Travelers / profile',
-        notes: 'Notes',
-        submit: 'Send Inquiry by Email',
-      };
+
+      setStatus('success');
+      setForm(INITIAL_FORM);
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : labels.error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_25px_70px_rgba(10,27,52,0.06)] md:p-10">
       <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{labels.title}</p>
       <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{labels.subtitle}</p>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.name} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.contact} value={form.contact} onChange={(e) => setForm({ ...form, contact: e.target.value })} />
-        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.month} value={form.month} onChange={(e) => setForm({ ...form, month: e.target.value })} />
-        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.destinations} value={form.destinations} onChange={(e) => setForm({ ...form, destinations: e.target.value })} />
-        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none md:col-span-2" placeholder={labels.travelers} value={form.travelers} onChange={(e) => setForm({ ...form, travelers: e.target.value })} />
-        <textarea className="min-h-36 rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none md:col-span-2" placeholder={labels.notes} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
-      </div>
-      <a href={mailtoHref} className="mt-6 inline-flex min-w-[240px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">
-        {labels.submit}
-      </a>
+
+      <form className="mt-6 grid gap-4 md:grid-cols-2" onSubmit={handleSubmit}>
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.name} value={form.name} onChange={(e) => setField('name', e.target.value)} required />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.email} type="email" value={form.email} onChange={(e) => setField('email', e.target.value)} required />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.whatsapp} value={form.whatsapp} onChange={(e) => setField('whatsapp', e.target.value)} />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.destination} value={form.destination} onChange={(e) => setField('destination', e.target.value)} required />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.travelDate} value={form.travelDate} onChange={(e) => setField('travelDate', e.target.value)} />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.groupSize} value={form.groupSize} onChange={(e) => setField('groupSize', e.target.value)} />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.budget} value={form.budget} onChange={(e) => setField('budget', e.target.value)} />
+        <input className="rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none" placeholder={labels.hotelPreference} value={form.hotelPreference} onChange={(e) => setField('hotelPreference', e.target.value)} />
+        <textarea className="min-h-36 rounded-2xl border border-[rgba(10,27,52,0.1)] px-4 py-3 outline-none md:col-span-2" placeholder={labels.message} value={form.message} onChange={(e) => setField('message', e.target.value)} required />
+
+        <div className="md:col-span-2">
+          <button type="submit" disabled={submitting} className="mt-2 inline-flex min-w-[240px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)] disabled:cursor-not-allowed disabled:opacity-60">
+            {submitting ? labels.sending : labels.submit}
+          </button>
+
+          {status === 'success' ? (
+            <p className="mt-4 text-sm leading-7 text-emerald-700">{labels.success}</p>
+          ) : null}
+
+          {status === 'error' ? (
+            <p className="mt-4 text-sm leading-7 text-red-600">{errorMessage || labels.error}</p>
+          ) : null}
+        </div>
+      </form>
     </div>
   );
 }
