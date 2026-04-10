@@ -56,8 +56,8 @@ export default async function TourDetailPage({ params, searchParams }: { params:
       }))
     : [{ day: 1, title: markPlaceholder(lang === 'zh' ? '待填写：第 1 天行程' : 'Day 1 itinerary to be filled'), description: markPlaceholder(lang === 'zh' ? '待填写：第 1 天说明' : 'Day 1 description to be filled') }];
   const caseCopy = getFeaturedCaseCopy(String(tour.slug || slug), lang);
-  const displayDescription = (tourDescription.includes('测试待填写') || !pickLocalized(tour.description, lang)) ? caseCopy.overview : tourDescription;
-  const displayHighlights = (!Array.isArray(tour.highlights) || tour.highlights.length === 0 || tourHighlights.some((item: string) => item.includes('测试待填写')))
+  const displayDescription = (tourDescription.includes('待填写') || !pickLocalized(tour.description, lang)) ? caseCopy.overview : tourDescription;
+  const displayHighlights = (!Array.isArray(tour.highlights) || tour.highlights.length === 0 || tourHighlights.some((item: string) => item.includes('待填写')))
     ? caseCopy.highlights
     : tourHighlights;
   const displayItinerary = (!Array.isArray(tour.itinerary) || tour.itinerary.length === 0 || itinerary.some((day: any) => day.title?.includes('测试待填写') || day.description?.includes('测试待填写')))

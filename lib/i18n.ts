@@ -23,8 +23,7 @@ export function markPlaceholder(value: any) {
   if (typeof value !== 'string') return value
   const trimmed = value.trim()
   if (!trimmed) return ''
-  if (trimmed.startsWith('测试')) return value
-  return `测试${value}`
+  return value
 }
 
 export function withLang(path: string, lang: Lang) {

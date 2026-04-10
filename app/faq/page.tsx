@@ -131,6 +131,6 @@ export default async function FAQPage({ searchParams }: any) {
 }
 
 
-function displayText(value: any, fallback = '测试待补充') {
+function displayText(value: any, fallback = '待补充') {
   return markPlaceholder(value || fallback);
 }

@@ -111,6 +111,6 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
 }
 
 
-function displayText(value: any, fallback = '测试待补充') {
+function displayText(value: any, fallback = '待补充') {
   return markPlaceholder(value || fallback);
 }
