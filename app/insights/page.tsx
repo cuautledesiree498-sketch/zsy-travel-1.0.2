@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function InsightsPage({ searchParams }: any) {
   const lang = normalizeLang(searchParams?.lang);
-  const articles = await getArticles();
+  const articles = dedupeArticles(await getArticles());
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-24">
@@ -22,8 +22,10 @@ export default async function InsightsPage({ searchParams }: any) {
 
       <section className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {articles.length > 0 ? articles.map((item: any) => {
-          const title = markPlaceholder(pickLocalized(item.title, lang) || (lang === 'zh' ? '文章标题待补充' : 'Article title coming soon'));
-          const desc = markPlaceholder(pickLocalized(item.excerpt, lang) || (lang === 'zh' ? '文章摘要待补充' : 'Article excerpt coming soon'));
+          const title = markPlaceholder(pickLocalized(item.title, lang) || (lang === 'zh' ? '精选旅行内容' : 'Travel Insight'));
+          const rawExcerpt = pickLocalized(item.excerpt, lang);
+          const rawTagline = pickLocalized(item.tagline, lang);
+          const desc = markPlaceholder(rawExcerpt || rawTagline || (lang === 'zh' ? '围绕目的地、路线设计与出行判断的旅行参考内容。' : 'Planning notes and destination insights for building a better China journey.'));
           return (
             <article key={item._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
               <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{title}</h2>
@@ -49,4 +51,37 @@ export default async function InsightsPage({ searchParams }: any) {
       </div>
     </main>
   );
+}
+
+function dedupeArticles(articles: any[]) {
+  const map = new Map<string, any>();
+
+  for (const article of Array.isArray(articles) ? articles : []) {
+    const key = String(article?.slug || '').trim().toLowerCase() || String(article?._id || '');
+    if (!key) continue;
+
+    const existing = map.get(key);
+    if (!existing) {
+      map.set(key, article);
+      continue;
+    }
+
+    const existingScore = articleCompletenessScore(existing);
+    const incomingScore = articleCompletenessScore(article);
+    if (incomingScore > existingScore) {
+      map.set(key, article);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
+function articleCompletenessScore(article: any) {
+  let score = 0;
+  if (pickLocalized(article?.excerpt, 'en') || pickLocalized(article?.excerpt, 'zh')) score += 4;
+  if (pickLocalized(article?.tagline, 'en') || pickLocalized(article?.tagline, 'zh')) score += 2;
+  if (Array.isArray(article?.content) && article.content.length > 0) score += 4;
+  if (Array.isArray(article?.heroFacts) && article.heroFacts.length > 0) score += 1;
+  if (article?.mainImage) score += 1;
+  return score;
 }

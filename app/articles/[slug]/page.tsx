@@ -38,9 +38,11 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
   if (!article) notFound();
 
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
-  const title = text(article.title, lang, lang === 'zh' ? '文章标题待补充' : 'Article title coming soon');
-  const tagline = text(article.tagline, lang, lang === 'zh' ? '一句话定位待补充' : 'Tagline coming soon');
-  const excerpt = text(article.excerpt, lang, lang === 'zh' ? '文章摘要待补充' : 'Excerpt coming soon');
+  const title = text(article.title, lang, lang === 'zh' ? '精选旅行内容' : 'Travel Insight');
+  const rawTagline = pickLocalized(article.tagline, lang);
+  const rawExcerpt = pickLocalized(article.excerpt, lang);
+  const tagline = markPlaceholder(rawTagline || rawExcerpt || (lang === 'zh' ? '围绕目的地、路线设计与出行判断的旅行参考内容。' : 'Planning notes and destination insights for building a better China journey.'));
+  const excerpt = markPlaceholder(rawExcerpt || rawTagline || (lang === 'zh' ? '这是一篇用于帮助旅行者理解目的地、路线搭配与出行判断的参考内容。' : 'This article is designed to help travelers think through destinations, route combinations and planning decisions.'));
   const author = markPlaceholder(article.author || (lang === 'zh' ? '作者待补充' : 'Author coming soon'));
   const formattedDate = article.publishDate
     ? new Date(article.publishDate).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -100,12 +102,18 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
 
             <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '正文内容' : 'Article Body'}</p>
-              {article.content ? (
+              {Array.isArray(article.content) && article.content.length > 0 ? (
                 <div className="prose prose-lg mt-6 max-w-none prose-headings:text-[var(--color-navy)] prose-p:text-[var(--color-muted)] prose-li:text-[var(--color-muted)]">
                   <PortableText value={article.content} />
                 </div>
               ) : (
-                <p className="mt-6 py-6 text-[var(--color-muted)]">{lang === 'zh' ? '正文内容待补充' : 'Article content coming soon'}</p>
+                <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6 text-[var(--color-muted)]">
+                  <p className="leading-7">
+                    {lang === 'zh'
+                      ? '这篇内容的正文还没有正式发布。当前你可以先把它理解为一个选题入口：如果你想按这个主题继续聊路线、城市选择或定制方案，我们可以直接从咨询承接。'
+                      : 'The full article body is not published yet. For now, treat this page as a topic entry point — if you want to explore this route, destination choice or planning logic, we can continue directly through consultation.'}
+                  </p>
+                </div>
               )}
             </div>
           </div>
