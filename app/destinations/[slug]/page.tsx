@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getDestinationBySlug, imageUrlFor, getDestinationFallbackImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
+import { getDestinationContent } from '@/lib/destinationContent';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,12 +38,15 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   if (!destination) notFound();
 
   const name = text(destination.name, lang, lang === 'zh' ? '精选目的地' : 'Destination');
+  const content = getDestinationContent(destination.slug);
   const tagline = markPlaceholder(pickLocalized(destination.tagline, lang) || '');
-  const description = markPlaceholder(pickLocalized(destination.description, lang) || '');
-  const idealFor = markPlaceholder(pickLocalized(destination.idealFor, lang) || '');
-  const bestTime = markPlaceholder(pickLocalized(destination.bestTime, lang) || '');
-  const suggestedStay = markPlaceholder(pickLocalized(destination.suggestedStay, lang) || '');
-  const highlights = Array.isArray(destination.highlights) ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean) : [];
+  const description = markPlaceholder(pickLocalized(destination.description, lang) || content?.summary?.[lang] || '');
+  const idealFor = markPlaceholder(pickLocalized(destination.idealFor, lang) || content?.audience?.[lang] || '');
+  const bestTime = markPlaceholder(pickLocalized(destination.bestTime, lang) || content?.bestSeason?.[lang] || '');
+  const suggestedStay = markPlaceholder(pickLocalized(destination.suggestedStay, lang) || content?.stay?.[lang] || '');
+  const highlights = Array.isArray(destination.highlights) && destination.highlights.length > 0
+    ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean)
+    : (content?.highlights?.map((item: any) => item?.[lang]).filter(Boolean) || []);
   const experiences = Array.isArray(destination.experiences) ? destination.experiences : [];
   const samplePlan = Array.isArray(destination.samplePlan) ? destination.samplePlan : [];
   const heroFacts = Array.isArray(destination.heroFacts) ? destination.heroFacts : [];
