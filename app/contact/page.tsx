@@ -8,11 +8,11 @@ export const dynamic = 'force-dynamic';
 
 const BRAND_NAME_ZH = '无限旅途';
 const BRAND_NAME_EN = 'Infinite Travel';
-const CONTACT_EMAIL = 'contact@infinitravel.net';
-const WECHAT_ID = '待补充';
-const WHATSAPP = 'Coming soon';
-const OFFICE_LOCATION_ZH = '待补充';
-const OFFICE_LOCATION_EN = 'Coming soon';
+const CONTACT_EMAIL = '1484818239@qq.com';
+const WECHAT_ID = 'Superstar-_o';
+const WHATSAPP = '';
+const OFFICE_LOCATION_ZH = '中国（服务范围覆盖北京、上海、深圳、重庆、成都、陕西、新疆等目的地）';
+const OFFICE_LOCATION_EN = 'China (service coverage includes Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, Xinjiang and more)';
 
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -32,7 +32,7 @@ export default async function ContactPage({ searchParams }: any) {
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
-  const footerIntro = lang === 'zh' ? '无限旅途的联系信息与支付信息仍在补充中；你可以先通过咨询表单提交需求，我们会在信息完善后继续对接。' : 'Infinite Travel is still completing its contact and payment details. You can submit your needs through the inquiry form first, and we will continue the conversation once the details are finalized.';
+  const footerIntro = lang === 'zh' ? '无限旅途目前已开放咨询承接：你可以先提交需求，我们会根据出行时间、人数、目的地和预算做初步判断，再继续沟通路线与执行方式。' : 'Infinite Travel is open for travel inquiries now. You can submit your request first, and we will review your timing, group size, destinations and budget before discussing route design and next steps.';
   const contactAddress = lang === 'zh' ? OFFICE_LOCATION_ZH : OFFICE_LOCATION_EN;
   const contactHeroTitle = lang === 'zh' ? '联系我们，开始你的中国旅程' : 'Contact Us to Start Your Journey in China';
   const contactHeroSubtitle = lang === 'zh' ? '告诉我们你的出行时间、人数、目的地和预算，我们会尽快为你安排合适的咨询方式。' : 'Share your travel dates, group size, destinations and budget, and we will arrange the right consultation for you as soon as possible.';
@@ -40,9 +40,9 @@ export default async function ContactPage({ searchParams }: any) {
   const contactGuideItems = lang === 'zh'
     ? ['1️⃣ 出行日期和大致天数', '2️⃣ 同行人数和成员情况', '3️⃣ 想去的城市或地区', '4️⃣ 预算范围', '5️⃣ 是否有特殊需求（饮食 / 语言 / 节奏等）']
     : ['1️⃣ Travel dates and trip length', '2️⃣ Group size and traveler type', '3️⃣ Preferred destinations', '4️⃣ Budget range', '5️⃣ Any special needs (diet / language / pace)'];
-  const contactStatusNote = lang === 'zh' ? '我们会在收到信息后尽快回复，通常会在 24 小时内与您取得联系。' : 'We will reply as soon as possible after receiving your message, usually within 24 hours.';
-  const contactCtaTitle = lang === 'zh' ? '支付方式说明' : 'Payment Methods';
-  const contactCtaSubtitle = lang === 'zh' ? '如需确认订单或支付定金，我们会在沟通后提供对应的支付方式与流程。' : 'If a deposit or booking payment is needed, we will provide the payment methods and process after consultation.';
+  const contactStatusNote = lang === 'zh' ? '我们会先查看你的时间、人数、目的地与预算信息，通常会在 24 小时内通过邮箱或后续沟通方式回复。' : 'We first review your timing, group size, destinations and budget, and usually reply within 24 hours by email or the next agreed contact method.';
+  const contactCtaTitle = lang === 'zh' ? '咨询后会发生什么' : 'What Happens After You Inquire';
+  const contactCtaSubtitle = lang === 'zh' ? '我们不会让你直接跳进模糊报价。先收集基本信息，再判断方向、节奏与可行性，确认适合后再进入路线和支付环节。' : 'We do not push you into a vague quote immediately. We first collect the essentials, then assess direction, pace and feasibility before moving into route planning and payment.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -77,10 +77,10 @@ export default async function ContactPage({ searchParams }: any) {
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
             <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
-            <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Available for inquiries.' : '可用于咨询联系。'} />
-            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
-            <InfoCard title="WhatsApp" value={WHATSAPP} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
-            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务基地'} value={contactAddress} desc={lang === 'en' ? 'Coming soon.' : '即将补充。'} />
+            <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Primary inquiry channel currently in use.' : '当前已启用的主要咨询邮箱。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Currently available for follow-up communication after initial inquiry.' : '当前可用于初步沟通后的后续联系。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '当前以邮箱 / 微信承接为主' : 'Email / WeChat currently used as the main follow-up channels')} desc={lang === 'en' ? 'WhatsApp is not the main public channel yet.' : 'WhatsApp 暂不是当前主要公开承接渠道。'} />
+            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务范围'} value={contactAddress} desc={lang === 'en' ? 'Remote planning and destination-based service coordination across key China routes.' : '以远程方案沟通 + 目的地服务协同为主，覆盖中国核心旅行线路。'} />
           </div>
 
           <div className="grid gap-8">
@@ -98,9 +98,18 @@ export default async function ContactPage({ searchParams }: any) {
                 <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contactStatusNote}</p>
               </div>
 
+              <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6">
+                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '提交后会发生什么' : 'After You Submit'}</p>
+                <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-muted)]">
+                  <p>{lang === 'zh' ? '1. 我们先看你的时间、人数、目的地和预算是否匹配。' : '1. We first review whether your timing, group size, destinations and budget align.'}</p>
+                  <p>{lang === 'zh' ? '2. 如果方向清晰，我们会继续沟通路线结构、节奏和重点体验。' : '2. If the direction is clear, we continue with route structure, pace and experience priorities.'}</p>
+                  <p>{lang === 'zh' ? '3. 确认适合后，再进入报价、执行方式与支付环节。' : '3. Once the fit is clear, we move into quotation, execution details and payment.'}</p>
+                </div>
+              </div>
+
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <a href="#inquiry-form" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Go to Inquiry Form' : '前往咨询表单'}</a>
-                <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white" type="button">{lang === 'en' ? 'Contact Details Pending' : '联系信息待补充'}</button>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'Email Us Directly' : '直接邮件联系'}</a>
               </div>
             </div>
 
@@ -116,9 +125,19 @@ export default async function ContactPage({ searchParams }: any) {
           <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{lang === 'zh' ? '支付入口' : 'Payment Entry'}</p>
           <h3 className="mt-4 text-3xl font-semibold md:text-5xl">{contactCtaTitle}</h3>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{contactCtaSubtitle}</p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] opacity-80" type="button">{lang === 'zh' ? '沟通后提供支付方式' : 'Payment Details After Consultation'}</button>
-            <button className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white opacity-80" type="button">{lang === 'zh' ? '定金 / 订单支付流程待确认' : 'Deposit / Booking Process To Be Confirmed'}</button>
+          <div className="mt-8 grid gap-4 md:grid-cols-3 text-left">
+            <div className="rounded-[1.4rem] border border-white/12 bg-white/8 p-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/70">{lang === 'zh' ? '第一步' : 'Step 1'}</p>
+              <p className="mt-3 text-sm leading-7 text-white/88">{lang === 'zh' ? '先提交需求，我们判断行程方向与适配度。' : 'Submit your request first so we can assess fit and travel direction.'}</p>
+            </div>
+            <div className="rounded-[1.4rem] border border-white/12 bg-white/8 p-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/70">{lang === 'zh' ? '第二步' : 'Step 2'}</p>
+              <p className="mt-3 text-sm leading-7 text-white/88">{lang === 'zh' ? '确认路线与服务方式后，再进入报价和执行。' : 'After route and service scope are confirmed, we move into quotation and execution.'}</p>
+            </div>
+            <div className="rounded-[1.4rem] border border-white/12 bg-white/8 p-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/70">{lang === 'zh' ? '第三步' : 'Step 3'}</p>
+              <p className="mt-3 text-sm leading-7 text-white/88">{lang === 'zh' ? '如需锁定订单或定金，再提供对应支付方式。' : 'If a booking or deposit is needed, we then provide the appropriate payment method.'}</p>
+            </div>
           </div>
         </div>
       </section>
