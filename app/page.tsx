@@ -26,7 +26,7 @@ export default async function Home({ searchParams }: any) {
   const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
   const contactAddress = pickLocalized(settings?.address, lang) || '';
   const navCtaText = lang === 'zh' ? '定制我的旅程' : 'Tailor My Journey';
-  const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink);
+  const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink) || '/contact';
   const faqItems = Array.isArray(settings?.faqItems) ? settings.faqItems : [];
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
   const siteDescription = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅行，覆盖北京、上海、成都、新疆等多个目的地。' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
@@ -283,16 +283,17 @@ function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang 
 
 function DestinationCardsSection({ section, destinations, lang }: { section: any; destinations: any[]; lang: Lang }) {
   const manualItems = Array.isArray(section.items) ? section.items : [];
-  const autoItems = Array.isArray(destinations)
-    ? destinations.slice(0, Math.max(section.maxItems || 6, 6)).map((destination: any) => ({
-        title: destination.name,
-        description: destination.tagline || destination.description,
-        linkTarget: destination.slug ? `/destinations/${encodeURIComponent(destination.slug)}` : '/destinations',
-        backgroundImage: destination.image,
-        iconType: 'preset',
-        presetIcon: 'compass',
-      }))
-    : [];
+  const dedupedDestinations = Array.isArray(destinations) ? dedupeDestinations(destinations) : [];
+  const autoItems = dedupedDestinations
+    .slice(0, Math.max(section.maxItems || 6, 6))
+    .map((destination: any) => ({
+      title: destination.name,
+      description: destination.tagline || destination.description,
+      linkTarget: destination.slug ? `/destinations/${encodeURIComponent(destination.slug)}` : '/destinations',
+      backgroundImage: destination.image,
+      iconType: 'preset',
+      presetIcon: 'compass',
+    }));
   const items = manualItems.length > 0 ? manualItems : autoItems;
   return (
     <section id={section.anchorId || 'destinations'} className="bg-white py-28">
@@ -576,6 +577,40 @@ function renderManagedIcon(item: any, className = 'text-5xl') {
 }
 
 const presetIconMap: Record<string, string> = { compass: '✦', map: '◌', camera: '◈', star: '✧', shield: '⬒', chat: '◍', plane: '➝', mountain: '△', heart: '♡', clock: '◷' };
+
+function dedupeDestinations(destinations: any[]) {
+  const map = new Map<string, any>();
+
+  for (const destination of destinations) {
+    const key = normalizeDestinationSlug(destination?.slug) || normalizeDestinationSlug(pickLocalized(destination?.name, 'en')) || String(destination?._id || '');
+    if (!key) continue;
+
+    const existing = map.get(key);
+    if (!existing) {
+      map.set(key, destination);
+      continue;
+    }
+
+    const existingScore = destinationCompletenessScore(existing);
+    const incomingScore = destinationCompletenessScore(destination);
+    if (incomingScore > existingScore) {
+      map.set(key, destination);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
+function destinationCompletenessScore(destination: any) {
+  let score = 0;
+  if (destination?.image) score += 3;
+  if (pickLocalized(destination?.tagline, 'en') || pickLocalized(destination?.tagline, 'zh')) score += 2;
+  if (pickLocalized(destination?.description, 'en') || pickLocalized(destination?.description, 'zh')) score += 4;
+  if (Array.isArray(destination?.highlights) && destination.highlights.length > 0) score += 2;
+  if (Array.isArray(destination?.heroFacts) && destination.heroFacts.length > 0) score += 1;
+  if (typeof destination?.order === 'number') score += 1;
+  return score;
+}
 
 function getDefaultSectionLabel(type: string, lang: Lang) {
   const map = {

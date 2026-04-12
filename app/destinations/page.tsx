@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function DestinationsPage({ searchParams }: any) {
   const lang = normalizeLang(searchParams?.lang);
-  const destinations = await getDestinations();
+  const destinations = dedupeDestinations(await getDestinations());
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
@@ -53,4 +53,38 @@ export default async function DestinationsPage({ searchParams }: any) {
       </div>
     </main>
   );
+}
+
+function dedupeDestinations(destinations: any[]) {
+  const map = new Map<string, any>();
+
+  for (const destination of Array.isArray(destinations) ? destinations : []) {
+    const key = String(destination?.slug || '').trim().toLowerCase() || String(destination?._id || '');
+    if (!key) continue;
+
+    const existing = map.get(key);
+    if (!existing) {
+      map.set(key, destination);
+      continue;
+    }
+
+    const existingScore = destinationCompletenessScore(existing);
+    const incomingScore = destinationCompletenessScore(destination);
+    if (incomingScore > existingScore) {
+      map.set(key, destination);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
+function destinationCompletenessScore(destination: any) {
+  let score = 0;
+  if (destination?.image) score += 3;
+  if (pickLocalized(destination?.tagline, 'en') || pickLocalized(destination?.tagline, 'zh')) score += 2;
+  if (pickLocalized(destination?.description, 'en') || pickLocalized(destination?.description, 'zh')) score += 4;
+  if (Array.isArray(destination?.highlights) && destination.highlights.length > 0) score += 2;
+  if (Array.isArray(destination?.heroFacts) && destination.heroFacts.length > 0) score += 1;
+  if (typeof destination?.order === 'number') score += 1;
+  return score;
 }
