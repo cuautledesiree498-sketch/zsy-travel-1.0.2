@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getDestinationBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { getDestinationBySlug, imageUrlFor, getDestinationFallbackImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -68,7 +68,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
       </nav>
 
       <section className="relative mt-16 h-[54vh] overflow-hidden">
-        <Image src={imageUrlFor(destination.image, 1600, fallbackImages.destination)} alt={name} fill className="object-cover" priority />
+        <Image src={imageUrlFor(destination.image, 1600, getDestinationFallbackImage(destination.slug))} alt={name} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.82),rgba(4,10,18,0.26),rgba(4,10,18,0.08))]" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-6 pb-10 text-white">
           <Link href={withLang('/destinations', lang)} className="inline-flex rounded-full border border-white/30 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/90 transition hover:bg-white/10">
@@ -152,7 +152,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {(gallery.length ? gallery.slice(0, 4) : [destination.image]).filter(Boolean).map((image: any, index: number) => (
                   <div key={index} className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem] bg-[var(--color-soft-white)]">
-                    <Image src={imageUrlFor(image, 900, fallbackImages.destination)} alt={`${name} ${index + 1}`} fill className="object-cover" />
+                    <Image src={imageUrlFor(image, 900, getDestinationFallbackImage(destination.slug))} alt={`${name} ${index + 1}`} fill className="object-cover" />
                   </div>
                 ))}
               </div>

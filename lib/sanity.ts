@@ -13,9 +13,40 @@ const fallbackImages = {
   hero: '/media/custom/hero/hero-nature.jpg',
   tour: '/media/custom/hero/hero-nature.jpg',
   article: '/media/custom/hero/hero-nature.jpg',
-  destination: '/media/custom/destinations/beijing/beijing-1.jpg',
+  destination: '/media/custom/hero/hero-nature.jpg',
   icon: '/media/custom/hero/hero-nature.jpg',
 };
+
+const destinationFallbackBySlug: Record<string, string> = {
+  beijing: '/media/custom/destinations/beijing/beijing-1.jpg',
+  shanghai: '/media/custom/destinations/shanghai/shanghai-1.jpg',
+  shenzhen: '/media/custom/destinations/shenzhen/shenzhen-1.jpg',
+  chengdu: '/media/custom/destinations/chengdu/chengdu-1.jpg',
+  xinjiang: '/media/custom/destinations/xinjiang/xinjiang-1.jpg',
+  xian: '/media/destinations/shaanxi.jpg',
+  'xi-an': '/media/destinations/shaanxi.jpg',
+  shaanxi: '/media/destinations/shaanxi.jpg',
+  chongqing: '/media/destinations/chongqing.jpg',
+};
+
+export function normalizeDestinationSlug(value?: string | null) {
+  return (value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .split('?')[0]
+    .split('#')[0]
+    .split('/')
+    .filter(Boolean)
+    .pop()
+    ?.replace(/%20/g, '-')
+    ?.replace(/\s+/g, '-') || '';
+}
+
+export function getDestinationFallbackImage(slugOrPath?: string | null) {
+  const slug = normalizeDestinationSlug(slugOrPath);
+  return destinationFallbackBySlug[slug] || fallbackImages.destination;
+}
 
 export function imageUrlFor(source: any, width = 800, fallback = fallbackImages.hero) {
   if (!source?._ref) {
@@ -29,7 +60,7 @@ export function imageUrlFor(source: any, width = 800, fallback = fallbackImages.
   return `https://cdn.sanity.io/images/${projectId}/${dataset}/${assetId}.jpg?w=${width}&auto=format`;
 }
 
-export { fallbackImages };
+export { fallbackImages, destinationFallbackBySlug };
 
 export async function getTours() {
   try {

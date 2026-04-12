@@ -1,17 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
-
-const destinationFallbackMap = [
-  '/media/custom/destinations/beijing/beijing-1.jpg',
-  '/media/custom/destinations/shanghai/shanghai-1.jpg',
-  '/media/custom/destinations/shenzhen/shenzhen-1.jpg',
-  '/media/custom/destinations/chengdu/chengdu-1.jpg',
-  '/media/custom/destinations/xinjiang/xinjiang-1.jpg',
-  '/media/destinations/shaanxi.jpg',
-  '/media/destinations/chongqing.jpg',
-];
 
 export const dynamic = 'force-dynamic';
 
@@ -507,7 +497,8 @@ function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
 }
 
 function DestinationCard({ item, index, lang }: { item: any; index: number; lang: Lang }) {
-  const fallback = destinationFallbackMap[index % destinationFallbackMap.length] || fallbackImages.destination;
+  const destinationSlug = normalizeDestinationSlug(resolveManagedLink(item.linkTarget, item.link));
+  const fallback = getDestinationFallbackImage(destinationSlug);
 
   return (
     <SmartCardLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
