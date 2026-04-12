@@ -36,12 +36,12 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
 
   if (!destination) notFound();
 
-  const name = text(destination.name, lang, lang === 'zh' ? '目的地名称待补充' : 'Destination name coming soon');
-  const tagline = text(destination.tagline, lang, lang === 'zh' ? '一句话定位待补充' : 'Tagline coming soon');
-  const description = text(destination.description, lang, lang === 'zh' ? '目的地简介待补充' : 'Destination description coming soon');
-  const idealFor = text(destination.idealFor, lang, lang === 'zh' ? '适合人群待补充' : 'Ideal traveler profile coming soon');
-  const bestTime = text(destination.bestTime, lang, lang === 'zh' ? '最佳时间待补充' : 'Best time to visit coming soon');
-  const suggestedStay = text(destination.suggestedStay, lang, lang === 'zh' ? '建议停留待补充' : 'Suggested stay coming soon');
+  const name = text(destination.name, lang, lang === 'zh' ? '精选目的地' : 'Destination');
+  const tagline = markPlaceholder(pickLocalized(destination.tagline, lang) || '');
+  const description = markPlaceholder(pickLocalized(destination.description, lang) || '');
+  const idealFor = markPlaceholder(pickLocalized(destination.idealFor, lang) || '');
+  const bestTime = markPlaceholder(pickLocalized(destination.bestTime, lang) || '');
+  const suggestedStay = markPlaceholder(pickLocalized(destination.suggestedStay, lang) || '');
   const highlights = Array.isArray(destination.highlights) ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean) : [];
   const experiences = Array.isArray(destination.experiences) ? destination.experiences : [];
   const samplePlan = Array.isArray(destination.samplePlan) ? destination.samplePlan : [];
@@ -75,7 +75,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
             {lang === 'zh' ? '← 返回目的地' : '← Back to Destinations'}
           </Link>
           <h2 className="mt-5 max-w-5xl text-4xl font-semibold leading-[1.05] md:text-6xl">{name}</h2>
-          <p className="mt-4 max-w-3xl text-lg leading-8 text-white/88 md:text-xl">{tagline}</p>
+          {tagline ? <p className="mt-4 max-w-3xl text-lg leading-8 text-white/88 md:text-xl">{tagline}</p> : null}
           {heroFacts.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-3">
               {heroFacts.slice(0, 4).map((item: any, index: number) => (
@@ -93,19 +93,19 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
           <div className="space-y-8">
             <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '目的地概览' : 'Overview'}</p>
-              <p className="mt-5 text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">{description}</p>
+              <p className="mt-5 text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">{description || (lang === 'zh' ? '这个目的地页面已准备好展示结构，后续会继续补充更完整的亮点、体验与行程建议。' : 'This destination page is ready as a structured overview, with more highlights, experiences, and route suggestions to be added in future updates.')}</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor} />
-              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime} />
-              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={suggestedStay} />
+              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor || (lang === 'zh' ? '可按旅行方式、同行人群与出行节奏进一步细化。' : 'Can be tailored further by travel style, traveler profile, and preferred pace.')} />
+              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime || (lang === 'zh' ? '可根据季节、气候和你想看的景观类型进一步建议。' : 'Best timing can be refined further based on season, climate, and the type of scenery you want to focus on.')} />
+              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={suggestedStay || (lang === 'zh' ? '可根据行程长度与组合城市灵活调整。' : 'Length of stay can be adjusted flexibly based on your wider route and travel rhythm.')} />
             </div>
 
             <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_18px_46px_rgba(10,27,52,0.05)] md:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '核心亮点' : 'Highlights'}</p>
               <ul className="mt-5 space-y-4">
-                {(highlights.length ? highlights : [lang === 'zh' ? '亮点内容待补充' : 'Highlights coming soon']).map((item: string, index: number) => (
+                {(highlights.length ? highlights : [lang === 'zh' ? '后续可在此补充这个目的地最值得卖给游客的 3-5 个核心亮点。' : 'Core selling highlights for this destination can be expanded here in future updates.']).map((item: string, index: number) => (
                   <li key={index} className="flex items-start gap-3 text-[var(--color-slate)]">
                     <span className="mt-1 text-[var(--color-navy)]">✦</span>
                     <span className="leading-8">{item}</span>
@@ -118,14 +118,14 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
               title={lang === 'zh' ? '推荐体验' : 'Recommended Experiences'}
               items={experiences}
               lang={lang}
-              emptyTitle={lang === 'zh' ? '推荐体验待补充' : 'Experience sections coming soon'}
+              emptyTitle={lang === 'zh' ? '后续可继续补充推荐体验模块。' : 'Recommended experience sections can be added here in future updates.'}
             />
 
             <SectionBlock
               title={lang === 'zh' ? '示例安排' : 'Sample Plan'}
               items={samplePlan}
               lang={lang}
-              emptyTitle={lang === 'zh' ? '示例安排待补充' : 'Sample plan coming soon'}
+              emptyTitle={lang === 'zh' ? '后续可继续补充示例行程安排。' : 'A fuller sample plan can be added here in future updates.'}
             />
           </div>
 
