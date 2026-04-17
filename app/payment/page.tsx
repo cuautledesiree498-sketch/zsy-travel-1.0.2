@@ -7,10 +7,10 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
   const lang = normalizeLang((await searchParams)?.lang);
   return {
-    title: lang === 'zh' ? '支付说明 - 无限旅途' : 'Payment - Infinite Travel',
+    title: lang === 'zh' ? '支付与确认 - 无限旅途' : 'Payment & Confirmation - Infinite Travel',
     description: lang === 'zh'
-      ? '查看无限旅途当前的支付说明、确认流程与后续支付安排。'
-      : 'Review the current payment guidance, confirmation steps and booking payment process for Infinite Travel.',
+      ? '查看无限旅途的支付与确认流程，了解在行程确认后如何继续付款。'
+      : 'Review Infinite Travel payment and confirmation steps, and see how payment proceeds after the trip details are confirmed.',
   };
 }
 
@@ -18,16 +18,16 @@ export default async function PaymentPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const isZh = lang === 'zh';
 
-  const pageTitle = isZh ? '支付说明与确认流程' : 'Payment Guidance and Confirmation Flow';
+  const pageTitle = isZh ? '支付与确认流程' : 'Payment & Confirmation Flow';
   const pageSubtitle = isZh
-    ? '当前支付页面先作为正式说明页使用：在路线、人数、日期、金额和服务范围确认后，我们再提供对应的支付方式。'
-    : 'For now, this page serves as a formal payment guidance page. We provide the payment method after route, traveler details, dates, amount and service scope are confirmed.';
+    ? '这不是直接付款页，而是先说明确认顺序：在路线、人数、日期、金额和服务范围确认后，我们再提供对应的支付方式。'
+    : 'This is not a direct checkout page. It explains the confirmation order first: once route, traveler details, dates, amount and service scope are confirmed, we provide the matching payment method.';
 
   const scenarios = isZh
     ? [
-        { title: '咨询后确认定金', desc: '当路线方向、出行时间和服务范围已经明确时，可能进入定金确认阶段。' },
+        { title: '咨询后确认定金', desc: '当路线方向、出行时间和服务范围已经明确时，才会进入定金确认阶段。' },
         { title: '订单确认后的尾款安排', desc: '在订单结构、执行方式和费用明细确认后，再安排后续付款。' },
-        { title: '定制服务或特殊项目费用', desc: '对于更复杂的私人定制、接待或多城市组合项目，会先沟通再确认支付方式。' },
+        { title: '定制服务或特殊项目费用', desc: '对于更复杂的私人定制、接待或多城市组合项目，我们会先沟通清楚，再确认支付方式。' },
       ]
     : [
         { title: 'Deposit after consultation', desc: 'A deposit may be arranged only after the route direction, travel timing and service scope are clarified.' },

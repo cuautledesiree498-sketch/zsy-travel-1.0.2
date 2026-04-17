@@ -65,7 +65,7 @@ export default async function ServicesPage({ searchParams }: any) {
     <main className="mx-auto max-w-7xl px-6 py-24">
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{isZh ? '无限旅途' : 'Infinite Travel'}</p>
       <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{isZh ? '服务类型' : 'Our Services'}</h1>
-      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{isZh ? '我们不是只卖固定产品，而是围绕人群、节奏和目标来设计真正可执行的中国行程。' : 'We do not just sell fixed products — we design executable China itineraries around people, pace and purpose.'}</p>
+      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{isZh ? '如果你要的是更清楚、更省心的中国行程，我们会围绕人群、节奏和目标来设计真正可执行的方案，而不是直接把固定产品推给你。' : 'If you want a clearer, less stressful China trip, we design an executable plan around people, pace and purpose instead of pushing a fixed product at you.'}</p>
 
       <section className="mt-14 grid gap-6 md:grid-cols-2">
         {services.map((item) => (

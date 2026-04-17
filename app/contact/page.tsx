@@ -76,11 +76,11 @@ export default async function ContactPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="grid gap-6">
-            <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
-            <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Primary inquiry channel currently in use.' : '当前已启用的主要咨询邮箱。'} />
-            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Currently available for follow-up communication after initial inquiry.' : '当前可用于初步沟通后的后续联系。'} />
-            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '当前以邮箱 / 微信承接为主' : 'Email / WeChat currently used as the main follow-up channels')} desc={lang === 'en' ? 'WhatsApp is currently not the primary public channel.' : 'WhatsApp 暂不是当前主要公开承接渠道。'} />
-            <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务范围'} value={contactAddress} desc={lang === 'en' ? 'Remote planning and destination-based service coordination across key China routes.' : '以远程方案沟通 + 目的地服务协同为主，覆盖中国核心旅行线路。'} />
+            <InfoCard title={lang === 'en' ? 'Brand' : '品牌'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'Private China travel planning for overseas guests, families, couples, small groups and business visitors.' : '为海外游客、家庭、情侣、私人小团和商务访客提供中国私人定制旅行规划。'} />
+            <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Send your trip request here. Please include dates, group size, destinations and budget if possible.' : '你可以把行程需求发到这里。建议同时写明日期、人数、目的地和预算。'} />
+            <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Available for follow-up communication after we receive your initial request.' : '收到初步需求后，可通过微信继续沟通路线细节。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '请先通过邮箱或微信联系' : 'Please contact us by email or WeChat first')} desc={lang === 'en' ? 'We will confirm the most suitable follow-up channel after receiving your inquiry.' : '收到咨询后，我们会根据情况确认后续最合适的沟通方式。'} />
+            <InfoCard title={lang === 'en' ? 'Service Area' : '服务范围'} value={contactAddress} desc={lang === 'en' ? 'China route planning and destination coordination across key cities, heritage routes and scenic regions.' : '覆盖中国核心城市、文化线路与风景目的地的路线规划和目的地协同服务。'} />
           </div>
 
           <div className="grid gap-8">
@@ -94,7 +94,7 @@ export default async function ContactPage({ searchParams }: any) {
               </div>
 
               <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6">
-                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '状态说明' : 'Current Response Time'}</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '回复时间' : 'Current Response Time'}</p>
                 <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contactStatusNote}</p>
               </div>
 

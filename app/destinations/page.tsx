@@ -18,8 +18,25 @@ export default async function DestinationsPage({ searchParams }: any) {
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{lang === 'zh' ? '无限旅途' : 'Infinite Travel'}</p>
-      <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{lang === 'zh' ? '精选目的地' : 'Popular Destinations'}</h1>
-      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '从北京到新疆，从城市到山河，我们把中国目的地整理成更清晰、也更好卖的旅行方案。' : 'From Beijing to Xinjiang, we turn China destinations into clearer and more sellable travel plans.'}</p>
+      <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{lang === 'zh' ? '中国热门目的地' : 'China Destinations to Explore'}</h1>
+      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '如果你已经知道想看城市、古都、山水还是长线风景，可以先从这里选一个最接近你想法的目的地，再继续细化行程。' : 'If you already know you want cities, heritage, scenery or a longer route, start with the destination closest to your idea and refine the itinerary from there.'}</p>
+
+      <section className="mt-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f6f8fc)] p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)] md:p-8">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '先选方向' : 'Start with direction'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '先选一个最接近你偏好的目的地，不需要一开始就完全确定。' : 'Pick the destination closest to your preference first. It does not need to be final.'}</p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '再补信息' : 'Then add details'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '准备好日期、人数、预算和想看的内容，我们再继续细化。' : 'Bring your dates, group size, budget and priorities, and we refine from there.'}</p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '最终目标' : 'Final goal'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把目的地想法整理成真正可执行、可比较、可下单的中国路线。' : 'Turn a destination idea into a China route that is easier to compare, discuss and book.'}</p>
+          </div>
+        </div>
+      </section>
 
       <section className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {destinations.length > 0 ? destinations.map((item: any) => {
@@ -47,16 +64,19 @@ export default async function DestinationsPage({ searchParams }: any) {
                   {stay ? <p className="mt-2"><span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '建议停留：' : 'Recommended stay: '}</span>{stay}</p> : null}
                 </div>
               )}
-              <div className="mt-6">
-                <Link href={withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
-                  {lang === 'zh' ? '查看详情' : 'View Details'}
+              <div className="mt-6 flex flex-col gap-3">
+                <Link href={withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+                  {lang === 'zh' ? '看这个目的地适不适合你' : 'See If This Destination Fits You'}
+                </Link>
+                <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+                  {lang === 'zh' ? '按这个方向咨询' : 'Inquire About This Direction'}
                 </Link>
               </div>
             </article>
           );
         }) : (
           <div className="col-span-full rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-[var(--color-soft-white)] px-6 py-16 text-center text-[var(--color-muted)]">
-            {lang === 'zh' ? '后台添加目的地后，这里会自动生成列表和详情页入口。' : 'Once destinations are added in the CMS, the list and detail page links will appear here automatically.'}
+            {lang === 'zh' ? '更多目的地会陆续上线。你也可以直接联系我们，按你想去的城市或风格来定制路线。' : 'More destinations will be added soon. You can also contact us directly to build a route around your target cities or travel style.'}
           </div>
         )}
       </section>

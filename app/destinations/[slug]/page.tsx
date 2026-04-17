@@ -38,7 +38,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   if (!destination) notFound();
 
   const content = getDestinationContent(destination.slug);
-  const name = text(destination.name, lang, content.summary?.[lang] ? (lang === 'zh' ? '精选目的地' : 'Destination') : (lang === 'zh' ? '精选目的地' : 'Destination'));
+  const name = text(destination.name, lang, lang === 'zh' ? '中国目的地' : 'China Destination');
   const tagline = text(destination.tagline, lang, '');
   const description = text(destination.description, lang, content.summary?.[lang] || '');
   const idealFor = text(destination.idealFor, lang, content.audience?.[lang] || '');
@@ -113,19 +113,19 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
           <div className="space-y-8">
             <Card title={lang === 'zh' ? '目的地概览' : 'Overview'}>
               <p className="text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">
-                {description || (lang === 'zh' ? '这个目的地页面已准备好作为结构化内容模板，后续会继续补充更完整的亮点、体验与行程建议。' : 'This destination page is ready as a structured content template, with more highlights, experiences and route suggestions to be added.')}
+                {description || (lang === 'zh' ? '这里会为你展示这个目的地最值得去看的内容、适合的人群、建议停留时间，以及如何把它放进整条中国路线里。' : 'This page helps you understand what makes the destination worth visiting, who it suits, how long to stay and how it can fit into a wider China route.')}
               </p>
             </Card>
 
             <div className="grid gap-6 md:grid-cols-3">
-              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor || (lang === 'zh' ? '可按旅行方式、同行人群与出行节奏进一步细化。' : 'Can be refined further by travel style, traveler profile and pacing.')} />
-              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime || (lang === 'zh' ? '可根据季节、气候和你想看的景观类型进一步建议。' : 'Best timing can be refined based on season, climate and the scenery you want.')} />
-              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={stay || (lang === 'zh' ? '可根据整条路线长度灵活调整。' : 'Can be adjusted flexibly based on the wider route.')} />
+              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor || (lang === 'zh' ? '适合想把这个目的地放进家庭游、情侣游、小团或深度中国线路的旅行者。' : 'Suitable for travelers considering this destination for a family trip, couple route, private group or deeper China itinerary.')} />
+              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime || (lang === 'zh' ? '最佳时间会因季节、天气和你想看的风景类型而变化。' : 'The best time depends on season, weather and the type of scenery or experience you want.')} />
+              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={stay || (lang === 'zh' ? '可按整条中国路线的长短灵活安排。' : 'Can be adjusted flexibly based on the length of your wider China route.')} />
             </div>
 
             <Card title={lang === 'zh' ? '核心亮点' : 'Highlights'} soft>
               <ul className="space-y-4">
-                {(highlights.length ? highlights : [lang === 'zh' ? '后续可继续补充这个目的地最值得卖给游客的 3–5 个核心亮点。' : 'Core selling highlights can be expanded here in future updates.']).map((item: string, index: number) => (
+                {(highlights.length ? highlights : [lang === 'zh' ? '这个目的地适合作为中国行程中的重点停留城市或风景段落，具体亮点会按你的路线方向继续细化。' : 'This destination can work as a key stop in a wider China itinerary, and the strongest highlights can be refined further around your route direction.']).map((item: string, index: number) => (
                   <li key={index} className="flex items-start gap-3 text-[var(--color-slate)]">
                     <span className="mt-1 text-[var(--color-navy)]">✦</span>
                     <span className="leading-8">{item}</span>
@@ -142,7 +142,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
                   ))}
                 </div>
               ) : (
-                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '后续可继续补充推荐体验模块。' : 'Recommended experience sections can be added here in future updates.'}</p>
+                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '我们可以继续根据你的时间、同行人群和路线偏好，把这个目的地拆成更具体的体验建议。' : 'We can further shape this destination into more specific experience suggestions based on your timing, travel party and route priorities.'}</p>
               )}
             </Card>
 
@@ -157,22 +157,22 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
                   ))}
                 </div>
               ) : (
-                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '后续可继续补充示例行程安排。' : 'A fuller sample plan can be added here in future updates.'}</p>
+                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '如果你想把这个目的地放进完整中国行程里，我们可以按天数、预算和城市组合继续整理成更具体的参考方案。' : 'If you want to place this destination inside a full China itinerary, we can shape it into a more specific route suggestion based on trip length, budget and city combinations.'}</p>
               )}
             </Card>
           </div>
 
           <aside className="space-y-6">
             <div className="sticky top-24 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f7faff)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.08)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '页面用途' : 'How to Use This Page'}</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '咨询这个目的地' : 'Inquire About This Destination'}</p>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">
                 {lang === 'zh'
-                  ? '这个详情页适合后续按目的地逐个填充。你可以先做 1 个标准版本，确认结构满意后，再复制到更多目的地并补图、补亮点、补体验和补示例安排。'
-                  : 'This page is meant to be filled destination by destination. Build one strong standard version first, then duplicate it across more destinations and customize the details.'}
+                  ? '如果你喜欢这个目的地，但还没完全想好怎么排整条路线，也没关系。你可以先告诉我们想去几天、和谁一起去、预算大概多少，以及还想搭配哪些城市，我们会继续帮你整理。'
+                  : 'If you like this destination but are not yet sure how to build the full route, that is fine. Just tell us how many days you have, who is traveling with you, your rough budget and what other cities you may want to combine with it.'}
               </p>
               <div className="mt-7 flex flex-col gap-3">
                 <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
-                  {lang === 'zh' ? '咨询这个目的地' : 'Ask About This Destination'}
+                  {lang === 'zh' ? '按这个目的地发起咨询' : 'Inquire About This Destination'}
                 </Link>
                 <Link href={withLang('/destinations', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '返回目的地列表' : 'Back to Destinations'}
