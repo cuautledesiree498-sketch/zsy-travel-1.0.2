@@ -8,8 +8,8 @@ import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i
 
 export const dynamic = 'force-dynamic';
 
-const CONTACT_EMAIL = 'contact@infinitravel.net';
-const WECHAT_ID = '待补充';
+const CONTACT_EMAIL = '1484818239@qq.com';
+const WECHAT_ID = 'Superstar-_o';
 
 function text(value: any, lang: 'en' | 'zh', fallback = '') {
   return markPlaceholder(pickLocalized(value, lang) || fallback);

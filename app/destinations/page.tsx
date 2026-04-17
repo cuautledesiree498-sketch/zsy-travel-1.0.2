@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getDestinations } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
+import { getDestinationContent } from '@/lib/destinationContent';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,8 +23,16 @@ export default async function DestinationsPage({ searchParams }: any) {
 
       <section className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {destinations.length > 0 ? destinations.map((item: any) => {
+          const meta = getDestinationContent(item.slug);
           const title = markPlaceholder(pickLocalized(item.name, lang) || '');
-          const desc = markPlaceholder(pickLocalized(item.description, lang) || pickLocalized(item.tagline, lang) || '');
+          const desc = markPlaceholder(
+            pickLocalized(item.description, lang)
+            || pickLocalized(item.tagline, lang)
+            || meta?.summary?.[lang]
+            || ''
+          );
+          const audience = meta?.audience?.[lang];
+          const stay = meta?.stay?.[lang];
           return (
             <article key={item._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
               <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{title || (lang === 'zh' ? '精选目的地' : 'Destination')}</h2>
@@ -31,6 +40,12 @@ export default async function DestinationsPage({ searchParams }: any) {
                 <p className="mt-3 line-clamp-4 text-[var(--color-muted)] leading-7">{desc}</p>
               ) : (
                 <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{lang === 'zh' ? '可进入详情页查看该目的地的旅行亮点与行程建议。' : 'Open the detail page to explore highlights and travel suggestions for this destination.'}</p>
+              )}
+              {(audience || stay) && (
+                <div className="mt-5 rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+                  {audience ? <p><span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '适合：' : 'Best for: '}</span>{audience}</p> : null}
+                  {stay ? <p className="mt-2"><span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '建议停留：' : 'Recommended stay: '}</span>{stay}</p> : null}
+                </div>
               )}
               <div className="mt-6">
                 <Link href={withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">

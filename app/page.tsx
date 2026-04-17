@@ -23,7 +23,7 @@ export default async function Home({ searchParams }: any) {
   const heroSupporting = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅程。' : 'Multi-city private travel across China for global travelers.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
-  const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更有审美和更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured and elevated journey design.';
+  const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured journey design.';
   const contactAddress = pickLocalized(settings?.address, lang) || '';
   const navCtaText = lang === 'zh' ? '定制我的旅程' : 'Tailor My Journey';
   const navCtaLink = resolveManagedLink(settings?.headerCtaLink, settings?.headerCtaLink) || '/contact';
@@ -105,13 +105,13 @@ export default async function Home({ searchParams }: any) {
           <div className="hidden lg:block">
             <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.brandPositioning}</p>
-              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Travel solutions designed for different people, not one fixed route.' : '围绕不同人群设计旅行方案，而不是出售一条固定线路。'}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'From couples and family travel to executive visits and private cultural journeys, we design China experiences around people, pace and purpose.' : '从情侣、家庭、商务接待到私人文化深度旅行，我们围绕客户类型、节奏与需求来设计中国定制体验。'}</p>
+              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Three clearer ways to enter China travel planning.' : '用三条更清晰的方式进入中国旅行规划。'}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'Start with the routes people understand fastest: first-time China city journeys, scenic and culture combinations, and private custom planning based on real dates, group size and budget.' : '先从客户最容易理解的几类路线切入：首访中国城市线、风景与文化组合线，以及基于真实日期、人数与预算的私人定制规划。'}</p>
               <div className="mt-8 grid grid-cols-2 gap-4">
-                <HeroStat label={lang === 'en' ? 'Positioning' : '定位'} value={lang === 'en' ? 'Tailor-Made' : '定制'} />
-                <HeroStat label={lang === 'en' ? 'Coverage' : '范围'} value={lang === 'en' ? 'China-wide' : '中国全域'} />
-                <HeroStat label={lang === 'en' ? 'Style' : '方式'} value={lang === 'en' ? 'Private' : '私享'} />
-                <HeroStat label={lang === 'en' ? 'Service' : '服务'} value={lang === 'en' ? 'Premium' : '高端'} />
+                <HeroStat label={lang === 'en' ? 'Direction 1' : '方向 1'} value={lang === 'en' ? 'First-Time China' : '首访中国'} />
+                <HeroStat label={lang === 'en' ? 'Direction 2' : '方向 2'} value={lang === 'en' ? 'Scenic + Culture' : '风景 + 文化'} />
+                <HeroStat label={lang === 'en' ? 'Direction 3' : '方向 3'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
+                <HeroStat label={lang === 'en' ? 'Reply' : '回复'} value={lang === 'en' ? 'Within 24h' : '24 小时内'} />
               </div>
             </div>
           </div>
@@ -120,9 +120,9 @@ export default async function Home({ searchParams }: any) {
 
       <section className="relative z-20 -mt-14 px-6">
         <div className="mx-auto grid max-w-7xl gap-5 rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:grid-cols-3 md:p-7">
-          <HighlightChip title={lang === 'en' ? 'Tailor-Made' : '定制方案'} desc={lang === 'en' ? 'Every journey is shaped around traveler type, pace and purpose.' : '每段旅程都围绕客群类型、节奏与真实需求来设计。'} />
-          <HighlightChip title={lang === 'en' ? 'China-Wide' : '中国全域'} desc={lang === 'en' ? 'Megacities, heritage regions and remote landscapes in one planning system.' : '都市、文化古都与山河边疆都可纳入同一套规划逻辑。'} />
-          <HighlightChip title={lang === 'en' ? 'Premium' : '高端体验'} desc={lang === 'en' ? 'A more refined travel process with stronger curation and personal support.' : '更注重品质、策划深度与一对一支持。'} />
+          <HighlightChip title={lang === 'en' ? 'First-Time China Trips' : '首访中国主线'} desc={lang === 'en' ? 'Clear private itineraries built around Beijing, Xi’an, Shanghai and other strong first-entry cities.' : '围绕北京、西安、上海等首访中国高接受度城市，设计更清晰的私人定制路线。'} />
+          <HighlightChip title={lang === 'en' ? 'Scenic & Culture Routes' : '风景与文化路线'} desc={lang === 'en' ? 'From classic heritage cities to Guilin and Zhangjiajie, we shape journeys people can understand and choose quickly.' : '从经典古都到桂林、张家界，把更容易理解、也更容易成交的风景与文化路线整理清楚。'} />
+          <HighlightChip title={lang === 'en' ? 'Private Custom Planning' : '私人定制规划'} desc={lang === 'en' ? 'Share your dates, group size, destinations and budget, and we turn that into a workable China plan.' : '把你的出行时间、人数、目的地和预算告诉我们，我们会把它整理成更可执行的中国行程方案。'} />
         </div>
       </section>
 
@@ -283,7 +283,7 @@ function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang 
 
 function DestinationCardsSection({ section, destinations, lang }: { section: any; destinations: any[]; lang: Lang }) {
   const manualItems = Array.isArray(section.items) ? section.items : [];
-  const dedupedDestinations = Array.isArray(destinations) ? dedupeDestinations(destinations) : [];
+  const dedupedDestinations = Array.isArray(destinations) ? prioritizeDestinations(dedupeDestinations(destinations)) : [];
   const autoItems = dedupedDestinations
     .slice(0, Math.max(section.maxItems || 6, 6))
     .map((destination: any) => ({
@@ -328,24 +328,27 @@ function DestinationCardsSection({ section, destinations, lang }: { section: any
 }
 
 function CaseInspirationsSection({ section, tours, lang }: { section: any; tours: any[]; lang: Lang }) {
+  const focusedTours = prioritizeTours(tours).slice(0, 3);
   return (
     <section id={section.anchorId || 'cases'} className="bg-[#f8fbff] py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].sampleCases} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        {tours && tours.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{tours.map((tour: any) => <TourCard key={tour._id} tour={tour} lang={lang} />)}</div>
+        <SectionHeader
+          eyebrow={uiText[lang].sampleCases}
+          title={lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions'}
+          subtitle={lang === 'zh' ? '先把最容易成交的内容讲清楚：首访中国经典线、成都轻松城市线、桂林张家界风景线。' : 'Start with the most understandable conversion routes: the classic first-China route, a softer Chengdu city route, and a Guilin–Zhangjiajie scenic route.'}
+        />
+        {focusedTours && focusedTours.length > 0 ? (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{focusedTours.map((tour: any) => <TourCard key={tour._id} tour={tour} lang={lang} />)}</div>
         ) : (
           <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-white px-6 py-16 text-center text-[var(--color-muted)]">
             <p className="text-lg">{uiText[lang].sampleCasesCanBeAdded}</p>
           </div>
         )}
-        {section.viewMoreText && resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) && (
-          <div className="mt-12 text-center">
-            <SmartLink href={resolveManagedLink(section.viewMoreTarget, section.viewMoreLink)} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-              {useDisplayText(section.viewMoreText, lang)}
-            </SmartLink>
-          </div>
-        )}
+        <div className="mt-12 text-center">
+          <SmartLink href={withLang('/tours', lang)} lang={lang} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+            {lang === 'zh' ? '查看更多路线案例' : 'View More Tour Cases'}
+          </SmartLink>
+        </div>
       </div>
     </section>
   );
@@ -442,6 +445,13 @@ function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems
 }
 
 function CtaSection({ section, lang }: { section: any; lang: Lang }) {
+  const ctaTitle = lang === 'zh' ? '把你的中国行程想法发给我们' : 'Tell us what kind of China journey you want';
+  const ctaSubtitle = lang === 'zh'
+    ? '告诉我们出行时间、人数、想去的城市、旅行风格和大致预算。我们会基于真实可执行性，帮你整理成更清晰的中国定制行程方案。通常 24 小时内回复。'
+    : 'Share your travel dates, group size, preferred destinations, travel style and approximate budget. We will turn that into a clearer, workable China itinerary suggestion based on real planning logic. We usually reply within 24 hours.';
+  const primaryButtonText = lang === 'zh' ? '发送行程需求' : 'Send Your Trip Request';
+  const secondaryButtonText = lang === 'zh' ? '查看联系方式' : 'View Contact Details';
+
   return (
     <section className="bg-white py-28">
       <div className="mx-auto max-w-6xl px-6">
@@ -452,11 +462,11 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
             </div>
           )}
           <div className="relative z-10">
-            <h3 className="text-3xl font-semibold md:text-5xl">{useDisplayText(section.title, lang)}</h3>
-            {section.subtitle && <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{useDisplayText(section.subtitle, lang)}</p>}
+            <h3 className="text-3xl font-semibold md:text-5xl">{ctaTitle}</h3>
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{ctaSubtitle}</p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              {section.primaryButtonText && <SmartLink href={resolveManagedLink(section.primaryButtonTarget, section.primaryButtonLink)} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">{useDisplayText(section.primaryButtonText, lang)}</SmartLink>}
-              {section.secondaryButtonText && <SmartLink href={resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink)} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{useDisplayText(section.secondaryButtonText, lang)}</SmartLink>}
+              <SmartLink href={resolveManagedLink(section.primaryButtonTarget, section.primaryButtonLink) || '/contact'} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">{primaryButtonText}</SmartLink>
+              <SmartLink href={resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink) || '/contact'} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{secondaryButtonText}</SmartLink>
             </div>
           </div>
         </div>
@@ -528,6 +538,20 @@ function SmartCardLink({ href, newTab, className, children, lang }: any) {
   return <a href={finalHref} className={className} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>{children}</a>;
 }
 
+function prioritizeTours(tours: any[]) {
+  const list = Array.isArray(tours) ? [...tours] : [];
+  const score = (tour: any) => {
+    const slug = String(tour?.slug || '').toLowerCase();
+    if (slug.includes('classic-china-first-journey') || slug.includes('golden-triangle') || slug.includes('beijing-xian-shanghai')) return 100;
+    if (slug.includes('panda-and-spice-discovery') || slug.includes('chengdu')) return 90;
+    if (slug.includes('guilin-zhangjiajie') || slug.includes('scenic-china') || slug.includes('china-scenic-escape')) return 80;
+    if (slug.includes('yunnan')) return 70;
+    if (slug.includes('xinjiang')) return 50;
+    return 10;
+  };
+  return list.sort((a, b) => score(b) - score(a));
+}
+
 function TourCard({ tour, lang }: { tour: any; lang: Lang }) {
   const tourTitle = useDisplayText(tour.title, lang);
   const tourDescription = useDisplayText(tour.description, lang);
@@ -577,6 +601,25 @@ function renderManagedIcon(item: any, className = 'text-5xl') {
 }
 
 const presetIconMap: Record<string, string> = { compass: '✦', map: '◌', camera: '◈', star: '✧', shield: '⬒', chat: '◍', plane: '➝', mountain: '△', heart: '♡', clock: '◷' };
+
+function prioritizeDestinations(destinations: any[]) {
+  const list = Array.isArray(destinations) ? [...destinations] : [];
+  const score = (destination: any) => {
+    const slug = normalizeDestinationSlug(destination?.slug) || normalizeDestinationSlug(pickLocalized(destination?.name, 'en'));
+    if (slug.includes('beijing')) return 100;
+    if (slug.includes('xian') || slug.includes('xi-an') || slug.includes('shaanxi')) return 95;
+    if (slug.includes('shanghai')) return 90;
+    if (slug.includes('chengdu')) return 85;
+    if (slug.includes('guilin')) return 80;
+    if (slug.includes('zhangjiajie')) return 75;
+    if (slug.includes('yunnan')) return 65;
+    if (slug.includes('chongqing')) return 60;
+    if (slug.includes('shenzhen')) return 55;
+    if (slug.includes('xinjiang')) return 45;
+    return 10;
+  };
+  return list.sort((a, b) => score(b) - score(a));
+}
 
 function dedupeDestinations(destinations: any[]) {
   const map = new Map<string, any>();

@@ -37,18 +37,34 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
 
   if (!destination) notFound();
 
-  const name = text(destination.name, lang, lang === 'zh' ? '精选目的地' : 'Destination');
   const content = getDestinationContent(destination.slug);
-  const tagline = markPlaceholder(pickLocalized(destination.tagline, lang) || '');
-  const description = markPlaceholder(pickLocalized(destination.description, lang) || content?.summary?.[lang] || '');
-  const idealFor = markPlaceholder(pickLocalized(destination.idealFor, lang) || content?.audience?.[lang] || '');
-  const bestTime = markPlaceholder(pickLocalized(destination.bestTime, lang) || content?.bestSeason?.[lang] || '');
-  const suggestedStay = markPlaceholder(pickLocalized(destination.suggestedStay, lang) || content?.stay?.[lang] || '');
+  const name = text(destination.name, lang, content.title?.[lang] || (lang === 'zh' ? '精选目的地' : 'Destination'));
+  const tagline = text(destination.tagline, lang, content.tagline?.[lang] || '');
+  const description = text(destination.description, lang, content.summary?.[lang] || '');
+  const idealFor = text(destination.idealFor, lang, content.audience?.[lang] || '');
+  const bestTime = text(destination.bestTime, lang, content.bestTime?.[lang] || '');
+  const stay = text(destination.suggestedStay, lang, content.stay?.[lang] || '');
+
   const highlights = Array.isArray(destination.highlights) && destination.highlights.length > 0
     ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean)
-    : (content?.highlights?.map((item: any) => item?.[lang]).filter(Boolean) || []);
-  const experiences = Array.isArray(destination.experiences) ? destination.experiences : [];
-  const samplePlan = Array.isArray(destination.samplePlan) ? destination.samplePlan : [];
+    : (content.highlights?.[lang] || []);
+
+  const experiences = Array.isArray(destination.experiences) && destination.experiences.length > 0
+    ? destination.experiences.map((item: any) => text(item, lang)).filter(Boolean)
+    : (content.experiences?.[lang] || []);
+
+  const samplePlan = Array.isArray(destination.samplePlan) && destination.samplePlan.length > 0
+    ? destination.samplePlan.map((item: any, index: number) => ({
+        day: item?.day || index + 1,
+        title: text(item?.title, lang),
+        description: text(item?.description, lang),
+      }))
+    : (content.samplePlan?.[lang] || []).map((item: any, index: number) => ({
+        day: index + 1,
+        title: item.title,
+        description: item.description,
+      }));
+
   const heroFacts = Array.isArray(destination.heroFacts) ? destination.heroFacts : [];
   const gallery = Array.isArray(destination.gallery) ? destination.gallery.filter(Boolean) : [];
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
@@ -95,42 +111,55 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
       <section className="px-6 py-14">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
-            <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '目的地概览' : 'Overview'}</p>
-              <p className="mt-5 text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">{description || (lang === 'zh' ? '这个目的地页面已准备好展示结构，后续会继续补充更完整的亮点、体验与行程建议。' : 'This destination page is ready as a structured overview, with more highlights, experiences, and route suggestions to be added in future updates.')}</p>
-            </div>
+            <Card title={lang === 'zh' ? '目的地概览' : 'Overview'}>
+              <p className="text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">
+                {description || (lang === 'zh' ? '这个目的地页面已准备好作为结构化内容模板，后续会继续补充更完整的亮点、体验与行程建议。' : 'This destination page is ready as a structured content template, with more highlights, experiences and route suggestions to be added.')}
+              </p>
+            </Card>
 
             <div className="grid gap-6 md:grid-cols-3">
-              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor || (lang === 'zh' ? '可按旅行方式、同行人群与出行节奏进一步细化。' : 'Can be tailored further by travel style, traveler profile, and preferred pace.')} />
-              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime || (lang === 'zh' ? '可根据季节、气候和你想看的景观类型进一步建议。' : 'Best timing can be refined further based on season, climate, and the type of scenery you want to focus on.')} />
-              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={suggestedStay || (lang === 'zh' ? '可根据行程长度与组合城市灵活调整。' : 'Length of stay can be adjusted flexibly based on your wider route and travel rhythm.')} />
+              <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor || (lang === 'zh' ? '可按旅行方式、同行人群与出行节奏进一步细化。' : 'Can be refined further by travel style, traveler profile and pacing.')} />
+              <MiniCard title={lang === 'zh' ? '最佳时间' : 'Best Time'} value={bestTime || (lang === 'zh' ? '可根据季节、气候和你想看的景观类型进一步建议。' : 'Best timing can be refined based on season, climate and the scenery you want.')} />
+              <MiniCard title={lang === 'zh' ? '建议停留' : 'Suggested Stay'} value={stay || (lang === 'zh' ? '可根据整条路线长度灵活调整。' : 'Can be adjusted flexibly based on the wider route.')} />
             </div>
 
-            <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_18px_46px_rgba(10,27,52,0.05)] md:p-10">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '核心亮点' : 'Highlights'}</p>
-              <ul className="mt-5 space-y-4">
-                {(highlights.length ? highlights : [lang === 'zh' ? '后续可在此补充这个目的地最值得卖给游客的 3-5 个核心亮点。' : 'Core selling highlights for this destination can be expanded here in future updates.']).map((item: string, index: number) => (
+            <Card title={lang === 'zh' ? '核心亮点' : 'Highlights'} soft>
+              <ul className="space-y-4">
+                {(highlights.length ? highlights : [lang === 'zh' ? '后续可继续补充这个目的地最值得卖给游客的 3–5 个核心亮点。' : 'Core selling highlights can be expanded here in future updates.']).map((item: string, index: number) => (
                   <li key={index} className="flex items-start gap-3 text-[var(--color-slate)]">
                     <span className="mt-1 text-[var(--color-navy)]">✦</span>
                     <span className="leading-8">{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Card>
 
-            <SectionBlock
-              title={lang === 'zh' ? '推荐体验' : 'Recommended Experiences'}
-              items={experiences}
-              lang={lang}
-              emptyTitle={lang === 'zh' ? '后续可继续补充推荐体验模块。' : 'Recommended experience sections can be added here in future updates.'}
-            />
+            <Card title={lang === 'zh' ? '推荐体验' : 'Recommended Experiences'}>
+              {experiences.length > 0 ? (
+                <div className="space-y-4">
+                  {experiences.map((item: string, index: number) => (
+                    <p key={index} className="leading-8 text-[var(--color-muted)]">• {item}</p>
+                  ))}
+                </div>
+              ) : (
+                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '后续可继续补充推荐体验模块。' : 'Recommended experience sections can be added here in future updates.'}</p>
+              )}
+            </Card>
 
-            <SectionBlock
-              title={lang === 'zh' ? '示例安排' : 'Sample Plan'}
-              items={samplePlan}
-              lang={lang}
-              emptyTitle={lang === 'zh' ? '后续可继续补充示例行程安排。' : 'A fuller sample plan can be added here in future updates.'}
-            />
+            <Card title={lang === 'zh' ? '示例安排' : 'Sample Plan'}>
+              {samplePlan.length > 0 ? (
+                <div className="space-y-6">
+                  {samplePlan.map((item: any, index: number) => (
+                    <div key={index} className="border-b border-[rgba(10,27,52,0.08)] pb-6 last:border-b-0">
+                      <h3 className="text-xl font-semibold text-[var(--color-navy)]">{lang === 'zh' ? `第${item.day}天` : `Day ${item.day}`} · {item.title}</h3>
+                      <p className="mt-2 leading-8 text-[var(--color-muted)] whitespace-pre-line">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '后续可继续补充示例行程安排。' : 'A fuller sample plan can be added here in future updates.'}</p>
+              )}
+            </Card>
           </div>
 
           <aside className="space-y-6">
@@ -138,8 +167,8 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '页面用途' : 'How to Use This Page'}</p>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">
                 {lang === 'zh'
-                  ? '这个详情页框架适合后台按目的地分别填充内容。你可以先做 1 个标准版本，确认结构满意后，再复制到更多目的地并分别补图、亮点、体验和示例安排。'
-                  : 'This destination page is designed as a reusable CMS-driven template. Create one strong standard version first, then duplicate the structure across more destinations and customize the details.'}
+                  ? '这个详情页适合后续按目的地逐个填充。你可以先做 1 个标准版本，确认结构满意后，再复制到更多目的地并补图、补亮点、补体验和补示例安排。'
+                  : 'This page is meant to be filled destination by destination. Build one strong standard version first, then duplicate it across more destinations and customize the details.'}
               </p>
               <div className="mt-7 flex flex-col gap-3">
                 <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
@@ -151,19 +180,27 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '图集' : 'Gallery'}</p>
-              <div className="mt-5 grid grid-cols-2 gap-3">
+            <Card title={lang === 'zh' ? '图集' : 'Gallery'}>
+              <div className="grid grid-cols-2 gap-3">
                 {(gallery.length ? gallery.slice(0, 4) : [destination.image]).filter(Boolean).map((image: any, index: number) => (
                   <div key={index} className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem] bg-[var(--color-soft-white)]">
                     <Image src={imageUrlFor(image, 900, getDestinationFallbackImage(destination.slug))} alt={`${name} ${index + 1}`} fill className="object-cover" />
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           </aside>
         </div>
       </section>
+    </div>
+  );
+}
+
+function Card({ title, children, soft = false }: { title: string; children: React.ReactNode; soft?: boolean }) {
+  return (
+    <div className={`rounded-[2rem] border border-[rgba(10,27,52,0.08)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10 ${soft ? 'bg-[var(--color-soft-white)]' : 'bg-white'}`}>
+      <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{title}</p>
+      <div className="mt-5">{children}</div>
     </div>
   );
 }
@@ -173,24 +210,6 @@ function MiniCard({ title, value }: { title: string; value: string }) {
     <div className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
       <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{title}</p>
       <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{value}</p>
-    </div>
-  );
-}
-
-function SectionBlock({ title, items, lang, emptyTitle }: { title: string; items: any[]; lang: 'en' | 'zh'; emptyTitle: string }) {
-  return (
-    <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
-      <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{title}</p>
-      <div className="mt-6 space-y-6">
-        {items.length > 0 ? items.map((item: any, index: number) => (
-          <div key={index} className="border-b border-[rgba(10,27,52,0.08)] pb-6 last:border-b-0">
-            <h3 className="text-xl font-semibold text-[var(--color-navy)]">{text(item.title, lang, emptyTitle)}</h3>
-            <p className="mt-2 leading-8 text-[var(--color-muted)] whitespace-pre-line">{text(item.description, lang)}</p>
-          </div>
-        )) : (
-          <div className="text-[var(--color-muted)] leading-8">{emptyTitle}</div>
-        )}
-      </div>
     </div>
   );
 }

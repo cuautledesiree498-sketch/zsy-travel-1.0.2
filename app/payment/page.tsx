@@ -25,73 +25,27 @@ export default async function PaymentPage({ searchParams }: any) {
 
   const scenarios = isZh
     ? [
-        {
-          title: '咨询后确认定金',
-          desc: '当路线方向、出行时间和服务范围已经明确时，可能进入定金确认阶段。',
-        },
-        {
-          title: '订单确认后的尾款安排',
-          desc: '在订单结构、执行方式和费用明细明确后，再安排后续付款。',
-        },
-        {
-          title: '特殊项目或定制服务费用',
-          desc: '对于更复杂的私人定制、接待或多城市组合项目，会先沟通再确认支付方式。',
-        },
+        { title: '咨询后确认定金', desc: '当路线方向、出行时间和服务范围已经明确时，可能进入定金确认阶段。' },
+        { title: '订单确认后的尾款安排', desc: '在订单结构、执行方式和费用明细确认后，再安排后续付款。' },
+        { title: '定制服务或特殊项目费用', desc: '对于更复杂的私人定制、接待或多城市组合项目，会先沟通再确认支付方式。' },
       ]
     : [
-        {
-          title: 'Deposit after consultation',
-          desc: 'A deposit may be arranged only after the route direction, travel timing and service scope are clarified.',
-        },
-        {
-          title: 'Final payment after booking confirmation',
-          desc: 'The next payment step is arranged after the booking structure, execution details and cost breakdown are confirmed.',
-        },
-        {
-          title: 'Custom service or special project fees',
-          desc: 'For more complex private journeys, hosting requests or multi-city combinations, payment is confirmed only after discussion.',
-        },
+        { title: 'Deposit after consultation', desc: 'A deposit may be arranged only after the route direction, travel timing and service scope are clarified.' },
+        { title: 'Final payment after booking confirmation', desc: 'The next payment step is arranged after the booking structure, execution details and cost breakdown are confirmed.' },
+        { title: 'Custom service or special project fees', desc: 'For more complex private journeys, hosting requests or multi-city combinations, payment is confirmed only after discussion.' },
       ];
 
   const checks = isZh
-    ? [
-        '出行日期与大致行程时长',
-        '人数与同行结构',
-        '意向目的地与路线方向',
-        '预算范围与服务预期',
-        '金额、币种与付款节点',
-      ]
-    : [
-        'Travel dates and expected trip length',
-        'Group size and traveler profile',
-        'Preferred destinations and route direction',
-        'Budget range and service expectations',
-        'Amount, currency and payment timing',
-      ];
+    ? ['出行日期与大致行程时长', '人数与同行结构', '意向目的地与路线方向', '预算范围与服务预期', '金额、币种与付款节点']
+    : ['Travel dates and expected trip length', 'Group size and traveler profile', 'Preferred destinations and route direction', 'Budget range and service expectations', 'Amount, currency and payment timing'];
 
   const afterPayment = isZh
-    ? [
-        '收到确认信息或后续沟通说明',
-        '进入下一步路线推进或订单执行流程',
-        '如需补充材料或信息，会继续与您确认',
-      ]
-    : [
-        'You receive a confirmation message or next-step instruction',
-        'We move forward with route planning or booking execution',
-        'If any additional information is needed, we follow up with you directly',
-      ];
+    ? ['收到确认信息或后续沟通说明', '进入下一步路线推进或订单执行流程', '如需补充材料或信息，会继续与您确认']
+    : ['You receive a confirmation message or next-step instruction', 'We move forward with route planning or booking execution', 'If any additional information is needed, we follow up with you directly'];
 
   const principles = isZh
-    ? [
-        '未确认前，不建议直接付款。',
-        '支付方式以双方沟通确认后的安排为准。',
-        '当前页面不展示伪支付按钮，也不引导未确认状态下直接付款。',
-      ]
-    : [
-        'We do not recommend paying before the details are confirmed.',
-        'The actual payment method depends on the confirmed arrangement after consultation.',
-        'This page does not show fake payment buttons or push unconfirmed payments.',
-      ];
+    ? ['未确认前，不建议直接付款。', '支付方式以双方沟通确认后的安排为准。', '当前页面不展示伪支付按钮，也不引导未确认状态下直接付款。']
+    : ['We do not recommend paying before the details are confirmed.', 'The actual payment method depends on the confirmed arrangement after consultation.', 'This page does not show fake payment buttons or push unconfirmed payments.'];
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -121,7 +75,7 @@ export default async function PaymentPage({ searchParams }: any) {
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_20px_60px_rgba(10,27,52,0.06)] md:p-10">
             <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '支付前确认' : 'Before Payment'}</p>
-            <h3 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '我们会先确认这些信息' : 'We Confirm These Details First'}</h3>
+            <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '我们会先确认这些信息' : 'We Confirm These Details First'}</h2>
             <div className="mt-6 space-y-4 text-base leading-8 text-[var(--color-muted)]">
               {checks.map((item, index) => (
                 <p key={index}>• {item}</p>
@@ -131,7 +85,7 @@ export default async function PaymentPage({ searchParams }: any) {
 
           <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] p-8 text-white shadow-[0_24px_60px_rgba(10,27,52,0.08)] md:p-10">
             <p className="text-xs uppercase tracking-[0.28em] text-white/70">{isZh ? '支付后' : 'After Payment'}</p>
-            <h3 className="mt-4 text-3xl font-semibold md:text-4xl">{isZh ? '后续会怎么推进' : 'What Happens Next'}</h3>
+            <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{isZh ? '后续会怎么推进' : 'What Happens Next'}</h2>
             <div className="mt-6 space-y-4 text-base leading-8 text-white/84">
               {afterPayment.map((item, index) => (
                 <p key={index}>• {item}</p>
@@ -144,7 +98,7 @@ export default async function PaymentPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[#f8fbff] p-8 shadow-[0_20px_60px_rgba(10,27,52,0.05)] md:p-10">
           <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '当前原则' : 'Current Principles'}</p>
-          <h3 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '先确认，再支付' : 'Confirm First, Pay Second'}</h3>
+          <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '先确认，再支付' : 'Confirm First, Pay Second'}</h2>
           <div className="mt-6 space-y-4 text-base leading-8 text-[var(--color-muted)]">
             {principles.map((item, index) => (
               <p key={index}>• {item}</p>

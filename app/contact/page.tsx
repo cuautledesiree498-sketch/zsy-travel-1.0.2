@@ -79,7 +79,7 @@ export default async function ContactPage({ searchParams }: any) {
             <InfoCard title={lang === 'en' ? 'Brand' : '品牌名称'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'The public-facing brand name currently used on this website.' : '当前网站对外展示使用的品牌名称。'} />
             <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Primary inquiry channel currently in use.' : '当前已启用的主要咨询邮箱。'} />
             <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Currently available for follow-up communication after initial inquiry.' : '当前可用于初步沟通后的后续联系。'} />
-            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '当前以邮箱 / 微信承接为主' : 'Email / WeChat currently used as the main follow-up channels')} desc={lang === 'en' ? 'WhatsApp is not the main public channel yet.' : 'WhatsApp 暂不是当前主要公开承接渠道。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '当前以邮箱 / 微信承接为主' : 'Email / WeChat currently used as the main follow-up channels')} desc={lang === 'en' ? 'WhatsApp is currently not the primary public channel.' : 'WhatsApp 暂不是当前主要公开承接渠道。'} />
             <InfoCard title={lang === 'en' ? 'Office / Service Base' : '办公地点 / 服务范围'} value={contactAddress} desc={lang === 'en' ? 'Remote planning and destination-based service coordination across key China routes.' : '以远程方案沟通 + 目的地服务协同为主，覆盖中国核心旅行线路。'} />
           </div>
 
