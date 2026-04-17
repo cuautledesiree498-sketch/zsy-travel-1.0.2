@@ -42,7 +42,7 @@ export default async function ContactPage({ searchParams }: any) {
     : ['1️⃣ Travel dates and trip length', '2️⃣ Group size and traveler type', '3️⃣ Preferred destinations', '4️⃣ Budget range', '5️⃣ Any special needs (diet / language / pace)'];
   const contactStatusNote = lang === 'zh' ? '我们会先查看你的时间、人数、目的地与预算信息，通常会在 24 小时内通过邮箱或后续沟通方式回复。' : 'We first review your timing, group size, destinations and budget, and usually reply within 24 hours by email or the next agreed contact method.';
   const contactCtaTitle = lang === 'zh' ? '咨询后会发生什么' : 'What Happens After You Inquire';
-  const contactCtaSubtitle = lang === 'zh' ? '我们不会让你直接跳进模糊报价。先收集基本信息，再判断方向、节奏与可行性，确认适合后再进入路线和支付环节。' : 'We do not push you into a vague quote immediately. We first collect the essentials, then assess direction, pace and feasibility before moving into route planning and payment.';
+  const contactCtaSubtitle = lang === 'zh' ? '我们不会让你直接跳进模糊报价。先收集基本信息，再判断方向、节奏与可行性，确认适合后再进入路线和支付环节。' : 'We first collect the essentials, then assess direction, pace and feasibility before moving into route planning and payment.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -122,7 +122,7 @@ export default async function ContactPage({ searchParams }: any) {
 
       <section className="bg-[#f8fbff] px-6 py-20">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] px-8 py-14 text-center text-white shadow-[0_35px_80px_rgba(10,27,52,0.14)] md:px-16">
-          <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{lang === 'zh' ? '支付入口' : 'Payment Entry'}</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-[rgba(255,255,255,0.66)]">{lang === 'zh' ? '下一步' : 'Next Step'}</p>
           <h3 className="mt-4 text-3xl font-semibold md:text-5xl">{contactCtaTitle}</h3>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{contactCtaSubtitle}</p>
           <div className="mt-8 grid gap-4 md:grid-cols-3 text-left">

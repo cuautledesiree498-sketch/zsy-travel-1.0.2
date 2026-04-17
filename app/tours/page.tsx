@@ -22,16 +22,16 @@ export default async function ToursPage({ searchParams }: any) {
       <section className="mt-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f6f8fc)] p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)] md:p-8">
         <div className="grid gap-6 md:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '怎么用这些页面' : 'How to use these pages'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '先选最接近的路线方向，不需要一开始就完全匹配。' : 'Start with the closest route, not the perfect one.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '先选一个方向' : 'Start with one direction'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '选最接近你想法的路线即可，不用一开始就完全定稿。' : 'Pick the route closest to your idea. It does not need to be final yet.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '发什么信息给我们' : 'What to send us'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '日期、人数、想去的城市、旅行风格和大概预算。' : 'Your dates, group size, target cities, travel style and rough budget.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '把需求发给我们' : 'Send us the essentials'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '日期、人数、目的地、旅行风格和预算，先给这些就够了。' : 'Dates, group size, destinations, travel style and budget are enough to start.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '下一步' : 'Next step'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '我们会把参考案例继续整理成更适合你的一版。' : 'We reshape the reference case into a version that fits you better.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '我们怎么继续' : 'How we continue'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '我们会把参考案例收束成更适合你的正式版本。' : 'We turn the reference case into a proper version that fits you.'}</p>
           </div>
         </div>
       </section>
@@ -64,8 +64,8 @@ export default async function ToursPage({ searchParams }: any) {
       </section>
 
       <section className="mt-16 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 md:p-10">
-        <h2 className="text-2xl font-semibold text-[var(--color-navy)] md:text-3xl">{lang === 'zh' ? '不知道先选哪条？' : 'Not sure which route to start with?'}</h2>
-        <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '没关系，直接把你想去的地方、预计出行时间、人数和预算告诉我们，我们会先帮你判断更适合走首访中国城市线、风景文化组合线，还是私人定制长线。' : 'That is fine. Just send us your target destinations, expected travel dates, group size and budget. We can help you decide whether you are better suited to a first-time China route, a scenery-plus-culture combination, or a longer private custom plan.'}</p>
+        <h2 className="text-2xl font-semibold text-[var(--color-navy)] md:text-3xl">{lang === 'zh' ? '还不确定怎么选？' : 'Still not sure which route to choose?'}</h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '直接告诉我们你最想去的城市、出行时间、人数和预算，我们会先帮你判断更适合城市首访线、风景文化组合线，还是更长一点的深度定制路线。' : 'Tell us your target cities, travel dates, group size and budget, and we will help you decide between a first-time city route, a scenery-plus-culture combination, or a longer custom journey.'}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
             {lang === 'zh' ? '发送行程需求' : 'Send Your Trip Request'}

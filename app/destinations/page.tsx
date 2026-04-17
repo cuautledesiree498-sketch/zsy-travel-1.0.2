@@ -24,16 +24,16 @@ export default async function DestinationsPage({ searchParams }: any) {
       <section className="mt-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f6f8fc)] p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)] md:p-8">
         <div className="grid gap-6 md:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '先选方向' : 'Start with direction'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '先选一个最接近你偏好的目的地，不需要一开始就完全确定。' : 'Pick the destination closest to your preference first. It does not need to be final.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '先选一个目的地' : 'Choose one destination first'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '先从最接近你偏好的城市或地区开始，不需要一次选完。' : 'Start with the city or region closest to your preference. You do not need to decide everything at once.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '再补信息' : 'Then add details'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '准备好日期、人数、预算和想看的内容，我们再继续细化。' : 'Bring your dates, group size, budget and priorities, and we refine from there.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '再补充需求' : 'Then add your details'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把日期、人数、预算和偏好告诉我们，我们会继续细化。' : 'Share your dates, group size, budget and preferences, and we will refine from there.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '最终目标' : 'Final goal'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把目的地想法整理成真正可执行、可比较、可下单的中国路线。' : 'Turn a destination idea into a China route that is easier to compare, discuss and book.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '最后变成路线' : 'Turn it into a route'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把一个目的地想法整理成真正可执行、可比较、可预订的旅行方案。' : 'Turn a destination idea into a route that is practical, comparable and ready to book.'}</p>
           </div>
         </div>
       </section>
@@ -82,8 +82,8 @@ export default async function DestinationsPage({ searchParams }: any) {
       </section>
 
       <div className="mt-14">
-        <Link href={withLang('/', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
-          {lang === 'zh' ? '返回首页' : 'Back to Home'}
+        <Link href={withLang('/contact', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+          {lang === 'zh' ? '直接咨询这个方向' : 'Inquire About This Direction'}
         </Link>
       </div>
     </main>
