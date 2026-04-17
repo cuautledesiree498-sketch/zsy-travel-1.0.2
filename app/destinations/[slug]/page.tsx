@@ -38,8 +38,8 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   if (!destination) notFound();
 
   const content = getDestinationContent(destination.slug);
-  const name = text(destination.name, lang, content.title?.[lang] || (lang === 'zh' ? '精选目的地' : 'Destination'));
-  const tagline = text(destination.tagline, lang, content.tagline?.[lang] || '');
+  const name = text(destination.name, lang, content.summary?.[lang] ? (lang === 'zh' ? '精选目的地' : 'Destination') : (lang === 'zh' ? '精选目的地' : 'Destination'));
+  const tagline = text(destination.tagline, lang, '');
   const description = text(destination.description, lang, content.summary?.[lang] || '');
   const idealFor = text(destination.idealFor, lang, content.audience?.[lang] || '');
   const bestTime = text(destination.bestTime, lang, content.bestTime?.[lang] || '');
