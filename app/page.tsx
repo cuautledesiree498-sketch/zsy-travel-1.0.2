@@ -19,8 +19,8 @@ export default async function Home({ searchParams }: any) {
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
   const heroTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
-  const heroSubtitle = lang === 'zh' ? '中国高端定制旅行' : 'Tailor-Made China Journeys';
-  const heroSupporting = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅程。' : 'Multi-city private travel across China for global travelers.';
+  const heroSubtitle = lang === 'zh' ? '中国私人定制行程，不做模板团，先按你的时间、人数和预算来规划' : 'Private China itineraries built around your dates, group size and budget, not a generic package tour';
+  const heroSupporting = lang === 'zh' ? '更适合首次来华家庭、情侣、小团、商务接待与想把中国线路做得更清楚的海外旅客。你先告诉我们想去哪里、准备玩几天、几个人出行、预算大概多少，我们会把它整理成一版更容易决策的中国行程方案。' : 'Built for first-time China visitors, couples, families, private groups and business guests who need a clearer route. Tell us where you want to go, how many days you have, how many people are traveling and your rough budget, and we turn that into a China itinerary that is easier to understand and buy.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
   const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更贴近真实需求的旅程设计。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured journey design.';
@@ -105,12 +105,12 @@ export default async function Home({ searchParams }: any) {
           <div className="hidden lg:block">
             <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.brandPositioning}</p>
-              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Three clearer ways to enter China travel planning.' : '用三条更清晰的方式进入中国旅行规划。'}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'Start with the routes people understand fastest: first-time China city journeys, scenic and culture combinations, and private custom planning based on real dates, group size and budget.' : '先从客户最容易理解的几类路线切入：首访中国城市线、风景与文化组合线，以及基于真实日期、人数与预算的私人定制规划。'}</p>
+              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Start from routes people can understand, compare and inquire about quickly.' : '先把路线做成客户一眼能理解、比较和发起咨询的样子。'}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'Lead with clearer entry products: first-time China city routes, scenic and culture combinations, and private custom planning based on real travel dates, group size and budget. This makes the site feel less like a gallery and more like a place to start a real trip request.' : '先用客户最容易看懂的几类入口承接：首次来华城市线、风景与文化组合线，以及基于真实出行日期、人数和预算的私人定制规划。这样首页看起来就不只是展示，而更像一个可以真正开始下单咨询的入口。'}</p>
               <div className="mt-8 grid grid-cols-2 gap-4">
-                <HeroStat label={lang === 'en' ? 'Direction 1' : '方向 1'} value={lang === 'en' ? 'First-Time China' : '首访中国'} />
-                <HeroStat label={lang === 'en' ? 'Direction 2' : '方向 2'} value={lang === 'en' ? 'Scenic + Culture' : '风景 + 文化'} />
-                <HeroStat label={lang === 'en' ? 'Direction 3' : '方向 3'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
+                <HeroStat label={lang === 'en' ? 'Best for' : '适合'} value={lang === 'en' ? 'First-Time Guests' : '首访中国客群'} />
+                <HeroStat label={lang === 'en' ? 'Planning' : '规划方式'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
+                <HeroStat label={lang === 'en' ? 'Input needed' : '所需信息'} value={lang === 'en' ? 'Dates + Budget' : '日期 + 预算'} />
                 <HeroStat label={lang === 'en' ? 'Reply' : '回复'} value={lang === 'en' ? 'Within 24h' : '24 小时内'} />
               </div>
             </div>
@@ -120,9 +120,9 @@ export default async function Home({ searchParams }: any) {
 
       <section className="relative z-20 -mt-14 px-6">
         <div className="mx-auto grid max-w-7xl gap-5 rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:grid-cols-3 md:p-7">
-          <HighlightChip title={lang === 'en' ? 'First-Time China Trips' : '首访中国主线'} desc={lang === 'en' ? 'Clear private itineraries built around Beijing, Xi’an, Shanghai and other strong first-entry cities.' : '围绕北京、西安、上海等首访中国高接受度城市，设计更清晰的私人定制路线。'} />
-          <HighlightChip title={lang === 'en' ? 'Scenic & Culture Routes' : '风景与文化路线'} desc={lang === 'en' ? 'From classic heritage cities to Guilin and Zhangjiajie, we shape journeys people can understand and choose quickly.' : '从经典古都到桂林、张家界，把更容易理解、也更容易成交的风景与文化路线整理清楚。'} />
-          <HighlightChip title={lang === 'en' ? 'Private Custom Planning' : '私人定制规划'} desc={lang === 'en' ? 'Share your dates, group size, destinations and budget, and we turn that into a workable China plan.' : '把你的出行时间、人数、目的地和预算告诉我们，我们会把它整理成更可执行的中国行程方案。'} />
+          <HighlightChip title={lang === 'en' ? 'First-Time China Routes' : '首访中国路线'} desc={lang === 'en' ? 'Clearer private itineraries built around Beijing, Xi’an, Shanghai and other cities that are easy for overseas guests to recognize and compare.' : '围绕北京、西安、上海等海外客人最容易理解和比较的城市，做成更清晰的首访中国私人定制路线。'} />
+          <HighlightChip title={lang === 'en' ? 'Scenery + Culture Combos' : '风景 + 文化组合'} desc={lang === 'en' ? 'From classic heritage cities to Guilin, Zhangjiajie and Xinjiang, we package stronger visual and cultural combinations into easier-to-sell routes.' : '从经典古都到桂林、张家界、新疆，把更有画面感、更容易成交的风景与文化组合路线整理清楚。'} />
+          <HighlightChip title={lang === 'en' ? 'Send a Trip Brief First' : '先发需求，再做方案'} desc={lang === 'en' ? 'Tell us your dates, group size, destination ideas and budget first. We then shape that into a workable China plan instead of forcing you into a fixed package.' : '先把出行时间、人数、想去的地方和预算发给我们，我们再把它整理成更可执行的中国行程，而不是硬套固定团。'} />
         </div>
       </section>
 

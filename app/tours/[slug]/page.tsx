@@ -157,22 +157,36 @@ export default async function TourDetailPage({ params, searchParams }: { params:
 
           <aside className="space-y-6">
             <div className="sticky top-24 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f7faff)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.08)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '参考信息' : 'Reference Info'}</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '咨询入口' : 'Inquiry Entry'}</p>
+              <h3 className="mt-4 text-2xl font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '如果你喜欢这个方向，就直接按这条线来问。' : 'If this direction fits, use it as the base of your inquiry.'}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+                {lang === 'zh'
+                  ? '不需要一开始就把需求说得很完整。你只要先告诉我们大概什么时候来、几个人、想走这条线还是做调整、预算大概多少，我们就能继续把它整理成更适合成交的版本。'
+                  : 'You do not need a perfect brief at the start. Just tell us roughly when you want to travel, how many people are coming, whether you want this route as-is or with changes, and your approximate budget. We can shape it into a version that is easier to discuss and confirm.'}
+              </p>
               <div className="mt-5 space-y-4 border-y border-[rgba(10,27,52,0.08)] py-5 text-sm text-[var(--color-slate)]">
-                <InfoRow label={lang === 'zh' ? '时长' : 'Duration'} value={tour.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'Days'}` : (lang === 'zh' ? '待补充' : 'Coming soon')} />
-                <InfoRow label={lang === 'zh' ? '参考预算' : 'Reference Budget'} value={tour.price ? `$${tour.price}` : (lang === 'zh' ? '待补充' : 'Coming soon')} />
+                <InfoRow label={lang === 'zh' ? '适合人群' : 'Best for'} value={idealFor} />
+                <InfoRow label={lang === 'zh' ? '时长参考' : 'Suggested length'} value={tour.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'Days'}` : (lang === 'zh' ? '可调整' : 'Flexible')} />
+                <InfoRow label={lang === 'zh' ? '预算方式' : 'Budget style'} value={tour.price ? `$${tour.price}` : (lang === 'zh' ? '按人数与标准定制' : 'Customized by group size and service level')} />
                 <InfoRow label={lang === 'zh' ? '联系邮箱' : 'Email'} value={CONTACT_EMAIL} />
                 <InfoRow label="WeChat" value={WECHAT_ID} />
               </div>
-              <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">
-                {lang === 'zh'
-                  ? '这类页面更适合作为案例参考和成交辅助，不必把它理解成唯一固定产品。你可以先用一条标准案例打样，再复制成更多可售卖版本。'
-                  : 'This type of page works best as a reference case and conversion aid rather than a single rigid product. Build one strong standard case first, then duplicate it into more sellable versions.'}
-              </p>
+              <div className="mt-6 rounded-[1.5rem] bg-[var(--color-soft-white)] p-5 text-sm leading-7 text-[var(--color-slate)]">
+                <p className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '建议你发这几项信息：' : 'Best things to send us:'}</p>
+                <ul className="mt-3 space-y-2">
+                  <li>{lang === 'zh' ? '1. 预计出行日期' : '1. Expected travel dates'}</li>
+                  <li>{lang === 'zh' ? '2. 人数与大致客群（家庭 / 情侣 / 小团 / 商务）' : '2. Group size and type (family / couple / private group / business)'}</li>
+                  <li>{lang === 'zh' ? '3. 想保留这条线的哪些部分，想改哪些部分' : '3. What parts of this route you want to keep or change'}</li>
+                  <li>{lang === 'zh' ? '4. 大致预算范围' : '4. Rough budget range'}</li>
+                </ul>
+              </div>
               <div className="mt-7 flex flex-col gap-3">
-                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
-                  {lang === 'zh' ? '咨询这个方向' : 'Discuss This Itinerary'}
+                <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(lang === 'zh' ? `咨询路线：${title}` : `Inquiry about route: ${title}`)}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+                  {lang === 'zh' ? '按这条线发起咨询' : 'Inquire About This Route'}
                 </a>
+                <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+                  {lang === 'zh' ? '去联系页发需求' : 'Open Contact Page'}
+                </Link>
                 <Link href={withLang('/tours', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '返回线路列表' : 'Back to Tours'}
                 </Link>
