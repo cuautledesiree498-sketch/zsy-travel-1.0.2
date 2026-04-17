@@ -42,16 +42,16 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const tagline = text(destination.tagline, lang, '');
   const description = text(destination.description, lang, content.summary?.[lang] || '');
   const idealFor = text(destination.idealFor, lang, content.audience?.[lang] || '');
-  const bestTime = text(destination.bestTime, lang, content.bestTime?.[lang] || '');
+  const bestTime = text(destination.bestTime, lang, content.bestSeason?.[lang] || '');
   const stay = text(destination.suggestedStay, lang, content.stay?.[lang] || '');
 
   const highlights = Array.isArray(destination.highlights) && destination.highlights.length > 0
     ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean)
-    : (content.highlights?.[lang] || []);
+    : (content.highlights || []).map((item: any) => text(item, lang)).filter(Boolean);
 
   const experiences = Array.isArray(destination.experiences) && destination.experiences.length > 0
     ? destination.experiences.map((item: any) => text(item, lang)).filter(Boolean)
-    : (content.experiences?.[lang] || []);
+    : (content.experiences || []).map((item: any) => text(item, lang)).filter(Boolean);
 
   const samplePlan = Array.isArray(destination.samplePlan) && destination.samplePlan.length > 0
     ? destination.samplePlan.map((item: any, index: number) => ({
