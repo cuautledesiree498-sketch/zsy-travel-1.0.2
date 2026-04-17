@@ -142,7 +142,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
                   ))}
                 </div>
               ) : (
-                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '我们可以继续根据你的时间、同行人群和路线偏好，把这个目的地拆成更具体的体验建议。' : 'We can further shape this destination into more specific experience suggestions based on your timing, travel party and route priorities.'}</p>
+                <p className="leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '如果你准备把这个目的地放进完整中国路线里，我们可以继续按时间、同行人群和预算，把体验内容收成更具体的一版。' : 'If you want to place this destination inside a wider China route, we can refine the experience mix around your timing, travel party and budget.'}</p>
               )}
             </Card>
 
@@ -164,7 +164,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
 
           <aside className="space-y-6">
             <div className="sticky top-24 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f7faff)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.08)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '咨询这个目的地' : 'Inquire About This Destination'}</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '按这个目的地继续' : 'Continue From This Destination'}</p>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">
                 {lang === 'zh'
                   ? '如果你喜欢这个目的地，但还没完全想好怎么排整条路线，也没关系。你可以先告诉我们想去几天、和谁一起去、预算大概多少，以及还想搭配哪些城市，我们会继续帮你整理。'

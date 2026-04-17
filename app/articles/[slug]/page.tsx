@@ -110,8 +110,8 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
                 <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6 text-[var(--color-muted)]">
                   <p className="leading-7">
                     {lang === 'zh'
-                      ? '这篇内容的正文还没有正式发布。当前你可以先把它理解为一个选题入口：如果你想按这个主题继续聊路线、城市选择或定制方案，我们可以直接从咨询承接。'
-                      : 'The full article body is not published yet. For now, treat this page as a topic entry point — if you want to explore this route, destination choice or planning logic, we can continue directly through consultation.'}
+                      ? '这篇内容的完整正文还在整理中。你可以先根据上方摘要判断主题是否接近你的旅行想法；如果接近，可以直接带着这个方向来咨询，我们会继续把它整理成目的地组合、天数安排和预算范围。'
+                      : 'The full article body is still being prepared. You can use the summary above to decide whether the topic is close to your trip idea; if it is, bring this direction into an inquiry and we will shape it into destination combinations, trip length and budget range.'}
                   </p>
                 </div>
               )}
@@ -120,11 +120,11 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
 
           <aside className="space-y-6">
             <div className="sticky top-24 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f7faff)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.08)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '页面用途' : 'How to Use This Page'}</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '怎么继续' : 'How to Continue'}</p>
               <p className="mt-5 text-sm leading-7 text-[var(--color-muted)]">
                 {lang === 'zh'
-                  ? '这类文章页适合用来承接 Travel Guides / Insights 内容。你可以先定一个标准结构，再复制到更多主题，分别填摘要、hero facts 和正文。'
-                  : 'This article layout is designed for Travel Guides and Insights content. Build one standard structure first, then duplicate it across more topics with custom summaries, hero facts and body content.'}
+                  ? '如果这篇内容刚好对应你的旅行想法，可以直接把它作为咨询起点。告诉我们出行时间、人数、想去的城市和预算，我们会继续整理成更具体的路线方案。'
+                  : 'If this guide matches your trip idea, use it as the starting point for an inquiry. Tell us your timing, group size, target cities and budget, and we will shape it into a more specific route proposal.'}
               </p>
               <div className="mt-7 flex flex-col gap-3">
                 <Link href={withLang('/insights', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">

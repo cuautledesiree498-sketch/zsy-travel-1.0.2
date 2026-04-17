@@ -119,7 +119,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
             <div className="grid gap-6 md:grid-cols-3">
               <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor} />
               <MiniCard title={lang === 'zh' ? '旅行风格' : 'Travel Style'} value={travelStyle} />
-              <MiniCard title={lang === 'zh' ? '页面用途' : 'How To Use'} value={howToUse} />
+              <MiniCard title={lang === 'zh' ? '怎么使用这条线' : 'How to Use This Route'} value={howToUse} />
             </div>
 
             <SectionCard title={lang === 'zh' ? '核心亮点' : 'Highlights'} soft>
@@ -157,7 +157,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
 
           <aside className="space-y-6">
             <div className="sticky top-24 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f7faff)] p-8 shadow-[0_24px_60px_rgba(10,27,52,0.08)]">
-              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '咨询入口' : 'Inquiry Entry'}</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '按这条线继续' : 'Continue From This Route'}</p>
               <h3 className="mt-4 text-2xl font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '如果你喜欢这个方向，就直接按这条线来问。' : 'If this direction fits, use it as the base of your inquiry.'}</h3>
               <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
                 {lang === 'zh'
