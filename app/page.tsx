@@ -590,7 +590,7 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
   const resolvedLink = resolveManagedLink(item.linkTarget, item.link);
   const titleText = useDisplayText(item.title, lang);
   const titleSlug = normalizeDestinationSlug(titleText);
-  const destinationSlug = normalizeDestinationSlug(resolvedLink) || titleSlug;
+  const destinationSlug = titleSlug || normalizeDestinationSlug(resolvedLink);
   const forcedLocal = shouldForceLocalDestinationImage(destinationSlug || titleSlug);
   const fallback = getDestinationFallbackImage(destinationSlug || titleSlug);
   const cardImageSrc = forcedLocal
