@@ -14,7 +14,13 @@ function text(value: any, lang: 'en' | 'zh', fallback = '') {
 
 function toTextArray(items: any[], lang: 'en' | 'zh') {
   return (Array.isArray(items) ? items : [])
-    .map((item: any) => text(item, lang))
+    .map((item: any) => {
+      if (typeof item === 'string') return item;
+      if (item && typeof item === 'object') {
+        return text(item, lang, text(item?.title, lang, text(item?.description, lang, '')));
+      }
+      return '';
+    })
     .filter(Boolean);
 }
 
