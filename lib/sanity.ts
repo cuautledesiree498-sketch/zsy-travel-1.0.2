@@ -18,15 +18,18 @@ const fallbackImages = {
 };
 
 const destinationFallbackBySlug: Record<string, string> = {
-  beijing: '/media/custom/destinations/beijing/beijing-1.jpg',
-  shanghai: '/media/custom/destinations/shanghai/shanghai-1.jpg',
-  shenzhen: '/media/custom/destinations/shenzhen/shenzhen-1.jpg',
-  chengdu: '/media/custom/destinations/chengdu/chengdu-1.jpg',
-  xinjiang: '/media/custom/destinations/xinjiang/xinjiang-1.jpg',
-  xian: '/media/destinations/shaanxi.jpg',
-  'xi-an': '/media/destinations/shaanxi.jpg',
-  shaanxi: '/media/destinations/shaanxi.jpg',
-  chongqing: '/media/destinations/chongqing.jpg',
+  beijing: '/media/custom/destinations/beijing/beijing-selected.jpg',
+  shanghai: '/media/custom/destinations/shanghai/shanghai-selected.jpg',
+  shenzhen: '/media/custom/destinations/shenzhen/shenzhen-selected.jpg',
+  chengdu: '/media/custom/destinations/chengdu/chengdu-selected.jpg',
+  xinjiang: '/media/custom/destinations/xinjiang/xinjiang-selected.jpg',
+  xian: '/media/custom/destinations/xian/xian-selected.jpg',
+  'xi-an': '/media/custom/destinations/xian/xian-selected.jpg',
+  shaanxi: '/media/custom/destinations/xian/xian-selected.jpg',
+  chongqing: '/media/custom/destinations/chongqing/chongqing-selected.jpg',
+  yunnan: '/media/destinations/chengdu.jpg',
+  guilin: '/media/destinations/shanghai.jpg',
+  zhangjiajie: '/media/destinations/xinjiang.jpg',
 };
 
 export function normalizeDestinationSlug(value?: string | null) {
