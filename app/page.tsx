@@ -292,7 +292,18 @@ function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang 
 }
 
 function DestinationCardsSection({ section, destinations, lang }: { section: any; destinations: any[]; lang: Lang }) {
-  const manualItems = Array.isArray(section.items) ? section.items : [];
+  const manualItems = Array.isArray(section.items) ? section.items.map((item: any) => {
+    const titleEn = pickLocalized(item.title, 'en') || '';
+    const titleZh = pickLocalized(item.title, 'zh') || '';
+    const inferredSlug = normalizeDestinationSlug(titleEn) || normalizeDestinationSlug(titleZh);
+    return inferredSlug
+      ? {
+          ...item,
+          linkTarget: item.linkTarget || `/destinations/${encodeURIComponent(inferredSlug)}`,
+          backgroundImage: shouldForceLocalDestinationImage(inferredSlug) ? null : item.backgroundImage,
+        }
+      : item;
+  }) : [];
   const dedupedDestinations = Array.isArray(destinations) ? prioritizeDestinations(dedupeDestinations(destinations)) : [];
   const autoItems = dedupedDestinations
     .slice(0, Math.max(section.maxItems || 6, 6))
@@ -580,8 +591,9 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
   const titleText = useDisplayText(item.title, lang);
   const titleSlug = normalizeDestinationSlug(titleText);
   const destinationSlug = normalizeDestinationSlug(resolvedLink) || titleSlug;
+  const forcedLocal = shouldForceLocalDestinationImage(destinationSlug || titleSlug);
   const fallback = getDestinationFallbackImage(destinationSlug || titleSlug);
-  const cardImageSrc = shouldForceLocalDestinationImage(destinationSlug || titleSlug)
+  const cardImageSrc = forcedLocal
     ? fallback
     : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
