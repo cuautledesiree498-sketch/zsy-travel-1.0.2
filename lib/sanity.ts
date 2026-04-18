@@ -72,6 +72,11 @@ export function getDestinationFallbackImage(slugOrPath?: string | null) {
 }
 
 export function imageUrlFor(source: any, width = 800, fallback = fallbackImages.hero) {
+  if (typeof source === 'string') {
+    if (source.startsWith('/')) return source;
+    return fallback;
+  }
+
   if (!source?._ref) {
     return fallback;
   }
