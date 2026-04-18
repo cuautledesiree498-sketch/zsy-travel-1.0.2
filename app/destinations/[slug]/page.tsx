@@ -185,11 +185,17 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
 
             <Card title={lang === 'zh' ? '图集' : 'Gallery'}>
               <div className="grid grid-cols-2 gap-3">
-                {(gallery.length ? gallery.slice(0, 4) : [destination.image]).filter(Boolean).map((image: any, index: number) => (
-                  <div key={index} className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem] bg-[var(--color-soft-white)]">
-                    <Image src={imageUrlFor(image, 900, getDestinationFallbackImage(destination.slug))} alt={`${name} ${index + 1}`} fill className="object-cover" />
-                  </div>
-                ))}
+                {(gallery.length ? gallery.slice(0, 4) : [destination.image]).filter(Boolean).map((image: any, index: number) => {
+                  const galleryImage = typeof image === 'string'
+                    ? image
+                    : imageUrlFor(image, 900, getDestinationFallbackImage(destination.slug));
+
+                  return (
+                    <div key={index} className="relative aspect-[4/3] overflow-hidden rounded-[1.2rem] bg-[var(--color-soft-white)]">
+                      <Image src={galleryImage} alt={`${name} ${index + 1}`} fill className="object-cover" />
+                    </div>
+                  );
+                })}
               </div>
             </Card>
           </aside>
