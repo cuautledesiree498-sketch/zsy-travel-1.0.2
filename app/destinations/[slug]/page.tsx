@@ -12,6 +12,22 @@ function text(value: any, lang: 'en' | 'zh', fallback = '') {
   return markPlaceholder(pickLocalized(value, lang) || fallback);
 }
 
+function toTextArray(items: any[], lang: 'en' | 'zh') {
+  return (Array.isArray(items) ? items : [])
+    .map((item: any) => text(item, lang))
+    .filter(Boolean);
+}
+
+function toPlan(items: any[], lang: 'en' | 'zh') {
+  return (Array.isArray(items) ? items : [])
+    .map((item: any, index: number) => ({
+      day: item?.day || index + 1,
+      title: text(item?.title, lang),
+      description: text(item?.description, lang),
+    }))
+    .filter((item: any) => item.title || item.description);
+}
+
 export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const destination = await getDestinationBySlug(slug);
@@ -45,20 +61,16 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const bestTime = text(destination.bestTime, lang, content.bestSeason?.[lang] || '');
   const stay = text(destination.suggestedStay, lang, content.stay?.[lang] || '');
 
-  const highlights = Array.isArray(destination.highlights) && destination.highlights.length > 0
-    ? destination.highlights.map((item: any) => text(item, lang)).filter(Boolean)
-    : (content.highlights || []).map((item: any) => text(item, lang)).filter(Boolean);
+  const highlights = (Array.isArray(destination.highlights) && destination.highlights.length > 0)
+    ? toTextArray(destination.highlights, lang)
+    : toTextArray(content.highlights || [], lang);
 
-  const experiences = Array.isArray(destination.experiences) && destination.experiences.length > 0
-    ? destination.experiences.map((item: any) => text(item, lang)).filter(Boolean)
-    : (content.experiences || []).map((item: any) => text(item, lang)).filter(Boolean);
+  const experiences = (Array.isArray(destination.experiences) && destination.experiences.length > 0)
+    ? toTextArray(destination.experiences, lang)
+    : toTextArray(content.experiences || [], lang);
 
-  const samplePlan = Array.isArray(destination.samplePlan) && destination.samplePlan.length > 0
-    ? destination.samplePlan.map((item: any, index: number) => ({
-        day: item?.day || index + 1,
-        title: text(item?.title, lang),
-        description: text(item?.description, lang),
-      }))
+  const samplePlan = (Array.isArray(destination.samplePlan) && destination.samplePlan.length > 0)
+    ? toPlan(destination.samplePlan, lang)
     : (content.samplePlan?.[lang] || []).map((item: any, index: number) => ({
         day: index + 1,
         title: item.title,
