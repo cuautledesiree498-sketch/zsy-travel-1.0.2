@@ -50,6 +50,7 @@ export default async function DestinationsPage({ searchParams }: any) {
           );
           const audience = meta?.audience?.[lang];
           const stay = meta?.stay?.[lang];
+          const pairing = lang === 'zh' ? '可和北京、西安、上海、成都或桂林等方向组合，进一步整理成更完整的中国路线。' : 'Can be combined with Beijing, Xi’an, Shanghai, Chengdu or Guilin to shape a fuller China route.';
           return (
             <article key={item._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
               <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{title || (lang === 'zh' ? '精选目的地' : 'Destination')}</h2>
@@ -58,12 +59,20 @@ export default async function DestinationsPage({ searchParams }: any) {
               ) : (
                 <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{lang === 'zh' ? '可进入详情页查看该目的地的旅行亮点与行程建议。' : 'Open the detail page to explore highlights and travel suggestions for this destination.'}</p>
               )}
-              {(audience || stay) && (
-                <div className="mt-5 rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
-                  {audience ? <p><span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '适合：' : 'Best for: '}</span>{audience}</p> : null}
-                  {stay ? <p className="mt-2"><span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '建议停留：' : 'Recommended stay: '}</span>{stay}</p> : null}
-                </div>
-              )}
+              <div className="mt-5 rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+                <p>
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '适合：' : 'Best for: '}</span>
+                  {audience || (lang === 'zh' ? '首次来华旅客、想按风格筛选路线的家庭、情侣与私人定制旅客。' : 'First-time China visitors, couples, families and private travelers choosing a route by style and pace.')}
+                </p>
+                <p className="mt-2">
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '建议停留：' : 'Recommended stay: '}</span>
+                  {stay || (lang === 'zh' ? '可先按 2–4 天理解这个方向，再按整体线路继续增减。' : 'A practical starting range is 2–4 days before adjusting it within the wider route.')}
+                </p>
+                <p className="mt-2">
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '适合搭配：' : 'Works well with: '}</span>
+                  {pairing}
+                </p>
+              </div>
               <div className="mt-6 flex flex-col gap-3">
                 <Link href={withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '看这个目的地适不适合你' : 'See If This Destination Fits You'}

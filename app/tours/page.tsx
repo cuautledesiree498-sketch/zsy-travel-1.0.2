@@ -42,14 +42,26 @@ export default async function ToursPage({ searchParams }: any) {
           const description = markPlaceholder(pickLocalized(tour.description, lang) || pickLocalized(tour.tagline, lang) || (lang === 'zh' ? '可进一步定制的中国旅行案例。' : 'A China travel case that can be further customized.'));
           const audience = markPlaceholder(pickLocalized(tour.idealFor, lang) || '');
           const durationLabel = tour?.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'days'}` : '';
+          const travelStyle = markPlaceholder(pickLocalized(tour.travelStyle, lang) || (lang === 'zh' ? '可定制参考线路' : 'Customizable route reference'));
+          const planningLogic = markPlaceholder(pickLocalized(tour.howToUse, lang) || (lang === 'zh' ? '先把这条线路当作方向参考，再按你的日期、人数、预算和偏好继续收束。' : 'Use this as a starting direction first, then tighten it around your dates, group size, budget and preferences.'));
           return (
             <article key={tour._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(10,27,52,0.1)]">
               <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
                 {durationLabel ? <span className="rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{durationLabel}</span> : null}
-                {audience ? <span className="rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{audience}</span> : null}
+                <span className="rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{travelStyle}</span>
               </div>
               <h2 className="mt-4 text-2xl font-semibold text-[var(--color-navy)]">{title}</h2>
               <p className="mt-3 text-[var(--color-muted)] leading-7 line-clamp-4">{description}</p>
+              <div className="mt-5 rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+                <p>
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '适合：' : 'Best for: '}</span>
+                  {audience || (lang === 'zh' ? '首次来华旅客、情侣、家庭、小团或想先找一条可比较方向的游客。' : 'First-time China visitors, couples, families, private groups and travelers who want a route direction they can compare first.')}
+                </p>
+                <p className="mt-2">
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '这类线路怎么用：' : 'How to use this case: '}</span>
+                  {planningLogic}
+                </p>
+              </div>
               <div className="mt-6 flex flex-col gap-3">
                 <Link href={withLang(`/tours/${encodeURIComponent(tour.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '看这个方案怎么做' : 'See How This Route Works'}

@@ -32,6 +32,11 @@ export default async function Home({ searchParams }: any) {
   const siteDescription = lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅行，覆盖北京、上海、成都、新疆等多个目的地。' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
   const languageSwitchLabel = t.language;
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
+  const heroEyebrow = lang === 'zh' ? '面向海外旅客的中国私人定制行程' : 'Tailor-Made China Journeys for Overseas Travelers';
+  const trustSectionTitle = lang === 'zh' ? '我们更擅长把模糊想法，整理成真的能出发的中国路线。' : 'We are strongest when a vague China idea needs to become a route you can actually compare, confirm and travel.';
+  const trustSectionBody = lang === 'zh'
+    ? '很多海外旅客一开始只有很模糊的方向：想去北京还是上海？要不要加西安？新疆适不适合第一次来？我们更擅长处理这类判断题——把城市组合、停留时长、旅行节奏和预算范围整理成更容易理解、比较和确认的定制方案。'
+    : 'Many overseas travelers start with only a rough idea: Beijing or Shanghai, whether Xi’an should be added, whether Xinjiang is right for a first trip, or how many days the route really needs. We are stronger at solving those planning decisions and turning them into a route that is easier to understand, compare and confirm.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -84,7 +89,7 @@ export default async function Home({ searchParams }: any) {
 
         <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div className="text-white">
-            <p className="mb-5 text-xs uppercase tracking-[0.45em] text-[rgba(255,255,255,0.76)]">{t.tailorMadeLuxuryTravelInChina}</p>
+            <p className="mb-5 text-xs uppercase tracking-[0.45em] text-[rgba(255,255,255,0.76)]">{heroEyebrow}</p>
             <h2 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h2>
             <p className="mt-7 max-w-3xl text-2xl font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-3xl">{heroSubtitle}</p>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-[rgba(255,255,255,0.82)] md:text-xl">{heroSupporting}</p>
@@ -105,8 +110,13 @@ export default async function Home({ searchParams }: any) {
           <div className="hidden lg:block">
             <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.brandPositioning}</p>
-              <h3 className="mt-4 text-2xl font-semibold">{lang === 'en' ? 'Start from routes people can understand, compare and enquire about quickly.' : '先把路线做成客户一眼能理解、比较和发起咨询的样子。'}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{lang === 'en' ? 'Lead with clearer entry products: first-time China city routes, scenic and culture combinations, and private custom planning based on real travel dates, group size and budget. This makes the site feel less like a gallery and more like a place to start a real trip request.' : '先用客户最容易看懂的几类入口承接：首次来华城市线、风景与文化组合线，以及基于真实出行日期、人数和预算的私人定制规划。这样首页看起来就不只是展示，而更像一个可以真正开始咨询的入口。'}</p>
+              <h3 className="mt-4 text-2xl font-semibold">{trustSectionTitle}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{trustSectionBody}</p>
+              <div className="mt-5 rounded-[1.25rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+                {lang === 'en'
+                  ? 'A good fit when you need help deciding between major cities, balancing scenery with culture, or shaping a private route around real dates, group size and budget.'
+                  : '尤其适合：在几个大城市之间拿不定主线、想平衡风景与文化、或需要按真实日期、人数和预算来做私人定制规划的旅客。'}
+              </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <HeroStat label={lang === 'en' ? 'Best for' : '适合'} value={lang === 'en' ? 'First-Time Guests' : '首访中国客群'} />
                 <HeroStat label={lang === 'en' ? 'Planning' : '规划方式'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
@@ -335,7 +345,7 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
         <SectionHeader
           eyebrow={uiText[lang].sampleCases}
           title={lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions'}
-          subtitle={lang === 'zh' ? '先把最容易成交的内容讲清楚：首访中国经典线、成都轻松城市线、桂林张家界风景线。' : 'Start with the most understandable conversion routes: the classic first-China route, a softer Chengdu city route, and a Guilin–Zhangjiajie scenic route.'}
+          subtitle={lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.'}
         />
         {focusedTours && focusedTours.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{focusedTours.map((tour: any) => <TourCard key={tour._id} tour={tour} lang={lang} />)}</div>
@@ -372,12 +382,27 @@ function ArticleListSection({ section, articles, lang }: { section: any; article
 }
 
 function StatsSection({ section, lang }: { section: any; lang: Lang }) {
+  const defaultItems = lang === 'zh'
+    ? [
+        { number: '首访中国', label: '更容易起步' },
+        { number: '城市 + 风景', label: '更容易平衡' },
+        { number: '私人定制', label: '按需求收束' },
+        { number: '24h 内', label: '通常回复' },
+      ]
+    : [
+        { number: 'First-Time China', label: 'Easier to Start' },
+        { number: 'City + Scenery', label: 'Easier to Balance' },
+        { number: 'Private Custom', label: 'Shaped Around You' },
+        { number: 'Within 24h', label: 'Typical Reply' },
+      ];
+  const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
+
   return (
     <section className="bg-[var(--color-navy)] py-28 text-white">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].whyUs} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
-          {(section.items || []).map((item: any, index: number) => (
+          {items.map((item: any, index: number) => (
             <div key={index} className="rounded-[1.75rem] border border-white/10 bg-white/6 p-8 text-center backdrop-blur-sm">
               <div className="text-3xl font-semibold tracking-[0.03em] text-white md:text-4xl">{useDisplayText(item.number, lang)}</div>
               <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div>
@@ -390,12 +415,55 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
 }
 
 function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
+  const defaultItems = lang === 'zh'
+    ? [
+        {
+          rating: 5,
+          quote: '我们原本在北京、西安和桂林之间拿不定主线，他们帮我们把路线节奏整理清楚之后，整个行程一下子就更容易决定了。',
+          name: 'Emily',
+          country: 'UK',
+        },
+        {
+          rating: 5,
+          quote: '新疆一开始看起来很难规划，但他们给出的结构把城市、风景和交通节奏讲清楚后，整个方向就没有那么吓人了。',
+          name: 'Daniel',
+          country: 'Singapore',
+        },
+        {
+          rating: 5,
+          quote: '最有帮助的不是“推荐景点”，而是他们会直接告诉我们哪些组合太赶，哪些更适合第一次来中国。',
+          name: 'Sofia',
+          country: 'Spain',
+        },
+      ]
+    : [
+        {
+          rating: 5,
+          quote: 'We were unsure whether to do Beijing, Xi’an or Guilin first. Once they restructured the pacing, the whole route became much easier to decide.',
+          name: 'Emily',
+          country: 'UK',
+        },
+        {
+          rating: 5,
+          quote: 'Xinjiang looked difficult to plan at first, but their route logic made the transport rhythm and scenery balance feel much more manageable.',
+          name: 'Daniel',
+          country: 'Singapore',
+        },
+        {
+          rating: 5,
+          quote: 'The most useful part was not just attraction suggestions. They were clear about which combinations were too rushed and which ones fit a first China trip better.',
+          name: 'Sofia',
+          country: 'Spain',
+        },
+      ];
+  const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
+
   return (
     <section className="bg-white py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].testimonials} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {(section.items || []).map((item: any, index: number) => (
+          {items.map((item: any, index: number) => (
             <div key={index} className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_20px_50px_rgba(10,27,52,0.06)]">
               <div className="mb-4 text-[var(--color-navy)]">{'★'.repeat(Math.max(1, Math.min(5, Number(item.rating || 5))))}</div>
               <p className="text-base leading-8 text-[var(--color-slate)]">“{useDisplayText(item.quote, lang)}”</p>
@@ -447,8 +515,8 @@ function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems
 function CtaSection({ section, lang }: { section: any; lang: Lang }) {
   const ctaTitle = lang === 'zh' ? '把你的中国行程想法发给我们' : 'Tell us what kind of China journey you want';
   const ctaSubtitle = lang === 'zh'
-    ? '告诉我们出行时间、人数、想去的城市、旅行风格和大致预算。我们会基于真实可执行性，帮你整理成更清晰的中国定制行程方案。通常 24 小时内回复。'
-    : 'Share your travel dates, group size, preferred destinations, travel style and approximate budget. We will turn that into a clearer, workable China itinerary suggestion based on real planning logic. We usually reply within 24 hours.';
+    ? '即使你现在还只有一个大概方向，也可以先把出行时间、人数、想去的城市、旅行风格或预算范围发给我们。我们会基于真实可执行性，帮你把想法整理成更清晰、更容易确认的中国定制行程方案，通常 24 小时内回复。'
+    : 'Even if you only have a rough idea, you can start by sending us your travel dates, group size, destination ideas, travel style or budget range. We will turn that into a clearer, more workable China itinerary suggestion based on real planning logic. We usually reply within 24 hours.';
   const primaryButtonText = lang === 'zh' ? '发送行程需求' : 'Send Your Trip Request';
   const secondaryButtonText = lang === 'zh' ? '查看联系方式' : 'View Contact Details';
 
