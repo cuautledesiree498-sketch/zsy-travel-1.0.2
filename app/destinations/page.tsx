@@ -58,7 +58,7 @@ export default async function DestinationsPage({ searchParams }: any) {
             <article key={item._id} className="overflow-hidden rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
               {destinationImage ? (
                 <div className="relative h-56 w-full bg-[var(--color-soft-white)]">
-                  <img src={destinationImage} alt={title || (lang === 'zh' ? '精选目的地' : 'Destination')} className="h-full w-full object-cover" />
+                  <img src={destinationImage} alt={title || (lang === 'zh' ? '精选目的地' : 'Destination')} className="h-full w-full object-cover rounded-t-[1.75rem]" />
                 </div>
               ) : null}
               <div className="p-7">
