@@ -27,9 +27,9 @@ const destinationFallbackBySlug: Record<string, string> = {
   'xi-an': '/media/custom/destinations/xian/xian-selected.jpg',
   shaanxi: '/media/custom/destinations/xian/xian-selected.jpg',
   chongqing: '/media/custom/destinations/chongqing/chongqing-selected.jpg',
-  yunnan: '/media/destinations/chengdu.jpg',
-  guilin: '/media/destinations/shanghai.jpg',
-  zhangjiajie: '/media/destinations/xinjiang.jpg',
+  yunnan: '/media/custom/destinations/yunnan/yunnan-selected.jpg',
+  guilin: '/media/custom/destinations/guilin/guilin-selected.jpg',
+  zhangjiajie: '/media/custom/destinations/zhangjiajie/zhangjiajie-selected.jpg',
 };
 
 const forceLocalDestinationImageSlugs = new Set([
@@ -42,6 +42,9 @@ const forceLocalDestinationImageSlugs = new Set([
   'xi-an',
   'shaanxi',
   'chongqing',
+  'yunnan',
+  'guilin',
+  'zhangjiajie',
 ]);
 
 export function normalizeDestinationSlug(value?: string | null) {
