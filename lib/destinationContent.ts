@@ -18,8 +18,8 @@ export const destinationContent: Record<string, DestinationContent> = {
   beijing: {
     name: { en: 'Beijing', zh: '北京' },
     summary: {
-      en: 'Beijing is one of the strongest first-entry cities for China: imperial landmarks, historic depth, national symbolism and city scale all come together in a way that helps international travelers build an immediate understanding of China.',
-      zh: '北京是最适合作为“第一次来中国”入口的城市之一：皇城地标、历史纵深、国家叙事和城市尺度都非常强，能让国际游客迅速建立对中国的第一印象。',
+      en: 'Beijing works best as the opening chapter of a China journey: grand enough to create first impressions, layered enough to establish historical depth, and clear enough to give the entire route a strong beginning.',
+      zh: '北京最适合作为一条中国旅行路线的开场：它既有足够强的第一印象，也有足够深的历史层次，还能为整条路线建立一个非常稳的起点。',
     },
     audience: {
       en: 'Ideal for first-time China visitors, families, culture-focused travelers, landmark seekers and guests who want a strong historical foundation before moving into other regions.',
@@ -34,10 +34,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '压缩版 2 天也能成立，但如果想把核心地标、长城和更完整的城市节奏都体验到，3–4 天更自然。',
     },
     highlights: [
-      { en: 'One of the clearest first-time China entry points for international travelers.', zh: '对国际游客来说，是最清晰的中国入门城市之一。' },
-      { en: 'World-recognizable landmarks such as the Forbidden City, Tiananmen and the Great Wall.', zh: '故宫、天安门、长城等世界级高辨识度地标集中。' },
-      { en: 'A strong mix of imperial history, national symbolism and contemporary capital-city scale.', zh: '帝都历史、国家象征与当代首都尺度感同时成立。' },
-      { en: 'Pairs naturally with Xi’an and Shanghai in a classic first-China route.', zh: '与西安、上海组合时，适合构成经典的首访中国线路。' },
+      { en: 'A strong opening city when you want the route to begin with weight, identity and unmistakable China recognition.', zh: '如果你希望整条路线从分量感、辨识度和“中国感”开始，北京是很强的开场城市。' },
+      { en: 'Combines imperial landmarks, national symbolism and city scale in a way that immediately sets the tone of the journey.', zh: '它把皇城地标、国家象征和城市尺度感放在一起，能很快为旅行定下整体基调。' },
+      { en: 'Works especially well before Xi’an’s historical middle layer or Shanghai’s modern finish.', zh: '放在西安之前能拉开历史递进，放在上海之前也能形成很好的传统到现代过渡。' },
+      { en: 'Best for travelers who want their first China route to feel structured, confident and memorable from day one.', zh: '非常适合希望首访中国线路从第一天起就显得完整、自信又有记忆点的客人。' },
     ],
     experiences: [
       { en: 'Imperial landmarks, national-symbolic sites and a high-recognition introduction to China.', zh: '皇城地标、国家象征性场景，以及高识别度的中国入门体验。' },
@@ -46,22 +46,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Beijing and begin with the clearest first-China entry point', description: 'Beijing works best as the city where international travelers build their first understanding of China through scale, symbolism and landmark recognition.' },
-        { title: 'Imperial landmarks, capital-city identity and the Great Wall layer', description: 'This stage is ideal for combining Beijing’s strongest visual and historical landmarks with the capital’s broader political and cultural identity.' },
-        { title: 'Continue toward Xi’an or complete the opening section of the route', description: 'Beijing naturally leads into Xi’an for deeper history, or can stand as the strongest opening city before the next stage of a wider China itinerary.' },
+        { title: 'Open the route in Beijing and let the journey begin with clarity and weight', description: 'Beijing works best when the trip needs a confident beginning — one that gives travelers an immediate sense of where they are, why China feels distinctive, and how the rest of the route will unfold.' },
+        { title: 'Move through imperial scale, symbolic landmarks and the capital’s broader identity', description: 'This part of the stay is less about collecting sights and more about setting the tone: scale, history and national presence combine here in a way that makes the opening chapter feel grounded and memorable.' },
+        { title: 'Leave Beijing with a route that is already structured, then continue into deeper contrast', description: 'Once Beijing is in place, the rest of the itinerary becomes easier to shape — toward Xi’an for historical depth, toward Shanghai for modern contrast, or into a wider route with much stronger narrative balance.' },
       ],
       zh: [
-        { title: '抵达北京，进入最清晰的首访中国入口', description: '北京最适合作为国际游客理解中国的第一站，通过体量、象征性和地标识别度建立最初认知。' },
-        { title: '皇城地标、首都身份与长城层次展开', description: '这一段适合集中展示北京最强的视觉地标和历史象征，同时把首都身份和文化分量带出来。' },
-        { title: '继续前往西安，或完成整条路线的开场结构', description: '北京既能自然转入西安形成历史递进，也可以作为更大中国线路里最强的开场城市。' },
+        { title: '以上海之外的中国打开整条路线，而不是只把北京当成景点清单', description: '北京适合作为路线真正的开场，因为它能让客人很快建立“我来到了中国”的第一层感受，同时也为后面的移动留下足够强的基调。' },
+        { title: '在皇城尺度、地标象征和首都气质之间，把旅行的分量感建立起来', description: '这一段不只是看几个著名地点，而是让整条路线先有分量、有识别度、有历史与现实同时成立的感觉。' },
+        { title: '当北京站稳以后，后续无论转向西安、上海还是更长线路都会更顺', description: '一旦北京作为开场成立，后面的历史递进、现代反差或更大范围的中国旅行都会更容易排出结构，也更容易形成整体记忆。' },
       ],
     },
   },
   shanghai: {
     name: { en: 'Shanghai', zh: '上海' },
     summary: {
-      en: 'Shanghai is one of the best cities for showing international travelers the face of modern China: skyline, urban polish, design-led city life and a strong sense of familiarity for global visitors.',
-      zh: '上海是最适合向国际游客展示“现代中国”形象的城市之一：天际线、都市精致度、设计感城市生活，以及很强的国际熟悉感都集中在这里。',
+      en: 'Shanghai works best when you want a China route to feel polished, modern and internationally fluent — a city that gives the journey lift, rhythm and a more refined urban finish.',
+      zh: '如果你希望一条中国路线显得更现代、更精致、更有国际化流动感，上海通常是最合适的一站：它能把整段旅行抬起来，也能让收尾更漂亮。',
     },
     audience: {
       en: 'Ideal for first-time China visitors who want a modern city perspective, couples, family travelers, business-extension trips and guests who prefer a polished urban experience.',
@@ -76,10 +76,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '2 天可以覆盖核心内容，3 天会更适合形成完整城市停留，或者顺带延展江南线路。',
     },
     highlights: [
-      { en: 'One of the most internationally accessible modern China cities.', zh: '是最容易被国际游客理解和接受的现代中国城市之一。' },
-      { en: 'Strong skyline, night views and urban design identity.', zh: '城市天际线、夜景和都市设计感都非常强。' },
-      { en: 'Works naturally with Beijing as a classic two-pole China introduction.', zh: '与北京组合时，非常适合形成“传统中国 + 现代中国”的双极入门线路。' },
-      { en: 'A strong gateway into Jiangnan routes such as Suzhou and Hangzhou.', zh: '也是进入苏州、杭州等江南线路的天然门户。' },
+      { en: 'A natural choice when the route needs modern energy, polished city life and a more international urban tone.', zh: '如果整条路线需要现代感、精致城市生活和更国际化的都市语气，上海是很自然的选择。' },
+      { en: 'Adds skyline, riverfront atmosphere and contemporary China confidence without making the journey feel heavy.', zh: '它能把天际线、滨江氛围和当代中国的自信感带进路线里，同时又不会让旅行显得沉重。' },
+      { en: 'Works beautifully as a contrast after Beijing or Xi’an, or as the refined final city before departure.', zh: '放在北京或西安之后能形成很漂亮的反差，也很适合作为离开中国前的精致收尾城市。' },
+      { en: 'Ideal for travelers who want comfort, aesthetics and a smoother urban pace inside a wider China itinerary.', zh: '适合希望在更大中国线路里加入舒适度、审美感和更顺滑城市节奏的客人。' },
     ],
     experiences: [
       { en: 'Skyline-led city walking, riverfront night views and a modern China visual layer.', zh: '天际线导向的城市漫游、滨江夜景，以及更强的现代中国视觉层。' },
@@ -88,22 +88,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Shanghai and begin with the modern China city layer', description: 'Use the first stage of the stay to build an immediate impression of contemporary China through the skyline, waterfront atmosphere and easier international city rhythm.' },
-        { title: 'Urban districts, city views and lifestyle-focused exploration', description: 'This stage works well for combining major city visuals with more livable neighborhoods, shopping streets, cafés and a stronger sense of everyday urban polish.' },
-        { title: 'Extend into Jiangnan or close the China route in Shanghai', description: 'Shanghai can either serve as the final modern close of a larger China itinerary or as the gateway into softer nearby routes such as Suzhou or Hangzhou.' },
+        { title: 'Bring Shanghai in when the journey needs polish, lift and a more refined urban close', description: 'Shanghai works best when the route needs a city that feels confident, elegant and easy to move through — the kind of stop that makes the whole itinerary feel more elevated.' },
+        { title: 'Let skyline, waterfront rhythm and city texture create a lighter modern chapter', description: 'This section is less about “seeing modern China” in the abstract and more about letting travelers feel its ease, design sense and urban fluency in a way that naturally refreshes the journey.' },
+        { title: 'Use Shanghai to either soften the landing or lead outward into Jiangnan', description: 'Shanghai can close a wider China route beautifully, or become the transition into Suzhou, Hangzhou and a gentler Jiangnan continuation with a very different mood.' },
       ],
       zh: [
-        { title: '抵达上海，进入现代中国城市层', description: '第一阶段适合用天际线、滨江氛围和更国际化的城市节奏，快速建立对当代中国的第一印象。' },
-        { title: '城市街区、城市景观与生活方式体验', description: '这一段适合把核心城市景观与更宜居的街区、商业街、咖啡馆和都市精致度结合起来。' },
-        { title: '以江南延展，或在上海收束整条中国路线', description: '上海既可以作为更大中国线路的现代收尾，也可以作为进入苏州、杭州等江南方向的门口。' },
+        { title: '把上海放进路线里，是为了让整段旅行更精致、更抬气质', description: '上海很适合承担一条中国路线里的现代城市章节：不是为了堆城市数量，而是为了让整段旅程更顺、更亮，也更有收尾感。' },
+        { title: '在天际线、滨江氛围和都市生活方式之间，让路线变得更轻更流动', description: '这一段适合把城市景观和真实的都市体感放在一起，让前面较重的历史或地标段落被柔化、被提亮。' },
+        { title: '可作为整条线路的现代收束，也可顺势进入江南延展', description: '上海既适合作为中国旅行的漂亮结尾，也很适合把客人自然带进苏州、杭州等更柔和、更精致的下一段。' },
       ],
     },
   },
   xian: {
     name: { en: 'Xi’an', zh: '西安' },
     summary: {
-      en: 'Xi’an is one of the most effective historical cities for first-time China routes: it helps international travelers understand ancient China quickly and clearly through a concentrated cultural narrative.',
-      zh: '西安是最适合放进首访中国线路的历史文化城市之一，它能通过高度集中的古都叙事，帮助国际游客更快理解“历史中国”。',
+      en: 'Xi’an works best as the historical middle layer of a China itinerary — the city that gives the route gravity, continuity and a clearer sense of civilizational depth.',
+      zh: '西安最适合作为一条中国路线中的历史中段：它能给整段旅行补上厚度、连续性，以及更明确的文明纵深感。',
     },
     audience: {
       en: 'Ideal for first-time China visitors who want a historical layer in the route, families, culture-focused travelers and guests interested in ancient capitals and civilizational identity.',
@@ -118,10 +118,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '2 天可以覆盖基础内容，但如果想兼顾核心历史层和更完整的城市节奏，2–3 天更自然。',
     },
     highlights: [
-      { en: 'One of the clearest “ancient China” cities for international visitors.', zh: '是最容易向国际游客讲清“古代中国”的城市之一。' },
-      { en: 'Strong capital-city identity with a concentrated cultural narrative.', zh: '古都身份明显，文化叙事高度集中。' },
-      { en: 'Complements Beijing and Shanghai naturally in a classic three-city route.', zh: '与北京、上海组合时，非常适合构成经典三城首访线路。' },
-      { en: 'Adds historical depth and civilizational weight to otherwise city-led itineraries.', zh: '能够为偏城市型的中国路线补上明显的历史厚度。' },
+      { en: 'The right city when a China route needs historical weight rather than just more urban variety.', zh: '如果一条中国路线需要的是历史分量，而不只是再加一座城市，西安往往是最对的一站。' },
+      { en: 'Brings ancient-capital atmosphere and concentrated heritage into a way international travelers can feel quickly.', zh: '它能把古都气质和高度集中的历史遗产，以很快能被国际游客感受到的方式带进路线里。' },
+      { en: 'Works naturally between Beijing and Shanghai, turning a broad route into one that feels more complete.', zh: '放在北京和上海之间非常自然，能把原本“广”的路线变成更“完整”的路线。' },
+      { en: 'Ideal for guests who want their first China journey to feel richer, deeper and more culturally grounded.', zh: '适合希望自己的首访中国之旅显得更丰富、更深、更有文化落点的客人。' },
     ],
     experiences: [
       { en: 'Ancient-capital atmosphere, concentrated heritage landmarks and a clearer civilizational reading of China.', zh: '古都氛围、集中度很高的历史遗产，以及更清晰的文明层次理解。' },
@@ -130,22 +130,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Xi’an and enter the historical layer of the route', description: 'Xi’an works best as the section where a China trip becomes historically grounded, helping travelers move from major-city recognition into a more ancient-capital understanding.' },
-        { title: 'Heritage landmarks and old-capital atmosphere', description: 'This stage is ideal for concentrating the route’s historical depth, combining major heritage highlights with a stronger sense of ancient urban identity.' },
-        { title: 'Continue toward Shanghai or complete the central historical section', description: 'Xi’an can either bridge naturally into Shanghai for a modern close or serve as the historical midpoint in a broader China itinerary.' },
+        { title: 'Place Xi’an where the route needs depth, not just another city', description: 'Xi’an works best when the itinerary needs to slow down into meaning — when travelers should feel that China is not only large and impressive, but historically layered and culturally continuous.' },
+        { title: 'Let the city’s heritage concentration change the emotional weight of the trip', description: 'This chapter gives the journey a different density: not busier, but deeper. It is where landmarks begin to feel connected to a civilization rather than simply visited one by one.' },
+        { title: 'Use Xi’an as the hinge between a strong opening and a more modern finish', description: 'Placed after Beijing or before Shanghai, Xi’an helps the whole route feel intentional — as if each city is answering a different part of the same story.' },
       ],
       zh: [
-        { title: '抵达西安，进入整条路线的历史层', description: '西安最适合作为中国旅行进入“历史厚度”阶段的节点，让游客从城市识别过渡到更明确的古都文明理解。' },
-        { title: '历史遗产与古都氛围集中展开', description: '这一段适合把整条路线里的历史深度集中释放，通过重点遗产和更强的古都感，让中国旅行更有层次。' },
-        { title: '继续转入上海，或完成中国中段结构', description: '西安既可以自然衔接到上海形成现代收尾，也可以作为更大中国线路里的历史中段。' },
+        { title: '把西安放进路线里，不是为了再加一座城，而是为了让整段旅行更有厚度', description: '西安适合作为路线里进入“真正历史层”的节点，让客人感受到中国不只是体量大、地标强，也有非常清晰的文明连续性。' },
+        { title: '让历史遗产和古都气质一起改变整段路线的分量', description: '这一段不是更忙，而是更深。它会让旅行从“看过很多”变成“真的开始理解这片土地为什么重要”。' },
+        { title: '放在北京之后、上海之前，整条线会变得更像完整叙事', description: '西安很适合做衔接点，让路线既有开场，也有中段的重量，再自然转入更现代、更轻盈的下一站。' },
       ],
     },
   },
   chengdu: {
     name: { en: 'Chengdu', zh: '成都' },
     summary: {
-      en: 'Chengdu is one of the best cities for introducing international travelers to a slower, more livable side of China through food, urban rhythm and everyday atmosphere.',
-      zh: '成都很适合向国际游客展示中国更松弛、更好吃、也更有生活感的一面，它通过美食、城市节奏和日常氛围来成立。',
+      en: 'Chengdu works best when a China route needs to soften its pace and become more pleasurable: less about rushing through landmarks, more about food, mood and a city people actually want to stay in.',
+      zh: '如果一条中国路线需要把节奏放松下来、把体验感做得更舒服，成都通常是最合适的一站：它不强调赶景点，而更强调好吃、好待、好感受。',
     },
     audience: {
       en: 'Ideal for food-focused travelers, families, couples, lifestyle-oriented travelers and guests who want a softer, more livable city in the route.',
@@ -160,10 +160,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '2 天是最短可行范围，但如果想把美食、城市生活和更松弛的节奏结合起来，2–3 天会更合适。',
     },
     highlights: [
-      { en: 'One of the easiest Chinese cities for international travelers to genuinely enjoy.', zh: '是国际游客最容易真正喜欢上的中国城市之一。' },
-      { en: 'Strong food identity, lifestyle appeal and slower rhythm.', zh: '美食辨识度、生活方式吸引力和慢节奏都很强。' },
-      { en: 'Works well as the “comfort and lifestyle” balance point in a larger China itinerary.', zh: '非常适合作为更大中国线路中的“舒适与生活方式平衡点”。' },
-      { en: 'Can extend naturally toward Chongqing, Jiuzhaigou or wider Southwest routes.', zh: '也很适合向重庆、九寨沟或更完整的西南线路继续延展。' },
+      { en: 'A strong choice when the route needs comfort, flavor and a city guests can genuinely settle into.', zh: '如果整条路线需要舒适度、味道和真正让客人愿意待下来的城市，成都是很强的选择。' },
+      { en: 'Brings food culture, teahouse rhythm and a softer urban mood that changes the feeling of the whole trip.', zh: '它能把饮食文化、茶馆节奏和更柔和的城市气质带进路线里，直接改变整段旅行的体感。' },
+      { en: 'Works especially well after faster, heavier cities, creating a more breathable middle section.', zh: '放在节奏更快、分量更重的城市之后尤其合适，能让路线中段更有呼吸感。' },
+      { en: 'Ideal for travelers who want China to feel enjoyable and lived-in, not only impressive.', zh: '适合希望中国旅行不只是“震撼”，也真正“好待、好吃、好享受”的客人。' },
     ],
     experiences: [
       { en: 'Food-forward neighborhoods, teahouse rhythm and a more relaxed urban pace.', zh: '以美食为核心的街区、茶馆节奏，以及更松弛的城市步调。' },
@@ -172,22 +172,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Chengdu and shift into a slower urban rhythm', description: 'Chengdu works best as the point in a China route where the pace softens and the trip becomes more about enjoyment, food and everyday atmosphere.' },
-        { title: 'Food, neighborhood life and the city’s easygoing identity', description: 'This stage is ideal for combining major city highlights with local food culture, walkable districts and a more livable sense of urban China.' },
-        { title: 'Extend toward Chongqing or continue into a wider Southwest route', description: 'Chengdu can stand on its own as a lifestyle city stay, or connect naturally into Chongqing and broader Southwest China journeys.' },
+        { title: 'Shift into Chengdu when the route needs to breathe and become more pleasurable', description: 'Chengdu works best at the point where the itinerary should feel less performative and more genuinely enjoyable — the city where travelers stop rushing and start settling in.' },
+        { title: 'Let food, teahouse rhythm and neighborhood life soften the whole journey', description: 'This stage changes the emotional texture of the route. The experience becomes less about chasing significance and more about tasting, strolling and feeling comfortable in the city.' },
+        { title: 'Use Chengdu as a comfort chapter or as the bridge into Southwest China', description: 'Chengdu can stand alone as a refined lifestyle city, or become the pause that prepares the route to continue into Chongqing and the wider Southwest with a much better pace.' },
       ],
       zh: [
-        { title: '抵达成都，进入更松弛的城市节奏', description: '成都很适合作为整条中国线路里节奏放缓的节点，让旅行从“打卡”转向“享受、美食和生活感”。' },
-        { title: '美食、街区生活与成都的松弛城市气质', description: '这一段适合把核心城市体验与本地饮食文化、街区漫游和更容易让人放松的生活方式结合起来。' },
-        { title: '继续延展重庆，或转入更完整的西南线路', description: '成都既可以作为独立的生活方式城市停留，也可以自然衔接重庆和更大的西南中国旅行路线。' },
+        { title: '把成都放进路线里，是为了让整段旅行开始真正好待、好吃、好享受', description: '成都很适合出现在一条已经有了分量和结构的中国路线里，因为它能把节奏放下来，让客人真正开始享受旅行本身。' },
+        { title: '用饮食、茶馆和街区生活，把整条路线的体感柔化下来', description: '这一段会改变旅行的情绪质地：不再只是追求“厉害”和“必须看”，而是开始进入舒服、顺口、愿意慢下来的状态。' },
+        { title: '可作为舒适章节独立成立，也可顺势进入更大的西南段落', description: '成都既能自己成立，也很适合接重庆和更完整的西南路线，让整条旅行更有起伏而不是一路一个速度。' },
       ],
     },
   },
   guilin: {
     name: { en: 'Guilin', zh: '桂林' },
     summary: {
-      en: 'Guilin is one of the most internationally recognizable scenic destinations in China, known for its limestone karst landscapes, river views and softer pace compared with major city routes.',
-      zh: '桂林是中国最容易被国际游客识别的风景型目的地之一，以喀斯特山水、江景和相对柔和的旅行节奏见长。',
+      en: 'Guilin works best when a China route needs a softer scenic chapter — the part of the journey that slows down, opens up and lets the landscape do the emotional work.',
+      zh: '如果一条中国路线需要一个更柔和、更舒展的风景章节，桂林通常是很合适的选择：它能让旅行慢下来，也能让风景自己把情绪拉出来。',
     },
     audience: {
       en: 'Ideal for first-time China visitors who want iconic scenery, couples, families, photographers and travelers looking for a softer nature-led route.',
@@ -202,10 +202,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '2 天可以覆盖基础内容，但如果想兼顾江景、周边乡村和更从容的节奏，2–3 天会更自然。',
     },
     highlights: [
-      { en: 'One of the most internationally familiar scenic images of China.', zh: '是国际游客最熟悉的中国山水视觉形象之一。' },
-      { en: 'Karst mountains, river landscapes and a softer travel rhythm make it highly approachable.', zh: '喀斯特山体、江景和更柔和的节奏，让它很容易让游客产生好感。' },
-      { en: 'Works well as a scenic contrast to Beijing, Shanghai or Xi’an city-led itineraries.', zh: '和北京、上海、西安等城市型线路组合时，能形成很好的风景反差。' },
-      { en: 'A strong option for couples, families and travelers who want classic China scenery without an overly demanding route.', zh: '非常适合情侣、家庭，以及想看经典中国风景但又不想把路线做得太辛苦的人群。' },
+      { en: 'A beautiful choice when the route needs calm, openness and a more poetic visual pause.', zh: '如果整条路线需要安静感、舒展感和更有诗意的视觉停顿，桂林是很美的一站。' },
+      { en: 'Brings karst riverscapes and classic China imagery into the itinerary without demanding an aggressive pace.', zh: '它能把经典中国山水意象放进路线里，同时又不需要特别强硬的旅行节奏。' },
+      { en: 'Works especially well as the scenic counterpoint to Beijing, Shanghai or Xi’an.', zh: '和北京、上海、西安这类城市线搭配时，能形成非常自然的风景反差。' },
+      { en: 'Ideal for couples, families and travelers who want beauty, softness and space inside the journey.', zh: '适合希望在旅行里保留美感、柔和感和空间感的情侣、家庭与轻松型客人。' },
     ],
     experiences: [
       { en: 'River scenery, karst peaks and a softer scenic rhythm than major city routes.', zh: '江景、喀斯特峰林，以及相比大城市线路更柔和的风景节奏。' },
@@ -214,22 +214,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Guilin and enter the scenic layer of the route', description: 'Guilin works best when the China trip shifts from city recognition into softer natural scenery and slower visual enjoyment.' },
-        { title: 'Karst landscapes, river views and a gentler travel pace', description: 'This stage is ideal for combining the destination’s iconic scenery with a more relaxed rhythm than major metropolitan routes.' },
-        { title: 'Continue into Yangshuo or use Guilin as the scenic contrast in a wider route', description: 'Guilin can stand as a compact scenic chapter on its own or become the nature-focused contrast inside a larger China itinerary.' },
+        { title: 'Open a softer scenic chapter in Guilin and let the route exhale', description: 'Guilin works best when the itinerary needs space, softness and a slower visual rhythm — the kind of place that helps the journey feel open rather than packed.' },
+        { title: 'Let rivers, karst silhouettes and quiet scenery reset the travel mood', description: 'This part of the route is less about intensity and more about release. It gives travelers room to absorb China in a gentler, more atmospheric and more poetic way.' },
+        { title: 'Use Guilin as a scenic contrast or as the elegant pause between heavier sections', description: 'Guilin can be the scenic answer to stronger city chapters, or the beautiful pause that keeps the whole route from becoming too dense.' },
       ],
       zh: [
-        { title: '抵达桂林，进入整条路线的风景层', description: '桂林很适合作为中国旅行从城市识别度转向自然风景与慢节奏视觉享受的节点。' },
-        { title: '喀斯特山水、江景与更柔和的旅行节奏', description: '这一段适合把桂林最经典的山水景观与更轻松的旅行速度结合起来，让整段路线更有呼吸感。' },
-        { title: '继续延展阳朔，或把桂林作为整条中国线路里的自然反差段', description: '桂林既可以作为一个紧凑的风景章节独立成立，也可以成为更大中国线路里的自然风景反差点。' },
+        { title: '把桂林放进路线里，是为了让整段旅行有一段真正舒展的风景章节', description: '桂林很适合出现在城市感较强或节奏较紧的中国线路中，因为它能让旅行松开一点，让客人从“赶路”重新回到“感受”。' },
+        { title: '让山水、江景和更安静的节奏重新整理整条路线的情绪', description: '这一段不靠冲击力取胜，而是靠空气感、画面感和舒展感，让旅行重新变得好看、好呼吸。' },
+        { title: '可作为风景反差段，也可成为两段较重内容之间的漂亮停顿', description: '桂林既可以成为城市之后的自然答案，也可以作为整条路线里最柔和、最有审美感的留白段。' },
       ],
     },
   },
   zhangjiajie: {
     name: { en: 'Zhangjiajie', zh: '张家界' },
     summary: {
-      en: 'Zhangjiajie is one of China’s most dramatic landscape destinations for international travelers, known for its towering sandstone pillars, mountain viewpoints and highly cinematic scenery.',
-      zh: '张家界是中国最具戏剧感、也最容易打动国际游客的风景型目的地之一，以高耸石英砂岩峰林、山地观景和非常强的电影感景观著称。',
+      en: 'Zhangjiajie works best as the high-impact scenic peak of a China itinerary — the chapter that turns a good route into one people remember for years.',
+      zh: '张家界最适合作为一条中国路线里的高冲击风景高点：它往往不是“补充的一站”，而是能把整段旅行拉成多年后还记得的那种章节。',
     },
     audience: {
       en: 'Ideal for first-time visitors who want unforgettable scenery, photographers, couples, active travelers and guests who want a more visually dramatic China route.',
@@ -244,10 +244,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '2 天是可行下限，但如果想把山地观景、景区衔接和整体节奏做得更舒服，2–3 天会更合适。',
     },
     highlights: [
-      { en: 'One of the most visually dramatic and internationally memorable landscapes in China.', zh: '是中国最具视觉冲击力、也最容易让国际游客留下深刻印象的自然景观之一。' },
-      { en: 'A strong fit for travelers who want a more cinematic and mountainous side of China.', zh: '非常适合想看更电影感、更山地化中国景观的游客。' },
-      { en: 'Works especially well as a nature-heavy contrast to Beijing, Shanghai, Xi’an or Chengdu city-led routes.', zh: '和北京、上海、西安、成都等城市型路线组合时，能形成非常强的自然反差。' },
-      { en: 'A high-impact scenic option for couples, photographers and travelers who want stronger wow-factor in the itinerary.', zh: '对于情侣、摄影爱好者和想让路线更有“惊艳感”的客人来说，是很强的高冲击力选择。' },
+      { en: 'A powerful choice when the route needs a true wow-factor rather than a gentle scenic detour.', zh: '如果整条路线需要的是“真正震一下”的风景高点，而不是温和的小插曲，张家界会非常合适。' },
+      { en: 'Brings vertical scale, cinematic drama and a sense of visual shock that few destinations can match.', zh: '它能带来高差、电影感和强烈视觉冲击，这种画面密度不是很多目的地能替代的。' },
+      { en: 'Works especially well when paired with city-led routes that need one unforgettable natural climax.', zh: '和以城市为主的中国路线搭配时尤其好用，因为它能提供一个难忘的自然高潮段。' },
+      { en: 'Ideal for guests who want their itinerary to feel bolder, more scenic and more memorable overall.', zh: '适合希望整条行程更大胆、更出片、更有整体记忆点的客人。' },
     ],
     experiences: [
       { en: 'Towering sandstone pillars, mountain viewpoints and a much more dramatic visual scale than ordinary city routes.', zh: '高耸峰林、山地观景，以及远超普通城市线路的视觉尺度感。' },
@@ -256,22 +256,22 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Zhangjiajie and enter the most dramatic nature chapter of the route', description: 'Zhangjiajie works best when the trip needs a truly memorable landscape peak with scale, elevation and cinematic scenery.' },
-        { title: 'Mountain viewpoints, scenic transfers and high-impact landscapes', description: 'This stage is ideal for travelers who want to dedicate time to powerful mountain scenery rather than only city landmarks.' },
-        { title: 'Use Zhangjiajie as the visual high point inside a broader China itinerary', description: 'Zhangjiajie can be the wow-factor nature chapter that transforms a city-led China route into a more unforgettable journey.' },
+        { title: 'Use Zhangjiajie when the route needs a true scenic climax', description: 'Zhangjiajie works best when a China itinerary needs one chapter that feels undeniably spectacular — not just beautiful, but genuinely high-impact and unforgettable.' },
+        { title: 'Let scale, altitude and visual drama create the route’s strongest natural memory', description: 'This is where the journey shifts from impressive to cinematic. The scenery is not background here; it becomes the emotional peak that travelers carry away with them.' },
+        { title: 'Place Zhangjiajie where the route needs a wow-factor before it softens or closes', description: 'Used well, Zhangjiajie can become the natural high point that makes the rest of the itinerary feel more balanced, more dynamic and much more memorable.' },
       ],
       zh: [
-        { title: '抵达张家界，进入整条路线里最震撼的自然章节', description: '张家界很适合承担中国旅行中的风景高点，用尺度、高差和电影感景观拉开整条路线的记忆点。' },
-        { title: '山地观景、景区衔接与高冲击力自然画面', description: '这一段适合把重点时间留给强烈自然景观，而不是普通城市地标，让旅行更有“惊艳感”。' },
-        { title: '把张家界作为更大中国线路中的视觉高峰段', description: '张家界可以成为城市型中国线路中的自然高潮段，让整条旅行从“完整”变成“难忘”。' },
+        { title: '把张家界放进路线里，不是为了“补一个自然点”，而是为了制造真正的高潮', description: '张家界很适合作为整条中国路线里的视觉峰值：它不是简单的景点补充，而是能让客人在很多年后依然记得的一段。' },
+        { title: '用高差、电影感和强烈画面感，把旅行拉到最震撼的一层', description: '这一段不只是风景好看，而是会让整条路线突然有了强烈的舞台感和记忆峰值。' },
+        { title: '放在合适位置，它会成为整条路线最难被替代的自然高潮段', description: '张家界很适合出现在中后段，作为一记真正拉满情绪的自然高点，然后再让路线慢慢回落。' },
       ],
     },
   },
   xinjiang: {
     name: { en: 'Xinjiang', zh: '新疆' },
     summary: {
-      en: 'Xinjiang is one of the strongest destinations for turning a China trip into a truly differentiated long-form landscape journey, built around scale, road rhythm and dramatic natural contrast.',
-      zh: '新疆是最能把中国旅行做成“差异化长线风景旅程”的目的地之一，它围绕尺度感、公路线节奏和强烈自然反差来成立。',
+      en: 'Xinjiang works best when the goal is not just to visit China, but to travel through it in a way that feels vast, differentiated and emotionally expansive.',
+      zh: '如果你想要的不是“去中国看看”，而是真正走进一种开阔、差异化、带着空间感的中国旅行，新疆往往是最能把这件事做出来的地方。',
     },
     audience: {
       en: 'Ideal for scenery-first travelers, photographers, road-trip oriented guests and travelers who want a China route far beyond standard city sightseeing.',
@@ -286,10 +286,10 @@ export const destinationContent: Record<string, DestinationContent> = {
       zh: '压缩版可以从 5–6 天起步，但如果想让新疆真正成立而不是赶路式掠过，7–10 天会更自然。',
     },
     highlights: [
-      { en: 'One of the most differentiated large-scale landscape destinations in China.', zh: '是中国最具差异化的大尺度景观目的地之一。' },
-      { en: 'Built around grasslands, lakes, snow mountains, desert and road-based travel rhythm.', zh: '草原、湖泊、雪山、沙漠和在路上的节奏共同构成核心体验。' },
-      { en: 'Ideal for long-form scenic routes rather than compressed city-style sightseeing.', zh: '更适合长线风景路线，而不是压缩式城市观光逻辑。' },
-      { en: 'Creates a powerful contrast with Beijing, Shanghai or Xi’an-led first-China routes.', zh: '与北京、上海、西安这些首访中国主线城市形成极强反差。' },
+      { en: 'The right choice when the route needs scale, freedom and a sense of genuine distance rather than city-to-city repetition.', zh: '如果整条路线需要尺度感、自由感和真正的远方感，而不是一座又一座城市的重复，新疆会是很对的选择。' },
+      { en: 'Brings roads, changing landscapes and emotional openness into the journey in a way few other destinations can.', zh: '它能把“在路上”的变化、地貌切换和情绪上的开阔感带进旅行里，这一点很少有别的目的地能替代。' },
+      { en: 'Works as a stand-alone long journey or as the most differentiated chapter inside a larger China itinerary.', zh: '它既可以独立成为一整段重要旅程，也可以作为更大中国线路里最有差异化的一章。' },
+      { en: 'Ideal for travelers who want their China route to feel expansive, cinematic and genuinely unlike the standard version.', zh: '适合希望自己的中国路线显得更开阔、更电影化，也更明显区别于常规版本的客人。' },
     ],
     experiences: [
       { en: 'Grasslands, lakes, mountains, desert landscapes and a much stronger sense of distance and scale.', zh: '草原、湖泊、雪山、沙漠，以及更强烈的距离感和尺度感。' },
@@ -298,14 +298,14 @@ export const destinationContent: Record<string, DestinationContent> = {
     ],
     samplePlan: {
       en: [
-        { title: 'Arrive in Xinjiang and shift into a long-form landscape journey', description: 'Xinjiang works best when the trip becomes less about city stops and more about distance, scenery and the rhythm of moving through vast terrain.' },
-        { title: 'Road-based scenery, regional contrast and wide-open scale', description: 'This stage is ideal for travelers who want to feel the route itself, not just individual landmarks, through changing landscapes and long-form motion.' },
-        { title: 'Use Xinjiang as the differentiated scenic chapter of a China trip', description: 'Xinjiang can either stand as its own major journey or serve as the part of China that makes the entire route feel much more distinctive.' },
+        { title: 'Enter Xinjiang when the route needs openness, distance and a sense of real escape', description: 'Xinjiang works best when the goal is not simply to see another part of China, but to move through a chapter that feels broader, freer and far less standard than the usual itinerary.' },
+        { title: 'Let roads, changing terrain and long-form scenery reshape the scale of the trip', description: 'This part of the journey is about space as much as sights. The landscapes change, the rhythm stretches, and the route begins to feel more like travel in the deepest sense than just a sequence of stops.' },
+        { title: 'Use Xinjiang as the differentiated journey within the journey', description: 'Whether it stands alone or appears inside a wider China route, Xinjiang works best as the chapter that makes the whole itinerary feel more expansive, cinematic and truly distinct.' },
       ],
       zh: [
-        { title: '抵达新疆，进入真正的长线风景旅行节奏', description: '新疆最适合让中国旅行从“城市停靠”转向“路程、风景和地貌变化”本身，形成完全不同的旅行感受。' },
-        { title: '公路线、区域反差与开阔尺度感', description: '这一段适合让游客真正感受到路线本身，而不是只看单个景点，通过不断变化的风景和行进节奏建立新疆的核心体验。' },
-        { title: '把新疆作为中国旅行里最有差异化的章节', description: '新疆既可以独立成为一段重要旅程，也可以作为整条中国线路里最能拉开差异化的风景章节。' },
+        { title: '把新疆放进路线里，是为了让旅行真正出现“远方感”', description: '新疆很适合那些不想只是在中国不同城市之间移动，而是真的想进入一段更开阔、更自由、更不标准化旅程的人。' },
+        { title: '让公路线、地貌切换和空间尺度重新定义整段中国旅行', description: '这一段的重点不只是某一个景点，而是随着道路前进，风景、节奏和心情都被一起拉开。' },
+        { title: '无论独立成行还是嵌入大线，它都能成为最有差异化的一章', description: '新疆最适合承担整条中国路线里最开阔、最电影化、也最不容易和常规版本混在一起的一段。' },
       ],
     },
   },
