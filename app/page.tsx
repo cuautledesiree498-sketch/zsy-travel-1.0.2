@@ -576,14 +576,17 @@ function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
 }
 
 function DestinationCard({ item, index, lang }: { item: any; index: number; lang: Lang }) {
-  const destinationSlug = normalizeDestinationSlug(resolveManagedLink(item.linkTarget, item.link));
-  const fallback = getDestinationFallbackImage(destinationSlug);
-  const cardImageSrc = shouldForceLocalDestinationImage(destinationSlug)
+  const resolvedLink = resolveManagedLink(item.linkTarget, item.link);
+  const titleText = useDisplayText(item.title, lang);
+  const titleSlug = normalizeDestinationSlug(titleText);
+  const destinationSlug = normalizeDestinationSlug(resolvedLink) || titleSlug;
+  const fallback = getDestinationFallbackImage(destinationSlug || titleSlug);
+  const cardImageSrc = shouldForceLocalDestinationImage(destinationSlug || titleSlug)
     ? fallback
     : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
   return (
-    <SmartCardLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
+    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
       <div className="relative h-[24rem] bg-[var(--color-navy)]">
         <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.78),rgba(4,10,18,0.14),rgba(4,10,18,0.08))]"></div>
