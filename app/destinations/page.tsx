@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getDestinations } from '@/lib/sanity';
+import { getDestinations, getDestinationFallbackImage, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
 import { getDestinationContent } from '@/lib/destinationContent';
 
@@ -51,8 +51,17 @@ export default async function DestinationsPage({ searchParams }: any) {
           const audience = meta?.audience?.[lang];
           const stay = meta?.stay?.[lang];
           const pairing = lang === 'zh' ? '可和北京、西安、上海、成都或桂林等方向组合，进一步整理成更完整的中国路线。' : 'Can be combined with Beijing, Xi’an, Shanghai, Chengdu or Guilin to shape a fuller China route.';
+          const destinationImage = shouldForceLocalDestinationImage(item.slug)
+            ? getDestinationFallbackImage(item.slug)
+            : null;
           return (
-            <article key={item._id} className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
+            <article key={item._id} className="overflow-hidden rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_18px_50px_rgba(10,27,52,0.06)]">
+              {destinationImage ? (
+                <div className="relative h-56 w-full bg-[var(--color-soft-white)]">
+                  <img src={destinationImage} alt={title || (lang === 'zh' ? '精选目的地' : 'Destination')} className="h-full w-full object-cover" />
+                </div>
+              ) : null}
+              <div className="p-7">
               <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{title || (lang === 'zh' ? '精选目的地' : 'Destination')}</h2>
               {desc ? (
                 <p className="mt-3 line-clamp-4 text-[var(--color-muted)] leading-7">{desc}</p>
@@ -80,6 +89,7 @@ export default async function DestinationsPage({ searchParams }: any) {
                 <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '按这个方向咨询' : 'Inquire About This Direction'}
                 </Link>
+              </div>
               </div>
             </article>
           );

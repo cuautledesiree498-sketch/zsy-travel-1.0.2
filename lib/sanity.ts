@@ -32,6 +32,18 @@ const destinationFallbackBySlug: Record<string, string> = {
   zhangjiajie: '/media/destinations/xinjiang.jpg',
 };
 
+const forceLocalDestinationImageSlugs = new Set([
+  'beijing',
+  'shanghai',
+  'shenzhen',
+  'chengdu',
+  'xinjiang',
+  'xian',
+  'xi-an',
+  'shaanxi',
+  'chongqing',
+]);
+
 export function normalizeDestinationSlug(value?: string | null) {
   return (value || '')
     .toLowerCase()
@@ -44,6 +56,11 @@ export function normalizeDestinationSlug(value?: string | null) {
     .pop()
     ?.replace(/%20/g, '-')
     ?.replace(/\s+/g, '-') || '';
+}
+
+export function shouldForceLocalDestinationImage(slugOrPath?: string | null) {
+  const slug = normalizeDestinationSlug(slugOrPath);
+  return forceLocalDestinationImageSlugs.has(slug);
 }
 
 export function getDestinationFallbackImage(slugOrPath?: string | null) {

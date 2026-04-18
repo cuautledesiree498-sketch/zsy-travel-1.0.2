@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getDestinationBySlug, imageUrlFor, getDestinationFallbackImage } from '@/lib/sanity';
+import { getDestinationBySlug, imageUrlFor, getDestinationFallbackImage, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
 import { getDestinationContent } from '@/lib/destinationContent';
 
@@ -68,6 +68,9 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const heroFacts = Array.isArray(destination.heroFacts) ? destination.heroFacts : [];
   const gallery = Array.isArray(destination.gallery) ? destination.gallery.filter(Boolean) : [];
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const destinationHeroImage = shouldForceLocalDestinationImage(destination.slug)
+    ? getDestinationFallbackImage(destination.slug)
+    : imageUrlFor(destination.image, 1600, getDestinationFallbackImage(destination.slug));
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -88,7 +91,7 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
       </nav>
 
       <section className="relative mt-16 h-[54vh] overflow-hidden">
-        <Image src={imageUrlFor(destination.image, 1600, getDestinationFallbackImage(destination.slug))} alt={name} fill className="object-cover" priority />
+        <Image src={destinationHeroImage} alt={name} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.82),rgba(4,10,18,0.26),rgba(4,10,18,0.08))]" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-6 pb-10 text-white">
           <Link href={withLang('/destinations', lang)} className="inline-flex rounded-full border border-white/30 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/90 transition hover:bg-white/10">

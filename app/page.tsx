@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug } from '@/lib/sanity';
+import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -578,15 +578,14 @@ function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
 function DestinationCard({ item, index, lang }: { item: any; index: number; lang: Lang }) {
   const destinationSlug = normalizeDestinationSlug(resolveManagedLink(item.linkTarget, item.link));
   const fallback = getDestinationFallbackImage(destinationSlug);
+  const cardImageSrc = shouldForceLocalDestinationImage(destinationSlug)
+    ? fallback
+    : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
   return (
     <SmartCardLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
       <div className="relative h-[24rem] bg-[var(--color-navy)]">
-        {item.backgroundImage ? (
-          <Image src={imageUrlFor(item.backgroundImage, 1000, fallback)} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
-        ) : (
-          <Image src={fallback} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
-        )}
+        <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.78),rgba(4,10,18,0.14),rgba(4,10,18,0.08))]"></div>
         <div className="absolute left-0 right-0 top-0 flex justify-end p-6 text-4xl text-white/90">{renderManagedIcon(item, 'text-4xl')}</div>
         <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
