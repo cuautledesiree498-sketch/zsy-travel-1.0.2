@@ -92,6 +92,14 @@ function fillPayload(payload: InquiryPayload) {
   };
 }
 
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isWithinLengthLimit(value: string, max: number) {
+  return value.length <= max;
+}
+
 async function sha1(message: string) {
   const data = new TextEncoder().encode(message);
   const hashBuffer = await crypto.subtle.digest('SHA-1', data);
@@ -137,7 +145,7 @@ export async function POST(request: Request) {
   const missing = requiredEnvMissing();
   if (missing.length > 0) {
     return NextResponse.json(
-      { ok: false, error: `Missing server env vars: ${missing.join(', ')}` },
+      { ok: false, error: 'Inquiry service is temporarily unavailable.' },
       { status: 500 }
     );
   }
@@ -148,6 +156,33 @@ export async function POST(request: Request) {
   if (!filled.name || !filled.email || !filled.destination || !filled.message) {
     return NextResponse.json(
       { ok: false, error: 'Missing required inquiry fields.' },
+      { status: 400 }
+    );
+  }
+
+  if (!isValidEmail(filled.email)) {
+    return NextResponse.json(
+      { ok: false, error: 'Please provide a valid email address.' },
+      { status: 400 }
+    );
+  }
+
+  const lengthRules: Array<[keyof typeof filled, number]> = [
+    ['name', 100],
+    ['email', 254],
+    ['whatsapp', 50],
+    ['destination', 120],
+    ['travelDate', 60],
+    ['groupSize', 40],
+    ['budget', 60],
+    ['hotelPreference', 80],
+    ['message', 3000],
+  ];
+
+  const exceededField = lengthRules.find(([key, max]) => !isWithinLengthLimit(filled[key], max));
+  if (exceededField) {
+    return NextResponse.json(
+      { ok: false, error: 'One or more inquiry fields are too long.' },
       { status: 400 }
     );
   }
@@ -184,7 +219,7 @@ export async function POST(request: Request) {
 
   if (!response.ok) {
     return NextResponse.json(
-      { ok: false, error: 'Aliyun DirectMail request failed.', details: text },
+      { ok: false, error: 'Inquiry submission failed. Please try again later.' },
       { status: 502 }
     );
   }
@@ -198,14 +233,10 @@ export async function POST(request: Request) {
 
   if (parsed?.Code || parsed?.code) {
     return NextResponse.json(
-      {
-        ok: false,
-        error: parsed?.Message || parsed?.message || 'Aliyun DirectMail returned an error.',
-        details: text,
-      },
+      { ok: false, error: 'Inquiry submission failed. Please try again later.' },
       { status: 502 }
     );
   }
 
-  return NextResponse.json({ ok: true, details: text });
+  return NextResponse.json({ ok: true });
 }
