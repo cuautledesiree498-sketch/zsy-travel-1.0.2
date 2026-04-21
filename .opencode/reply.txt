@@ -1,73 +1,45 @@
 # Task Execution Report
 
 ## 1. Summary
-- Updated `app/page.tsx` for this task.
-- Applied the supplied first-pass Home page hero and trust-copy cleanup as a low-risk copy edit.
-- Replaced only the 8 specified parts for this task:
-  - `heroTitle`
-  - `heroSubtitle`
-  - `heroSupporting`
-  - `trustSectionEyebrow`
-  - `trustSectionTitle`
-  - `trustSectionBody`
-  - `highlightSectionTitle`
-  - `highlightSectionBody`
-- Kept metadata, page structure, CTA button label text, `trustDecisionItems`, `highlightItems`, layout, routing, CMS, and unrelated files unchanged.
+- Source edit scope was limited to `app/services/page.tsx`.
+- Only the 4 English `chooseWhen` strings inside the `services` array were cleaned up.
+- No other content, structure, layout, metadata, CTA, imports, routing, or Chinese copy was changed.
+- Build passed.
 
 ## 2. Files changed
-- `app/page.tsx`
+- `app/services/page.tsx`
 - `.opencode/reply.txt`
 
 ## 3. What changed in each file
 
-### `app/page.tsx`
-- Replaced `heroTitle` with the supplied sharper homepage title.
-- Replaced `heroSubtitle` with the supplied concise audience description.
-- Replaced `heroSupporting` with the supplied line about starting from dates, group size, and priorities.
-- Replaced `trustSectionEyebrow` with the supplied trust-section eyebrow.
-- Replaced `trustSectionTitle` with the supplied route-first trust heading.
-- Replaced `trustSectionBody` with the supplied explanation about evaluating route flow, pace, and confirmation clarity first.
-- Replaced `highlightSectionTitle` with the supplied audience framing.
-- Replaced `highlightSectionBody` with the supplied wording about confirming whether the route is worth doing before using a template.
-- Did not modify `trustDecisionItems`, `highlightItems`, CTA button labels, metadata, or any layout/behavior.
+### `app/services/page.tsx`
+- Updated the English `chooseWhen` copy for `Group Tours`.
+- Updated the English `chooseWhen` copy for `Educational Tours`.
+- Updated the English `chooseWhen` copy for `Private Tailor-Made Trips`.
+- Updated the English `chooseWhen` copy for `Corporate Travel Solutions`.
+- Left all Chinese text unchanged.
+- Left `pageIntro`, `chooseGuideTitle`, `chooseGuideItems`, titles, descriptions, durations, examples, CTA text, page structure, metadata, layout, route logic, and imports unchanged.
 
 ### `.opencode/reply.txt`
-- Wrote this execution report.
+- Wrote this execution report required by the task.
 
-## 4. Key diff snippets or inserted copy blocks
+## 4. Key diff snippets
 
-### Replaced hero copy
 ```tsx
-const heroTitle = lang === 'zh' ? '把中国旅程先理顺。' : 'Get Your China Trip Straightened Out First.';
-const heroSubtitle = lang === 'zh' ? '面向家庭、私人小团、研学和商务来华客人的定制旅行。' : 'Tailor-made China travel for families, private groups, study trips, and business guests.';
-const heroSupporting = lang === 'zh' ? '先把日期、人数和重点偏好告诉我们，我们会先理清路线方向，再往下做。' : 'Share your dates, group size, and priorities, and we’ll shape the route from there.';
-```
+chooseWhen: isZh ? '当你希望整体安排更统一、预算更容易控制、多人协同时更省心。' : 'You want one coordinated structure, easier budget control, and less friction across multiple travelers.'
 
-### Replaced trust-section copy
-```tsx
-const trustSectionEyebrow = lang === 'zh' ? '为什么更好判断' : 'Why It’s Easier to Decide';
-const trustSectionTitle = lang === 'zh' ? '先把路线判断对。' : 'Start With the Right Route.';
-const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好，先判断路线是否顺、节奏是否合适、后面的确认会不会卡住。' : 'We look at your dates, group size, and priorities first, so it’s easier to see whether the route flows well, the pace makes sense, and the confirmation process will stay clear.';
-```
+chooseWhen: isZh ? '当行程不只是游览，还需要内容主题、参访结构和带队沟通配合。' : 'The trip needs more than sightseeing and requires program themes, visit structure, and group coordination.'
 
-### Replaced highlight-section copy
-```tsx
-const highlightSectionTitle = lang === 'zh' ? '适合想先把方向理清的人' : 'For Travelers Who Want the Direction Clear First';
-const highlightSectionBody = lang === 'zh'
-  ? '适合不想上来就套模板，而是先确认路线值不值得做的人。'
-  : 'Best for travelers who do not want a copied template and prefer to confirm whether the route is worth doing first.';
+chooseWhen: isZh ? '当你更在意节奏感、住宿风格、体验顺序和个人偏好，而不是统一模板。' : 'Pacing, hotel style, experience order, and personal preferences matter more than a standard format.'
+
+chooseWhen: isZh ? '当行程需要围绕会议、拜访、接待标准和时间窗口来安排。' : 'The schedule needs to work around meetings, visits, hosting standards, and tight time windows.'
 ```
 
 ## 5. Build result
-- Ran: `npm run build`
-- Result: success
-- The Next.js production build completed successfully after the Home page copy update.
+- Ran `npm run build`.
+- Result: passed.
 
 ## 6. Errors / risks / unfinished items
-- No blocking errors occurred.
-- `git diff` showed an LF/CRLF working-copy warning for `app/page.tsx`. Build still passed.
-- No unfinished implementation items remain within the requested scope.
-
-## 7. Anything that still needs human confirmation later
-- Since this was a first-pass human-written cleanup, a final human review in the live UI may still be useful.
-- Metadata, CTA button labels, `trustDecisionItems`, and `highlightItems` were intentionally left unchanged because the task explicitly limited the edit scope.
+- No build errors occurred.
+- No known risks introduced within the requested scope.
+- No unfinished items remain for this task.

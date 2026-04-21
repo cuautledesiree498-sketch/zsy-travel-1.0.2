@@ -25,7 +25,7 @@ export default async function ServicesPage({ searchParams }: any) {
         ? '适合多人同行，需要把整体节奏、资源衔接和出行效率先梳理清楚。'
         : 'Suitable for larger parties that need overall pacing, resource coordination, and travel efficiency clarified early.',
       fit: isZh ? '朋友团、家庭团、多代同行、小型同行团队' : 'Friend groups, family groups, mixed-age travel parties, small group departures',
-      chooseWhen: isZh ? '当你希望整体安排更统一、预算更容易控制、多人协同时更省心。' : 'Choose this when you want one coordinated structure, easier budget control, and less friction across multiple travelers.',
+      chooseWhen: isZh ? '当你希望整体安排更统一、预算更容易控制、多人协同时更省心。' : 'You want one coordinated structure, easier budget control, and less friction across multiple travelers.',
       example: isZh ? '北京 + 上海 + 西安这类多城市经典线路' : 'A classic multi-city route such as Beijing, Shanghai, and Xi’an',
       whatWeArrange: isZh ? '路线规划、城市衔接、酒店区域建议、接送机协调、整体节奏安排' : 'Route planning, city connections, hotel area advice, airport transfers, and overall pacing',
       duration: '7–12 days',
@@ -36,7 +36,7 @@ export default async function ServicesPage({ searchParams }: any) {
         ? '面向学校、机构与青少年群体，重点是学习目标、参访顺序和执行安全感。'
         : 'Designed for schools, institutions, and youth groups with emphasis on learning goals, visit order, and safer execution.',
       fit: isZh ? '学校、机构、冬夏令营、文化交流与主题学习团队' : 'Schools, institutions, camps, exchange groups, and themed learning programs',
-      chooseWhen: isZh ? '当行程不只是游览，还需要内容主题、参访结构和带队沟通配合。' : 'Choose this when the trip needs more than sightseeing and requires program themes, visit structure, and group coordination.',
+      chooseWhen: isZh ? '当行程不只是游览，还需要内容主题、参访结构和带队沟通配合。' : 'The trip needs more than sightseeing and requires program themes, visit structure, and group coordination.',
       example: isZh ? '历史文化参访 + 城市观察 + 主题课程的组合' : 'A mix of heritage visits, city observation, and themed sessions',
       whatWeArrange: isZh ? '主题结构、参访节奏、双语沟通、活动衔接、安全与陪同建议' : 'Program structure, visit pacing, bilingual communication, activity coordination, and safety support',
       duration: '5–10 days',
@@ -47,7 +47,7 @@ export default async function ServicesPage({ searchParams }: any) {
         ? '面向个人、情侣与家庭，更适合需要灵活节奏、私密度和偏好定制的安排。'
         : 'For solo travelers, couples, and families who need more flexibility, privacy, and preference-based pacing.',
       fit: isZh ? '情侣蜜月、亲子家庭、私人小团、偏好明确的旅行者' : 'Couples, honeymoons, families, private parties, and travelers with clearer preferences',
-      chooseWhen: isZh ? '当你更在意节奏感、住宿风格、体验顺序和个人偏好，而不是统一模板。' : 'Choose this when pacing, hotel style, experience order, and personal preferences matter more than a standard format.',
+      chooseWhen: isZh ? '当你更在意节奏感、住宿风格、体验顺序和个人偏好，而不是统一模板。' : 'Pacing, hotel style, experience order, and personal preferences matter more than a standard format.',
       example: isZh ? '新疆深度行程、成都慢旅行、精品酒店组合' : 'Xinjiang depth travel, slow-paced Chengdu, and boutique stay combinations',
       whatWeArrange: isZh ? '行程定制、酒店区域建议、交通衔接、私人节奏调整' : 'Itinerary design, hotel area advice, transport coordination, and private pace adjustment',
       duration: '6–14 days',
@@ -58,7 +58,7 @@ export default async function ServicesPage({ searchParams }: any) {
         ? '适合商务接待、企业团建、客户拜访与高端接待，重点是时间配合和接待衔接。'
         : 'For business hosting, team building, client visits, and premium corporate travel with tighter time coordination.',
       fit: isZh ? '商务客户、考察团、企业活动、接待安排与城市延伸' : 'Business delegations, inspection groups, corporate events, executive hosting, and city extensions',
-      chooseWhen: isZh ? '当行程需要围绕会议、拜访、接待标准和时间窗口来安排。' : 'Choose this when the schedule needs to work around meetings, visits, hosting standards, and tight time windows.',
+      chooseWhen: isZh ? '当行程需要围绕会议、拜访、接待标准和时间窗口来安排。' : 'The schedule needs to work around meetings, visits, hosting standards, and tight time windows.',
       example: isZh ? '商务拜访 + 城市延伸 + 餐饮与接待协调' : 'Business visits with city extensions plus dining and hosting coordination',
       whatWeArrange: isZh ? '接送机、行程对接、会议/拜访节奏、餐饮建议、城市延伸' : 'Airport pickup, schedule coordination, meeting pacing, dining suggestions, and city extensions',
       duration: '2–7 days',
