@@ -19,10 +19,10 @@ export default async function PaymentPage({ searchParams }: any) {
   const lang = normalizeLang((await searchParams)?.lang);
   const isZh = lang === 'zh';
 
-  const pageTitle = isZh ? '支付与确认流程' : 'Payment & Confirmation Flow';
+  const pageTitle = isZh ? '付款前，我们会先把事情确认清楚' : 'Before Payment, We Make the Important Parts Clear';
   const pageSubtitle = isZh
-    ? '这不是直接付款页，而是先说明确认顺序：在路线、人数、日期、金额和服务范围确认后，我们再提供对应的支付方式。'
-    : 'This is not a direct checkout page. It explains the confirmation order first: once route, traveler details, dates, amount and service scope are confirmed, we provide the matching payment method.';
+    ? '如果路线、日期、人数、服务范围这些关键部分还没说清楚，我们不会急着让你付款。先把该确认的内容确认好，再进入对应的支付安排，会更稳。'
+    : 'If the route, dates, traveler details, and service scope are still unclear, we do not rush you into payment. We first make the important parts clear, then move into the right payment arrangement.';
 
   const scenarios = isZh
     ? [
@@ -79,7 +79,7 @@ export default async function PaymentPage({ searchParams }: any) {
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_20px_60px_rgba(10,27,52,0.06)] md:p-10">
             <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '支付前确认' : 'Before Payment'}</p>
-            <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '我们会先确认这些信息' : 'We Confirm These Details First'}</h2>
+            <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '付款前，我们通常会先看清这几件事' : 'Before Payment, These Are Usually the First Things We Check'}</h2>
             <div className="mt-6 space-y-4 text-base leading-8 text-[var(--color-muted)]">
               {checks.map((item, index) => (
                 <p key={index}>• {item}</p>
@@ -102,7 +102,7 @@ export default async function PaymentPage({ searchParams }: any) {
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[#f8fbff] p-8 shadow-[0_20px_60px_rgba(10,27,52,0.05)] md:p-10">
           <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '当前原则' : 'Current Principles'}</p>
-          <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '先确认，再支付' : 'Confirm First, Pay Second'}</h2>
+          <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '为什么我们不建议一开始就付款' : 'Why We Do Not Recommend Paying Too Early'}</h2>
           <div className="mt-6 space-y-4 text-base leading-8 text-[var(--color-muted)]">
             {principles.map((item, index) => (
               <p key={index}>• {item}</p>
@@ -121,10 +121,10 @@ export default async function PaymentPage({ searchParams }: any) {
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link href={withLang('/contact', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">
-              {isZh ? '联系确认需求' : 'Contact Us'}
+              {isZh ? '先把需求聊清楚' : 'Talk Through the Details First'}
             </Link>
             <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-              {isZh ? '提交咨询表单' : 'Submit an Inquiry'}
+              {isZh ? '准备好了就发咨询' : 'Send an Inquiry When You Are Ready'}
             </Link>
           </div>
         </div>

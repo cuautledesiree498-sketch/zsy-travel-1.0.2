@@ -35,15 +35,19 @@ export default async function ContactPage({ searchParams }: any) {
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
   const footerIntro = lang === 'zh' ? '无限旅途目前已开放咨询承接：你可以先提交需求，我们会根据出行时间、人数、目的地和预算做初步判断，再继续沟通路线与执行方式。' : 'Infinite Travel is open for travel inquiries now. You can submit your request first, and we will review your timing, group size, destinations and budget before discussing route design and next steps.';
   const contactAddress = lang === 'zh' ? OFFICE_LOCATION_ZH : OFFICE_LOCATION_EN;
-  const contactHeroTitle = lang === 'zh' ? '联系我们，开始你的中国旅程' : 'Contact Us to Start Your Journey in China';
-  const contactHeroSubtitle = lang === 'zh' ? '告诉我们你的出行时间、人数、目的地和预算，我们会尽快为你安排合适的咨询方式。' : 'Share your travel dates, group size, destinations and budget, and we will arrange the right consultation for you as soon as possible.';
-  const contactGuideTitle = lang === 'zh' ? '咨询前请准备以下信息' : 'Please Prepare the Following Information Before Inquiry';
+  const contactHeroTitle = lang === 'zh' ? '先告诉我们，你想怎么去中国' : 'Tell Us How You Want to Travel in China';
+  const contactHeroSubtitle = lang === 'zh'
+    ? '你不需要一开始就把所有细节想清楚。先告诉我们大概时间、人数、想去的地方和预算范围，我们会判断下一步该怎么聊。'
+    : 'You do not need to have every detail figured out yet. Start with your rough dates, group size, places you are considering, and budget range. We will help decide what should happen next.';
+  const contactGuideTitle = lang === 'zh' ? '先给我们一个大概方向就可以' : 'A Rough Direction Is Enough to Start';
   const contactGuideItems = lang === 'zh'
     ? ['1️⃣ 出行日期和大致天数', '2️⃣ 同行人数和成员情况', '3️⃣ 想去的城市或地区', '4️⃣ 预算范围', '5️⃣ 是否有特殊需求（饮食 / 语言 / 节奏等）']
     : ['1️⃣ Travel dates and trip length', '2️⃣ Group size and traveler type', '3️⃣ Preferred destinations', '4️⃣ Budget range', '5️⃣ Any special needs (diet / language / pace)'];
   const contactStatusNote = lang === 'zh' ? '我们会先查看你的时间、人数、目的地与预算信息，通常会在 24 小时内通过邮箱或后续沟通方式回复。' : 'We first review your timing, group size, destinations and budget, and usually reply within 24 hours by email or the next agreed contact method.';
-  const contactCtaTitle = lang === 'zh' ? '咨询后会发生什么' : 'What Happens After You Inquire';
-  const contactCtaSubtitle = lang === 'zh' ? '我们不会让你直接跳进模糊报价。先收集基本信息，再判断方向、节奏与可行性，确认适合后再进入路线和支付环节。' : 'We first collect the essentials, then assess direction, pace and feasibility before moving into route planning and payment.';
+  const contactCtaTitle = lang === 'zh' ? '提交之后，我们会先帮你把方向理清' : 'After You Submit, We First Make the Direction Clear';
+  const contactCtaSubtitle = lang === 'zh'
+    ? '我们不会在信息还不清楚的时候就急着报价或收款。先看你的时间、人数、目的地和预算，再判断路线该怎么收、节奏是否合适，以及下一步是否需要进入报价或支付。'
+    : 'We do not rush into pricing or payment while the trip is still unclear. We first review your timing, group size, destinations, and budget, then decide how the route should take shape and whether the next step should be quotation or payment.';
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">

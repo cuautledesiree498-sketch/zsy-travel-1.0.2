@@ -1,171 +1,73 @@
-本轮任务已完成。
+# Task Execution Report
 
-1. 改了哪些文件
+## 1. Summary
+- Updated `app/page.tsx` for this task.
+- Applied the supplied first-pass Home page hero and trust-copy cleanup as a low-risk copy edit.
+- Replaced only the 8 specified parts for this task:
+  - `heroTitle`
+  - `heroSubtitle`
+  - `heroSupporting`
+  - `trustSectionEyebrow`
+  - `trustSectionTitle`
+  - `trustSectionBody`
+  - `highlightSectionTitle`
+  - `highlightSectionBody`
+- Kept metadata, page structure, CTA button label text, `trustDecisionItems`, `highlightItems`, layout, routing, CMS, and unrelated files unchanged.
+
+## 2. Files changed
 - `app/page.tsx`
 - `.opencode/reply.txt`
 
-2. 每个文件改了什么
+## 3. What changed in each file
 
-`app/page.tsx`
+### `app/page.tsx`
+- Replaced `heroTitle` with the supplied sharper homepage title.
+- Replaced `heroSubtitle` with the supplied concise audience description.
+- Replaced `heroSupporting` with the supplied line about starting from dates, group size, and priorities.
+- Replaced `trustSectionEyebrow` with the supplied trust-section eyebrow.
+- Replaced `trustSectionTitle` with the supplied route-first trust heading.
+- Replaced `trustSectionBody` with the supplied explanation about evaluating route flow, pace, and confirmation clarity first.
+- Replaced `highlightSectionTitle` with the supplied audience framing.
+- Replaced `highlightSectionBody` with the supplied wording about confirming whether the route is worth doing before using a template.
+- Did not modify `trustDecisionItems`, `highlightItems`, CTA button labels, metadata, or any layout/behavior.
 
-删掉了哪些小图标 / 装饰元素
-- 删除了顶部品牌块里的 `IT` 小标记块。
-- 现在品牌块只保留纯文字识别：品牌名 + 辅助说明。
-- 本轮没有新增任何新的图标、emoji 或装饰性元素。
+### `.opencode/reply.txt`
+- Wrote this execution report.
 
-哪些文案继续减字了
-- Hero subtitle 再压短一轮：
-  - 中文从 `规划更清楚、更舒服的私人路线` 收成 `规划更清楚的私人路线`
-  - 英文从 `Private, human-planned routes...` 收成 `Private routes...`
-- Hero supporting 再压短一轮：
-  - 中文改成 `告诉我们时间、人数和想去的地方，我们帮你把路线理顺。`
-  - 英文改成 `Share your dates, group size and wish list. We help shape the route.`
-- Highlight 顶部辅助说明继续压缩成更短一句：
-  - 中文：`先从最像你的一种开始。`
-  - 英文：`Start with the one that feels closest.`
+## 4. Key diff snippets or inserted copy blocks
 
-trust 卡怎么继续压缩了
-- 三个 item 的 value 都继续缩成更短的短语，不再像解释句：
-  - 中文：
-    - `经典主线先排顺`
-    - `城市搭配先看清`
-    - `节奏更顺`
-  - 英文：
-    - `Start with the classic route`
-    - `See what fits together`
-    - `Keep the pace smooth`
-- trust 卡内容区的 padding、行高也轻微收紧，让它更像 quick scan，而不是说明块。
-
-Highlight 区怎么继续减说明感了
-- 顶部辅助说明再缩短，不再解释“再慢慢把路线收清楚”这类过程感内容。
-- 三张卡 desc 全部继续减字：
-  - `先把经典城市的顺序和节奏排清楚。`
-  - `把城市、风景和路上节奏放在一起看。`
-  - `把日期、人数和预算发来，先看路线是否顺。`
-- 英文 desc 也同步压缩，避免重新变成说明文：
-  - `Begin with the classic cities, then see what else belongs.`
-  - `Balance cities, landscapes and pace in one route.`
-  - `Send the dates, group size and budget range. We will check the route.`
-- 这块仍保留原来的入口结构，没有扩大成新的模块。
-
-轻微排版压缩
-- Hero 品牌标签下边距从 `mb-4` 调成 `mb-3`
-- Hero subtitle 上边距、字号、行高略收
-- Hero supporting 上边距和行高略收
-- Hero 按钮区上边距从 `mt-9` 调成 `mt-8`
-- trust 卡 item padding 从 `p-4` 缩到 `p-3.5`
-- trust 卡 value 的上边距和行高略收
-- Highlight 顶部辅助说明最大宽度从 `max-w-xl` 缩到 `max-w-lg`
-- Highlight 卡片区上边距从 `mt-5` 调成 `mt-4`
-
-`.opencode/reply.txt`
-- 写入本轮执行结果、删减说明、关键代码片段、风险和边界说明。
-
-3. 关键 diff 或关键代码片段
-
-关键片段 1：删除顶部品牌块里的小标记
-
+### Replaced hero copy
 ```tsx
-<Link href={withLang('/', lang)} className="flex items-center">
-  <div>
-    <p className="text-base font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-lg">{siteTitle}</p>
-    <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'en' ? 'China Travel Planning' : '中国定制旅行规划'}</p>
-  </div>
-</Link>
+const heroTitle = lang === 'zh' ? '把中国旅程先理顺。' : 'Get Your China Trip Straightened Out First.';
+const heroSubtitle = lang === 'zh' ? '面向家庭、私人小团、研学和商务来华客人的定制旅行。' : 'Tailor-made China travel for families, private groups, study trips, and business guests.';
+const heroSupporting = lang === 'zh' ? '先把日期、人数和重点偏好告诉我们，我们会先理清路线方向，再往下做。' : 'Share your dates, group size, and priorities, and we’ll shape the route from there.';
 ```
 
-关键片段 2：Hero 再减字
-
+### Replaced trust-section copy
 ```tsx
-const heroSubtitle = lang === 'zh' ? '为第一次来中国的家庭、情侣、小团和商务访客，规划更清楚的私人路线。' : 'Private routes for first-time visitors, families, couples and hosted business trips.';
-const heroSupporting = lang === 'zh' ? '告诉我们时间、人数和想去的地方，我们帮你把路线理顺。' : 'Share your dates, group size and wish list. We help shape the route.';
+const trustSectionEyebrow = lang === 'zh' ? '为什么更好判断' : 'Why It’s Easier to Decide';
+const trustSectionTitle = lang === 'zh' ? '先把路线判断对。' : 'Start With the Right Route.';
+const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好，先判断路线是否顺、节奏是否合适、后面的确认会不会卡住。' : 'We look at your dates, group size, and priorities first, so it’s easier to see whether the route flows well, the pace makes sense, and the confirmation process will stay clear.';
 ```
 
-关键片段 3：trust 卡 value 继续压缩
-
+### Replaced highlight-section copy
 ```tsx
-const trustDecisionItems = lang === 'zh'
-  ? [
-      { label: '第一次来中国', value: '经典主线先排顺' },
-      { label: '多城市取舍', value: '城市搭配先看清' },
-      { label: '私人小团安排', value: '节奏更顺' },
-    ]
-  : [
-      { label: 'First time in China', value: 'Start with the classic route' },
-      { label: 'Choosing the right cities', value: 'See what fits together' },
-      { label: 'Private groups & hosted trips', value: 'Keep the pace smooth' },
-    ];
-```
-
-关键片段 4：Highlight 顶部和三卡继续减说明感
-
-```tsx
+const highlightSectionTitle = lang === 'zh' ? '适合想先把方向理清的人' : 'For Travelers Who Want the Direction Clear First';
 const highlightSectionBody = lang === 'zh'
-  ? '先从最像你的一种开始。'
-  : 'Start with the one that feels closest.';
+  ? '适合不想上来就套模板，而是先确认路线值不值得做的人。'
+  : 'Best for travelers who do not want a copied template and prefer to confirm whether the route is worth doing first.';
 ```
 
-```tsx
-{
-  title: '第一次来中国',
-  desc: '先把经典城市的顺序和节奏排清楚。',
-}
-{
-  title: '想看城市，也想看风景',
-  desc: '把城市、风景和路上节奏放在一起看。',
-}
-{
-  title: '已经有大致计划',
-  desc: '把日期、人数和预算发来，先看路线是否顺。',
-}
-```
+## 5. Build result
+- Ran: `npm run build`
+- Result: success
+- The Next.js production build completed successfully after the Home page copy update.
 
-关键 diff 摘要
+## 6. Errors / risks / unfinished items
+- No blocking errors occurred.
+- `git diff` showed an LF/CRLF working-copy warning for `app/page.tsx`. Build still passed.
+- No unfinished implementation items remain within the requested scope.
 
-```diff
-- <span className="...">IT</span>
-+ // removed
-
-- const heroSupporting = ... 'We help shape it into a route that makes sense.';
-+ const heroSupporting = ... 'We help shape the route.';
-
-- { label: 'Private groups & hosted trips', value: 'Keep the pace smooth and comfortable' }
-+ { label: 'Private groups & hosted trips', value: 'Keep the pace smooth' }
-
-- const highlightSectionBody = ... 'Pick the direction that feels closest, then refine the route from there.';
-+ const highlightSectionBody = ... 'Start with the one that feels closest.';
-```
-
-4. 是否只修改了允许区域
-- 是。
-- 本轮只修改了：
-  - 顶部品牌块中的装饰性小标记
-  - Hero 左侧文案
-  - Hero 右侧 trust 卡文案
-  - Hero 下方 Highlight 区文案
-  - 以及这些区域里的少量字号、间距、行高
-- 没有修改：
-  - 动态背景
-  - 动画
-  - section switch 逻辑
-  - Sanity schema
-  - helper 函数逻辑
-  - 其他页面
-  - inquiry / contact / API / backend
-  - 依赖、`package.json`、lock 文件
-
-5. 有没有报错 / 风险 / 未完成项
-
-报错
-- 本轮修改过程中没有新增报错。
-
-风险
-- 风险较低，本轮主要是删减和收口。
-- Hero 与 Highlight 的文案继续压缩后，信息更轻了，但如果后续希望更强转化导向，可能还需要结合真实用户反馈再微调文案力度。
-
-未完成项
-- 无必须未完成项。
-
-边界说明
-- 本轮严格没有做结构重做，也没有做动态背景或视觉炫技改造。
-- 目标仅是把首屏继续收轻、收干净、收克制。
+## 7. Anything that still needs human confirmation later
+- Since this was a first-pass human-written cleanup, a final human review in the live UI may still be useful.
+- Metadata, CTA button labels, `trustDecisionItems`, and `highlightItems` were intentionally left unchanged because the task explicitly limited the edit scope.

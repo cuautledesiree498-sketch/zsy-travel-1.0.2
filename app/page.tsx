@@ -19,9 +19,9 @@ export default async function Home({ searchParams }: any) {
   const heroSection = sections.find((section: any) => section._type === 'heroSection');
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
-  const heroTitle = lang === 'zh' ? '按你的节奏设计中国旅程。' : 'China journeys designed around your pace.';
-  const heroSubtitle = lang === 'zh' ? '面向家庭、私人小团、研学与商务来华客人的定制化中国旅行服务。' : 'Tailor-made China travel for families, private groups, study trips and business guests.';
-  const heroSupporting = lang === 'zh' ? '告诉我们日期、人数和重点偏好，我们会先把路线方向整理清楚。' : 'Tell us your dates, group size and priorities, and we will shape the route from there.';
+  const heroTitle = lang === 'zh' ? '把中国旅程先理顺。' : 'Get Your China Trip Straightened Out First.';
+  const heroSubtitle = lang === 'zh' ? '面向家庭、私人小团、研学和商务来华客人的定制旅行。' : 'Tailor-made China travel for families, private groups, study trips, and business guests.';
+  const heroSupporting = lang === 'zh' ? '先把日期、人数和重点偏好告诉我们，我们会先理清路线方向，再往下做。' : 'Share your dates, group size, and priorities, and we’ll shape the route from there.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
   const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更贴近真实需求的旅程设计与咨询支持。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured journey design and consultation support.';
@@ -35,9 +35,9 @@ export default async function Home({ searchParams }: any) {
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
   const heroEyebrow = lang === 'zh' ? '面向海外旅客的中国私人定制行程' : 'Tailor-Made China Journeys for Overseas Travelers';
   const heroBrandLabel = lang === 'zh' ? 'Infinite Travel | 中国定制旅行顾问' : 'Infinite Travel | China Travel Planning';
-  const trustSectionEyebrow = lang === 'zh' ? '让中国旅行规划更清晰。' : 'A clearer way to plan your China trip.';
-  const trustSectionTitle = lang === 'zh' ? '让规划更轻松的关键' : 'What makes planning easier';
-  const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好梳理路线，让下一步更容易查看、比较和确认。' : 'We shape routes around your dates, group size and priorities, so the next step is easier to review and confirm.';
+  const trustSectionEyebrow = lang === 'zh' ? '为什么更好判断' : 'Why It’s Easier to Decide';
+  const trustSectionTitle = lang === 'zh' ? '先把路线判断对。' : 'Start With the Right Route.';
+  const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好，先判断路线是否顺、节奏是否合适、后面的确认会不会卡住。' : 'We look at your dates, group size, and priorities first, so it’s easier to see whether the route flows well, the pace makes sense, and the confirmation process will stay clear.';
   const trustDecisionItems = lang === 'zh'
     ? [
         { label: '多城市路线设计', value: '北京、上海、成都、西安、新疆等目的地都可以灵活组合。' },
@@ -50,10 +50,10 @@ export default async function Home({ searchParams }: any) {
         { label: 'Bilingual communication', value: 'Clear support from first inquiry to trip confirmation.' },
       ];
   const highlightSectionEyebrow = lang === 'zh' ? '适合谁' : 'Who It’s For';
-  const highlightSectionTitle = lang === 'zh' ? '适合不想走标准模板路线的旅行者' : 'For travelers who want more than a standard route';
+  const highlightSectionTitle = lang === 'zh' ? '适合想先把方向理清的人' : 'For Travelers Who Want the Direction Clear First';
   const highlightSectionBody = lang === 'zh'
-    ? '更适合希望路线、节奏和服务方式都能按真实需求来安排的客人。'
-    : 'Best for travelers who want more than a route copied from a standard template.';
+    ? '适合不想上来就套模板，而是先确认路线值不值得做的人。'
+    : 'Best for travelers who do not want a copied template and prefer to confirm whether the route is worth doing first.';
   const highlightItems = lang === 'zh'
     ? [
         {

@@ -1,94 +1,135 @@
-[任务目标]
-对 ZSY Travel 首页首屏做第三轮小修：删除不合适的小图标/装饰感元素，继续减少文字密度，让首页更轻、更干净、更少说明味。
+# Task: Apply first-pass Home page hero and trust-copy cleanup
 
-本轮仍然是**低风险首屏收口**，不是结构重做，更不是动态背景改造。
+## Goal
+Apply a first-pass human-written copy cleanup to the Home page hero and trust sections. This is a low-risk copy refinement task focused on making the homepage feel less like a polished travel template and more like a sharp, precise, and attractive entry point.
 
-[工作目录]
-C:\Users\Administrator\travel-website\my-travel-site
+## File to edit
+- `app/page.tsx`
 
-[只允许修改的文件]
-- app\page.tsx
+## Hard constraints
+- Read the real file first before editing.
+- Only edit `app/page.tsx`.
+- Do not change page structure.
+- Do not touch metadata.
+- Do not touch the `trustDecisionItems` array.
+- Do not touch the `highlightItems` array.
+- Do not touch CTA button label text.
+- Do not touch layout, routing, CMS, About, Services, Contact, FAQ, Payment, API, or unrelated files.
+- Keep the existing bilingual `en` / `zh` structure.
+- Keep changes minimal and low-risk.
+- Run `npm run build` after editing.
+- Write the final execution report to:
+  - `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`
 
-[只允许修改的区域]
-1. 顶部品牌块中不够高级的小符号 / 小图标 / 装饰感元素
-2. Hero 左侧文案
-3. Hero 右侧 trust 卡文案
-4. Hero 下方 Highlight 区文案
-5. 如有必要，只允许轻微调整这些区域的字号、间距、行高，用于降低拥挤感
+## Required changes
 
-[严格禁止]
-- 禁止做动态背景
-- 禁止新增动画
-- 禁止引入新依赖
-- 禁止修改 package.json / lock 文件
-- 禁止修改 Sanity schema
-- 禁止修改 section switch 逻辑
-- 禁止修改 helper 函数逻辑
-- 禁止修改其他页面
-- 禁止修改 inquiry / contact / API / backend
-- 禁止大改结构
+Only replace these 8 parts in `app/page.tsx`:
 
-[当前要解决的具体问题]
-1. 页面中有不合适的小图标 / emoji 感元素，影响质感
-2. 首屏文字仍然偏多
-3. 首页虽然比前两轮更自然，但仍不够轻
-4. trust 卡与 Highlight 区仍有一点说明块感
+1. `heroTitle`
+2. `heroSubtitle`
+3. `heroSupporting`
+4. `trustSectionEyebrow`
+5. `trustSectionTitle`
+6. `trustSectionBody`
+7. `highlightSectionTitle`
+8. `highlightSectionBody`
 
-[本轮改造原则]
-- 少一点字
-- 少一点图标感
-- 少一点解释
-- 多一点留白
-- 多一点品牌首页气质
-- 不破坏前两轮已经变好的方向
+Do not change anything else unless required to keep TypeScript/JSX valid.
 
-[具体执行要求]
+---
 
-## 1. 删除不合适的小图标 / 小装饰元素
-- 检查首页首屏允许区域里是否还有像 `🧭` 这类 emoji、小图标、模板化装饰元素
-- 有的话直接删除或替换为更克制的纯排版表达
-- 不要为了“有设计感”再补新的花哨图标
+## 1) Replace `heroTitle`
 
-## 2. Hero 再减字
-- Hero subtitle 再看是否可进一步压短
-- Hero supporting 再压一轮，必要时可以缩成极短一句
-- 避免继续解释流程，只保留轻量价值表达
-- 英文也同步压缩，不要越写越满
+Replace with:
 
-## 3. trust 卡继续减字
-- 每个 item 的 value 再压短
-- 能用短语就不要用完整句
-- 减少“解释为什么”的口吻
-- 更像 quick scan / quick decision 辅助
+```tsx
+const heroTitle = lang === 'zh' ? '把中国旅程先理顺。' : 'Get Your China Trip Straightened Out First.';
+```
 
-## 4. Highlight 区继续减说明感
-- 顶部辅助说明可以继续压缩，必要时可删掉
-- 三张卡 desc 再缩短
-- 让它更像选择入口，不像 mini 说明文
+---
 
-## 5. 轻微排版压缩（仅限允许区域）
-如果有必要，可小范围调整：
-- 最大宽度
-- 字号
-- 行高
-- margin / padding
-目的只有一个：让首屏更轻，不是重做布局。
+## 2) Replace `heroSubtitle`
 
-[验收标准]
-- 首页首屏继续变轻
-- 文字量明显继续下降
-- 不合适的小图标 / emoji 感元素被清掉
-- trust 卡与 Highlight 区更像入口，不像说明块
-- 中文和英文都没有重新变回“AI 说明文”
-- 不破坏原有逻辑
+Replace with:
 
-[完成后必须写回]
-写入：C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt
+```tsx
+const heroSubtitle = lang === 'zh' ? '面向家庭、私人小团、研学和商务来华客人的定制旅行。' : 'Tailor-made China travel for families, private groups, study trips, and business guests.';
+```
 
-回传内容必须包含：
-1. 删掉了哪些小图标 / 装饰元素
-2. 哪些文案继续减字了
-3. trust 卡怎么继续压缩了
-4. Highlight 区怎么继续减说明感了
-5. 是否只修改了允许区域
-6. 是否有风险或未完成项
+---
+
+## 3) Replace `heroSupporting`
+
+Replace with:
+
+```tsx
+const heroSupporting = lang === 'zh' ? '先把日期、人数和重点偏好告诉我们，我们会先理清路线方向，再往下做。' : 'Share your dates, group size, and priorities, and we’ll shape the route from there.';
+```
+
+---
+
+## 4) Replace `trustSectionEyebrow`
+
+Replace with:
+
+```tsx
+const trustSectionEyebrow = lang === 'zh' ? '为什么更好判断' : 'Why It’s Easier to Decide';
+```
+
+---
+
+## 5) Replace `trustSectionTitle`
+
+Replace with:
+
+```tsx
+const trustSectionTitle = lang === 'zh' ? '先把路线判断对。' : 'Start With the Right Route.';
+```
+
+---
+
+## 6) Replace `trustSectionBody`
+
+Replace with:
+
+```tsx
+const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好，先判断路线是否顺、节奏是否合适、后面的确认会不会卡住。' : 'We look at your dates, group size, and priorities first, so it’s easier to see whether the route flows well, the pace makes sense, and the confirmation process will stay clear.';
+```
+
+---
+
+## 7) Replace `highlightSectionTitle`
+
+Replace with:
+
+```tsx
+const highlightSectionTitle = lang === 'zh' ? '适合想先把方向理清的人' : 'For Travelers Who Want the Direction Clear First';
+```
+
+---
+
+## 8) Replace `highlightSectionBody`
+
+Replace with:
+
+```tsx
+const highlightSectionBody = lang === 'zh' ? '适合不想上来就套模板，而是先确认路线值不值得做的人。' : 'Best for travelers who do not want a copied template and prefer to confirm whether the route is worth doing first.';
+```
+
+---
+
+## Validation
+After editing:
+
+1. Run `npm run build`.
+2. Write the execution report to `.opencode/reply.txt` with:
+   - Summary
+   - Files changed
+   - What changed in each file
+   - Key diff snippets or inserted copy blocks
+   - Build result
+   - Errors / risks / unfinished items
+   - Anything that still needs human confirmation later
+
+## Expected result
+The homepage hero and trust sections should feel sharper, more precise, and more attractive, while still staying concise and avoiding generic AI-style travel copy.
