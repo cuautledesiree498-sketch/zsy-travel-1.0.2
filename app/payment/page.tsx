@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import LegalLinks from '@/components/LegalLinks';
 import { withLang, normalizeLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -46,6 +47,9 @@ export default async function PaymentPage({ searchParams }: any) {
   const principles = isZh
     ? ['未确认前，不建议直接付款。', '支付方式以双方沟通确认后的安排为准。', '当前页面不展示伪支付按钮，也不引导未确认状态下直接付款。']
     : ['We do not recommend paying before the details are confirmed.', 'The actual payment method depends on the confirmed arrangement after consultation.', 'This page does not show fake payment buttons or push unconfirmed payments.'];
+  const policyNotes = isZh
+    ? ['支付安排以确认后的订单文件为准。', '取消与退款处理以已确认内容和供应商规则为准。', '咨询信息的使用方式请参见隐私政策。']
+    : ['Payment arrangements depend on the confirmed booking documents.', 'Cancellation and refund handling depends on the confirmed terms and supplier rules.', 'How inquiry information is used is explained in the Privacy Policy.'];
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -105,12 +109,22 @@ export default async function PaymentPage({ searchParams }: any) {
             ))}
           </div>
 
+          <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6">
+            <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{isZh ? '相关政策' : 'Related Policies'}</p>
+            <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-muted)]">
+              {policyNotes.map((item) => (
+                <p key={item}>• {item}</p>
+              ))}
+            </div>
+            <LegalLinks lang={lang} className="mt-5 space-y-3 text-sm text-[var(--color-slate)]" />
+          </div>
+
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link href={withLang('/contact', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">
-              {isZh ? '先联系确认需求' : 'Contact Us First'}
+              {isZh ? '联系确认需求' : 'Contact Us'}
             </Link>
             <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-              {isZh ? '先提交咨询表单' : 'Submit an Inquiry First'}
+              {isZh ? '提交咨询表单' : 'Submit an Inquiry'}
             </Link>
           </div>
         </div>

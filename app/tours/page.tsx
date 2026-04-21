@@ -66,8 +66,8 @@ export default async function ToursPage({ searchParams }: any) {
                 <Link href={withLang(`/tours/${encodeURIComponent(tour.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '看这个方案怎么做' : 'See How This Route Works'}
                 </Link>
-                <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-                  {lang === 'zh' ? '按这个方向咨询' : 'Inquire With This Direction'}
+                <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+                  {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
                 </Link>
               </div>
             </article>
@@ -79,8 +79,8 @@ export default async function ToursPage({ searchParams }: any) {
         <h2 className="text-2xl font-semibold text-[var(--color-navy)] md:text-3xl">{lang === 'zh' ? '还不确定怎么选？' : 'Still not sure which route to choose?'}</h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '直接告诉我们你最想去的城市、出行时间、人数和预算，我们会先帮你判断更适合城市首访线、风景文化组合线，还是更长一点的深度定制路线。' : 'Tell us your target cities, travel dates, group size and budget, and we will help you decide between a first-time city route, a scenery-plus-culture combination, or a longer custom journey.'}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
-            {lang === 'zh' ? '发送行程需求' : 'Send Your Trip Request'}
+          <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
+            {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
           </Link>
           <Link href={withLang('/', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
             {lang === 'zh' ? '回首页继续看' : 'Back to Home'}

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import LegalLinks from '@/components/LegalLinks';
 import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
 
@@ -261,6 +262,7 @@ export default async function Home({ searchParams }: any) {
             <div>
               <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.siteIntro}</h5>
               <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{siteDescription}</p>
+              <LegalLinks lang={lang} title={lang === 'zh' ? '法务' : 'Legal'} className="mt-6 space-y-3 text-sm text-[var(--color-slate)]" />
             </div>
           </div>
           <div className="mt-12 border-t border-[rgba(10,27,52,0.08)] pt-6 text-center text-sm text-[var(--color-muted)]">

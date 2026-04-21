@@ -64,8 +64,8 @@ export default async function InsightsPage({ searchParams }: any) {
       </section>
 
       <div className="mt-14">
-        <Link href={withLang('/contact', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
-          {lang === 'zh' ? '按内容方向咨询' : 'Inquire From This Content'}
+        <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+          {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
         </Link>
       </div>
     </main>

@@ -77,8 +77,8 @@ export default async function DestinationsPage({ searchParams }: any) {
                 <Link href={withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '看这个目的地适不适合你' : 'See If This Destination Fits You'}
                 </Link>
-                <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-                  {lang === 'zh' ? '按这个方向咨询' : 'Inquire About This Direction'}
+                <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+                  {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
                 </Link>
               </div>
               </div>
@@ -92,8 +92,8 @@ export default async function DestinationsPage({ searchParams }: any) {
       </section>
 
       <div className="mt-14">
-        <Link href={withLang('/contact', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
-          {lang === 'zh' ? '直接咨询这个方向' : 'Inquire About This Direction'}
+        <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+          {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
         </Link>
       </div>
     </main>

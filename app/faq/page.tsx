@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import LegalLinks from '@/components/LegalLinks';
 import { normalizeLang, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -25,6 +26,10 @@ const faqs = [
   { q: { en: 'What happens after I submit an inquiry?', zh: '提交询盘后会发生什么？' }, a: { en: 'We review your needs first, then reply with next steps or a follow-up question.', zh: '我们会先查看你的需求，再回复下一步建议或补充问题。' } },
   { q: { en: 'Do you offer educational or school trips?', zh: '可以做研学或学校团吗？' }, a: { en: 'Yes. We can help with educational, school and study-focused routes.', zh: '可以，我们支持研学、学校团和学习型路线。' } },
   { q: { en: 'Do you offer long China journeys?', zh: '可以做长线中国深度游吗？' }, a: { en: 'Yes. We offer multi-city routes and can customize them further.', zh: '可以，我们有成熟的多城市路线，也可以继续个性化调整。' } },
+  { q: { en: 'Does sending an inquiry create a booking?', zh: '提交咨询后算订单成立吗？' }, a: { en: 'No. An inquiry is only the start of communication. A booking is usually formed after scope, pricing, payment arrangements, and the required confirmation are agreed.', zh: '不算。提交咨询只是开始沟通，通常需要在服务范围、价格、付款安排和确认条件明确后，订单才会成立。' } },
+  { q: { en: 'What do you confirm before payment?', zh: '付款前会先确认什么？' }, a: { en: 'We normally confirm route direction, travel dates, traveler details, service scope, and the relevant payment arrangement before asking you to proceed.', zh: '通常会先确认路线方向、出行日期、人数与服务范围，再说明对应的付款安排。' } },
+  { q: { en: 'How are cancellations and refunds handled?', zh: '取消与退款怎么处理？' }, a: { en: 'Handling depends on the confirmed booking terms, supplier rules, service progress, and costs already incurred. Please review the Refund & Cancellation Policy for the general framework.', zh: '处理方式取决于已确认订单内容、供应商规则、服务进度和已发生费用。可先参考退款与取消政策中的通用说明。' } },
+  { q: { en: 'How do you use my inquiry information?', zh: '你们如何使用我的咨询信息？' }, a: { en: 'We use the information you submit to respond to your request, shape route suggestions, and support related service communication. Please review the Privacy Policy for more detail.', zh: '我们会使用你提交的信息来回复需求、提供路线建议并支持相关服务沟通。更详细说明请查看隐私政策。' } },
 ];
 
 export default function FAQPage({ searchParams }: any) {
@@ -44,7 +49,16 @@ export default function FAQPage({ searchParams }: any) {
         ))}
       </section>
 
-      <div className="mt-14">
+      <section className="mt-14 rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8">
+        <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '相关政策' : 'Related Policies'}</p>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '关于支付、取消、隐私和订单成立方式的原则性说明，也可以结合以下政策页面一起查看。' : 'For the general principles around payment, cancellation, privacy, and when a booking is formed, you can also review the policy pages below.'}</p>
+        <LegalLinks lang={lang} className="mt-6 space-y-3 text-sm text-[var(--color-slate)]" />
+      </section>
+
+      <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+          {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
+        </Link>
         <Link href={withLang('/', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
           {lang === 'zh' ? '返回首页' : 'Back to Home'}
         </Link>

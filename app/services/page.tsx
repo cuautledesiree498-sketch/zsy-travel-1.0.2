@@ -86,7 +86,7 @@ export default async function ServicesPage({ searchParams }: any) {
         <h3 className="text-2xl font-semibold">{isZh ? '如果你不确定选哪种服务' : 'If you are not sure which service fits best'}</h3>
         <p className="mt-4 max-w-3xl leading-8 text-[rgba(255,255,255,0.82)]">{isZh ? '告诉我们你的出行时间、人数、预算和旅行目标，我们会帮你从四种方向里挑最合适的方案。' : 'Share your travel dates, group size, budget, and travel goal, and we will help you choose the best direction from the four options.'}</p>
         <div className="mt-8">
-          <Link href={withLang('/contact', lang)} className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{isZh ? '开始咨询' : 'Start Planning'}</Link>
+          <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{isZh ? '提交咨询' : 'Submit an Inquiry'}</Link>
         </div>
       </section>
     </main>

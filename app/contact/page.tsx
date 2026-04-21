@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import InquiryForm from '@/components/InquiryForm';
+import LegalLinks from '@/components/LegalLinks';
 import { getSiteSettings } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
 
@@ -145,6 +146,9 @@ export default async function ContactPage({ searchParams }: any) {
       <footer className="border-t border-[var(--color-line)] bg-[#f6f8fc] py-10 text-center text-sm text-[var(--color-muted)]">
         <div className="mx-auto max-w-7xl px-6">
           <p>{footerIntro}</p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-[var(--color-slate)]">
+            <LegalLinks lang={lang} itemClassName="contents" />
+          </div>
           <p className="mt-4">{lang === 'zh' ? `© 2026 ${siteTitle}。保留所有权利。` : `© 2026 ${siteTitle}. All rights reserved.`}</p>
         </div>
       </footer>

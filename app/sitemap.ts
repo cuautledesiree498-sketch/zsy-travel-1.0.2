@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/payment',
     '/insights',
     '/faq',
+    '/terms',
+    '/privacy',
+    '/refund-cancellation',
   ];
 
   return routes.map((route) => ({
