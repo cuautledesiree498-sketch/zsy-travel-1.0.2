@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { getDestinationFallbackImage } from '@/lib/sanity';
 import { getDestinationContent } from '@/lib/destinationContent';
 import { normalizeLang, withLang } from '@/lib/i18n';
@@ -23,6 +24,9 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const { slug } = await params;
   const lang = normalizeLang((await searchParams)?.lang);
   const meta = getDestinationContent(slug);
+
+  if (!meta) notFound();
+
   const displayName = meta?.name?.[lang] || slug;
   const name = displayName;
   const titleLabel = meta ? (lang === 'zh' ? `${displayName} / 目的地详情` : `${displayName} / Destination`) : (lang === 'zh' ? '中国目的地' : 'China Destination');
