@@ -18,9 +18,9 @@ export default async function Home({ searchParams }: any) {
   const heroSection = sections.find((section: any) => section._type === 'heroSection');
   const nonHeroSections = sections.filter((section: any) => section._type !== 'heroSection');
 
-  const heroTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
-  const heroSubtitle = lang === 'zh' ? '面向海外旅客的中国私人定制行程，不做模板团，先按你的出行时间、人数和预算来规划' : 'Private China itineraries for overseas travelers, built around your dates, group size and budget instead of a generic package tour';
-  const heroSupporting = lang === 'zh' ? '更适合首次来华家庭、情侣、小团、商务接待与想把中国线路做得更清楚的海外旅客。你先告诉我们想去哪里、准备玩几天、几个人出行、预算大概多少，我们会把它整理成一版更容易决定的中国行程方案。' : 'Built for first-time China visitors, couples, families, private groups and business guests who need a clearer route. Tell us where you want to go, how many days you have, how many people are traveling and your rough budget, and we turn that into a China itinerary that is easier to understand and confirm.';
+  const heroTitle = lang === 'zh' ? '让中国之行，从模糊想法变成清晰路线' : 'China trips shaped around the way you actually travel';
+  const heroSubtitle = lang === 'zh' ? '为第一次来中国的家庭、情侣、小团和商务访客，规划更清楚的私人路线。' : 'Private routes for first-time visitors, families, couples and hosted business trips.';
+  const heroSupporting = lang === 'zh' ? '告诉我们时间、人数和想去的地方，我们帮你把路线理顺。' : 'Share your dates, group size and wish list. We help shape the route.';
   const heroImage = heroSection?.backgroundImage || settings?.heroImage || settings?.heroBackground;
   const heroVideoUrl = heroSection?.backgroundVideoUrl;
   const footerIntro = lang === 'zh' ? '无限旅途专注中国高端定制旅行，为家庭、情侣、商务接待、私人小团与主题旅客提供更有结构、更贴近真实需求的旅程设计与咨询支持。' : 'Infinite Travel focuses on premium tailor-made travel across China for families, couples, executive visits, private groups and theme-driven travelers who need a more structured journey design and consultation support.';
@@ -33,21 +33,72 @@ export default async function Home({ searchParams }: any) {
   const languageSwitchLabel = t.language;
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
   const heroEyebrow = lang === 'zh' ? '面向海外旅客的中国私人定制行程' : 'Tailor-Made China Journeys for Overseas Travelers';
-  const trustSectionTitle = lang === 'zh' ? '我们更擅长把模糊想法，整理成真的能出发的中国路线。' : 'We are strongest when a vague China idea needs to become a route you can actually compare, confirm and travel.';
-  const trustSectionBody = lang === 'zh'
-    ? '很多海外旅客一开始只有很模糊的方向：想去北京还是上海？要不要加西安？新疆适不适合第一次来？我们更擅长处理这类判断题——把城市组合、停留时长、旅行节奏和预算范围整理成更容易理解、比较和确认的定制方案。'
-    : 'Many overseas travelers start with only a rough idea: Beijing or Shanghai, whether Xi’an should be added, whether Xinjiang is right for a first trip, or how many days the route really needs. We are stronger at solving those planning decisions and turning them into a route that is easier to understand, compare and confirm.';
+  const heroBrandLabel = lang === 'zh' ? 'Infinite Travel | 中国定制旅行顾问' : 'Infinite Travel | China Travel Planning';
+  const trustSectionEyebrow = lang === 'zh' ? '适合这类旅行想法' : 'A Good Fit For';
+  const trustSectionTitle = lang === 'zh' ? '适合还在判断路线的人' : 'For travelers still shaping the route';
+  const trustDecisionItems = lang === 'zh'
+    ? [
+        { label: '第一次来中国', value: '经典主线先排顺' },
+        { label: '多城市取舍', value: '城市搭配先看清' },
+        { label: '私人小团安排', value: '节奏更顺' },
+      ]
+    : [
+        { label: 'First time in China', value: 'Start with the classic route' },
+        { label: 'Choosing the right cities', value: 'See what fits together' },
+        { label: 'Private groups & hosted trips', value: 'Keep the pace smooth' },
+      ];
+  const highlightSectionEyebrow = lang === 'zh' ? '先从旅行想法出发' : 'Begin With The Idea';
+  const highlightSectionTitle = lang === 'zh' ? '从最接近你的旅行想法开始' : 'Start with the trip you have in mind';
+  const highlightSectionBody = lang === 'zh'
+    ? '先从最像你的一种开始。'
+    : 'Start with the one that feels closest.';
+  const highlightItems = lang === 'zh'
+    ? [
+        {
+          eyebrow: '经典主线',
+          title: '第一次来中国',
+          desc: '先把经典城市的顺序和节奏排清楚。',
+          featured: true,
+        },
+        {
+          eyebrow: '城市与风景',
+          title: '想看城市，也想看风景',
+          desc: '把城市、风景和路上节奏放在一起看。',
+        },
+        {
+          eyebrow: '先看可行性',
+          title: '已经有大致计划',
+          desc: '把日期、人数和预算发来，先看路线是否顺。',
+        },
+      ]
+    : [
+        {
+          eyebrow: 'Classic Route',
+          title: 'First time in China',
+          desc: 'Begin with the classic cities, then see what else belongs.',
+          featured: true,
+        },
+        {
+          eyebrow: 'City + Landscape',
+          title: 'Cities, culture and scenery',
+          desc: 'Balance cities, landscapes and pace in one route.',
+        },
+        {
+          eyebrow: 'Trip Check',
+          title: 'Already have a rough plan',
+          desc: 'Send the dates, group size and budget range. We will check the route.',
+        },
+      ];
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-4">
-            <Link href={withLang('/', lang)} className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-soft-white)] text-lg text-[var(--color-navy)] shadow-sm">✦</span>
+            <Link href={withLang('/', lang)} className="flex items-center">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.38em] text-[var(--color-muted)]">{lang === 'en' ? 'Tailor-Made China Journeys' : '中国高端定制旅行'}</p>
-                <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
+                <p className="text-base font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-lg">{siteTitle}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'en' ? 'China Travel Planning' : '中国定制旅行规划'}</p>
               </div>
             </Link>
 
@@ -90,17 +141,18 @@ export default async function Home({ searchParams }: any) {
         <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div className="text-white">
             <p className="mb-5 text-xs uppercase tracking-[0.45em] text-[rgba(255,255,255,0.76)]">{heroEyebrow}</p>
-            <h2 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h2>
-            <p className="mt-7 max-w-3xl text-2xl font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-3xl">{heroSubtitle}</p>
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-[rgba(255,255,255,0.82)] md:text-xl">{heroSupporting}</p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mb-3 inline-flex rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-[rgba(255,255,255,0.82)]">{heroBrandLabel}</div>
+            <h1 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h1>
+            <p className="mt-4 max-w-3xl text-lg font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-[1.55rem]">{heroSubtitle}</p>
+            <p className="mt-2.5 max-w-3xl text-[15px] leading-6.5 text-[rgba(255,255,255,0.82)] md:text-[15px]">{heroSupporting}</p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               {heroSection?.primaryButtonText && (
-                <SmartLink href={resolveManagedLink(heroSection.primaryButtonTarget, heroSection.primaryButtonLink) || '#destinations'} lang={lang} newTab={heroSection.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">
+                <SmartLink href={resolveManagedLink(heroSection.primaryButtonTarget, heroSection.primaryButtonLink) || '#destinations'} lang={lang} newTab={heroSection.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] shadow-[0_18px_40px_rgba(0,0,0,0.16)] transition hover:bg-[var(--color-accent)]">
                   {useDisplayText(heroSection.primaryButtonText, lang)}
                 </SmartLink>
               )}
               {heroSection?.secondaryButtonText && (
-                <SmartLink href={resolveManagedLink(heroSection.secondaryButtonTarget, heroSection.secondaryButtonLink) || '/contact'} lang={lang} newTab={heroSection.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/18">
+                <SmartLink href={resolveManagedLink(heroSection.secondaryButtonTarget, heroSection.secondaryButtonLink) || '/contact'} lang={lang} newTab={heroSection.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/28 bg-white/8 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/92 transition hover:bg-white/14">
                   {useDisplayText(heroSection.secondaryButtonText, lang)}
                 </SmartLink>
               )}
@@ -109,18 +161,18 @@ export default async function Home({ searchParams }: any) {
 
           <div className="hidden lg:block">
             <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
-              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{t.brandPositioning}</p>
-              <h3 className="mt-4 text-2xl font-semibold">{trustSectionTitle}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{trustSectionBody}</p>
-              <div className="mt-5 rounded-[1.25rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
-                {lang === 'en'
-                  ? 'A good fit when you need help deciding between major cities, balancing scenery with culture, or shaping a private route around real dates, group size and budget.'
-                  : '尤其适合：在几个大城市之间拿不定主线、想平衡风景与文化、或需要按真实日期、人数和预算来做私人定制规划的旅客。'}
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{trustSectionEyebrow}</p>
+              <h3 className="mt-3 text-[1.7rem] font-semibold leading-snug">{trustSectionTitle}</h3>
+              <div className="mt-4 space-y-3">
+                {trustDecisionItems.map((item) => (
+                  <div key={item.label} className="rounded-[1.15rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-3.5">
+                    <div className="text-[11px] uppercase tracking-[0.24em] text-[var(--color-muted)]">{item.label}</div>
+                    <p className="mt-1 text-sm leading-5.5 text-[var(--color-slate)]">{item.value}</p>
+                  </div>
+                ))}
               </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
-                <HeroStat label={lang === 'en' ? 'Best for' : '适合'} value={lang === 'en' ? 'First-Time Guests' : '首访中国客群'} />
                 <HeroStat label={lang === 'en' ? 'Planning' : '规划方式'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
-                <HeroStat label={lang === 'en' ? 'Input needed' : '所需信息'} value={lang === 'en' ? 'Dates + Budget' : '日期 + 预算'} />
                 <HeroStat label={lang === 'en' ? 'Reply' : '回复'} value={lang === 'en' ? 'Within 24h' : '24 小时内'} />
               </div>
             </div>
@@ -129,10 +181,19 @@ export default async function Home({ searchParams }: any) {
       </main>
 
       <section className="relative z-20 -mt-14 px-6">
-        <div className="mx-auto grid max-w-7xl gap-5 rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:grid-cols-3 md:p-7">
-          <HighlightChip title={lang === 'en' ? 'First-Time China Routes' : '首访中国路线'} desc={lang === 'en' ? 'Clearer private itineraries built around Beijing, Xi’an, Shanghai and other cities that are easy for overseas guests to recognize and compare.' : '围绕北京、西安、上海等海外客人最容易理解和比较的城市，做成更清晰的首访中国私人定制路线。'} />
-          <HighlightChip title={lang === 'en' ? 'Scenery + Culture Combos' : '风景 + 文化组合'} desc={lang === 'en' ? 'From classic heritage cities to Guilin, Zhangjiajie and Xinjiang, we package stronger visual and cultural combinations into easier-to-sell routes.' : '从经典古都到桂林、张家界、新疆，把更有画面感、更容易成交的风景与文化组合路线整理清楚。'} />
-          <HighlightChip title={lang === 'en' ? 'Send a Trip Brief First' : '先发需求，再做方案'} desc={lang === 'en' ? 'Tell us your dates, group size, destination ideas and budget first. We then shape that into a workable China plan instead of forcing you into a fixed package.' : '先把出行时间、人数、想去的地方和预算发给我们，我们再把它整理成更可执行的中国行程，而不是硬套固定团。'} />
+        <div className="mx-auto max-w-7xl rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:p-7">
+          <div className="flex flex-col gap-4 border-b border-[rgba(10,27,52,0.08)] pb-5 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{highlightSectionEyebrow}</p>
+              <h2 className="mt-3 text-2xl font-semibold leading-snug text-[var(--color-navy)] md:text-3xl">{highlightSectionTitle}</h2>
+            </div>
+            <p className="max-w-lg text-sm leading-6.5 text-[var(--color-muted)]">{highlightSectionBody}</p>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr_0.85fr]">
+            {highlightItems.map((item) => (
+              <HighlightChip key={item.title} eyebrow={item.eyebrow} title={item.title} desc={item.desc} featured={item.featured} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -241,10 +302,11 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title?:
   );
 }
 
-function HighlightChip({ title, desc }: { title: string; desc: string }) {
+function HighlightChip({ title, desc, eyebrow, featured }: { title: string; desc: string; eyebrow?: string; featured?: boolean }) {
   return (
-    <div className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5 transition hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(10,27,52,0.08)]">
-      <div className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{title}</div>
+    <div className={`rounded-[1.5rem] border p-5 transition hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(10,27,52,0.08)] ${featured ? 'border-[rgba(10,27,52,0.14)] bg-[linear-gradient(180deg,#f8fbff,white)] shadow-[0_18px_45px_rgba(10,27,52,0.08)]' : 'border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)]'}`}>
+      {eyebrow && <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--color-muted)]">{eyebrow}</div>}
+      <div className="mt-3 text-base font-semibold leading-7 text-[var(--color-navy)]">{title}</div>
       <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{desc}</p>
     </div>
   );

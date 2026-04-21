@@ -1,58 +1,171 @@
-1. 验收文件：`app/api/inquiry/route.ts`
-2. 是否发现 isValidEmail：是
-3. 是否发现 isWithinLengthLimit：是
-4. 是否发现邮箱格式校验：是
-5. 是否发现字段长度限制：是
-6. 一个应该通过的最小测试样例：
-```json
+本轮任务已完成。
+
+1. 改了哪些文件
+- `app/page.tsx`
+- `.opencode/reply.txt`
+
+2. 每个文件改了什么
+
+`app/page.tsx`
+
+删掉了哪些小图标 / 装饰元素
+- 删除了顶部品牌块里的 `IT` 小标记块。
+- 现在品牌块只保留纯文字识别：品牌名 + 辅助说明。
+- 本轮没有新增任何新的图标、emoji 或装饰性元素。
+
+哪些文案继续减字了
+- Hero subtitle 再压短一轮：
+  - 中文从 `规划更清楚、更舒服的私人路线` 收成 `规划更清楚的私人路线`
+  - 英文从 `Private, human-planned routes...` 收成 `Private routes...`
+- Hero supporting 再压短一轮：
+  - 中文改成 `告诉我们时间、人数和想去的地方，我们帮你把路线理顺。`
+  - 英文改成 `Share your dates, group size and wish list. We help shape the route.`
+- Highlight 顶部辅助说明继续压缩成更短一句：
+  - 中文：`先从最像你的一种开始。`
+  - 英文：`Start with the one that feels closest.`
+
+trust 卡怎么继续压缩了
+- 三个 item 的 value 都继续缩成更短的短语，不再像解释句：
+  - 中文：
+    - `经典主线先排顺`
+    - `城市搭配先看清`
+    - `节奏更顺`
+  - 英文：
+    - `Start with the classic route`
+    - `See what fits together`
+    - `Keep the pace smooth`
+- trust 卡内容区的 padding、行高也轻微收紧，让它更像 quick scan，而不是说明块。
+
+Highlight 区怎么继续减说明感了
+- 顶部辅助说明再缩短，不再解释“再慢慢把路线收清楚”这类过程感内容。
+- 三张卡 desc 全部继续减字：
+  - `先把经典城市的顺序和节奏排清楚。`
+  - `把城市、风景和路上节奏放在一起看。`
+  - `把日期、人数和预算发来，先看路线是否顺。`
+- 英文 desc 也同步压缩，避免重新变成说明文：
+  - `Begin with the classic cities, then see what else belongs.`
+  - `Balance cities, landscapes and pace in one route.`
+  - `Send the dates, group size and budget range. We will check the route.`
+- 这块仍保留原来的入口结构，没有扩大成新的模块。
+
+轻微排版压缩
+- Hero 品牌标签下边距从 `mb-4` 调成 `mb-3`
+- Hero subtitle 上边距、字号、行高略收
+- Hero supporting 上边距和行高略收
+- Hero 按钮区上边距从 `mt-9` 调成 `mt-8`
+- trust 卡 item padding 从 `p-4` 缩到 `p-3.5`
+- trust 卡 value 的上边距和行高略收
+- Highlight 顶部辅助说明最大宽度从 `max-w-xl` 缩到 `max-w-lg`
+- Highlight 卡片区上边距从 `mt-5` 调成 `mt-4`
+
+`.opencode/reply.txt`
+- 写入本轮执行结果、删减说明、关键代码片段、风险和边界说明。
+
+3. 关键 diff 或关键代码片段
+
+关键片段 1：删除顶部品牌块里的小标记
+
+```tsx
+<Link href={withLang('/', lang)} className="flex items-center">
+  <div>
+    <p className="text-base font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-lg">{siteTitle}</p>
+    <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'en' ? 'China Travel Planning' : '中国定制旅行规划'}</p>
+  </div>
+</Link>
+```
+
+关键片段 2：Hero 再减字
+
+```tsx
+const heroSubtitle = lang === 'zh' ? '为第一次来中国的家庭、情侣、小团和商务访客，规划更清楚的私人路线。' : 'Private routes for first-time visitors, families, couples and hosted business trips.';
+const heroSupporting = lang === 'zh' ? '告诉我们时间、人数和想去的地方，我们帮你把路线理顺。' : 'Share your dates, group size and wish list. We help shape the route.';
+```
+
+关键片段 3：trust 卡 value 继续压缩
+
+```tsx
+const trustDecisionItems = lang === 'zh'
+  ? [
+      { label: '第一次来中国', value: '经典主线先排顺' },
+      { label: '多城市取舍', value: '城市搭配先看清' },
+      { label: '私人小团安排', value: '节奏更顺' },
+    ]
+  : [
+      { label: 'First time in China', value: 'Start with the classic route' },
+      { label: 'Choosing the right cities', value: 'See what fits together' },
+      { label: 'Private groups & hosted trips', value: 'Keep the pace smooth' },
+    ];
+```
+
+关键片段 4：Highlight 顶部和三卡继续减说明感
+
+```tsx
+const highlightSectionBody = lang === 'zh'
+  ? '先从最像你的一种开始。'
+  : 'Start with the one that feels closest.';
+```
+
+```tsx
 {
-  "name": "A",
-  "email": "a@example.com",
-  "destination": "Bali",
-  "message": "Hi"
+  title: '第一次来中国',
+  desc: '先把经典城市的顺序和节奏排清楚。',
 }
-```
-7. 一个应该因邮箱格式错误而失败的最小测试样例：
-```json
 {
-  "name": "A",
-  "email": "invalid-email",
-  "destination": "Bali",
-  "message": "Hi"
+  title: '想看城市，也想看风景',
+  desc: '把城市、风景和路上节奏放在一起看。',
+}
+{
+  title: '已经有大致计划',
+  desc: '把日期、人数和预算发来，先看路线是否顺。',
 }
 ```
-8. 是否修改了代码：否
-9. 其他说明或风险：
-- 已在 `app/api/inquiry/route.ts` 中发现以下关键实现：
-```ts
-function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
 
-function isWithinLengthLimit(value: string, max: number) {
-  return value.length <= max;
-}
+关键 diff 摘要
 
-if (!isValidEmail(filled.email)) {
-  return NextResponse.json(
-    { ok: false, error: 'Please provide a valid email address.' },
-    { status: 400 }
-  );
-}
+```diff
+- <span className="...">IT</span>
++ // removed
 
-const exceededField = lengthRules.find(([key, max]) => !isWithinLengthLimit(filled[key], max));
-if (exceededField) {
-  return NextResponse.json(
-    { ok: false, error: 'One or more inquiry fields are too long.' },
-    { status: 400 }
-  );
-}
+- const heroSupporting = ... 'We help shape it into a route that makes sense.';
++ const heroSupporting = ... 'We help shape the route.';
+
+- { label: 'Private groups & hosted trips', value: 'Keep the pace smooth and comfortable' }
++ { label: 'Private groups & hosted trips', value: 'Keep the pace smooth' }
+
+- const highlightSectionBody = ... 'Pick the direction that feels closest, then refine the route from there.';
++ const highlightSectionBody = ... 'Start with the one that feels closest.';
 ```
-- 改了哪些文件：仅写入回传文件 `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`；未修改任何代码文件。
-- 每个文件改了什么：
-  - `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`：写入本次只读验收结果、关键代码片段、最小测试样例、风险与完成情况。
-- 关键 diff 或关键代码片段：见上方关键实现片段；本次未改代码，因此无代码 diff。
-- 有没有报错 / 风险 / 未完成项：
-  - 报错：无。
-  - 风险：本次只做静态读取验收，未实际发起 POST 请求执行接口联调。
-  - 未完成项：无。
+
+4. 是否只修改了允许区域
+- 是。
+- 本轮只修改了：
+  - 顶部品牌块中的装饰性小标记
+  - Hero 左侧文案
+  - Hero 右侧 trust 卡文案
+  - Hero 下方 Highlight 区文案
+  - 以及这些区域里的少量字号、间距、行高
+- 没有修改：
+  - 动态背景
+  - 动画
+  - section switch 逻辑
+  - Sanity schema
+  - helper 函数逻辑
+  - 其他页面
+  - inquiry / contact / API / backend
+  - 依赖、`package.json`、lock 文件
+
+5. 有没有报错 / 风险 / 未完成项
+
+报错
+- 本轮修改过程中没有新增报错。
+
+风险
+- 风险较低，本轮主要是删减和收口。
+- Hero 与 Highlight 的文案继续压缩后，信息更轻了，但如果后续希望更强转化导向，可能还需要结合真实用户反馈再微调文案力度。
+
+未完成项
+- 无必须未完成项。
+
+边界说明
+- 本轮严格没有做结构重做，也没有做动态背景或视觉炫技改造。
+- 目标仅是把首屏继续收轻、收干净、收克制。
