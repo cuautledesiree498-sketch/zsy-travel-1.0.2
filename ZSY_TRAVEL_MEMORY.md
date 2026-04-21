@@ -1,8 +1,79 @@
-# Infinite Travel 项目核心记忆库 (2026-04-10 更新)
+# Infinite Travel 项目核心记忆库 (2026-04-21 更新)
 
-> **更新时间**: 2026-04-06 17:06 GMT+8
+> **更新时间**: 2026-04-21 10:22 GMT+8
 > **负责人**: 昊昊 (CTO) / 虾虾 (AI 助手)
-> **当前状态**: ✅ 已完成第二轮品牌化与 CMS 双语正规化，首页/关于/联系/FAQ 已进入可继续精修阶段，可安全开启新会话继续开发
+> **当前状态**: ✅ inquiry 表单链路已完成本地真实联调验证；OpenCode 项目内中转协作已跑通；网站主线可继续回到内容、体验与品牌化推进
+
+---
+
+## 🆕 2026-04-19 ~ 2026-04-21 增量进展（OpenCode / inquiry 表单）
+
+### 1. OpenCode 协作方式已从“聊天复制”升级为“项目内文件中转”
+为减少手工复制和权限摩擦，当前已采用项目内中转方案：
+
+- 任务文件：`C:\Users\Administrator\travel-website\my-travel-site\.opencode\task.txt`
+- 回传文件：`C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`
+- 说明文件：`C:\Users\Administrator\travel-website\my-travel-site\.opencode\README.md`
+
+这条链路已经实测通过：
+- OpenCode 能读取 `task.txt`
+- 能读取项目代码文件
+- 能把结果写回 `reply.txt`
+
+结论：后续若继续使用 OpenCode，默认走 `.opencode/task.txt` / `.opencode/reply.txt` 文件中转，不再优先依赖聊天里长 prompt 来回复制。
+
+### 2. inquiry 路由已完成输入校验补强
+目标文件：
+- `app/api/inquiry/route.ts`
+
+本轮已确认并落地：
+- `escapeHtml()` 当前实现正确
+- 服务端不再向前端泄露内部错误细节
+- 新增邮箱格式校验 `isValidEmail()`
+- 新增长度校验 `isWithinLengthLimit()`
+- 已为以下字段补上长度上限：
+  - `name`: 100
+  - `email`: 254
+  - `whatsapp`: 50
+  - `destination`: 120
+  - `travelDate`: 60
+  - `groupSize`: 40
+  - `budget`: 60
+  - `hotelPreference`: 80
+  - `message`: 3000
+
+对应 git 提交：
+- `eb92b46` — `Tighten inquiry input validation`
+
+### 3. inquiry 表单已完成本地真实联调验证
+本轮不只是看代码，还做了前台真实提交验证。
+
+#### 失败路径已验证
+- 使用错误邮箱测试时，请求实际打到 `/api/inquiry`
+- 后端返回 `400 Bad Request`
+- 前台实际显示：`Please provide a valid email address.`
+
+说明：后端邮箱校验已真实生效，不是死代码。
+
+#### 成功路径已验证
+- 使用正常邮箱测试时，前台实际显示：
+  - `Inquiry submitted successfully. We will review it and follow up soon.`
+
+说明：
+- inquiry 表单正常提交路径通过
+- 失败路径与成功路径本轮均已完成前台真实联调
+
+### 4. 当前判断与下一步优先级
+#### 已完成可收口
+- inquiry 表单基础可用性问题本轮已收口
+- 不需要再重复怀疑邮箱校验是否生效
+- OpenCode 协作链路已具备继续复用条件
+
+#### 仍可继续但不急
+- 检查成功提交后的邮件是否真实送达收件箱
+- 补最低限度 anti-spam
+- 收紧服务端日志
+- 更细的字段格式校验
 
 ---
 

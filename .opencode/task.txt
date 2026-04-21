@@ -1,0 +1,39 @@
+[任务目标]
+对刚刚完成的 inquiry 输入校验改动做只读验收。
+
+请不要修改任何代码，只做读取与验证说明。
+
+[工作目录]
+C:\Users\Administrator\travel-website\my-travel-site
+
+[具体任务]
+1. 读取文件：app\api\inquiry\route.ts
+2. 确认下面这些改动是否已经存在：
+   - `isValidEmail()` 函数
+   - `isWithinLengthLimit()` 函数
+   - POST 处理里对邮箱格式的校验
+   - POST 处理里对字段长度限制的校验
+3. 提供两个最小测试样例：
+   - 一个应该通过
+   - 一个因为邮箱格式错误而应该失败
+4. 不要修改任何文件。
+5. 把结果写入：C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt
+
+[严格约束]
+- 禁止修改代码
+- 禁止安装依赖
+- 禁止运行格式化
+- 禁止改 package.json / lock 文件
+
+[回传格式]
+请按下面格式写入 reply.txt：
+
+1. 验收文件：
+2. 是否发现 isValidEmail：是/否
+3. 是否发现 isWithinLengthLimit：是/否
+4. 是否发现邮箱格式校验：是/否
+5. 是否发现字段长度限制：是/否
+6. 一个应该通过的最小测试样例：
+7. 一个应该因邮箱格式错误而失败的最小测试样例：
+8. 是否修改了代码：必须回答“否”
+9. 其他说明或风险：

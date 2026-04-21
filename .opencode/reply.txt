@@ -1,0 +1,58 @@
+1. 验收文件：`app/api/inquiry/route.ts`
+2. 是否发现 isValidEmail：是
+3. 是否发现 isWithinLengthLimit：是
+4. 是否发现邮箱格式校验：是
+5. 是否发现字段长度限制：是
+6. 一个应该通过的最小测试样例：
+```json
+{
+  "name": "A",
+  "email": "a@example.com",
+  "destination": "Bali",
+  "message": "Hi"
+}
+```
+7. 一个应该因邮箱格式错误而失败的最小测试样例：
+```json
+{
+  "name": "A",
+  "email": "invalid-email",
+  "destination": "Bali",
+  "message": "Hi"
+}
+```
+8. 是否修改了代码：否
+9. 其他说明或风险：
+- 已在 `app/api/inquiry/route.ts` 中发现以下关键实现：
+```ts
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isWithinLengthLimit(value: string, max: number) {
+  return value.length <= max;
+}
+
+if (!isValidEmail(filled.email)) {
+  return NextResponse.json(
+    { ok: false, error: 'Please provide a valid email address.' },
+    { status: 400 }
+  );
+}
+
+const exceededField = lengthRules.find(([key, max]) => !isWithinLengthLimit(filled[key], max));
+if (exceededField) {
+  return NextResponse.json(
+    { ok: false, error: 'One or more inquiry fields are too long.' },
+    { status: 400 }
+  );
+}
+```
+- 改了哪些文件：仅写入回传文件 `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`；未修改任何代码文件。
+- 每个文件改了什么：
+  - `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`：写入本次只读验收结果、关键代码片段、最小测试样例、风险与完成情况。
+- 关键 diff 或关键代码片段：见上方关键实现片段；本次未改代码，因此无代码 diff。
+- 有没有报错 / 风险 / 未完成项：
+  - 报错：无。
+  - 风险：本次只做静态读取验收，未实际发起 POST 请求执行接口联调。
+  - 未完成项：无。
