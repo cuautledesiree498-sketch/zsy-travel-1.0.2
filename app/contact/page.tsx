@@ -11,7 +11,6 @@ const BRAND_NAME_ZH = '无限旅途';
 const BRAND_NAME_EN = 'Infinite Travel';
 const CONTACT_EMAIL = '1484818239@qq.com';
 const WECHAT_ID = 'Superstar-_o';
-const WHATSAPP = '';
 const OFFICE_LOCATION_ZH = '中国（服务范围覆盖北京、上海、深圳、重庆、成都、陕西、新疆等目的地）';
 const OFFICE_LOCATION_EN = 'China (service coverage includes Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, Xinjiang and more)';
 
@@ -41,9 +40,27 @@ export default async function ContactPage({ searchParams }: any) {
     : 'You do not need to have every detail figured out yet. Start with your rough dates, group size, places you are considering, and budget range. We will help decide what should happen next.';
   const contactGuideTitle = lang === 'zh' ? '先给我们一个大概方向就可以' : 'A Rough Direction Is Enough to Start';
   const contactGuideItems = lang === 'zh'
-    ? ['1️⃣ 出行日期和大致天数', '2️⃣ 同行人数和成员情况', '3️⃣ 想去的城市或地区', '4️⃣ 预算范围', '5️⃣ 是否有特殊需求（饮食 / 语言 / 节奏等）']
-    : ['1️⃣ Travel dates and trip length', '2️⃣ Group size and traveler type', '3️⃣ Preferred destinations', '4️⃣ Budget range', '5️⃣ Any special needs (diet / language / pace)'];
-  const contactStatusNote = lang === 'zh' ? '我们会先查看你的时间、人数、目的地与预算信息，通常会在 24 小时内通过邮箱或后续沟通方式回复。' : 'We first review your timing, group size, destinations and budget, and usually reply within 24 hours by email or the next agreed contact method.';
+    ? ['1️⃣ 出行日期、大致天数，以及日期是否灵活', '2️⃣ 同行人数和成员类型（家庭、朋友、商务、研学等）', '3️⃣ 想去的城市、地区或体验方向', '4️⃣ 预算范围和期望的服务深度', '5️⃣ 酒店风格、舒适度或希望入住的区域', '6️⃣ 特殊需求：饮食、语言、行动能力、儿童、商务、研学或旅拍']
+    : ['1️⃣ Travel dates, trip length, and whether your dates are flexible', '2️⃣ Group size and traveler type, such as family, friends, business, or study travel', '3️⃣ Preferred cities, regions, or experience direction', '4️⃣ Budget range and expected service depth', '5️⃣ Hotel style, comfort level, or preferred area', '6️⃣ Special needs: diet, language, mobility, children, business, education, or photography'];
+  const contactStatusNote = lang === 'zh' ? '通常会在正常工作时段内 24 小时左右回复，具体视咨询量和需求复杂度而定。' : 'We usually reply within 24 hours during normal working periods, depending on inquiry volume and request complexity.';
+  const notBookingNote = lang === 'zh' ? '提交表单只是开始规划沟通，不代表订单成立、付款义务或行程已确认。' : 'Submitting this form starts the planning conversation. It does not create a booking, payment obligation, or confirmed travel arrangement.';
+  const afterSubmitSteps = lang === 'zh'
+    ? [
+        '我们先查看你的日期、人数、目的地、预算范围和特殊需求。',
+        '如果关键信息不足，只补问必要问题。',
+        '我们会整理路线方向，并明确服务范围。',
+        '方向可行后，再进入报价或下一步方案沟通。',
+        '如果你决定继续推进，再通过书面确认单或适用合同确认安排。',
+        '付款方式只会在服务范围、金额和确认节点清楚后提供。',
+      ]
+    : [
+        'We review your dates, group size, destinations, budget range, and special needs.',
+        'If key information is missing, we ask only the necessary follow-up questions.',
+        'We shape a route direction and clarify the service scope.',
+        'When the direction is realistic, we prepare a quotation or next-step proposal.',
+        'If you decide to move forward, we confirm the arrangement through a written confirmation or applicable contract.',
+        'Payment details are provided only after the relevant scope, amount, and confirmation step are clear.',
+      ];
   const contactCtaTitle = lang === 'zh' ? '提交之后，我们会先帮你把方向理清' : 'After You Submit, We First Make the Direction Clear';
   const contactCtaSubtitle = lang === 'zh'
     ? '我们不会在信息还不清楚的时候就急着报价或收款。先看你的时间、人数、目的地和预算，再判断路线该怎么收、节奏是否合适，以及下一步是否需要进入报价或支付。'
@@ -84,7 +101,7 @@ export default async function ContactPage({ searchParams }: any) {
             <InfoCard title={lang === 'en' ? 'Brand' : '品牌'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'Private China travel planning for overseas guests, families, couples, small groups and business visitors.' : '为海外游客、家庭、情侣、私人小团和商务访客提供中国私人定制旅行规划。'} />
             <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Send your trip request here. Please include dates, group size, destinations and budget if possible.' : '你可以把行程需求发到这里。建议同时写明日期、人数、目的地和预算。'} />
             <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Available for follow-up communication after we receive your initial request.' : '收到初步需求后，可通过微信继续沟通路线细节。'} />
-            <InfoCard title="WhatsApp" value={WHATSAPP || (lang === 'zh' ? '请先通过邮箱或微信联系' : 'Please contact us by email or WeChat first')} desc={lang === 'en' ? 'We will confirm the most suitable follow-up channel after receiving your inquiry.' : '收到咨询后，我们会根据情况确认后续最合适的沟通方式。'} />
+            <InfoCard title={lang === 'en' ? 'Follow-Up Channel' : '后续沟通方式'} value={lang === 'zh' ? '请先通过邮箱或微信联系' : 'Email or WeChat first'} desc={lang === 'en' ? 'After receiving your inquiry, we will confirm the most suitable follow-up channel for route details, quotation, and confirmation documents.' : '收到咨询后，我们会根据情况确认后续沟通方式，用于路线细节、报价和确认文件沟通。'} />
             <InfoCard title={lang === 'en' ? 'Service Area' : '服务范围'} value={contactAddress} desc={lang === 'en' ? 'China route planning and destination coordination across key cities, heritage routes and scenic regions.' : '覆盖中国核心城市、文化线路与风景目的地的路线规划和目的地协同服务。'} />
           </div>
 
@@ -106,10 +123,15 @@ export default async function ContactPage({ searchParams }: any) {
               <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6">
                 <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '提交后会发生什么' : 'After You Submit'}</p>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-muted)]">
-                  <p>{lang === 'zh' ? '1. 我们先看你的时间、人数、目的地和预算是否匹配。' : '1. We first review whether your timing, group size, destinations and budget align.'}</p>
-                  <p>{lang === 'zh' ? '2. 如果方向清晰，我们会继续沟通路线结构、节奏和重点体验。' : '2. If the direction is clear, we continue with route structure, pace and experience priorities.'}</p>
-                  <p>{lang === 'zh' ? '3. 确认适合后，再进入报价、执行方式与支付环节。' : '3. Once the fit is clear, we move into quotation, execution details and payment.'}</p>
+                  {afterSubmitSteps.map((item, index) => (
+                    <p key={item}>{index + 1}. {item}</p>
+                  ))}
                 </div>
+              </div>
+
+              <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[#f8fbff] p-6">
+                <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{lang === 'zh' ? '还不是订单' : 'Not a Booking Yet'}</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{notBookingNote}</p>
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">

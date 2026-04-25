@@ -44,12 +44,54 @@ export default async function PaymentPage({ searchParams }: any) {
     ? ['收到确认信息或后续沟通说明', '进入下一步路线推进或订单执行流程', '如需补充材料或信息，会继续与您确认']
     : ['You receive a confirmation message or next-step instruction', 'We move forward with route planning or booking execution', 'If any additional information is needed, we follow up with you directly'];
 
+  const paymentFlow = isZh
+    ? ['提交咨询并确认大致方向', '沟通路线、服务范围和报价', '书面确认单或适用合同确认', '按确认安排支付定金或全款', '进入预订执行和出行前确认', '如适用，再支付尾款']
+    : ['Inquiry and basic travel direction', 'Route, service scope, and quotation discussion', 'Written confirmation or applicable contract', 'Deposit or full payment according to the confirmed arrangement', 'Booking execution and pre-trip confirmation', 'Final balance if applicable'];
+
+  const paymentDetails = isZh
+    ? [
+        {
+          title: '可用支付方式',
+          body: '可用方式可能包括 PingPong、银行转账、支付宝、微信支付和现金。最终方式会根据确认安排、币种、付款方所在地和服务类型确定。',
+        },
+        {
+          title: '币种',
+          body: '支持币种可包括人民币、美元、欧元、英镑和港币。汇率、银行费用、平台费用和跨境汇款费用可能因支付渠道和日期而不同。',
+        },
+        {
+          title: '定金与尾款',
+          body: '定金可能为 10%、50% 或视项目而定。部分简单安排可能在确认后一次性付清。尾款可能在出发前 7 天、行程开始前、订单确认后或按确认安排支付。',
+        },
+        {
+          title: '收据与发票',
+          body: '付款后通常可提供电子收据或付款确认。发票处理取决于支付方式、税务安排和确认后的服务结构。',
+        },
+      ]
+    : [
+        {
+          title: 'Available Payment Methods',
+          body: 'Available methods may include PingPong, bank transfer, Alipay, WeChat Pay, and cash. The final method depends on the confirmed arrangement, currency, payer location, and service type.',
+        },
+        {
+          title: 'Currencies',
+          body: 'Supported currencies may include RMB, USD, EUR, GBP, and HKD. Exchange rates, bank fees, platform fees, and cross-border remittance fees may vary by payment channel and date.',
+        },
+        {
+          title: 'Deposit and Final Balance',
+          body: 'A deposit may be 10%, 50%, or project-dependent. Some simple arrangements may require full payment after confirmation. Final balance may be due 7 days before departure, before the trip starts, upon order confirmation, or according to the confirmed arrangement.',
+        },
+        {
+          title: 'Receipt / Invoice',
+          body: 'An electronic receipt or payment confirmation can usually be provided after payment. Invoice handling depends on the payment method, tax arrangement, and confirmed service structure.',
+        },
+      ];
+
   const principles = isZh
     ? ['未确认前，不建议直接付款。', '支付方式以双方沟通确认后的安排为准。', '当前页面不展示伪支付按钮，也不引导未确认状态下直接付款。']
     : ['We do not recommend paying before the details are confirmed.', 'The actual payment method depends on the confirmed arrangement after consultation.', 'This page does not show fake payment buttons or push unconfirmed payments.'];
   const policyNotes = isZh
-    ? ['支付安排以确认后的订单文件为准。', '取消与退款处理以已确认内容和供应商规则为准。', '咨询信息的使用方式请参见隐私政策。']
-    : ['Payment arrangements depend on the confirmed booking documents.', 'Cancellation and refund handling depends on the confirmed terms and supplier rules.', 'How inquiry information is used is explained in the Privacy Policy.'];
+    ? ['支付安排以确认后的订单文件为准。', '付款不会取代双方确认的合同、书面确认单、供应商规则或已确认服务条款。', '取消与退款处理以已确认内容和供应商规则为准。', '咨询信息的使用方式请参见隐私政策。']
+    : ['Payment arrangements depend on the confirmed booking documents.', 'Payment does not override the confirmed contract, written confirmation, supplier rules, or confirmed service terms.', 'Cancellation and refund handling depends on the confirmed terms and supplier rules.', 'How inquiry information is used is explained in the Privacy Policy.'];
   const contractPaymentNote = isZh
     ? {
         title: '合同与付款说明',
@@ -81,6 +123,32 @@ export default async function PaymentPage({ searchParams }: any) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-6xl rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_20px_60px_rgba(10,27,52,0.05)] md:p-10">
+          <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '付款流程' : 'Payment Flow'}</p>
+          <h2 className="mt-4 text-3xl font-semibold text-[var(--color-navy)] md:text-4xl">{isZh ? '从咨询到付款，通常按这个顺序推进' : 'From Inquiry to Payment, This Is the Usual Order'}</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {paymentFlow.map((item, index) => (
+              <div key={item} className="rounded-[1.4rem] border border-[rgba(10,27,52,0.08)] bg-[#f8fbff] p-5">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">{isZh ? `步骤 ${index + 1}` : `Step ${index + 1}`}</p>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-20">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+          {paymentDetails.map((item) => (
+            <section key={item.title} className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_20px_60px_rgba(10,27,52,0.05)] md:p-9">
+              <h2 className="text-2xl font-semibold text-[var(--color-navy)]">{item.title}</h2>
+              <p className="mt-5 text-base leading-8 text-[var(--color-muted)]">{item.body}</p>
+            </section>
+          ))}
         </div>
       </section>
 
