@@ -116,6 +116,26 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               <p className="text-base leading-8 text-[var(--color-muted)] md:text-lg whitespace-pre-line">{description}</p>
             </SectionCard>
 
+            <SectionCard title={lang === 'zh' ? '从参考线到正式方案' : 'From Route Case to Final Plan'} soft>
+              <div className="grid gap-4 md:grid-cols-3">
+                <StepCard
+                  number="01"
+                  title={lang === 'zh' ? '先确认方向' : 'Confirm the direction'}
+                  text={lang === 'zh' ? '判断这条线是否接近你的目的地、节奏和旅行风格。' : 'Check whether this route is close to your destination mix, pace, and travel style.'}
+                />
+                <StepCard
+                  number="02"
+                  title={lang === 'zh' ? '再调整细节' : 'Adjust the details'}
+                  text={lang === 'zh' ? '按日期、人数、预算、酒店标准和体力重新安排。' : 'Refine it around dates, group size, budget, hotel level, and stamina.'}
+                />
+                <StepCard
+                  number="03"
+                  title={lang === 'zh' ? '最后确认报价' : 'Confirm quote last'}
+                  text={lang === 'zh' ? '服务范围和路线确认后，再进入报价、确认单与付款步骤。' : 'Only after route and service scope are clear do we move to quote, confirmation, and payment.'}
+                />
+              </div>
+            </SectionCard>
+
             <div className="grid gap-6 md:grid-cols-3">
               <MiniCard title={lang === 'zh' ? '适合人群' : 'Ideal For'} value={idealFor} />
               <MiniCard title={lang === 'zh' ? '旅行风格' : 'Travel Style'} value={travelStyle} />
@@ -225,6 +245,16 @@ function MiniCard({ title, value }: { title: string; value: string }) {
     <div className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_16px_40px_rgba(10,27,52,0.05)]">
       <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{title}</p>
       <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{value}</p>
+    </div>
+  );
+}
+
+function StepCard({ number, title, text }: { number: string; title: string; text: string }) {
+  return (
+    <div className="rounded-[1.5rem] bg-white p-5 shadow-[0_12px_32px_rgba(10,27,52,0.05)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-muted)]">{number}</p>
+      <h3 className="mt-3 text-base font-semibold text-[var(--color-navy)]">{title}</h3>
+      <p className="mt-2 text-sm leading-7 text-[var(--color-slate)]">{text}</p>
     </div>
   );
 }

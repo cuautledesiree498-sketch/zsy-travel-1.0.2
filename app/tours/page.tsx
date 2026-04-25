@@ -43,6 +43,30 @@ export default async function ToursPage({ searchParams }: any) {
         </div>
       </section>
 
+      <section className="mt-8 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_18px_50px_rgba(10,27,52,0.05)] md:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '怎么选路线' : 'How to Choose'}</p>
+            <h2 className="mt-3 text-2xl font-semibold text-[var(--color-navy)] md:text-3xl">{isZh ? '不用先选“最完美”的，只要选“最接近”的。' : 'Do not look for the perfect route first. Choose the closest one.'}</h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{isZh ? '路线案例只是起点。真正的版本会根据你的日期、人数、预算、体力、酒店偏好和想看的内容继续调整。' : 'Route cases are starting points. The final version is adjusted around your dates, group size, budget, stamina, hotel preference, and what you care about most.'}</p>
+          </div>
+          <div className="grid flex-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+              <p className="font-semibold text-[var(--color-navy)]">{isZh ? '首次来华' : 'First China trip'}</p>
+              <p className="mt-2">{isZh ? '优先看北京 / 西安 / 上海这类经典城市组合。' : 'Start with Beijing / Xi’an / Shanghai style classic city combinations.'}</p>
+            </div>
+            <div className="rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+              <p className="font-semibold text-[var(--color-navy)]">{isZh ? '风景优先' : 'Scenery first'}</p>
+              <p className="mt-2">{isZh ? '优先看新疆、云南、桂林、张家界这类自然风景线。' : 'Look at Xinjiang, Yunnan, Guilin, or Zhangjiajie-style scenic routes.'}</p>
+            </div>
+            <div className="rounded-[1.25rem] bg-[var(--color-soft-white)] p-4 text-sm leading-7 text-[var(--color-slate)]">
+              <p className="font-semibold text-[var(--color-navy)]">{isZh ? '轻松舒适' : 'Slower comfort'}</p>
+              <p className="mt-2">{isZh ? '优先选择城市少、停留长、车程密度低的版本。' : 'Choose fewer cities, longer stays, and lower transfer density.'}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         {tours.map((tour: any) => {
           const title = markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '案例路线' : 'Tour Package'));
