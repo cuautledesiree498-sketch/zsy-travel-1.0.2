@@ -68,6 +68,10 @@ export default async function ToursPage({ searchParams }: any) {
                   <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '这类线路怎么用：' : 'How to use this case: '}</span>
                   {planningLogic}
                 </p>
+                <p className="mt-2">
+                  <span className="font-semibold text-[var(--color-navy)]">{lang === 'zh' ? '可以调整：' : 'You can adjust: '}</span>
+                  {lang === 'zh' ? '城市顺序、天数、节奏、酒店标准、活动密度和自由活动时间。' : 'City order, trip length, pace, hotel level, activity density, and free time.'}
+                </p>
               </div>
               <div className="mt-6 flex flex-col gap-3">
                 <Link href={withLang(`/tours/${encodeURIComponent(tour.slug || '')}`, lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">

@@ -48,13 +48,13 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   const idealFor = text(tour.idealFor, lang, fallback.audience);
   const travelStyle = text(tour.travelStyle, lang, fallback.style);
   const howToUse = text(tour.howToUse, lang, fallback.cta);
+  const routeKey = String(tour.slug || slug).toLowerCase();
   const bestTime = text(
     tour.bestTime,
     lang,
-    lang === 'zh'
-      ? '春秋通常更适合出行；如果是新疆等长线目的地，建议按具体线路与景观季节选择月份。'
-      : 'Spring and autumn usually work best; for long scenic regions like Xinjiang, the ideal month depends on the exact route.'
+    getRouteSeasonNotes(routeKey, lang)
   );
+  const customizationNotes = getRouteCustomizationNotes(routeKey, lang);
   const extensions = text(
     tour.extensions,
     lang,
@@ -122,6 +122,17 @@ export default async function TourDetailPage({ params, searchParams }: { params:
               <MiniCard title={lang === 'zh' ? '怎么使用这条线' : 'How to Use This Route'} value={howToUse} />
             </div>
 
+            <SectionCard title={lang === 'zh' ? '你可以怎么改这条线' : 'What You Can Adjust'} soft>
+              <ul className="space-y-4">
+                {customizationNotes.map((item: string, index: number) => (
+                  <li key={index} className="flex items-start gap-3 text-[var(--color-slate)]">
+                    <span className="mt-1 text-[var(--color-navy)]">✦</span>
+                    <span className="leading-8">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </SectionCard>
+
             <SectionCard title={lang === 'zh' ? '核心亮点' : 'Highlights'} soft>
               <ul className="space-y-4">
                 {highlights.map((item: string, index: number) => (
@@ -178,6 +189,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
                   <li>{lang === 'zh' ? '2. 人数与大致客群（家庭 / 情侣 / 小团 / 商务）' : '2. Group size and type (family / couple / private group / business)'}</li>
                   <li>{lang === 'zh' ? '3. 想保留这条线的哪些部分，想改哪些部分' : '3. What parts of this route you want to keep or change'}</li>
                   <li>{lang === 'zh' ? '4. 大致预算范围' : '4. Rough budget range'}</li>
+                  <li>{lang === 'zh' ? '5. 你更看重风景、文化、节奏还是舒适度' : '5. Whether you care more about scenery, culture, pace, or comfort'}</li>
                 </ul>
               </div>
               <div className="mt-7 flex flex-col gap-3">
@@ -224,4 +236,74 @@ function InfoRow({ label, value }: { label: string; value: string }) {
       <span className="font-semibold text-[var(--color-navy)] break-all text-right">{value}</span>
     </div>
   );
+}
+
+function getRouteSeasonNotes(routeKey: string, lang: 'en' | 'zh') {
+  const normalized = routeKey.toLowerCase();
+
+  if (normalized.includes('xinjiang')) {
+    return lang === 'zh'
+      ? '新疆等长线目的地更适合按季节与具体景观选择月份，春秋通常更稳，部分区域会受海拔和路况影响。'
+      : 'For long scenic regions like Xinjiang, choose the month based on the exact route and scenery; spring and autumn are usually safer choices, and some areas are affected by altitude and road conditions.';
+  }
+
+  if (normalized.includes('yunnan')) {
+    return lang === 'zh'
+      ? '云南更适合按气候、节奏和客人偏好选择月份，通常春季、初夏和秋季更舒服。'
+      : 'Yunnan is best planned around climate, pace, and traveler preference; spring, early summer, and autumn are usually the most comfortable.';
+  }
+
+  if (normalized.includes('guilin') || normalized.includes('zhangjiajie') || normalized.includes('scenic')) {
+    return lang === 'zh'
+      ? '桂林、张家界这类风景线通常更适合天气稳定、景观层次更清晰的时段，春秋体验更好。'
+      : 'Scenic routes such as Guilin and Zhangjiajie usually work best in more stable weather windows when landscape visibility is clearer; spring and autumn are often better.';
+  }
+
+  if (normalized.includes('chengdu')) {
+    return lang === 'zh'
+      ? '成都一类城市通常全年都可出行，若想兼顾舒适度和体验感，可优先看春秋。'
+      : 'Chengdu-style city routes are generally travel-friendly year-round, though spring and autumn often balance comfort and experience best.';
+  }
+
+  if (normalized.includes('great-wall') || normalized.includes('beijing')) {
+    return lang === 'zh'
+      ? '北京及周边经典路线通常四季都可安排，春秋更适合兼顾舒适度与拍摄体验。'
+      : 'Beijing and nearby classic routes can be arranged year-round, though spring and autumn usually balance comfort and photography conditions better.';
+  }
+
+  return lang === 'zh'
+    ? '建议先根据你的出行日期、气候偏好和行程长短来决定最终月份。'
+    : 'Choose the final month based on your travel dates, climate preference, and trip length.';
+}
+
+function getRouteCustomizationNotes(routeKey: string, lang: 'en' | 'zh') {
+  const normalized = routeKey.toLowerCase();
+
+  if (normalized.includes('xinjiang')) {
+    return lang === 'zh'
+      ? ['可改成更轻松的风景私家路线。', '可增加摄影停留、湖景或草原板块。', '可按舒适度调整住宿与车程密度。']
+      : ['Can be turned into a lighter private scenic route.', 'Can add more photography time, lake views, or grassland sections.', 'Can adjust hotel level and driving density for comfort.'];
+  }
+
+  if (normalized.includes('yunnan')) {
+    return lang === 'zh'
+      ? ['可改成更适合家庭的慢节奏版本。', '可加强古城、湖景或休闲酒店体验。', '可根据情侣、家庭或轻奢客群做不同收法。']
+      : ['Can be turned into a slower family-friendly version.', 'Can emphasize old towns, lake views, or leisure hotels.', 'Can be shaped differently for couples, families, or light-luxury guests.'];
+  }
+
+  if (normalized.includes('guilin') || normalized.includes('zhangjiajie') || normalized.includes('scenic')) {
+    return lang === 'zh'
+      ? ['可强化拍照和自然风景停留。', '可按体力与节奏压缩或拉长。', '可与城市主线组合成更完整的中国风景+城市行程。']
+      : ['Can increase photography and scenery time.', 'Can be compressed or extended based on pace and stamina.', 'Can be combined with city routes for a broader China experience.'];
+  }
+
+  if (normalized.includes('chengdu')) {
+    return lang === 'zh'
+      ? ['可侧重熊猫、美食或慢生活。', '可与重庆、西安、上海等城市灵活拼接。', '可做成更轻松的中段休息线。']
+      : ['Can lean more into pandas, food, or slow travel.', 'Can be combined flexibly with Chongqing, Xi’an, or Shanghai.', 'Can act as a softer mid-trip reset.'];
+  }
+
+  return lang === 'zh'
+    ? ['可按天数增减城市。', '可按预算调整酒店与交通标准。', '可按出行人群重排节奏与停留时间。']
+    : ['Can add or remove cities based on trip length.', 'Can adjust hotel and transport standards based on budget.', 'Can reorder pacing and stay length based on traveler type.'];
 }
