@@ -82,6 +82,29 @@ export default async function ServicesPage({ searchParams }: any) {
         'Start with Private Tailor-Made Trips if pace, privacy, and personal preference matter more than a standard format.',
         'Start with Corporate Travel Solutions if the trip is mainly shaped by meetings, hosting, business visits, or tight timing windows.',
       ];
+  const contractSupport = isZh
+    ? {
+        eyebrow: '合同与确认',
+        title: '确认后的行程，可按实际类型提供对应合同模板',
+        intro: '当路线方向、人数、服务范围和执行方式确认后，我们可以根据实际出行类型提供对应的旅游合同模板，帮助你在进入确认和付款前把关键事项看清楚。',
+        items: [
+          '团队境内或团队出境行程，可对应团队旅游合同模板。',
+          '研学项目可结合研学旅游合同模板。',
+          '如涉及一日游、赴台或组团与地接配合项目，会按实际情况提供相应模板。',
+        ],
+        footnote: '本页用于帮助你判断服务方向，不替代正式合同。最终条款以双方确认并签署的合同为准。',
+      }
+    : {
+        eyebrow: 'Contract Support',
+        title: 'Confirmed trips can be supported by the appropriate contract template',
+        intro: 'Once the itinerary direction, traveler details, service scope, and execution method are confirmed, we can provide the relevant travel contract template for the trip type so the key points are clearer before confirmation and payment.',
+        items: [
+          'Domestic and outbound group trips can be supported by the matching group travel contract template.',
+          'Educational programs can be aligned with the study tour contract template.',
+          'If the plan involves a one-day trip, Taiwan travel, or group-sales and ground-handling coordination, we provide the relevant template according to the confirmed arrangement.',
+        ],
+        footnote: 'This page helps you judge the service format, but it does not replace a formal contract. The final terms are subject to the contract confirmed and signed by both parties.',
+      };
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
@@ -113,6 +136,18 @@ export default async function ServicesPage({ searchParams }: any) {
             </div>
           </article>
         ))}
+      </section>
+
+      <section className="mt-12 rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[#f8fbff] p-8 shadow-[0_18px_50px_rgba(10,27,52,0.05)] md:p-10">
+        <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{contractSupport.eyebrow}</p>
+        <h2 className="mt-4 max-w-3xl text-2xl font-semibold text-[var(--color-navy)] md:text-3xl">{contractSupport.title}</h2>
+        <p className="mt-4 max-w-3xl leading-8 text-[var(--color-muted)]">{contractSupport.intro}</p>
+        <div className="mt-6 grid gap-3 text-sm leading-7 text-[var(--color-slate)] md:grid-cols-3">
+          {contractSupport.items.map((item) => (
+            <p key={item} className="rounded-[1.25rem] border border-[rgba(10,27,52,0.08)] bg-white p-4">{item}</p>
+          ))}
+        </div>
+        <p className="mt-6 text-sm leading-7 text-[var(--color-muted)]">{contractSupport.footnote}</p>
       </section>
 
       <section className="mt-12 rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#10233d,#183459)] px-8 py-10 text-white">

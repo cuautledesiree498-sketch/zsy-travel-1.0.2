@@ -25,42 +25,49 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
   const isZh = lang === 'zh';
 
   const intro = isZh
-    ? '本政策说明我们如何收集、使用、保存和保护你在咨询、路线规划和相关沟通中提供的信息。'
-    : 'This policy explains how we collect, use, store, and protect the information you provide during inquiries, itinerary planning, and related communications.';
+    ? '本隐私政策说明无限旅途 / Infinite Travel 如何收集、使用、共享和保存你通过网站或旅行规划沟通中提供的信息。'
+    : 'This Privacy Policy explains how Infinite Travel collects, uses, shares, and stores information submitted through the website or during travel planning communication.';
 
   const sections = isZh
     ? [
         {
           title: '我们收集的信息',
           items: [
-            '姓名、邮箱、WhatsApp 或其他联系方式。',
-            '目的地、出行日期、人数、预算、酒店偏好和备注等旅行信息。',
+            '我们可能收集你的姓名、邮箱、WhatsApp 或其他联系方式。',
+            '我们也可能收集目的地偏好、出行日期、出行人数、预算范围、酒店偏好、特殊需求以及你主动填写的备注信息。',
           ],
         },
         {
           title: '信息使用目的',
           items: [
-            '回复咨询、提供路线规划建议和报价沟通。',
-            '处理订单沟通、客户服务和必要的运营记录。',
+            '我们会将这些信息用于回复咨询、设计路线、提供报价、确认安排、沟通付款或服务细节、进行售后跟进。',
+            '在允许的情况下，我们也可能用于发送相关旅行信息或后续旅行更新。',
           ],
         },
         {
           title: '信息共享',
           items: [
-            '在履行服务所需范围内，信息可能与酒店、车队、导游、供应商、支付服务商、邮件服务商或网站托管服务商共享。',
-            '我们仅在提供相关服务所需范围内共享必要信息。',
+            '为完成已确认或正在沟通的行程安排，我们可能在必要范围内向酒店、交通服务方、导游、翻译、景区、活动供应商、研学机构、支付服务商、邮件服务商、网站托管服务商、数据分析服务商共享相关信息。',
+            '根据法律要求，我们也可能向政府或监管机构提供必要信息。',
+          ],
+        },
+        {
+          title: '营销与跟进联系',
+          items: [
+            '如我们发送旅行资讯或营销信息，你可以要求停止此类联系。',
+            '常规服务沟通、订单确认、付款沟通和售后支持可能仍会根据具体安排继续进行。',
           ],
         },
         {
           title: '数据保存',
           items: [
-            '我们通常仅在提供服务、处理咨询以及履行法律或财务义务所需期间保存信息。',
+            '我们仅会在处理咨询、服务安排、售后支持、财务记录、法律义务或合理业务目的所需期间保存相关信息。',
           ],
         },
         {
           title: '数据安全',
           items: [
-            '我们会采取合理措施保护所持有的信息。',
+            '我们会采取合理措施保护所持有的信息，并尽量限制仅由有业务需要的人员或服务方访问。',
             '但互联网传输和存储无法保证绝对安全。',
           ],
         },
@@ -74,13 +81,13 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
         {
           title: '跨境服务说明',
           items: [
-            '当服务面向海外旅客时，相关信息可能在中国及相关服务商所在地处理。',
+            '由于我们可能服务海外客户并使用不同地区的服务提供商，你的信息可能在中国及相关服务商所在地被处理。',
           ],
         },
         {
           title: '用户权利',
           items: [
-            '你可以联系我们请求查询、更正、删除信息或停止继续联系。',
+            '你可以要求查询个人信息、更正不准确信息、在适用情况下撤回授权，或停止营销联系。',
           ],
         },
         {
@@ -92,34 +99,41 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
         {
           title: 'Information We Collect',
           items: [
-            'Name, email address, WhatsApp number, and other contact details.',
-            'Travel details such as destinations, dates, group size, budget, hotel preferences, and notes.',
+            'We may collect your name, email address, WhatsApp or other contact details.',
+            'We may also collect destination preferences, travel dates, number of travelers, budget range, hotel preferences, special requirements, and any notes you choose to provide.',
           ],
         },
         {
           title: 'How We Use Information',
           items: [
-            'To respond to inquiries, shape itineraries, and prepare quotations.',
-            'To communicate about bookings, customer support, and necessary operational records.',
+            'We use this information to respond to your inquiry, prepare route suggestions, provide quotations, confirm arrangements, communicate payment or service details, and support after-sales communication.',
+            'Where allowed, we may also use it to send relevant travel updates or future travel information.',
           ],
         },
         {
           title: 'Information Sharing',
           items: [
-            'Where necessary to provide services, information may be shared with hotels, transport providers, guides, suppliers, payment providers, email providers, or hosting providers.',
-            'We share only what is reasonably necessary for service delivery.',
+            'Where necessary for a confirmed or requested itinerary, we may share relevant information with hotels, transport providers, guides, translators, attractions, activity suppliers, educational institutions, payment providers, email service providers, hosting providers, and analytics providers.',
+            'Where required by law, we may also share necessary information with government or regulatory authorities.',
+          ],
+        },
+        {
+          title: 'Marketing and Follow-Up Contact',
+          items: [
+            'If we send travel updates or marketing messages, you may ask us to stop such contact.',
+            'Service communication, order confirmation, payment communication, and after-sales support may continue depending on the specific arrangement.',
           ],
         },
         {
           title: 'Data Retention',
           items: [
-            'We generally keep information only for as long as needed to provide services, handle inquiries, and meet legal or financial obligations.',
+            'We retain information only for as long as needed for inquiry handling, service arrangement, after-sales support, finance records, legal obligations, or legitimate business purposes.',
           ],
         },
         {
           title: 'Data Security',
           items: [
-            'We use reasonable measures to protect the information we hold.',
+            'We use reasonable measures to protect the information we hold and aim to limit access to people or service providers with a business need.',
             'However, no internet transmission or storage method can be guaranteed as absolutely secure.',
           ],
         },
@@ -133,13 +147,13 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
         {
           title: 'Cross-Border Services',
           items: [
-            'For overseas travelers, information may be processed in China and in the locations of relevant service providers.',
+            'Because we may serve overseas customers and use service providers in different locations, your information may be processed in China and/or in the locations of relevant service providers.',
           ],
         },
         {
           title: 'Your Rights',
           items: [
-            'You may contact us to request access, correction, deletion, or that we stop contacting you.',
+            'You may request access to your information, correction of inaccurate information, withdrawal of authorization where applicable, or cessation of marketing contact.',
           ],
         },
         {

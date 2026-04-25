@@ -6,34 +6,41 @@ import { destinationContent, getDestinationContent } from '@/lib/destinationCont
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Destinations - Infinite Travel',
-  description: 'Explore the key China destinations curated by Infinite Travel, including Beijing, Shanghai, Xinjiang and more.',
-};
+export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
+  const lang = normalizeLang(searchParams?.lang);
+
+  return {
+    title: lang === 'zh' ? '中国目的地选择 - 无限旅途' : 'Explore China by Destination - Infinite Travel',
+    description: lang === 'zh'
+      ? '从你最想先展开的中国目的地开始。适合先有地点偏好、再继续整理完整路线的旅行方式。'
+      : 'Start with the part of China you already feel drawn to. Best for travelers who have a place preference first and want to shape the full route after that.',
+  };
+}
 
 export default async function DestinationsPage({ searchParams }: any) {
   const lang = normalizeLang(searchParams?.lang);
   const destinations = getStableDestinations();
+  const isZh = lang === 'zh';
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
-      <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{lang === 'zh' ? '无限旅途' : 'Infinite Travel'}</p>
-      <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{lang === 'zh' ? '中国热门目的地' : 'China Destinations to Explore'}</h1>
-      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '如果你已经知道想看城市、古都、山水还是长线风景，可以先从这里选一个最接近你想法的目的地，再继续细化行程。' : 'If you already know you want cities, heritage, scenery or a longer route, start with the destination closest to your idea and refine the itinerary from there.'}</p>
+      <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{isZh ? '无限旅途' : 'Infinite Travel'}</p>
+      <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{isZh ? '中国目的地选择' : 'Explore China by Destination'}</h1>
+      <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{isZh ? '如果你已经大致知道自己更想去什么地方——比如古都、城市、山水、草原，或者长线风景——可以先从目的地开始。这里更适合“先有地点偏好、后定完整路线”的旅行方式。' : 'If you already have a rough sense of the kind of place you want to begin with — historic cities, big-city contrast, landscapes, grasslands, or a longer scenic region — start here. This page is for travelers who have a place preference first and want to build the full route after that.'}</p>
 
       <section className="mt-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(180deg,#ffffff,#f6f8fc)] p-7 shadow-[0_18px_50px_rgba(10,27,52,0.06)] md:p-8">
         <div className="grid gap-6 md:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '先选一个目的地' : 'Choose one destination first'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '先从最接近你偏好的城市或地区开始，不需要一次选完。' : 'Start with the city or region closest to your preference. You do not need to decide everything at once.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{isZh ? '先从想去的地方开始' : 'Start with the place you feel drawn to'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{isZh ? '不用先把整条路线想清楚，先选一个你最想展开的城市或地区就够了。' : 'You do not need the whole route figured out yet. Start with the city or region you most want to build around.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '再补充需求' : 'Then add your details'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把日期、人数、预算和偏好告诉我们，我们会继续细化。' : 'Share your dates, group size, budget and preferences, and we will refine from there.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{isZh ? '再看它适合怎么接路线' : 'Then see how it fits into a wider route'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{isZh ? '点进详情页后，你会更清楚这个目的地适合独立成行，还是更适合接在另一段中国路线里。' : 'Once you open the detail page, you can judge whether that destination works best on its own or as part of a wider China route.'}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{lang === 'zh' ? '最后变成路线' : 'Turn it into a route'}</p>
-            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{lang === 'zh' ? '把一个目的地想法整理成真正可执行、可比较、可预订的旅行方案。' : 'Turn a destination idea into a route that is practical, comparable and ready to book.'}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[var(--color-muted)]">{isZh ? '最后再收成你的版本' : 'Then turn it into your version'}</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--color-slate)]">{isZh ? '当你确定了大方向，再把日期、人数、预算和偏好发给我们，我们会继续把它整理成更完整的行程方案。' : 'Once the direction feels right, send us your dates, group size, budget, and preferences, and we can turn it into a fuller route plan.'}</p>
           </div>
         </div>
       </section>
@@ -92,8 +99,9 @@ export default async function DestinationsPage({ searchParams }: any) {
       </section>
 
       <div className="mt-14">
-        <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
-          {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
+        <p className="max-w-3xl text-base leading-8 text-[var(--color-muted)]">{isZh ? '如果你已经找到一个大致想去的方向，就从那个目的地开始，我们再一起把路线收清楚。' : 'If one destination already feels like the right starting point, begin there and we can help you shape the full route after that.'}</p>
+        <Link href={withLang('/contact#inquiry-form', lang)} className="mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
+          {isZh ? '从目的地开始咨询' : 'Start from a Destination'}
         </Link>
       </div>
     </main>

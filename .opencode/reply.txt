@@ -1,45 +1,133 @@
-# Task Execution Report
+# Phase 1 Execution Report
 
-## 1. Summary
-- Source edit scope was limited to `app/services/page.tsx`.
-- Only the 4 English `chooseWhen` strings inside the `services` array were cleaned up.
-- No other content, structure, layout, metadata, CTA, imports, routing, or Chinese copy was changed.
-- Build passed.
-
-## 2. Files changed
-- `app/services/page.tsx`
+## 1. Changed files
+- `app/terms/page.tsx`
+- `app/privacy/page.tsx`
+- `app/refund-policy/page.tsx`
+- `components/InquiryForm.tsx`
+- `components/LegalLinks.tsx`
 - `.opencode/reply.txt`
 
-## 3. What changed in each file
+Inspected but not edited:
+- `app/refund-cancellation/page.tsx` remains a legacy redirect to `/refund-policy`, preserving alias behavior.
 
-### `app/services/page.tsx`
-- Updated the English `chooseWhen` copy for `Group Tours`.
-- Updated the English `chooseWhen` copy for `Educational Tours`.
-- Updated the English `chooseWhen` copy for `Private Tailor-Made Trips`.
-- Updated the English `chooseWhen` copy for `Corporate Travel Solutions`.
-- Left all Chinese text unchanged.
-- Left `pageIntro`, `chooseGuideTitle`, `chooseGuideItems`, titles, descriptions, durations, examples, CTA text, page structure, metadata, layout, route logic, and imports unchanged.
+## 2. What changed in each file
+
+### `app/terms/page.tsx`
+- Replaced the general terms copy with restrained bilingual Terms & Conditions content for Infinite Travel / 无限旅途.
+- Added/expanded coverage for applicability, service scope, quotes and availability, order confirmation/payment, customer responsibilities, third-party suppliers, changes/cancellations/refunds, non-guarantees, contract/written confirmation priority, dispute handling, and working-hours/contact note.
+- Preserved the existing visual layout, card structure, language handling, and legal link component.
+
+### `app/privacy/page.tsx`
+- Updated the bilingual Privacy Policy to reflect confirmed inquiry-form data fields and permitted usage purposes.
+- Added clearer coverage for service-provider sharing, marketing/follow-up contact, retention, user rights, cross-border processing, and limited-access/security principles.
+- Removed the previous deletion-right wording and replaced it with access, correction, applicable withdrawal, and stopping marketing contact to avoid promising deletion.
+
+### `app/refund-policy/page.tsx`
+- Updated page metadata and H1 from a generic Refund Policy to Refund & Cancellation Policy / 退款与取消政策.
+- Reworked bilingual content to cover reference nature, cancellation timing, possible non-refundable items, rescheduling, force majeure, refund timing, supplier rules, and confirmed contract/written confirmation priority.
+- Kept `/refund-policy` as the active content route while `app/refund-cancellation/page.tsx` continues redirecting to it.
+
+### `components/InquiryForm.tsx`
+- Updated the submit consent text to the required bilingual wording.
+- Preserved existing policy links and added/kept links to Terms & Conditions, Privacy Policy, and Refund & Cancellation Policy.
+- Pointed the refund/cancellation link to the active `/refund-policy` route.
+
+### `components/LegalLinks.tsx`
+- Updated the refund link label to `Refund & Cancellation Policy` / `退款与取消政策`.
+- Kept the active href as `/refund-policy`.
 
 ### `.opencode/reply.txt`
-- Wrote this execution report required by the task.
+- Replaced the previous task report with this Phase 1 report.
 
-## 4. Key diff snippets
+## 3. Key diff / key code snippets
 
+### Terms intro and scope
 ```tsx
-chooseWhen: isZh ? '当你希望整体安排更统一、预算更容易控制、多人协同时更省心。' : 'You want one coordinated structure, easier budget control, and less friction across multiple travelers.'
-
-chooseWhen: isZh ? '当行程不只是游览，还需要内容主题、参访结构和带队沟通配合。' : 'The trip needs more than sightseeing and requires program themes, visit structure, and group coordination.'
-
-chooseWhen: isZh ? '当你更在意节奏感、住宿风格、体验顺序和个人偏好，而不是统一模板。' : 'Pacing, hotel style, experience order, and personal preferences matter more than a standard format.'
-
-chooseWhen: isZh ? '当行程需要围绕会议、拜访、接待标准和时间窗口来安排。' : 'The schedule needs to work around meetings, visits, hosting standards, and tight time windows.'
+const intro = isZh
+  ? '本服务条款用于说明无限旅途 / Infinite Travel 在旅行规划、报价、确认、付款、取消及相关服务沟通中的基本规则。本文为网站层面的通用说明，最终安排以双方确认的合同、书面确认单、报价及供应商规则为准。'
+  : 'These Terms & Conditions explain how Infinite Travel handles travel planning, quotations, confirmations, payments, cancellations, and related service communication. They are a general website-level reference. The final arrangement is subject to the contract, written confirmation, quotation, and supplier rules confirmed by both parties.';
 ```
 
-## 5. Build result
-- Ran `npm run build`.
-- Result: passed.
+### Terms non-guarantees and confirmation priority
+```tsx
+{
+  title: 'Limits and Non-Guarantees',
+  items: [
+    'Infinite Travel does not guarantee visa results, weather conditions, absolute transport punctuality, continuous attraction availability, or unconfirmed third-party resources.',
+    'We are not responsible for losses caused by inaccurate information provided by the customer, personal shopping decisions, personal unlawful behavior, or circumstances beyond reasonable control.',
+  ],
+}
+{
+  title: 'Contract and Written Confirmation Priority',
+  items: [
+    'If there is any inconsistency between this website page and a signed contract, written confirmation, or confirmed supplier rule, the signed or written arrangement will prevail.',
+    'Matters not described here may be clarified in later confirmation documents.',
+  ],
+}
+```
 
-## 6. Errors / risks / unfinished items
+### Privacy data collection, use, sharing, and rights
+```tsx
+{
+  title: 'Information We Collect',
+  items: [
+    'We may collect your name, email address, WhatsApp or other contact details.',
+    'We may also collect destination preferences, travel dates, number of travelers, budget range, hotel preferences, special requirements, and any notes you choose to provide.',
+  ],
+}
+{
+  title: 'Your Rights',
+  items: [
+    'You may request access to your information, correction of inaccurate information, withdrawal of authorization where applicable, or cessation of marketing contact.',
+  ],
+}
+```
+
+### Refund & Cancellation title and reference framework
+```tsx
+title: lang === 'zh' ? '退款与取消政策 - 无限旅途' : 'Refund & Cancellation Policy - Infinite Travel'
+
+const intro = isZh
+  ? '本退款与取消政策是旅行规划及已安排服务的参考框架。最终处理以双方确认的服务条款、合同或书面确认单、实际已发生费用及供应商规则为准。'
+  : 'This Refund & Cancellation Policy is a reference framework for travel planning and arranged services. The final handling is subject to the confirmed service terms, contract or written confirmation, actual incurred costs, and supplier rules.';
+```
+
+### Inquiry consent text
+```tsx
+By submitting this inquiry, you agree that we may use the information you provide to respond to your request and prepare travel planning support. Please review our Terms & Conditions, Privacy Policy, and Refund & Cancellation Policy.
+
+提交咨询即表示你同意我们使用你提供的信息来回复需求并提供旅行规划支持。请阅读我们的服务条款、隐私政策以及退款与取消政策。
+```
+
+### LegalLinks label
+```tsx
+{ href: '/refund-policy', label: lang === 'zh' ? '退款与取消政策' : 'Refund & Cancellation Policy' }
+```
+
+## 4. Build result
+- Ran `npm run build` after edits.
+- Result: passed.
+- Build completed successfully with Next.js 16.2.2 / Turbopack.
+
+## 5. Errors / risks / unfinished items
 - No build errors occurred.
-- No known risks introduced within the requested scope.
-- No unfinished items remain for this task.
+- No unfinished items remain within the requested scope.
+- Existing worktree had other modified/untracked files before/while this task was executed, including files outside the allowed scope; those were not reverted or edited for this task.
+- `app/refund-policy/` is currently shown by git as untracked in this workspace, but it was one of the explicitly allowed files and was already present for inspection/editing.
+- No unconfirmed company registration, license number, office address, phone number, WhatsApp number, partner names, public guarantees, visa guarantees, or full-refund guarantees were introduced.
+- Existing contact email in the allowed pages was preserved because it was already present in the current site content.
+
+## 6. Phase 1 completion status
+- Phase 1 complete: yes.
+
+## 7. Confirmed business facts reflected
+- Yes. The legal/policy pages now reflect the confirmed brand, bilingual support, working hours, service scope, cautious payment/deposit handling, cancellation/refund dependency factors, non-refundable cost categories, force majeure handling principle, privacy collection/use/sharing categories, user rights, and cross-border processing note.
+
+## 8. Unconfirmed legal/contact/license facts introduced
+- No. No new unconfirmed legal identity, registration, license, address, phone, WhatsApp, partner, or guarantee facts were added.
+
+## 9. Contract files or public policy documents uploaded/copied
+- No. No contract files were uploaded.
+- No policy documents were copied to public assets.
+- No full contract text was displayed.

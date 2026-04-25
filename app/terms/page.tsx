@@ -25,154 +25,162 @@ export default async function TermsPage({ searchParams }: { searchParams: Search
   const isZh = lang === 'zh';
 
   const intro = isZh
-    ? '这些条款适用于你对本网站的访问，以及与我们之间发生的咨询、路线规划、预订沟通与相关服务。'
-    : 'These terms apply to your use of this website, as well as inquiries, itinerary planning, booking communications, and related services provided by us.';
+    ? '本服务条款用于说明无限旅途 / Infinite Travel 在旅行规划、报价、确认、付款、取消及相关服务沟通中的基本规则。本文为网站层面的通用说明，最终安排以双方确认的合同、书面确认单、报价及供应商规则为准。'
+    : 'These Terms & Conditions explain how Infinite Travel handles travel planning, quotations, confirmations, payments, cancellations, and related service communication. They are a general website-level reference. The final arrangement is subject to the contract, written confirmation, quotation, and supplier rules confirmed by both parties.';
 
   const sections = isZh
     ? [
         {
-          title: '服务性质',
+          title: '适用范围',
           items: [
-            '我们提供中国旅行咨询、路线设计、定制旅行安排与相关协调支持。',
-            '具体服务范围以双方确认的报价单、行程单、确认邮件或合同为准。',
+            '本条款适用于你访问本网站、提交咨询，以及与无限旅途 / Infinite Travel 进行的旅行规划、报价、确认、付款、取消及相关服务沟通。',
+            '本文为通用说明，具体服务内容和执行标准以双方确认的合同或书面确认单为准。',
           ],
         },
         {
-          title: '咨询与预订流程',
+          title: '服务范围',
           items: [
-            '提交咨询不等于订单成立。',
-            '订单通常在双方确认服务范围、价格、付款安排并完成约定付款后成立。',
-            '未写明的具体预订规则，可在后续确认文件中补充。',
+            '无限旅途可协助提供行程规划、路线设计、酒店预订与酒店区域建议、用车安排、接送机、国内交通协助、景区门票协助、导游或双语陪同协调、餐厅建议与预订协助、商务接待、研学旅行、亲子旅行、高端私人定制、目的地咨询、旅拍或跟拍等服务。',
+            '具体服务项目、语言支持、执行方式和费用，以确认后的服务条款为准。',
           ],
         },
         {
           title: '报价与可用性',
           items: [
-            '报价可能受酒店、交通、供应商资源、季节和汇率等因素影响。',
-            '在订单确认前，我们不保证价格或资源持续可用。',
+            '报价可能受出行日期、淡旺季、酒店房态、车导资源、汇率、节假日、供应商价格及最终服务范围影响。',
+            '报价不等同于资源锁定，相关安排需在确认后方可执行。',
+          ],
+        },
+        {
+          title: '订单确认与付款',
+          items: [
+            '旅行需求通常在双方确认服务范围、报价、合同或书面确认单，并完成约定付款条件后，才视为正式确认安排。',
+            '定金、尾款时间、支付方式、币种、汇率、平台费用、发票或收据处理，可能视具体安排而定。',
           ],
         },
         {
           title: '客户责任',
           items: [
-            '提供真实、准确、完整的出行与身份信息。',
-            '自行确认护照、签证、保险、健康状况和入境要求。',
-            '遵守中国及相关目的地的法律法规。',
-            '按时完成付款、确认与出行安排。',
+            '客户应提供真实准确的个人信息、出行日期、人数、航班或交通信息、健康或饮食需求、必要证件信息及会影响行程的变更信息。',
+            '客户应遵守相关法律法规、入境要求、当地习俗和约定集合时间，并按确认安排完成付款、确认与出行配合。',
           ],
         },
         {
           title: '第三方供应商',
           items: [
-            '酒店、交通、导游、景区、支付平台等服务可能由第三方提供。',
-            '第三方规则可能影响变更、取消、退款和最终执行。',
+            '部分服务可能由酒店、车队、导游、翻译、景区、活动供应商、研学机构、支付服务商及其他合作服务方提供或协助。',
+            '其资源可用性、取消规则和不可退费用可能影响最终安排。',
           ],
         },
         {
           title: '变更、取消与退款',
           items: [
             '具体变更、取消与退款安排，请结合退款与取消政策理解。',
-            '最终处理以已确认订单文件及相关供应商规则为准。',
+            '最终处理以双方确认的合同或书面确认单、实际已发生费用及供应商规则为准。',
           ],
-          link: { href: '/refund-cancellation', label: '查看退款与取消政策' },
+          link: { href: '/refund-policy', label: '查看退款与取消政策' },
         },
         {
-          title: '责任限制',
+          title: '限制与不承诺事项',
           items: [
-            '我们不承诺天气、交通绝对准点、景点持续开放或签证结果。',
-            '对于客户个人行为、违法行为或未提供准确信息导致的损失，我们不承担相应责任。',
+            '无限旅途不保证签证结果、天气情况、交通绝对准点、景点持续开放或未确认第三方资源的可用性。',
+            '因客户提供信息不准确、个人购物行为、个人违法行为或不可合理控制情形造成的损失，不应由无限旅途承担。',
           ],
         },
         {
-          title: '知识产权',
+          title: '合同与书面确认优先',
           items: [
-            '网站中的文字、图片、页面设计和相关内容受适用法律保护。',
-            '未经授权，不得复制、转载、改编或用于商业用途。',
+            '如本页面内容与双方签署的合同、书面确认单或已确认供应商规则不一致，以签署或书面确认的安排为准。',
+            '未写明事项可在后续确认文件中补充。',
           ],
         },
         {
           title: '法律适用与争议',
           items: [
-            '双方应优先通过友好协商解决争议。',
-            '未尽事项以双方后续确认文件和适用法律为准。',
+            '争议应优先通过友好协商解决。',
+            '协商不成的，可依据中华人民共和国法律或双方确认文件中约定的法律及争议解决方式处理。',
           ],
         },
         {
           title: '联系方式',
-          items: [`如需联系，请发送邮件至：${CONTACT_EMAIL}`],
+          items: [`如需联系，请发送邮件至：${CONTACT_EMAIL}`, '常规沟通时间为 9:00–19:00，中文和英文沟通均可支持。'],
         },
       ]
     : [
         {
-          title: 'Nature of Services',
+          title: 'Who These Terms Apply To',
           items: [
-            'We provide China travel consultation, itinerary design, tailor-made trip arrangements, and related coordination support.',
-            'The exact service scope is defined by the quotation, itinerary, confirmation email, or contract agreed by both parties.',
+            'These terms apply to your use of this website, submitted inquiries, travel planning, quotations, confirmations, payments, cancellations, and related service communication with Infinite Travel.',
+            'They are a general reference. The specific service content and execution standards are subject to the confirmed contract or written confirmation.',
           ],
         },
         {
-          title: 'Inquiry and Booking Process',
+          title: 'Service Scope',
           items: [
-            'Submitting an inquiry does not create a booking.',
-            'A booking is usually formed only after the service scope, price, payment arrangement, and required payment are confirmed.',
-            'Any detailed booking rules not yet confirmed may be clarified in later documents.',
+            'Infinite Travel may assist with itinerary planning, route design, hotel booking and hotel-area advice, private car arrangements, airport transfers, domestic transport assistance, attraction ticket assistance, guide or bilingual escort coordination, restaurant suggestions, business reception, educational travel, family trips, premium private customization, destination consulting, and travel photography support.',
+            'The exact services, language support, delivery method, and fees are handled as agreed in the confirmed service terms.',
           ],
         },
         {
           title: 'Pricing and Availability',
           items: [
-            'Pricing may change due to hotels, transport, supplier inventory, seasonality, currency movement, and related factors.',
-            'Until confirmation, prices and availability are not guaranteed.',
+            'Quotations may depend on travel dates, seasonality, hotel availability, vehicle and guide resources, exchange rates, holidays, supplier pricing, and the final confirmed service scope.',
+            'A quotation is not a guarantee of availability until the relevant arrangements are confirmed.',
+          ],
+        },
+        {
+          title: 'Order Confirmation and Payment',
+          items: [
+            'A travel request becomes a confirmed arrangement only after the service scope, quotation, contract or written confirmation, and agreed payment terms are confirmed by both parties.',
+            'Deposit, final balance timing, payment method, currency, exchange rate, platform fee, invoice, and receipt handling may vary by arrangement.',
           ],
         },
         {
           title: 'Customer Responsibilities',
           items: [
-            'Provide accurate and complete travel and identity information.',
-            'Check passports, visas, insurance, health conditions, and entry requirements.',
-            'Comply with applicable local laws and regulations.',
-            'Complete payment, confirmation, and travel steps on time.',
+            'Customers are responsible for providing accurate personal information, travel dates, traveler numbers, flight or transport details, health or dietary notes, document information where required, and any changes that may affect the itinerary.',
+            'Customers are also responsible for complying with applicable laws, entry requirements, local customs, agreed meeting times, and confirmed payment or travel steps.',
           ],
         },
         {
           title: 'Third-Party Suppliers',
           items: [
-            'Hotels, transport, guides, attractions, and payment services may be provided by third parties.',
-            'Their rules may affect changes, cancellations, refunds, and service execution.',
+            'Some services may be provided or supported by third-party suppliers such as hotels, transport providers, guides, translators, attractions, activity operators, educational institutions, payment providers, and other service partners.',
+            'Their availability, cancellation rules, and non-refundable costs may affect the final arrangement.',
           ],
         },
         {
           title: 'Changes, Cancellations, and Refunds',
           items: [
             'Please read this together with our Refund & Cancellation Policy.',
-            'Final handling depends on confirmed booking documents and the relevant supplier rules.',
+            'Final handling is subject to the confirmed contract or written confirmation, actual incurred costs, and the relevant supplier rules.',
           ],
-          link: { href: '/refund-cancellation', label: 'View Refund & Cancellation Policy' },
+          link: { href: '/refund-policy', label: 'View Refund & Cancellation Policy' },
         },
         {
-          title: 'Limitation of Liability',
+          title: 'Limits and Non-Guarantees',
           items: [
-            'We do not guarantee weather conditions, exact transport timing, attraction availability, or visa outcomes.',
-            'We are not responsible for losses caused by personal conduct, unlawful acts, or inaccurate information supplied by the traveler.',
+            'Infinite Travel does not guarantee visa results, weather conditions, absolute transport punctuality, continuous attraction availability, or unconfirmed third-party resources.',
+            'We are not responsible for losses caused by inaccurate information provided by the customer, personal shopping decisions, personal unlawful behavior, or circumstances beyond reasonable control.',
           ],
         },
         {
-          title: 'Intellectual Property',
+          title: 'Contract and Written Confirmation Priority',
           items: [
-            'The website text, images, layout, and related content are protected by applicable law.',
-            'They may not be copied, republished, adapted, or used commercially without permission.',
+            'If there is any inconsistency between this website page and a signed contract, written confirmation, or confirmed supplier rule, the signed or written arrangement will prevail.',
+            'Matters not described here may be clarified in later confirmation documents.',
           ],
         },
         {
           title: 'Applicable Law and Disputes',
           items: [
-            'The parties should first seek an amicable resolution.',
-            'Any matter not covered here is subject to later confirmation documents and applicable law.',
+            'Disputes should first be handled through friendly communication.',
+            'If no agreement can be reached, the matter may be handled under the laws of the People’s Republic of China or the law or forum agreed in the confirmed document.',
           ],
         },
         {
           title: 'Contact',
-          items: [`For questions, please contact: ${CONTACT_EMAIL}`],
+          items: [`For questions, please contact: ${CONTACT_EMAIL}`, 'Regular communication hours are 9:00–19:00. Chinese and English communication are supported.'],
         },
       ];
 

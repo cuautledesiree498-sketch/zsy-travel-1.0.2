@@ -1,8 +1,78 @@
 # Infinite Travel 项目核心记忆库 (2026-04-21 更新)
 
-> **更新时间**: 2026-04-21 12:16 GMT+8
+> **更新时间**: 2026-04-21 13:53 GMT+8
 > **负责人**: 昊昊 (CTO) / 虾虾 (AI 助手)
 > **当前状态**: ✅ inquiry 表单链路已完成本地真实联调验证；OpenCode 项目内中转协作已跑通；首页首屏已完成 3 轮低风险收口并构建通过；网站主线已从“补页面”转向“结构治理 + 合规补齐”
+
+---
+
+## 🆕 2026-04-21 增量进展（首页终稿收口 / 当前项目判断）
+
+### 1. 首页整体布局与当前判断
+当前首页已经不是“继续堆模块”的问题，而是“现有结构是否足够像一个能承接真实咨询的品牌官网首页”的问题。
+
+本轮判断后，首页整体布局可继续沿用当前结构，不需要大重做。当前保留的主结构包括：
+- Hero
+- Value Proposition / trust-value 卡
+- Who It’s For
+- Featured journeys
+- Why Infinite Travel
+- Final CTA
+
+判断结论：
+- 当前首页结构已经足够支撑“高端、克制、可承接咨询”的品牌方向
+- 当前更有价值的是统一文案逻辑、CTA 主链路和咨询承接感，而不是继续加模块或做低收益碎修
+- 首页后续若再升级，优先考虑动态背景等更高杠杆动作，而不是继续无止境微调 copy
+
+### 2. 首页终稿文案收口已完成
+本轮围绕 `app/page.tsx` 做了两轮收口：
+- 第 1 轮：先确认 OpenCode 没有把首页改坏，并完成 Featured journeys 默认文案覆盖
+- 第 2 轮：补齐上一轮未真正落地的 Hero / Value Proposition / Who It’s For / Why Infinite Travel / Final CTA / 顶部 CTA
+
+最终已提交并推送：
+- `9791b7f` — `Refine homepage conversion copy`
+
+本轮首页真正落地的核心变化包括：
+- Hero 标题、副标题、supporting copy 换成更高级、简洁、可承接咨询的终稿
+- 顶部导航 CTA 统一改为 `Start Planning / 开始规划`
+- Hero 主 CTA 统一到 `/contact#inquiry-form`
+- Hero 次 CTA 收口到首页案例区锚点
+- Value Proposition / trust 卡改为“更清晰的规划方式”叙事
+- Who It’s For 收口为三类最有承接价值的人群
+- Why Infinite Travel 三点统一为：
+  - Clear route logic
+  - Flexible customization
+  - Practical planning support
+- Final CTA 收口为“告诉我们日期、人数和预算”
+
+工程结果：
+- 已执行 `npm run build`
+- 构建通过
+- 本次正式提交只包含 `app/page.tsx`
+- `.opencode/task.txt` / `.opencode/reply.txt` 未混入正式网站提交
+
+### 3. 当前项目阶段判断已更新
+当前阶段不再适合继续把大量时间花在首页微调上。
+
+更准确的项目状态是：
+- 首页已经达到“可展示、可承接咨询、品牌气质基本统一”的阶段
+- inquiry 表单基础链路已可用
+- 当前网站主线已从“补页面 / 抠首页文案”转向“结构治理 + 合规补齐 + 真实业务规则接入”
+
+### 4. 下一阶段高优先级
+按当前判断，后续优先级建议改为：
+1. 法务三页骨架：
+   - `Terms & Conditions`
+   - `Privacy Policy`
+   - `Refund / Cancellation Policy`
+2. Footer 法务入口与 Inquiry 合规提示
+3. Payment / FAQ 中的原则型政策说明收口
+4. 等老板提供真实业务规则后，再回填：
+   - 支付
+   - 退款
+   - 取消
+   - 隐私处理
+5. 如后续再做首页升级，优先考虑动态背景或更高杠杆的视觉动作，而不是继续低收益抠字
 
 ---
 

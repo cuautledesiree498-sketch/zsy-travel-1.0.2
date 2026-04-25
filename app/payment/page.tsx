@@ -50,6 +50,15 @@ export default async function PaymentPage({ searchParams }: any) {
   const policyNotes = isZh
     ? ['支付安排以确认后的订单文件为准。', '取消与退款处理以已确认内容和供应商规则为准。', '咨询信息的使用方式请参见隐私政策。']
     : ['Payment arrangements depend on the confirmed booking documents.', 'Cancellation and refund handling depends on the confirmed terms and supplier rules.', 'How inquiry information is used is explained in the Privacy Policy.'];
+  const contractPaymentNote = isZh
+    ? {
+        title: '合同与付款说明',
+        body: '当路线、服务范围、金额和执行方式确认后，如该行程适用旅游合同模板，我们会在进入对应付款节点前提供给你确认。当前页面只说明流程，不替代正式合同。最终条款以双方确认并签署的合同为准。',
+      }
+    : {
+        title: 'Contract & Payment Note',
+        body: 'After the route, service scope, pricing, and execution method are confirmed, we can provide the relevant travel contract template before the related payment step when one applies. This page explains the process only and does not replace a formal contract. The final terms are subject to the contract confirmed and signed by both parties.',
+      };
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
@@ -111,6 +120,10 @@ export default async function PaymentPage({ searchParams }: any) {
 
           <div className="mt-8 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6">
             <p className="text-sm uppercase tracking-[0.2em] text-[var(--color-navy)]">{isZh ? '相关政策' : 'Related Policies'}</p>
+            <div className="mt-4 rounded-[1.25rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5">
+              <p className="text-sm uppercase tracking-[0.18em] text-[var(--color-navy)]">{contractPaymentNote.title}</p>
+              <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{contractPaymentNote.body}</p>
+            </div>
             <div className="mt-4 space-y-3 text-sm leading-7 text-[var(--color-muted)]">
               {policyNotes.map((item) => (
                 <p key={item}>• {item}</p>

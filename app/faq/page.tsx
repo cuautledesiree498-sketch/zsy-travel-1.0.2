@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Frequently asked questions about planning a tailor-made China journey with Infinite Travel.',
 };
 
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
 const faqs = [
   { q: { en: 'Do you provide bilingual communication?', zh: '你们提供中英双语沟通吗？' }, a: { en: 'Yes. We can communicate in English and Chinese for planning and follow-up.', zh: '可以，我们支持英文和中文沟通，方便前期规划与后续确认。' } },
   { q: { en: 'How far in advance should I book?', zh: '需要提前多久预订？' }, a: { en: 'We recommend booking 2–4 weeks in advance.', zh: '建议提前 2–4 周沟通和预订。' } },
@@ -23,6 +25,10 @@ const faqs = [
   { q: { en: 'Can you handle dietary restrictions?', zh: '可以处理饮食要求吗？' }, a: { en: 'Yes. Please tell us in advance and we will plan accordingly.', zh: '可以，请提前告诉我们，我们会尽量配合安排。' } },
   { q: { en: 'Do you offer corporate hosting routes?', zh: '可以做商务接待路线吗？' }, a: { en: 'Yes. We can support business visits, hosting routes and city extensions.', zh: '可以，我们支持商务参访、接待路线和城市延伸安排。' } },
   { q: { en: 'How do payments work?', zh: '付款流程是怎样的？' }, a: { en: 'We do not ask you to pay while the trip is still unclear. In most cases, we first confirm the route direction, dates, traveler details, service scope, and amount, then move into the relevant payment arrangement. The exact method is explained after that stage is clear.', zh: '我们不会在信息还很模糊的时候就让你直接付款。通常会先把路线方向、日期、人数、服务范围和金额确认清楚，再进入对应的付款安排。具体方式会在确认后再说明。' } },
+  { q: { en: 'When do you provide the travel contract template?', zh: '旅游合同模板通常在什么时候提供？' }, a: { en: 'If the itinerary, traveler details, service scope, and execution method are already confirmed, we can provide the relevant contract template before the related confirmation or payment step. We do not send contract text as a substitute for the planning discussion.', zh: '当行程方向、人数、服务范围和执行方式已经确认后，我们会在对应的确认或付款节点前提供适用的合同模板。合同不会代替前期沟通本身。' } },
+  { q: { en: 'Which contract applies to my trip?', zh: '我的行程一般对应哪一类合同？' }, a: { en: 'It depends on the confirmed trip type. The usual categories include domestic group travel, outbound group travel, study tours, one-day trips, Taiwan travel, and some coordination projects. We match the template to the actual itinerary instead of assigning one too early.', zh: '要看最终确认的出行类型。常见类别包括团队境内游、团队出境游、研学游、一日游、赴台行程，以及部分协同项目。我们会按实际行程匹配，而不是过早套用。' } },
+  { q: { en: 'Does the website text replace the signed contract?', zh: '网站上的说明能代替正式合同吗？' }, a: { en: 'No. The website gives general service and process information only. It does not replace a formal contract. The final terms are subject to the contract confirmed and signed by both parties.', zh: '不能。网站页面只提供服务和流程层面的通用说明，不替代正式合同。最终条款以双方确认并签署的合同为准。' } },
+  { q: { en: 'Does a deposit automatically guarantee refunds or full protection?', zh: '支付定金后就一定享有全额退款或全面保障吗？' }, a: { en: 'No automatic guarantee should be assumed. Deposits, cancellations, and later handling depend on the confirmed contract terms, supplier rules, and actual service progress. We explain the applicable arrangement before the relevant payment step.', zh: '不能默认理解为自动享有全额退款或全面保障。定金、取消和后续处理仍要以已确认合同条款、供应商规则和实际执行进度为准。进入对应付款节点前，我们会先把适用安排说明清楚。' } },
   { q: { en: 'What happens after I submit an inquiry?', zh: '提交询盘后会发生什么？' }, a: { en: 'We first review the basics, such as your timing, group size, destinations, and budget, then decide how the request should move forward. If the direction is already clear, we reply with the next step. If key information is still missing, we follow up with a few necessary questions first.', zh: '我们会先看你的时间、人数、目的地和预算这些基础信息，然后判断这条需求该怎么继续推进。情况清楚的话，我们会直接回复下一步；如果还有关键空缺，也会先补问你几个最必要的问题。' } },
   { q: { en: 'Do you offer educational or school trips?', zh: '可以做研学或学校团吗？' }, a: { en: 'Yes. We can help with educational, school and study-focused routes.', zh: '可以，我们支持研学、学校团和学习型路线。' } },
   { q: { en: 'Do you offer long China journeys?', zh: '可以做长线中国深度游吗？' }, a: { en: 'Yes. We offer multi-city routes and can customize them further.', zh: '可以，我们有成熟的多城市路线，也可以继续个性化调整。' } },
@@ -32,8 +38,9 @@ const faqs = [
   { q: { en: 'How do you use my inquiry information?', zh: '你们如何使用我的咨询信息？' }, a: { en: 'We use the information you submit to respond to your request, shape route suggestions, and support related service communication. Please review the Privacy Policy for more detail.', zh: '我们会使用你提交的信息来回复需求、提供路线建议并支持相关服务沟通。更详细说明请查看隐私政策。' } },
 ];
 
-export default function FAQPage({ searchParams }: any) {
-  const lang = normalizeLang(searchParams?.lang);
+export default async function FAQPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   return (
     <main className="mx-auto max-w-5xl px-6 py-24">
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{lang === 'zh' ? '无限旅途' : 'Infinite Travel'}</p>

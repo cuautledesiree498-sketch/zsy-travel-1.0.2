@@ -147,21 +147,21 @@ export default function InquiryForm({
             {lang === 'zh' ? (
               <>
                 提交咨询即表示你同意我们使用你提供的信息来回复需求并提供旅行规划支持。请阅读我们的{' '}
-                <Link href={withLang('/privacy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">隐私政策</Link>
-                、
                 <Link href={withLang('/terms', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">服务条款</Link>
+                {' '}、{' '}
+                <Link href={withLang('/privacy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">隐私政策</Link>
                 {' '}以及{' '}
-                <Link href={withLang('/refund-cancellation', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">退款与取消政策</Link>
+                <Link href={withLang('/refund-policy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">退款与取消政策</Link>
                 。
               </>
             ) : (
               <>
-                By submitting this inquiry, you agree that we may use your information to respond to your request and provide travel planning support. Please review our{' '}
-                <Link href={withLang('/privacy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">Privacy Policy</Link>
-                ,{' '}
+                By submitting this inquiry, you agree that we may use the information you provide to respond to your request and prepare travel planning support. Please review our{' '}
                 <Link href={withLang('/terms', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">Terms & Conditions</Link>
-                , and{' '}
-                <Link href={withLang('/refund-cancellation', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">Refund & Cancellation Policy</Link>
+                {', '}
+                <Link href={withLang('/privacy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">Privacy Policy</Link>
+                {', and '}
+                <Link href={withLang('/refund-policy', lang)} className="font-medium text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">Refund & Cancellation Policy</Link>
                 .
               </>
             )}

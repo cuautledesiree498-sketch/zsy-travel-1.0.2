@@ -15,7 +15,7 @@ export default function LegalLinks({
   const items = [
     { href: '/terms', label: lang === 'zh' ? '服务条款' : 'Terms & Conditions' },
     { href: '/privacy', label: lang === 'zh' ? '隐私政策' : 'Privacy Policy' },
-    { href: '/refund-cancellation', label: lang === 'zh' ? '退款与取消政策' : 'Refund & Cancellation Policy' },
+    { href: '/refund-policy', label: lang === 'zh' ? '退款与取消政策' : 'Refund & Cancellation Policy' },
   ];
 
   return (
