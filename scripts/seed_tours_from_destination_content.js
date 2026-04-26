@@ -158,7 +158,7 @@ const tours = [
       { day: 2, title: { en: 'Old town and mountain scenery', zh: '古城与山景' }, description: { en: 'Focus on scenic and cultural texture rather than rushing between landmarks.', zh: '聚焦风景与文化质感，而不是赶景点。' } },
       { day: 3, title: { en: 'Lake, village or final relaxed chapter', zh: '湖区、村落或最后的放松章节' }, description: { en: 'Close the route with a softer and more comfortable finish.', zh: '以更柔和、更舒适的方式收尾。' } },
     ],
-    image: '/media/custom/destinations/yunnan/yunnan-1.jpg',
+    image: '/media/custom/destinations/yunnan/yunnan-selected.jpg',
     price: 2600,
     duration: 8,
   },

@@ -283,7 +283,7 @@ const destinationPatch = {
       { title: { en: 'Mountain and lake scenery', zh: '山景与湖景' }, description: { en: 'Soft scenic layers that balance the stronger city-heavy parts of a China route.', zh: '为城市段落更重的路线增加柔和景观层。' } },
       { title: { en: 'Southwest balance point', zh: '西南平衡点' }, description: { en: 'A route section that helps the whole itinerary feel less compressed and more breathable.', zh: '让整条线路更松弛、更有呼吸感。' } },
     ],
-    image: '/media/custom/destinations/yunnan/yunnan-1.jpg',
+    image: '/media/custom/destinations/yunnan/yunnan-selected.jpg',
   },
   guilin: {
     tagline: { en: 'Classic karst scenery and one of China’s most recognizable nature icons.', zh: '经典喀斯特风景与中国最具识别度的自然符号之一。' },
