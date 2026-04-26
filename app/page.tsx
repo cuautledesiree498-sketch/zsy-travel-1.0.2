@@ -203,8 +203,8 @@ export default async function Home({ searchParams }: any) {
       </main>
 
       <section className="relative z-20 -mt-16 px-4 pb-8 md:px-8">
-        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.86),rgba(226,236,244,0.78))] shadow-[0_24px_80px_rgba(16,35,61,0.16)] backdrop-blur-xl">
-          <div className="grid gap-px bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.86),rgba(226,236,244,0.78))] p-3 shadow-[0_24px_80px_rgba(16,35,61,0.16)] backdrop-blur-xl md:p-4">
+          <div className="grid gap-px overflow-hidden rounded-[1.55rem] bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
             <div className="bg-white/54 p-6 md:p-8 lg:p-10">
               <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
               <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
@@ -607,7 +607,7 @@ function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
               <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].capabilities}</p>
               <h2 className="mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
               {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-xl text-base leading-8 text-[#5D7084]">{useDisplayText(section.subtitle, lang)}</p> : null}
-              <div className="mt-10 rounded-[1.5rem] border border-white/70 bg-white/[0.045] p-5 text-sm leading-7 text-[#5D7084]">
+              <div className="mt-10 rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5 text-sm leading-7 text-white/68">
                 {lang === 'zh'
                   ? '能力不是单独售卖的功能点，而是一次路线判断中连续发生的取舍：城市顺序、节奏、沟通、确认边界。'
                   : 'Capabilities are not separate feature boxes. They work together as route judgment: city order, pace, communication and confirmation boundaries.'}
@@ -673,10 +673,10 @@ function DestinationCardsSection({ section, destinations, lang }: { section: any
         <div className="mb-10 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div className="max-w-4xl">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].destinations}</p>
-            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-2xl text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-white md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-2xl text-base leading-8 text-white/72 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
           </div>
-          <div className="rounded-[2rem] border border-white/70 bg-white/[0.065] p-6 text-base leading-8 text-[#5D7084] shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur md:p-8 lg:mb-3">
+          <div className="rounded-[2rem] border border-white/14 bg-white/[0.08] p-6 text-base leading-8 text-white/72 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur md:p-8 lg:mb-3">
             <div className="mb-5 h-px w-24 bg-[#C8A96A]"></div>
             {lang === 'zh'
               ? '每个目的地都先作为路线判断的一部分来呈现：适合谁、放在行程哪一段、和哪些城市组合更顺。'
@@ -709,7 +709,7 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
             <div className="mb-8 max-w-4xl">
               <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{uiText[lang].sampleCases}</p>
               <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}</h2>
-              <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
+              <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
             </div>
             <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[#10233D]/16 px-6 py-3 text-sm font-semibold text-[#10233D] transition hover:bg-[#10233D] hover:text-white">
               {viewMoreText}
@@ -802,13 +802,13 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
           <div className="mb-14 max-w-4xl lg:mb-0">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].whyUs}</p>
             <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#10233D] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
           </div>
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 md:grid-cols-2">
           {items.map((item: any, index: number) => (
             <div key={index} className="bg-white/50 p-8 text-left md:p-10">
-              <div className="text-4xl font-normal tracking-[-0.03em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
-              {useDisplayText(item.label, lang) ? <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div> : null}
+              <div className="text-4xl font-semibold tracking-[-0.03em] text-[#10233D] md:text-5xl">{useDisplayText(item.number, lang)}</div>
+              {useDisplayText(item.label, lang) ? <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[#5D7084]">{useDisplayText(item.label, lang)}</div> : null}
             </div>
           ))}
           </div>
@@ -886,7 +886,7 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <SmartLink href={withLang('/about', lang)} lang={lang} className="inline-flex rounded-full border border-white/20 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[#C8A96A] hover:text-[#07111F]">
+          <SmartLink href={withLang('/about', lang)} lang={lang} className="inline-flex rounded-full border border-[#10233D]/16 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#10233D] transition hover:bg-[#10233D] hover:text-white">
             {lang === 'zh' ? '查看更多客户反馈' : 'View More Testimonials'}
           </SmartLink>
         </div>
@@ -896,7 +896,21 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
 }
 
 function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems: any[]; lang: Lang }) {
-  const list = faqItems.slice(0, section.maxItems || 4);
+  const fallbackFaqItems = lang === 'zh'
+    ? [
+        { question: '多久可以收到初步路线方向？', answer: '通常 24 小时内可以先给出一个方向判断，包括城市组合、节奏和下一步需要确认的信息。' },
+        { question: '可以只先咨询路线，不马上付款吗？', answer: '可以。我们建议先把路线方向判断清楚，再进入具体报价、酒店、交通和服务确认。' },
+        { question: '适合第一次来中国的旅客吗？', answer: '适合。第一次来中国更需要先确认城市顺序、交通节奏和每天安排密度，避免路线看起来丰富但实际过赶。' },
+        { question: '可以做家庭或私人小团吗？', answer: '可以。我们会根据人数、年龄结构、预算和节奏偏好调整路线，而不是直接套固定团。' },
+      ]
+    : [
+        { question: 'How soon can I receive an initial route direction?', answer: 'Usually within 24 hours, we can give an initial judgment on city order, pacing and what details should be confirmed next.' },
+        { question: 'Can I ask about the route before paying?', answer: 'Yes. We recommend clarifying the route direction first, then moving into quote, hotel, transport and service confirmation.' },
+        { question: 'Is this suitable for a first trip to China?', answer: 'Yes. First-time travelers benefit most from clear city order, transport rhythm and realistic daily pacing.' },
+        { question: 'Can you plan for families or private groups?', answer: 'Yes. Routes can be adjusted around group size, age mix, budget and travel style instead of using a fixed package.' },
+      ];
+  const sourceFaqItems = Array.isArray(faqItems) && faqItems.length > 0 ? faqItems : fallbackFaqItems;
+  const list = sourceFaqItems.slice(0, section.maxItems || 4);
   const customViewMoreHref = resolveManagedLink(section.viewMoreTarget, section.viewMoreLink);
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F9FC_0%,#EAF0F5_50%,#F7F9FC_100%)] px-4 py-20 text-[#10233D] md:px-8 md:py-24">
@@ -962,12 +976,12 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
             <div>
               <div className="mb-6 h-px w-24 bg-[#C8A96A]"></div>
               <h3 className="max-w-4xl text-5xl font-normal leading-[0.98] tracking-[-0.04em] md:text-7xl" style={editorialHeadingStyle}>{ctaTitle}</h3>
-              <p className="mt-6 max-w-3xl text-base leading-8 text-[#5D7084] md:text-lg">{ctaSubtitle}</p>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">{ctaSubtitle}</p>
             </div>
             <div className="flex flex-col gap-4 lg:items-end">
               <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[240px] items-center justify-center rounded-full bg-[#C8A96A] px-9 py-4 text-sm font-bold text-[#07111F] transition hover:bg-[#B8914F]">{primaryButtonText}</SmartLink>
               {secondaryButtonText && secondaryButtonHref ? (
-                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/50">{secondaryButtonText}</SmartLink>
+                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[240px] items-center justify-center rounded-full border border-white/24 px-9 py-4 text-sm font-bold text-white transition hover:bg-white/14">{secondaryButtonText}</SmartLink>
               ) : null}
             </div>
           </div>
@@ -1004,11 +1018,11 @@ function CapabilityMatrixRow({ item, index, total, lang }: { item: any; index: n
         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/[0.045] text-white/60">{icon}</span>
       </div>
       <div>
-        <h4 className="text-xl font-normal leading-snug text-[#10233D] md:text-2xl" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
-        {item.description && <p className="mt-3 max-w-2xl text-sm leading-7 text-[#5D7084]">{useDisplayText(item.description, lang)}</p>}
+        <h4 className="text-xl font-normal leading-snug text-white md:text-2xl" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
+        {item.description && <p className="mt-3 max-w-2xl text-sm leading-7 text-white/68">{useDisplayText(item.description, lang)}</p>}
       </div>
       {href && item.linkText ? (
-        <SmartLink href={href} lang={lang} newTab={item.newTab} className="inline-flex rounded-full border border-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#5D7084] transition hover:border-white/28 hover:text-white">
+        <SmartLink href={href} lang={lang} newTab={item.newTab} className="inline-flex rounded-full border border-white/18 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/74 transition hover:border-white/36 hover:text-white">
           {useDisplayText(item.linkText, lang)}
         </SmartLink>
       ) : null}
@@ -1048,7 +1062,7 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
       <div className={`relative ${index === 0 ? 'h-[34rem] xl:h-full' : index === 3 ? 'h-[25rem]' : 'h-[27rem]'} bg-[#0B1B2B]`}>
         <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.9),rgba(4,10,18,0.34)_55%,rgba(4,10,18,0.06))]"></div>
-        <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/50 px-3 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
+        <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#07111F]/34 px-3 py-1.5 text-[11px] text-white/84 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
         <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
           <h4 className="text-3xl font-normal leading-tight" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
           <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.8)]">{useDisplayText(item.description, lang)}</p>
