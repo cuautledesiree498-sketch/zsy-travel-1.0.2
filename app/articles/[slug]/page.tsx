@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { localizePortableText } from '@/lib/portableTextLocale';
 import { getArticleBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
@@ -85,6 +87,7 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
   const articlePath = `/articles/${encodeURIComponent(slug)}`;
   const articleUrl = toAbsoluteUrl(withLang(articlePath, lang));
   const articleImage = resolvePublicImageUrl(article.mainImage);
+  const localizedContent = localizePortableText(article.content, lang);
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
     { name: lang === 'zh' ? '灵感内容' : 'Insights', url: withLang('/insights', lang) },
@@ -113,7 +116,8 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
               <h1 className="text-lg font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-xl">{siteTitle}</h1>
             </div>
           </Link>
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className="flex items-center gap-3 md:gap-4">
+            <LanguageSwitcher lang={lang} />
             <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.16em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '灵感内容' : 'Insights'}</Link>
             <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.16em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '联系我们' : 'Contact'}</Link>
           </div>
@@ -155,9 +159,9 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
 
             <div className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white p-8 shadow-[0_24px_60px_rgba(10,27,52,0.06)] md:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'zh' ? '正文内容' : 'Article Body'}</p>
-              {Array.isArray(article.content) && article.content.length > 0 ? (
+              {Array.isArray(localizedContent) && localizedContent.length > 0 ? (
                 <div className="prose prose-lg mt-6 max-w-none prose-headings:text-[var(--color-navy)] prose-p:text-[var(--color-muted)] prose-li:text-[var(--color-muted)]">
-                  <PortableText value={article.content} />
+                  <PortableText value={localizedContent} />
                 </div>
               ) : (
                 <div className="mt-6 rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-6 text-[var(--color-muted)]">
