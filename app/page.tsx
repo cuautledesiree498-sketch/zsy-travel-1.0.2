@@ -139,7 +139,7 @@ export default async function Home({ searchParams }: any) {
     <>
       <HomeStructuredData lang={lang} settings={settings} siteTitle={siteTitle} siteDescription={siteDescription} />
       <div className="min-h-screen bg-[#07111F] text-[var(--color-foreground)]">
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/70 bg-[rgba(7,17,31,0.86)] text-white backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[rgba(7,17,31,0.86)] text-white backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-4">
             <Link href={withLang('/', lang)} className="flex items-center">
@@ -150,13 +150,13 @@ export default async function Home({ searchParams }: any) {
             </Link>
 
             <div className="hidden items-center gap-8 md:flex">
-              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '服务' : 'Services'}</Link>
-              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
-              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
-              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '支付' : 'Payment'}</Link>
-              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{t.about}</Link>
-              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{t.contact}</Link>
-              <Link href={withLang('/', switchLang)} className="rounded-full border border-white/18 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#5D7084] transition hover:border-white/38 hover:text-white">{languageSwitchLabel}</Link>
+              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '服务' : 'Services'}</Link>
+              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
+              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
+              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '支付' : 'Payment'}</Link>
+              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.about}</Link>
+              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.contact}</Link>
+              <Link href={withLang('/', switchLang)} className="rounded-full border border-white/18 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/72 transition hover:border-white/38 hover:text-white">{languageSwitchLabel}</Link>
             </div>
 
             <SmartLink href={navCtaLink} lang={lang} className="inline-flex items-center rounded-full bg-[#C8A96A] px-5 py-2.5 text-sm font-semibold text-[#07111F] transition hover:bg-[#B8914F]">
@@ -181,45 +181,47 @@ export default async function Home({ searchParams }: any) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(255,255,255,0.18),transparent_28%),radial-gradient(circle_at_78%_18%,rgba(215,226,234,0.24),transparent_26%)]"></div>
         </div>
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[88rem] gap-8 py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
-          <div>
+        <div className="relative z-10 mx-auto w-full max-w-[88rem] py-16">
+          <div className="max-w-5xl">
             <p className={eyebrowClass(lang, 'text-[#E5D6B8]')}>{heroEyebrow}</p>
-            <div className="mt-5 inline-flex rounded-full border border-white/22 bg-white/56 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/86 backdrop-blur-md">{heroBrandLabel}</div>
-            <h1 className="mt-7 max-w-5xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#10233D] drop-shadow-[0_2px_18px_rgba(7,17,31,0.28)] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
-            <p className="mt-7 max-w-3xl text-xl leading-8 text-white/92 md:text-2xl md:leading-9">{heroSubtitle}</p>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{heroSupporting}</p>
+            <div className="mt-5 inline-flex rounded-full border border-white/22 bg-[#07111F]/30 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/86 backdrop-blur-md">{heroBrandLabel}</div>
+            <h1 className="mt-7 max-w-5xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#FFFDF8] drop-shadow-[0_3px_22px_rgba(7,17,31,0.44)] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
+            <p className="mt-7 max-w-3xl text-xl leading-8 text-white/92 drop-shadow-[0_2px_12px_rgba(7,17,31,0.3)] md:text-2xl md:leading-9">{heroSubtitle}</p>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/78 drop-shadow-[0_2px_10px_rgba(7,17,31,0.28)] md:text-base md:leading-8">{heroSupporting}</p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#E5D6B8] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(7,17,31,0.18)] transition hover:bg-[#C8A96A]">
+              <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(7,17,31,0.24)] transition hover:bg-[#B8914F]">
                 {heroPrimaryText}
               </SmartLink>
               {heroSecondaryText && heroSecondaryHref ? (
-                <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-white/50 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/18">
+                <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/34 bg-[#07111F]/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/14">
                   {heroSecondaryText}
                 </SmartLink>
               ) : null}
             </div>
           </div>
+        </div>
+      </main>
 
-          <div className="hidden lg:block">
-            <div className="rounded-[2rem] border border-white/26 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(232,240,246,0.54))] p-7 text-[#10233D] shadow-[0_30px_90px_rgba(7,17,31,0.2)] backdrop-blur-xl">
+      <section className="relative z-20 -mt-16 px-4 pb-8 md:px-8">
+        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.86),rgba(226,236,244,0.78))] shadow-[0_24px_80px_rgba(16,35,61,0.16)] backdrop-blur-xl">
+          <div className="grid gap-px bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="bg-white/54 p-6 md:p-8 lg:p-10">
               <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
-              <h3 className="mt-3 text-3xl font-normal leading-tight text-[#10233D]" style={editorialHeadingStyle}>{trustSectionTitle}</h3>
-              <p className="mt-4 text-sm leading-7 text-[#4C6278]">{trustSectionBody}</p>
-              <div className="mt-5 space-y-3">
-                {trustDecisionItems.map((item, index) => (
-                  <div key={item.label} className="rounded-[1.25rem] border border-white/58 bg-white/44 p-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-semibold tracking-[0.22em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</span>
-                      <div className={eyebrowClass(lang, 'text-[#10233D]')}>{item.label}</div>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-[#5D7084]">{item.value}</p>
-                  </div>
-                ))}
-              </div>
+              <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{trustSectionBody}</p>
+            </div>
+            <div className="grid bg-white/38 md:grid-cols-3">
+              {trustDecisionItems.map((item, index) => (
+                <div key={item.label} className="border-t border-white/70 p-6 md:border-l md:border-t-0 md:p-8">
+                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</div>
+                  <h3 className="mt-4 text-base font-semibold leading-6 text-[#10233D]">{item.label}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#5D7084]">{item.value}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </main>
+      </section>
 
       {!hasCmsSections ? <section className="relative z-20 -mt-14 px-6">
         <div className="mx-auto max-w-7xl rounded-[2.2rem] border border-[rgba(10,27,52,0.08)] bg-white/95 p-5 shadow-[0_30px_90px_rgba(0,0,0,0.14)] backdrop-blur-sm md:p-7">
@@ -428,10 +430,10 @@ function FeaturedDestinationsShowcase({ lang }: { lang: Lang }) {
               <div className={`${index === 0 ? 'h-[30rem]' : 'h-[26rem]'} relative`}>
                 <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw" className="object-cover transition duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.86),rgba(4,10,18,0.26)_58%,rgba(4,10,18,0.04))]"></div>
-                <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/56 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-[#5D7084] backdrop-blur-md">{item.fit}</div>
+                <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/12 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-white/78 backdrop-blur-md">{item.fit}</div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:p-7">
                   <h3 className="text-2xl font-semibold md:text-3xl">{item.title}</h3>
-                  <p className="mt-3 max-w-lg text-sm leading-7 text-[#5D7084]">{item.line}</p>
+                  <p className="mt-3 max-w-lg text-sm leading-7 text-white/78">{item.line}</p>
                   <span className="mt-5 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-[#d8c49a]">{lang === 'zh' ? '查看目的地' : 'View Destination'}</span>
                 </div>
               </div>
@@ -528,7 +530,7 @@ function FinalHomeCta({ lang }: { lang: Lang }) {
         <div className="relative z-10 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.34em] text-[#d8c49a]">{lang === 'zh' ? '开始咨询' : 'Start With A Conversation'}</p>
           <h2 className="mt-4 text-3xl font-semibold leading-tight md:text-5xl">{lang === 'zh' ? '先把你的中国旅行想法发给我们。' : 'Send the shape of your China trip first.'}</h2>
-          <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">
+          <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">
             {lang === 'zh'
               ? '不需要一次说完整。日期、人数、想去的城市和大致预算就足够我们先判断方向。'
               : 'It does not need to be complete. Dates, group size, cities in mind and a rough budget are enough for a first route direction.'}
@@ -707,7 +709,7 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
             <div className="mb-8 max-w-4xl">
               <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{uiText[lang].sampleCases}</p>
               <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}</h2>
-              <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
+              <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
             </div>
             <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[#10233D]/16 px-6 py-3 text-sm font-semibold text-[#10233D] transition hover:bg-[#10233D] hover:text-white">
               {viewMoreText}
@@ -800,7 +802,7 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
           <div className="mb-14 max-w-4xl lg:mb-0">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].whyUs}</p>
             <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#10233D] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
           </div>
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 md:grid-cols-2">
           {items.map((item: any, index: number) => (
