@@ -76,8 +76,8 @@ export default async function Home({ searchParams }: any) {
   const heroBrandLabel = lang === 'zh' ? 'Infinite Travel | 中国定制旅行顾问' : 'Infinite Travel | China Travel Planning';
   const heroPrimaryText = useDisplayText(heroSection?.primaryButtonText, lang, lang === 'zh' ? '开始规划' : 'Start Planning');
   const heroPrimaryHref = resolveManagedLink(heroSection?.primaryButtonTarget, heroSection?.primaryButtonLink) || '/contact#inquiry-form';
-  const heroSecondaryText = useDisplayText(heroSection?.secondaryButtonText, lang, lang === 'zh' ? '查看示例行程' : 'View Sample Journeys');
-  const heroSecondaryHref = resolveManagedLink(heroSection?.secondaryButtonTarget, heroSection?.secondaryButtonLink) || '#cases';
+  const heroSecondaryText = heroSection ? useDisplayText(heroSection?.secondaryButtonText, lang) : (lang === 'zh' ? '查看示例行程' : 'View Sample Journeys');
+  const heroSecondaryHref = heroSection ? resolveManagedLink(heroSection?.secondaryButtonTarget, heroSection?.secondaryButtonLink) : '#cases';
   const trustSectionEyebrow = lang === 'zh' ? '为什么更好判断' : 'Why It’s Easier to Decide';
   const trustSectionTitle = lang === 'zh' ? '先把路线判断对。' : 'Start With the Right Route.';
   const trustSectionBody = lang === 'zh' ? '我们会根据你的时间、人数和重点偏好，先判断路线是否顺、节奏是否合适、后面的确认会不会卡住。' : 'We look at your dates, group size, and priorities first, so it’s easier to see whether the route flows well, the pace makes sense, and the confirmation process will stay clear.';
@@ -138,85 +138,76 @@ export default async function Home({ searchParams }: any) {
   return (
     <>
       <HomeStructuredData lang={lang} settings={settings} siteTitle={siteTitle} siteDescription={siteDescription} />
-      <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
+      <div className="min-h-screen bg-[#07111F] text-[var(--color-foreground)]">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[rgba(7,17,31,0.86)] text-white backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-4">
             <Link href={withLang('/', lang)} className="flex items-center">
               <div>
-                <p className="text-base font-semibold tracking-[0.04em] text-[var(--color-navy)] md:text-lg">{siteTitle}</p>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-[var(--color-muted)]">{lang === 'en' ? 'China Travel Planning' : '中国定制旅行规划'}</p>
+                <p className="text-base font-semibold tracking-[0.04em] text-white md:text-lg">{siteTitle}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.28em] text-white/55">{lang === 'en' ? 'China Travel Planning' : '中国定制旅行规划'}</p>
               </div>
             </Link>
 
             <div className="hidden items-center gap-8 md:flex">
-              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '服务' : 'Services'}</Link>
-              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
-              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
-              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{lang === 'zh' ? '支付' : 'Payment'}</Link>
-              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.about}</Link>
-              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)]">{t.contact}</Link>
-              <Link href={withLang('/', switchLang)} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-xs uppercase tracking-[0.22em] text-[var(--color-muted)] transition hover:text-[var(--color-navy)] hover:border-[rgba(10,27,52,0.28)]">{languageSwitchLabel}</Link>
+              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '服务' : 'Services'}</Link>
+              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
+              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
+              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '支付' : 'Payment'}</Link>
+              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.about}</Link>
+              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.contact}</Link>
+              <Link href={withLang('/', switchLang)} className="rounded-full border border-white/18 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/72 transition hover:border-white/38 hover:text-white">{languageSwitchLabel}</Link>
             </div>
 
-            <SmartLink href={navCtaLink} lang={lang} className="inline-flex items-center rounded-full border border-[rgba(10,27,52,0.1)] bg-[var(--color-navy)] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[var(--color-navy-soft)]">
+            <SmartLink href={navCtaLink} lang={lang} className="inline-flex items-center rounded-full bg-[#C8A96A] px-5 py-2.5 text-sm font-semibold text-[#07111F] transition hover:bg-[#B8914F]">
               {navCtaText}
             </SmartLink>
           </div>
         </div>
       </nav>
 
-      <main className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24">
-        <div className="absolute inset-0">
-          {heroVideoUrl ? (
-            <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
-              <source src={heroVideoUrl} />
-            </video>
-          ) : null}
-          <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
-            <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-cover" sizes="100vw" preload />
-          </div>
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,10,18,0.86),rgba(8,19,33,0.58)_48%,rgba(8,19,33,0.28))]"></div>
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(4,10,18,0.18),rgba(4,10,18,0.28),rgba(4,10,18,0.78))]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(216,196,154,0.18),transparent_32%)]"></div>
-        </div>
-
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-          <div className="text-white">
-            <p className="mb-5 text-xs uppercase tracking-[0.38em] text-[#d8c49a]">{heroEyebrow}</p>
-            <div className="mb-3 inline-flex rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-[rgba(255,255,255,0.82)]">{heroBrandLabel}</div>
-            <h1 className="max-w-5xl text-5xl font-normal leading-[1.02] md:text-7xl" style={editorialHeadingStyle}>{heroTitle}</h1>
-            <p className="mt-4 max-w-3xl text-lg font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-[1.55rem]">{heroSubtitle}</p>
-            <p className="mt-2.5 max-w-3xl text-[15px] leading-6.5 text-[rgba(255,255,255,0.82)] md:text-[15px]">{heroSupporting}</p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#d8c49a] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition hover:bg-[#ead9b6]">
-                {heroPrimaryText}
-              </SmartLink>
-              {heroSecondaryText && heroSecondaryHref ? (
-                <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/28 bg-white/8 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/92 transition hover:bg-white/14">
-                  {heroSecondaryText}
+      <main className="relative overflow-hidden bg-[#07111F] px-4 pb-8 pt-24 text-white md:px-8">
+        <div className="mx-auto grid min-h-[88vh] max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/10 bg-[#0B1B2B] shadow-[0_36px_110px_rgba(0,0,0,0.38)] lg:grid-cols-[0.92fr_1.08fr]">
+          <div className="relative z-10 flex flex-col justify-between px-7 py-10 md:px-12 md:py-14 lg:px-14">
+            <div>
+              <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{heroEyebrow}</p>
+              <h1 className="mt-8 max-w-4xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#FFFDF8] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
+              <p className="mt-7 max-w-2xl text-xl leading-8 text-[#FFFDF8]/88 md:text-2xl md:leading-9">{heroSubtitle}</p>
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/62 md:text-base md:leading-8">{heroSupporting}</p>
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(0,0,0,0.22)] transition hover:bg-[#B8914F]">
+                  {heroPrimaryText}
                 </SmartLink>
-              ) : null}
+                {heroSecondaryText && heroSecondaryHref ? (
+                  <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10">
+                    {heroSecondaryText}
+                  </SmartLink>
+                ) : null}
+              </div>
+            </div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 md:grid-cols-3">
+              {trustDecisionItems.map((item) => (
+                <div key={item.label} className="bg-white/[0.055] p-5">
+                  <div className={eyebrowClass(lang, 'text-[#C8A96A]')}>{item.label}</div>
+                  <p className="mt-2 text-sm leading-6 text-white/66">{item.value}</p>
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="hidden lg:block">
-            <div className="rounded-[2rem] border border-white/20 bg-[rgba(255,255,255,0.9)] p-7 text-[var(--color-navy)] backdrop-blur-md shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
-              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted)]">{trustSectionEyebrow}</p>
-              <h3 className="mt-3 text-[1.7rem] font-semibold leading-snug">{trustSectionTitle}</h3>
-              <p className="mt-4 text-sm leading-7 text-[var(--color-slate)]">{trustSectionBody}</p>
-              <div className="mt-4 space-y-3">
-                {trustDecisionItems.map((item) => (
-                  <div key={item.label} className="rounded-[1.15rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-3.5">
-                    <div className="text-[11px] uppercase tracking-[0.24em] text-[var(--color-muted)]">{item.label}</div>
-                    <p className="mt-1 text-sm leading-5.5 text-[var(--color-slate)]">{item.value}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <HeroStat label={lang === 'en' ? 'Planning' : '规划方式'} value={lang === 'en' ? 'Private Custom' : '私人定制'} />
-                <HeroStat label={lang === 'en' ? 'Reply' : '回复'} value={lang === 'en' ? 'Within 24h' : '24 小时内'} />
-              </div>
+          <div className="relative min-h-[32rem] lg:min-h-full">
+            {heroVideoUrl ? (
+              <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
+                <source src={heroVideoUrl} />
+              </video>
+            ) : null}
+            <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
+              <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 54vw" preload />
+            </div>
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,27,43,0.72),rgba(11,27,43,0.12)_38%,rgba(11,27,43,0.04))]"></div>
+            <div className="absolute bottom-8 right-8 hidden max-w-xs rounded-[1.5rem] border border-white/14 bg-[#FFFDF8] p-5 text-[#142033] shadow-[0_24px_60px_rgba(0,0,0,0.24)] lg:block">
+              <p className={eyebrowClass(lang, 'text-[#B8914F]')}>{trustSectionEyebrow}</p>
+              <h3 className="mt-3 text-2xl font-normal leading-tight" style={editorialHeadingStyle}>{trustSectionTitle}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#6B7C90]">{trustSectionBody}</p>
             </div>
           </div>
         </div>
@@ -380,7 +371,7 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title?:
   return (
     <div className="mb-14 max-w-4xl">
       {eyebrow && <p className="text-sm font-medium text-[#b9965b]">{eyebrow}</p>}
-      {title && <p className="mt-4 text-4xl font-normal leading-[1.05] tracking-[-0.02em] text-[var(--color-navy)] md:text-6xl" style={editorialHeadingStyle}>{title}</p>}
+      {title && <p className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.035em] text-[#142033] md:text-7xl" style={editorialHeadingStyle}>{title}</p>}
       {subtitle && <p className="mt-4 text-base leading-8 text-[var(--color-muted)] md:text-lg">{subtitle}</p>}
     </div>
   );
@@ -596,10 +587,13 @@ function getPlanningSteps(lang: Lang) {
 
 function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
-    <section id={section.anchorId || 'travel-styles'} className="bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)] py-28">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].capabilities} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-[rgba(16,35,61,0.1)] bg-[rgba(16,35,61,0.1)] md:grid-cols-2 xl:grid-cols-5">
+    <section id={section.anchorId || 'travel-styles'} className="bg-[#07111F] px-4 py-10 md:px-8">
+      <div className="mx-auto max-w-[88rem] rounded-[2.75rem] bg-[#FFFDF8] px-6 py-24 md:px-12">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <SectionHeader eyebrow={uiText[lang].capabilities} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+          <div className="mb-14 hidden h-px bg-[#C8A96A] lg:block"></div>
+        </div>
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-[rgba(20,32,51,0.12)] bg-[rgba(20,32,51,0.12)] md:grid-cols-2 xl:grid-cols-5">
           {(section.items || []).map((item: any, index: number) => <IconInfoCard key={index} item={item} lang={lang} />)}
         </div>
       </div>
@@ -609,11 +603,15 @@ function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
 
 function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
-    <section id={section.anchorId || 'audiences'} className="bg-[var(--color-panel-2)] py-28">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].audienceSolutions} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <section id={section.anchorId || 'audiences'} className="bg-[#EAF0F5] px-4 py-28 md:px-8">
+      <div className="mx-auto max-w-[88rem]">
+        <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <SectionHeader eyebrow={uiText[lang].audienceSolutions} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+          </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {(section.items || []).map((item: any, index: number) => <AudienceCard key={index} item={item} lang={lang} />)}
+          </div>
         </div>
       </div>
     </section>
@@ -646,18 +644,18 @@ function DestinationCardsSection({ section, destinations, lang }: { section: any
     }));
   const items = manualItems.length > 0 ? manualItems : autoItems;
   return (
-    <section id={section.anchorId || 'destinations'} className="bg-white py-30">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+    <section id={section.anchorId || 'destinations'} className="bg-[#F7F1E7] px-4 py-28 md:px-8">
+      <div className="mx-auto max-w-[88rem]">
+        <div className="mb-14 grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:items-end">
           <SectionHeader eyebrow={uiText[lang].destinations} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-          <div className="rounded-[2rem] border border-[rgba(16,35,61,0.1)] bg-[var(--color-soft-white)] p-6 text-sm leading-7 text-[var(--color-muted)] lg:mb-3">
-            <div className="mb-3 h-px w-20 bg-[#b9965b]"></div>
+          <div className="rounded-[2rem] border border-[rgba(20,32,51,0.12)] bg-[#FFFDF8] p-8 text-base leading-8 text-[#6B7C90] shadow-[0_24px_70px_rgba(20,32,51,0.08)] lg:mb-3">
+            <div className="mb-5 h-px w-24 bg-[#C8A96A]"></div>
             {lang === 'zh'
               ? '每个目的地都先作为路线判断的一部分来呈现：适合谁、放在行程哪一段、和哪些城市组合更顺。'
               : 'Each destination is presented as part of route judgment: who it fits, where it belongs in the journey, and how it can connect with other cities.'}
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {items.map((item: any, index: number) => <DestinationCard key={index} item={item} index={index} lang={lang} />)}
         </div>
         <div className="mt-12 text-center">
@@ -676,16 +674,16 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
   const viewMoreHref = resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) || '/tours';
   const viewMoreText = useDisplayText(section.viewMoreText, lang, lang === 'zh' ? '查看更多路线案例' : 'View More Tour Cases');
   return (
-    <section id={section.anchorId || 'cases'} className="bg-[linear-gradient(180deg,#eef3f9_0%,#f7f9fc_100%)] py-30">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id={section.anchorId || 'cases'} className="bg-[#07111F] px-4 py-28 text-white md:px-8">
+      <div className="mx-auto max-w-[88rem]">
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
-            <SectionHeader
-              eyebrow={uiText[lang].sampleCases}
-              title={useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}
-              subtitle={useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}
-            />
-            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full bg-[var(--color-navy)] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-navy-soft)]">
+            <div className="mb-14 max-w-4xl">
+              <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].sampleCases}</p>
+              <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#FFFDF8] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}</h2>
+              <p className="mt-5 text-base leading-8 text-white/62 md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
+            </div>
+            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] transition hover:bg-[#B8914F]">
               {viewMoreText}
             </SmartLink>
           </div>
@@ -709,18 +707,18 @@ function ArticleListSection({ section, articles, lang }: { section: any; article
   const viewMoreText = useDisplayText(section.viewMoreText, lang, lang === 'zh' ? '查看更多灵感' : 'Explore More Insights');
 
   return (
-    <section id={section.anchorId || 'articles'} className="bg-white py-30">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id={section.anchorId || 'articles'} className="bg-[#FFFDF8] px-4 py-28 md:px-8">
+      <div className="mx-auto max-w-[88rem]">
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeader eyebrow={uiText[lang].insights} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
           {viewMoreText && viewMoreHref ? (
-            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="mb-3 inline-flex rounded-full border border-[rgba(16,35,61,0.16)] px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="mb-3 inline-flex rounded-full border border-[rgba(20,32,51,0.2)] px-7 py-3 text-sm font-semibold text-[#142033] transition hover:bg-[#142033] hover:text-white">
               {viewMoreText}
             </SmartLink>
           ) : null}
         </div>
         {articles && articles.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">{articles.map((article: any) => <ArticleCard key={article._id || article.slug} article={article} lang={lang} />)}</div>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">{articles.map((article: any, index: number) => <ArticleCard key={article._id || article.slug} article={article} lang={lang} featured={index === 0} />)}</div>
         ) : (
           <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-[var(--color-soft-white)] px-6 py-16 text-center text-[var(--color-muted)]">
             <p className="text-lg">{uiText[lang].planningInsightsCanBeAdded}</p>
@@ -746,16 +744,22 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="bg-[var(--color-night)] py-28 text-white">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].whyUs} title={useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 md:grid-cols-3">
+    <section className="bg-[#07111F] px-4 py-8 text-white md:px-8">
+      <div className="mx-auto max-w-[88rem] rounded-[2.75rem] border border-white/10 bg-[#0B1B2B] px-6 py-20 md:px-12">
+        <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+          <div className="mb-14 max-w-4xl lg:mb-0">
+            <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].whyUs}</p>
+            <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#FFFDF8] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')}</h2>
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-white/62 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+          </div>
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 md:grid-cols-2">
           {items.map((item: any, index: number) => (
-            <div key={index} className="bg-[rgba(255,255,255,0.06)] p-8 text-left backdrop-blur-sm md:p-10">
-              <div className="text-3xl font-normal tracking-[-0.02em] text-white md:text-4xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
+            <div key={index} className="bg-white/[0.055] p-8 text-left md:p-10">
+              <div className="text-4xl font-normal tracking-[-0.03em] text-[#FFFDF8] md:text-5xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
               {useDisplayText(item.label, lang) ? <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div> : null}
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>
@@ -807,15 +811,15 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="bg-[var(--color-soft-white)] py-28">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-[#F7F1E7] px-4 py-28 md:px-8">
+      <div className="mx-auto max-w-[88rem]">
         <SectionHeader eyebrow={uiText[lang].testimonials} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {items.map((item: any, index: number) => (
-            <div key={index} className="rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-white p-8 shadow-[0_18px_45px_rgba(10,27,52,0.05)]">
+            <div key={index} className={`${index === 0 ? 'md:-mt-10' : index === 2 ? 'md:mt-10' : ''} rounded-[2.25rem] border border-[rgba(20,32,51,0.1)] bg-[#FFFDF8] p-8 shadow-[0_28px_80px_rgba(20,32,51,0.08)] md:p-10`}>
               <div className="mb-5 h-px w-16 bg-[#b9965b]"></div>
-              <p className="text-lg leading-8 text-[var(--color-slate)]" style={editorialHeadingStyle}>“{useDisplayText(item.quote, lang)}”</p>
-              <div className="mt-7 text-sm text-[var(--color-muted)]">{item.name} · {item.country}</div>
+              <p className="text-2xl leading-9 text-[#142033]" style={editorialHeadingStyle}>“{useDisplayText(item.quote, lang)}”</p>
+              <div className="mt-8 text-sm text-[#6B7C90]">{item.name} · {item.country}</div>
             </div>
           ))}
         </div>
@@ -832,12 +836,12 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
 function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems: any[]; lang: Lang }) {
   const list = faqItems.slice(0, section.maxItems || 4);
   return (
-    <section className="bg-[var(--color-panel-2)] py-28">
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="bg-[#EAF0F5] px-4 py-28 md:px-8">
+      <div className="mx-auto grid max-w-[88rem] gap-12 lg:grid-cols-[0.7fr_1.3fr]">
         <SectionHeader eyebrow={uiText[lang].faq} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="space-y-3 border-y border-[rgba(16,35,61,0.12)] py-3">
+        <div className="space-y-3 border-y border-[rgba(20,32,51,0.12)] py-3">
           {list.map((faq: any, index: number) => (
-            <details key={index} className="group rounded-[1.5rem] bg-white p-6">
+            <details key={index} className="group rounded-[1.5rem] bg-[#FFFDF8] p-6 shadow-[0_14px_35px_rgba(20,32,51,0.04)]">
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-[var(--color-navy)]">
                 {useDisplayText(faq.question, lang)}
                 <span className="text-[#b9965b] transition group-open:rotate-45">+</span>
@@ -874,23 +878,23 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
   const secondaryButtonHref = resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink) || '/contact';
 
   return (
-    <section className="bg-white px-6 py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="relative overflow-hidden rounded-[2.4rem] bg-[var(--color-night)] px-8 py-16 text-white shadow-[0_30px_80px_rgba(8,19,33,0.18)] md:px-16 lg:px-20">
+    <section className="bg-[#07111F] px-4 py-10 md:px-8">
+      <div className="mx-auto max-w-[88rem]">
+        <div className="relative overflow-hidden rounded-[2.75rem] bg-[#0B1B2B] px-8 py-20 text-white shadow-[0_36px_110px_rgba(0,0,0,0.34)] md:px-16 lg:px-20">
           {section.backgroundImage && (
-            <div className="absolute inset-0 opacity-30">
+            <div className="absolute inset-0">
               <Image src={imageUrlFor(section.backgroundImage, 1400, fallbackImages.destination)} alt={useDisplayText(section.title, lang) || 'CTA background'} fill className="object-cover" />
             </div>
           )}
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,19,33,0.96),rgba(8,19,33,0.8)_62%,rgba(8,19,33,0.5))]"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.96),rgba(7,17,31,0.84)_56%,rgba(7,17,31,0.5))]"></div>
           <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div>
-              <div className="mb-5 h-px w-20 bg-[#d8c49a]"></div>
-              <h3 className="text-4xl font-normal leading-tight md:text-6xl" style={editorialHeadingStyle}>{ctaTitle}</h3>
-              <p className="mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.8)] md:text-lg">{ctaSubtitle}</p>
+              <div className="mb-6 h-px w-24 bg-[#C8A96A]"></div>
+              <h3 className="max-w-4xl text-5xl font-normal leading-[0.98] tracking-[-0.04em] md:text-7xl" style={editorialHeadingStyle}>{ctaTitle}</h3>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-white/70 md:text-lg">{ctaSubtitle}</p>
             </div>
             <div className="flex flex-col gap-4 lg:items-end">
-              <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#d8c49a] px-8 py-4 text-sm font-semibold text-[var(--color-night)] transition hover:bg-[#ead9b6]">{primaryButtonText}</SmartLink>
+              <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[240px] items-center justify-center rounded-full bg-[#C8A96A] px-9 py-4 text-sm font-bold text-[#07111F] transition hover:bg-[#B8914F]">{primaryButtonText}</SmartLink>
               {secondaryButtonText && secondaryButtonHref ? (
                 <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10">{secondaryButtonText}</SmartLink>
               ) : null}
@@ -905,8 +909,8 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
 function IconInfoCard({ item, lang }: { item: any; lang: Lang }) {
   const icon = renderManagedIcon(item, 'text-4xl');
   return (
-    <div className="flex h-full flex-col bg-white p-7 transition hover:bg-[var(--color-soft-white)] md:p-8">
-      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-panel-2)] text-2xl text-[var(--color-navy)]">{icon}</div>
+    <div className="flex h-full flex-col bg-[#FFFDF8] p-7 transition hover:bg-[#F7F1E7] md:p-8">
+      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[#EAF0F5] text-2xl text-[#0B1B2B]">{icon}</div>
       <h4 className="text-xl font-semibold text-[var(--color-navy)]">{useDisplayText(item.title, lang)}</h4>
       {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
       {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
@@ -921,8 +925,8 @@ function IconInfoCard({ item, lang }: { item: any; lang: Lang }) {
 function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
   const icon = renderManagedIcon(item, 'text-4xl');
   return (
-    <div className="flex h-full flex-col rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-white p-7 shadow-[0_18px_45px_rgba(10,27,52,0.05)]">
-      <div className="mb-8 flex items-center gap-4 text-[#b9965b]"><span className="text-3xl">{icon}</span><span className="h-px flex-1 bg-[rgba(16,35,61,0.12)]"></span></div>
+    <div className="flex min-h-[18rem] flex-col justify-between rounded-[2.25rem] border border-[rgba(20,32,51,0.1)] bg-[#FFFDF8] p-8 shadow-[0_24px_70px_rgba(20,32,51,0.07)]">
+      <div className="mb-8 flex items-center gap-4 text-[#C8A96A]"><span className="text-3xl">{icon}</span><span className="h-px flex-1 bg-[rgba(20,32,51,0.14)]"></span></div>
       <h4 className="text-2xl font-normal leading-snug text-[var(--color-navy)]" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
       {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
       {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
@@ -946,9 +950,9 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
     : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
   return (
-    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className="group relative block overflow-hidden rounded-[2rem] bg-[var(--color-night)] shadow-[0_22px_60px_rgba(10,27,52,0.14)]">
-      <div className="relative h-[29rem] bg-[var(--color-navy)]">
-        <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105 group-hover:brightness-105" />
+    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className={`${index === 0 ? 'xl:col-span-2 xl:row-span-2' : index === 3 ? 'xl:col-span-2' : ''} group relative block overflow-hidden rounded-[2.35rem] bg-[#07111F] shadow-[0_26px_75px_rgba(20,32,51,0.18)]`}>
+      <div className={`relative ${index === 0 ? 'h-[38rem] xl:h-full' : index === 3 ? 'h-[29rem]' : 'h-[31rem]'} bg-[#0B1B2B]`}>
+        <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.9),rgba(4,10,18,0.34)_55%,rgba(4,10,18,0.06))]"></div>
         <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
         <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
@@ -982,19 +986,19 @@ function prioritizeTours(tours: any[]) {
   return list.sort((a, b) => score(b) - score(a));
 }
 
-function TourCard({ tour, lang }: { tour: any; lang: Lang; index?: number }) {
+function TourCard({ tour, lang, index = 0 }: { tour: any; lang: Lang; index?: number }) {
   const tourTitle = useDisplayText(tour.title, lang);
   const tourDescription = useDisplayText(tour.tagline || tour.description, lang);
   const duration = useDisplayText(tour.duration, lang);
   const idealFor = useDisplayText(tour.idealFor, lang);
 
   return (
-    <div className="group grid overflow-hidden rounded-[2.1rem] border border-[rgba(16,35,61,0.08)] bg-white shadow-[0_20px_55px_rgba(10,27,52,0.08)] transition hover:-translate-y-0.5 md:grid-cols-[0.47fr_0.53fr]">
-      <div className="relative min-h-72 md:min-h-full">
+    <div className={`${index % 2 === 1 ? 'md:grid-cols-[0.56fr_0.44fr]' : 'md:grid-cols-[0.44fr_0.56fr]'} group grid overflow-hidden rounded-[2.35rem] border border-white/10 bg-[#FFFDF8] text-[#142033] shadow-[0_30px_80px_rgba(0,0,0,0.22)] transition hover:-translate-y-0.5`}>
+      <div className={`${index % 2 === 1 ? 'md:order-2' : ''} relative min-h-80 md:min-h-full`}>
         <Image src={imageUrlFor(tour.image, 1000, fallbackImages.tour)} alt={tourTitle || 'Tour'} fill sizes="(max-width: 768px) 100vw, 44vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
       </div>
-      <div className="flex min-h-72 flex-col justify-between p-7 md:p-9">
+      <div className="flex min-h-80 flex-col justify-between p-8 md:p-10">
         <div>
           <div className="mb-5 flex flex-wrap gap-3 text-xs text-[var(--color-muted)]">
             <span className="rounded-full border border-[rgba(16,35,61,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{uiText[lang].sampleCase}</span>
@@ -1015,19 +1019,19 @@ function TourCard({ tour, lang }: { tour: any; lang: Lang; index?: number }) {
   );
 }
 
-function ArticleCard({ article, lang }: { article: any; lang: Lang }) {
+function ArticleCard({ article, lang, featured = false }: { article: any; lang: Lang; featured?: boolean }) {
   const articleTitle = useDisplayText(article.title, lang);
   const articleExcerpt = useDisplayText(article.excerpt || article.tagline, lang);
 
   return (
-    <div className="group overflow-hidden rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-[var(--color-soft-white)] transition hover:bg-white">
-      <div className="relative h-64 overflow-hidden">
-        <Image src={imageUrlFor(article.mainImage, 800, fallbackImages.article)} alt={articleTitle || 'Article'} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
+    <div className={`${featured ? 'lg:col-span-2 lg:row-span-2' : ''} group overflow-hidden rounded-[2.35rem] border border-[rgba(20,32,51,0.1)] bg-[#F7F1E7] shadow-[0_24px_70px_rgba(20,32,51,0.08)] transition hover:bg-[#FFFDF8]`}>
+      <div className={`relative ${featured ? 'h-[28rem]' : 'h-64'} overflow-hidden`}>
+        <Image src={imageUrlFor(article.mainImage, featured ? 1100 : 800, fallbackImages.article)} alt={articleTitle || 'Article'} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
       </div>
-      <div className="p-7 md:p-8">
+      <div className={`${featured ? 'p-9 md:p-11' : 'p-7 md:p-8'}`}>
         {article.author && <p className={eyebrowClass(lang, 'text-[var(--color-muted)]')}>{uiText[lang].by} {article.author}</p>}
-        <h4 className="mt-3 text-2xl font-normal leading-tight text-[var(--color-navy)]" style={editorialHeadingStyle}>{articleTitle}</h4>
+        <h4 className={`${featured ? 'text-4xl md:text-5xl' : 'text-2xl'} mt-3 font-normal leading-tight text-[#142033]`} style={editorialHeadingStyle}>{articleTitle}</h4>
         {articleExcerpt ? <p className="mt-4 line-clamp-3 text-sm leading-7 text-[var(--color-muted)]">{articleExcerpt}</p> : null}
         <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-7 inline-flex text-sm font-semibold text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">{uiText[lang].readMore}</Link>
       </div>
