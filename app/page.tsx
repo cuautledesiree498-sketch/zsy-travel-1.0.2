@@ -139,7 +139,7 @@ export default async function Home({ searchParams }: any) {
     <>
       <HomeStructuredData lang={lang} settings={settings} siteTitle={siteTitle} siteDescription={siteDescription} />
       <div className="min-h-screen bg-[#07111F] text-[var(--color-foreground)]">
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[rgba(7,17,31,0.86)] text-white backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/70 bg-[rgba(7,17,31,0.86)] text-white backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-4">
             <Link href={withLang('/', lang)} className="flex items-center">
@@ -150,13 +150,13 @@ export default async function Home({ searchParams }: any) {
             </Link>
 
             <div className="hidden items-center gap-8 md:flex">
-              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '服务' : 'Services'}</Link>
-              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
-              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
-              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{lang === 'zh' ? '支付' : 'Payment'}</Link>
-              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.about}</Link>
-              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-white/62 transition hover:text-white">{t.contact}</Link>
-              <Link href={withLang('/', switchLang)} className="rounded-full border border-white/18 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/72 transition hover:border-white/38 hover:text-white">{languageSwitchLabel}</Link>
+              <Link href={withLang('/services', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '服务' : 'Services'}</Link>
+              <Link href={withLang('/destinations', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '目的地' : 'Destinations'}</Link>
+              <Link href={withLang('/insights', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '灵感' : 'Insights'}</Link>
+              <Link href={withLang('/payment', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{lang === 'zh' ? '支付' : 'Payment'}</Link>
+              <Link href={withLang('/about', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{t.about}</Link>
+              <Link href={withLang('/contact', lang)} className="text-sm uppercase tracking-[0.18em] text-[#5D7084] transition hover:text-white">{t.contact}</Link>
+              <Link href={withLang('/', switchLang)} className="rounded-full border border-white/18 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#5D7084] transition hover:border-white/38 hover:text-white">{languageSwitchLabel}</Link>
             </div>
 
             <SmartLink href={navCtaLink} lang={lang} className="inline-flex items-center rounded-full bg-[#C8A96A] px-5 py-2.5 text-sm font-semibold text-[#07111F] transition hover:bg-[#B8914F]">
@@ -166,63 +166,56 @@ export default async function Home({ searchParams }: any) {
         </div>
       </nav>
 
-      <main className="relative overflow-hidden bg-[linear-gradient(180deg,#F6F9FC_0%,#E7EEF3_16%,#D7E2EA_42%,#F7F9FC_100%)] px-4 pb-8 pt-24 text-[#10233D] md:px-8">
-        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(232,240,246,0.72))] shadow-[0_28px_90px_rgba(16,35,61,0.16)] backdrop-blur">
-          <div className="relative z-10 px-7 pb-8 pt-10 md:px-12 md:pb-10 md:pt-14 lg:px-14">
-            <div className="max-w-5xl">
-              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{heroEyebrow}</p>
-              <h1 className="mt-8 max-w-5xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#10233D] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
-              <p className="mt-7 max-w-3xl text-xl leading-8 text-[#284057] md:text-2xl md:leading-9">{heroSubtitle}</p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{heroSupporting}</p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(16,35,61,0.16)] transition hover:bg-[#B8914F]">
-                  {heroPrimaryText}
-                </SmartLink>
-                {heroSecondaryText && heroSecondaryHref ? (
-                  <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[#10233D]/18 px-8 py-4 text-sm font-semibold text-[#10233D] transition hover:bg-white/70">
-                    {heroSecondaryText}
-                  </SmartLink>
-                ) : null}
-              </div>
-            </div>
+      <main className="relative flex min-h-screen items-center overflow-hidden px-4 pb-10 pt-24 text-white md:px-8">
+        <div className="absolute inset-0 bg-[#D7E2EA]">
+          {heroVideoUrl ? (
+            <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
+              <source src={heroVideoUrl} />
+            </video>
+          ) : null}
+          <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
+            <Image src={imageUrlFor(heroImage, 2200, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-cover" sizes="100vw" preload />
           </div>
-          <div className="relative mx-3 mb-3 min-h-[34rem] overflow-hidden rounded-[2.35rem] bg-[#D7E2EA] md:mx-5 md:mb-5 lg:min-h-[42rem]">
-            {heroVideoUrl ? (
-              <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
-                <source src={heroVideoUrl} />
-              </video>
-            ) : null}
-            <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
-              <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-contain" sizes="100vw" preload />
-            </div>
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,249,252,0.78)_0%,rgba(246,249,252,0.18)_18%,rgba(7,17,31,0.06)_58%,rgba(7,17,31,0.42)_100%)]"></div>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-[linear-gradient(90deg,rgba(246,249,252,0.92),rgba(246,249,252,0))]"></div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-[linear-gradient(270deg,rgba(246,249,252,0.92),rgba(246,249,252,0))]"></div>
-          </div>
-          <div className="grid gap-px border-t border-white/70 bg-[#C8D6E0]/70 md:grid-cols-3">
-            {trustDecisionItems.map((item) => (
-              <div key={item.label} className="bg-white/42 p-5 md:p-6">
-                <div className={eyebrowClass(lang, 'text-[#B98D45]')}>{item.label}</div>
-                <p className="mt-2 text-sm leading-6 text-[#5D7084]">{item.value}</p>
-              </div>
-            ))}
-          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.78)_0%,rgba(16,35,61,0.52)_38%,rgba(246,249,252,0.1)_72%,rgba(246,249,252,0.38)_100%)]"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,249,252,0.44)_0%,rgba(215,226,234,0.08)_22%,rgba(7,17,31,0.28)_68%,rgba(246,249,252,0.92)_100%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(255,255,255,0.18),transparent_28%),radial-gradient(circle_at_78%_18%,rgba(215,226,234,0.24),transparent_26%)]"></div>
         </div>
-        <div className="mx-auto mt-5 max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(226,236,244,0.72))] shadow-[0_20px_70px_rgba(16,35,61,0.12)]">
-          <div className="grid gap-px bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
-            <div className="bg-white/46 p-6 md:p-8 lg:p-10">
-              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
-              <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{trustSectionBody}</p>
+
+        <div className="relative z-10 mx-auto grid w-full max-w-[88rem] gap-8 py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
+          <div>
+            <p className={eyebrowClass(lang, 'text-[#E5D6B8]')}>{heroEyebrow}</p>
+            <div className="mt-5 inline-flex rounded-full border border-white/22 bg-white/56 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/86 backdrop-blur-md">{heroBrandLabel}</div>
+            <h1 className="mt-7 max-w-5xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#10233D] drop-shadow-[0_2px_18px_rgba(7,17,31,0.28)] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
+            <p className="mt-7 max-w-3xl text-xl leading-8 text-white/92 md:text-2xl md:leading-9">{heroSubtitle}</p>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{heroSupporting}</p>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#E5D6B8] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(7,17,31,0.18)] transition hover:bg-[#C8A96A]">
+                {heroPrimaryText}
+              </SmartLink>
+              {heroSecondaryText && heroSecondaryHref ? (
+                <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 bg-white/50 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/18">
+                  {heroSecondaryText}
+                </SmartLink>
+              ) : null}
             </div>
-            <div className="grid bg-white/34 md:grid-cols-3">
-              {trustDecisionItems.map((item, index) => (
-                <div key={item.label} className="border-t border-white/70 p-6 md:border-l md:border-t-0 md:p-8">
-                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</div>
-                  <h3 className="mt-4 text-base font-semibold leading-6 text-[#10233D]">{item.label}</h3>
-                  <p className="mt-2 text-sm leading-7 text-[#5D7084]">{item.value}</p>
-                </div>
-              ))}
+          </div>
+
+          <div className="hidden lg:block">
+            <div className="rounded-[2rem] border border-white/26 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(232,240,246,0.54))] p-7 text-[#10233D] shadow-[0_30px_90px_rgba(7,17,31,0.2)] backdrop-blur-xl">
+              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
+              <h3 className="mt-3 text-3xl font-normal leading-tight text-[#10233D]" style={editorialHeadingStyle}>{trustSectionTitle}</h3>
+              <p className="mt-4 text-sm leading-7 text-[#4C6278]">{trustSectionBody}</p>
+              <div className="mt-5 space-y-3">
+                {trustDecisionItems.map((item, index) => (
+                  <div key={item.label} className="rounded-[1.25rem] border border-white/58 bg-white/44 p-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-semibold tracking-[0.22em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</span>
+                      <div className={eyebrowClass(lang, 'text-[#10233D]')}>{item.label}</div>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-[#5D7084]">{item.value}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -435,10 +428,10 @@ function FeaturedDestinationsShowcase({ lang }: { lang: Lang }) {
               <div className={`${index === 0 ? 'h-[30rem]' : 'h-[26rem]'} relative`}>
                 <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw" className="object-cover transition duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.86),rgba(4,10,18,0.26)_58%,rgba(4,10,18,0.04))]"></div>
-                <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/12 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-white/78 backdrop-blur-md">{item.fit}</div>
+                <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/56 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-[#5D7084] backdrop-blur-md">{item.fit}</div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:p-7">
                   <h3 className="text-2xl font-semibold md:text-3xl">{item.title}</h3>
-                  <p className="mt-3 max-w-lg text-sm leading-7 text-white/78">{item.line}</p>
+                  <p className="mt-3 max-w-lg text-sm leading-7 text-[#5D7084]">{item.line}</p>
                   <span className="mt-5 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-[#d8c49a]">{lang === 'zh' ? '查看目的地' : 'View Destination'}</span>
                 </div>
               </div>
@@ -535,14 +528,14 @@ function FinalHomeCta({ lang }: { lang: Lang }) {
         <div className="relative z-10 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.34em] text-[#d8c49a]">{lang === 'zh' ? '开始咨询' : 'Start With A Conversation'}</p>
           <h2 className="mt-4 text-3xl font-semibold leading-tight md:text-5xl">{lang === 'zh' ? '先把你的中国旅行想法发给我们。' : 'Send the shape of your China trip first.'}</h2>
-          <p className="mt-5 text-base leading-8 text-white/78 md:text-lg">
+          <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">
             {lang === 'zh'
               ? '不需要一次说完整。日期、人数、想去的城市和大致预算就足够我们先判断方向。'
               : 'It does not need to be complete. Dates, group size, cities in mind and a rough budget are enough for a first route direction.'}
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <SmartLink href="/contact#inquiry-form" lang={lang} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#d8c49a] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[#ead9b6]">{lang === 'zh' ? '提交旅行需求' : 'Start Planning'}</SmartLink>
-            <SmartLink href="/destinations" lang={lang} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/28 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{lang === 'zh' ? '先看目的地' : 'View Destinations'}</SmartLink>
+            <SmartLink href="/destinations" lang={lang} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/28 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/50">{lang === 'zh' ? '先看目的地' : 'View Destinations'}</SmartLink>
           </div>
         </div>
       </div>
@@ -604,23 +597,23 @@ function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) ? section.items : [];
 
   return (
-    <section id={section.anchorId || 'travel-styles'} className="bg-[#07111F] px-4 py-12 md:px-8">
-      <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/10 bg-[#0B1B2B] text-white shadow-[0_36px_110px_rgba(0,0,0,0.24)]">
-        <div className="grid gap-px bg-white/10 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="bg-[#0B1B2B] p-7 md:p-12 lg:p-14">
+    <section id={section.anchorId || 'travel-styles'} className="bg-[linear-gradient(180deg,#F6F9FC_0%,#E7EEF3_100%)] px-4 py-12 md:px-8">
+      <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(232,240,246,0.72))] text-[#10233D] shadow-[0_28px_90px_rgba(16,35,61,0.14)] backdrop-blur">
+        <div className="grid gap-px bg-white/50 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="bg-white/42 p-7 md:p-12 lg:p-14">
             <div className="lg:sticky lg:top-28">
               <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].capabilities}</p>
-              <h2 className="mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
-              {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-xl text-base leading-8 text-white/62">{useDisplayText(section.subtitle, lang)}</p> : null}
-              <div className="mt-10 rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 text-sm leading-7 text-white/62">
+              <h2 className="mt-5 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+              {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-xl text-base leading-8 text-[#5D7084]">{useDisplayText(section.subtitle, lang)}</p> : null}
+              <div className="mt-10 rounded-[1.5rem] border border-white/70 bg-white/[0.045] p-5 text-sm leading-7 text-[#5D7084]">
                 {lang === 'zh'
                   ? '能力不是单独售卖的功能点，而是一次路线判断中连续发生的取舍：城市顺序、节奏、沟通、确认边界。'
                   : 'Capabilities are not separate feature boxes. They work together as route judgment: city order, pace, communication and confirmation boundaries.'}
               </div>
             </div>
           </div>
-          <div className="bg-[#10233D] p-4 md:p-8 lg:p-10">
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#07111F]">
+          <div className="bg-white/30 p-4 md:p-8 lg:p-10">
+            <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-[#07111F]">
               {items.map((item: any, index: number) => <CapabilityMatrixRow key={index} item={item} index={index} total={items.length} lang={lang} />)}
             </div>
           </div>
@@ -678,10 +671,10 @@ function DestinationCardsSection({ section, destinations, lang }: { section: any
         <div className="mb-10 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div className="max-w-4xl">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].destinations}</p>
-            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-2xl text-base leading-8 text-white/64 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 max-w-2xl text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
           </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.065] p-6 text-base leading-8 text-white/66 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur md:p-8 lg:mb-3">
+          <div className="rounded-[2rem] border border-white/70 bg-white/[0.065] p-6 text-base leading-8 text-[#5D7084] shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur md:p-8 lg:mb-3">
             <div className="mb-5 h-px w-24 bg-[#C8A96A]"></div>
             {lang === 'zh'
               ? '每个目的地都先作为路线判断的一部分来呈现：适合谁、放在行程哪一段、和哪些城市组合更顺。'
@@ -742,25 +735,25 @@ function ArticleListSection({ section, articles, lang }: { section: any; article
   const supportingArticles = Array.isArray(articles) ? articles.slice(1) : [];
 
   return (
-    <section id={section.anchorId || 'articles'} className="relative overflow-hidden bg-[linear-gradient(180deg,#07111F_0%,#10233D_52%,#07111F_100%)] px-4 py-20 text-white md:px-8 md:py-24">
+    <section id={section.anchorId || 'articles'} className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F9FC_0%,#EAF0F5_52%,#F7F9FC_100%)] px-4 py-20 text-[#10233D] md:px-8 md:py-24">
       <div className="pointer-events-none absolute inset-0 opacity-70 [background:radial-gradient(circle_at_20%_18%,rgba(200,169,106,0.16),transparent_24%),radial-gradient(circle_at_78%_8%,rgba(234,240,245,0.12),transparent_28%)]"></div>
       <div className="mx-auto max-w-[88rem] relative">
         <div className="mb-10 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div>
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].insights}</p>
-            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
           </div>
-          <div className="max-w-2xl text-base leading-8 text-white/66 md:text-lg">
+          <div className="max-w-2xl text-base leading-8 text-[#5D7084] md:text-lg">
             {useDisplayText(section.subtitle, lang) || (lang === 'zh' ? '把灵感内容整理成可扫描的判断材料，先理解路线逻辑，再决定是否深入规划。' : 'Guides are arranged as scannable planning references, so route logic comes before deep itinerary detail.')}
           </div>
         </div>
         {featuredArticle ? (
           <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
             <ArticleCard article={featuredArticle} lang={lang} featured />
-            <div className="flex flex-col rounded-[2.1rem] border border-white/10 bg-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur">
-              <div className="border-b border-white/10 p-6 md:p-7">
+            <div className="flex flex-col rounded-[2.1rem] border border-white/70 bg-white/54 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur">
+              <div className="border-b border-white/70 p-6 md:p-7">
                 <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{lang === 'zh' ? '继续阅读' : 'Planning Notes'}</p>
-                <p className="mt-3 text-sm leading-7 text-white/64">
+                <p className="mt-3 text-sm leading-7 text-[#5D7084]">
                   {lang === 'zh' ? '更短的文章入口，适合快速判断一个城市、路线或准备步骤是否与你有关。' : 'Shorter entries for quickly judging whether a city, route or preparation step is relevant to your trip.'}
                 </p>
               </div>
@@ -768,7 +761,7 @@ function ArticleListSection({ section, articles, lang }: { section: any; article
                 {supportingArticles.length > 0 ? supportingArticles.map((article: any) => <ArticleListItem key={article._id || article.slug} article={article} lang={lang} />) : <ArticleListItem article={featuredArticle} lang={lang} />}
               </div>
               {viewMoreText && viewMoreHref ? (
-                <div className="mt-auto border-t border-white/10 p-6 md:p-7">
+                <div className="mt-auto border-t border-white/70 p-6 md:p-7">
                   <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C8A96A] hover:text-[#07111F]">
                     {viewMoreText}
                   </SmartLink>
@@ -801,18 +794,18 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="bg-[#07111F] px-4 py-8 text-white md:px-8">
-      <div className="mx-auto max-w-[88rem] rounded-[2.75rem] border border-white/10 bg-[#0B1B2B] px-6 py-20 md:px-12">
+    <section className="bg-[linear-gradient(180deg,#F7F9FC_0%,#EAF0F5_100%)] px-4 py-8 text-[#10233D] md:px-8">
+      <div className="mx-auto max-w-[88rem] rounded-[2.75rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(232,240,246,0.72))] px-6 py-20 md:px-12">
         <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
           <div className="mb-14 max-w-4xl lg:mb-0">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].whyUs}</p>
-            <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#FFFDF8] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-white/62 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+            <h2 className="mt-4 text-5xl font-normal leading-[0.98] tracking-[-0.04em] text-[#10233D] md:text-7xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')}</h2>
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
           </div>
-          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 md:grid-cols-2">
           {items.map((item: any, index: number) => (
-            <div key={index} className="bg-white/[0.055] p-8 text-left md:p-10">
-              <div className="text-4xl font-normal tracking-[-0.03em] text-[#FFFDF8] md:text-5xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
+            <div key={index} className="bg-white/50 p-8 text-left md:p-10">
+              <div className="text-4xl font-normal tracking-[-0.03em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
               {useDisplayText(item.label, lang) ? <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div> : null}
             </div>
           ))}
@@ -868,25 +861,25 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#07111F_0%,#1A3147_45%,#07111F_100%)] px-4 py-20 text-white md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F9FC_0%,#EAF0F5_48%,#F7F9FC_100%)] px-4 py-20 text-[#10233D] md:px-8 md:py-24">
       <div className="pointer-events-none absolute inset-0 opacity-80 [background:radial-gradient(circle_at_12%_20%,rgba(207,174,106,0.16),transparent_24%),radial-gradient(circle_at_80%_18%,rgba(199,212,221,0.14),transparent_30%)]"></div>
       <div className="mx-auto max-w-[88rem] relative">
         <div className="mb-10 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div>
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].testimonials}</p>
-            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
           </div>
-          {useDisplayText(section.subtitle, lang) ? <p className="max-w-2xl text-base leading-8 text-white/66 md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
+          {useDisplayText(section.subtitle, lang) ? <p className="max-w-2xl text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang)}</p> : null}
         </div>
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2.25rem] border border-white/12 bg-white/12 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2.25rem] border border-white/70 bg-white/56 md:grid-cols-3">
           {items.map((item: any, index: number) => (
-            <div key={index} className="bg-white/[0.085] p-7 backdrop-blur md:p-8 lg:p-10">
+            <div key={index} className="bg-white/58 p-7 backdrop-blur md:p-8 lg:p-10">
               <div className="mb-6 flex items-center justify-between gap-4">
                 <div className="h-px w-16 bg-[#C8A96A]/60"></div>
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A96A]">{String(index + 1).padStart(2, '0')}</div>
               </div>
-              <p className="text-xl leading-8 text-[#FFFDF8] md:text-2xl md:leading-9" style={editorialHeadingStyle}>“{useDisplayText(item.quote, lang)}”</p>
-              <div className="mt-8 text-sm text-white/58">{item.name} · {item.country}</div>
+              <p className="text-xl leading-8 text-[#10233D] md:text-2xl md:leading-9" style={editorialHeadingStyle}>“{useDisplayText(item.quote, lang)}”</p>
+              <div className="mt-8 text-sm text-[#5D7084]">{item.name} · {item.country}</div>
             </div>
           ))}
         </div>
@@ -904,37 +897,37 @@ function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems
   const list = faqItems.slice(0, section.maxItems || 4);
   const customViewMoreHref = resolveManagedLink(section.viewMoreTarget, section.viewMoreLink);
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#07111F_0%,#162B40_46%,#07111F_100%)] px-4 py-20 text-white md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F7F9FC_0%,#EAF0F5_50%,#F7F9FC_100%)] px-4 py-20 text-[#10233D] md:px-8 md:py-24">
       <div className="pointer-events-none absolute inset-0 opacity-70 [background:linear-gradient(180deg,rgba(234,240,245,0.08),transparent_28%,rgba(200,169,106,0.08)_72%,transparent)]"></div>
       <div className="mx-auto grid max-w-[88rem] gap-8 lg:grid-cols-[0.68fr_1.32fr] relative">
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <div className="rounded-[2.25rem] border border-white/12 bg-white/[0.08] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur md:p-9">
+          <div className="rounded-[2.25rem] border border-white/70 bg-white/54 p-7 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur md:p-9">
             <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].faq}</p>
-            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
-            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-white/64">{useDisplayText(section.subtitle, lang)}</p> : null}
+            <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang)}</h2>
+            {useDisplayText(section.subtitle, lang) ? <p className="mt-5 text-base leading-8 text-[#5D7084]">{useDisplayText(section.subtitle, lang)}</p> : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
               <SmartLink href="/faq" lang={lang} className="inline-flex justify-center rounded-full bg-[#C8A96A] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#07111F] transition hover:bg-[#B8914F]">
                 {lang === 'zh' ? '查看更多常见问题' : 'View More FAQ'}
               </SmartLink>
               {section.viewMoreText && customViewMoreHref ? (
-                <SmartLink href={customViewMoreHref} lang={lang} className="inline-flex justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-white/10">
+                <SmartLink href={customViewMoreHref} lang={lang} className="inline-flex justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-white/50">
                   {useDisplayText(section.viewMoreText, lang)}
                 </SmartLink>
               ) : null}
             </div>
           </div>
         </div>
-        <div className="overflow-hidden rounded-[2.25rem] border border-white/12 bg-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur">
+        <div className="overflow-hidden rounded-[2.25rem] border border-white/70 bg-white/54 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur">
           {list.map((faq: any, index: number) => (
-            <details key={index} className="group border-b border-white/10 last:border-b-0">
-              <summary className="flex cursor-pointer items-center justify-between gap-5 p-6 text-base font-semibold text-[#FFFDF8] md:p-7">
+            <details key={index} className="group border-b border-white/70 last:border-b-0">
+              <summary className="flex cursor-pointer items-center justify-between gap-5 p-6 text-base font-semibold text-[#10233D] md:p-7">
                 <span className="flex items-start gap-4">
                   <span className="mt-1 text-xs font-semibold tracking-[0.22em] text-[#C8A96A]">{String(index + 1).padStart(2, '0')}</span>
                   <span>{useDisplayText(faq.question, lang)}</span>
                 </span>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/16 text-white/58 transition group-open:rotate-45 group-open:bg-[#C8A96A] group-open:text-[#07111F]">+</span>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/16 text-[#5D7084] transition group-open:rotate-45 group-open:bg-[#C8A96A] group-open:text-[#07111F]">+</span>
               </summary>
-              <div className="px-6 pb-7 pl-[4.25rem] text-white/62 leading-8 md:px-7 md:pb-8 md:pl-[4.75rem]">{useDisplayText(faq.answer, lang)}</div>
+              <div className="px-6 pb-7 pl-[4.25rem] text-[#5D7084] leading-8 md:px-7 md:pb-8 md:pl-[4.75rem]">{useDisplayText(faq.answer, lang)}</div>
             </details>
           ))}
         </div>
@@ -967,12 +960,12 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
             <div>
               <div className="mb-6 h-px w-24 bg-[#C8A96A]"></div>
               <h3 className="max-w-4xl text-5xl font-normal leading-[0.98] tracking-[-0.04em] md:text-7xl" style={editorialHeadingStyle}>{ctaTitle}</h3>
-              <p className="mt-6 max-w-3xl text-base leading-8 text-white/70 md:text-lg">{ctaSubtitle}</p>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-[#5D7084] md:text-lg">{ctaSubtitle}</p>
             </div>
             <div className="flex flex-col gap-4 lg:items-end">
               <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[240px] items-center justify-center rounded-full bg-[#C8A96A] px-9 py-4 text-sm font-bold text-[#07111F] transition hover:bg-[#B8914F]">{primaryButtonText}</SmartLink>
               {secondaryButtonText && secondaryButtonHref ? (
-                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10">{secondaryButtonText}</SmartLink>
+                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/50">{secondaryButtonText}</SmartLink>
               ) : null}
             </div>
           </div>
@@ -1003,17 +996,17 @@ function CapabilityMatrixRow({ item, index, total, lang }: { item: any; index: n
   const href = resolveManagedLink(item.linkTarget, item.link);
 
   return (
-    <div className={`grid gap-5 p-6 md:grid-cols-[5rem_1fr_auto] md:items-start md:p-8 ${index < total - 1 ? 'border-b border-white/10' : ''}`}>
+    <div className={`grid gap-5 p-6 md:grid-cols-[5rem_1fr_auto] md:items-start md:p-8 ${index < total - 1 ? 'border-b border-white/70' : ''}`}>
       <div className="flex items-center gap-3 text-white/54">
         <span className="text-sm font-semibold tracking-[0.22em] text-[#C8A96A]">{String(index + 1).padStart(2, '0')}</span>
-        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.045] text-white/60">{icon}</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/[0.045] text-white/60">{icon}</span>
       </div>
       <div>
-        <h4 className="text-xl font-normal leading-snug text-[#FFFDF8] md:text-2xl" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
-        {item.description && <p className="mt-3 max-w-2xl text-sm leading-7 text-white/62">{useDisplayText(item.description, lang)}</p>}
+        <h4 className="text-xl font-normal leading-snug text-[#10233D] md:text-2xl" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
+        {item.description && <p className="mt-3 max-w-2xl text-sm leading-7 text-[#5D7084]">{useDisplayText(item.description, lang)}</p>}
       </div>
       {href && item.linkText ? (
-        <SmartLink href={href} lang={lang} newTab={item.newTab} className="inline-flex rounded-full border border-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70 transition hover:border-white/28 hover:text-white">
+        <SmartLink href={href} lang={lang} newTab={item.newTab} className="inline-flex rounded-full border border-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#5D7084] transition hover:border-white/28 hover:text-white">
           {useDisplayText(item.linkText, lang)}
         </SmartLink>
       ) : null}
@@ -1049,11 +1042,11 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
     : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
   return (
-    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className={`${index === 0 ? 'xl:col-span-2 xl:row-span-2' : index === 3 ? 'xl:col-span-2' : ''} group relative block overflow-hidden rounded-[2.1rem] border border-white/12 bg-[#07111F] shadow-[0_26px_75px_rgba(0,0,0,0.2)]`}>
+    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className={`${index === 0 ? 'xl:col-span-2 xl:row-span-2' : index === 3 ? 'xl:col-span-2' : ''} group relative block overflow-hidden rounded-[2.1rem] border border-white/70 bg-[#07111F] shadow-[0_26px_75px_rgba(0,0,0,0.2)]`}>
       <div className={`relative ${index === 0 ? 'h-[34rem] xl:h-full' : index === 3 ? 'h-[25rem]' : 'h-[27rem]'} bg-[#0B1B2B]`}>
         <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.9),rgba(4,10,18,0.34)_55%,rgba(4,10,18,0.06))]"></div>
-        <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
+        <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/50 px-3 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
         <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
           <h4 className="text-3xl font-normal leading-tight" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
           <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.8)]">{useDisplayText(item.description, lang)}</p>
@@ -1123,16 +1116,16 @@ function ArticleCard({ article, lang, featured = false }: { article: any; lang: 
   const articleExcerpt = useDisplayText(article.excerpt || article.tagline, lang);
 
   return (
-    <div className="group overflow-hidden rounded-[2.1rem] border border-white/12 bg-white/[0.09] shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/[0.12]">
+    <div className="group overflow-hidden rounded-[2.1rem] border border-white/70 bg-white/[0.09] shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/[0.12]">
       <div className={`relative ${featured ? 'h-[24rem]' : 'h-64'} overflow-hidden`}>
         <Image src={imageUrlFor(article.mainImage, featured ? 1100 : 800, fallbackImages.article)} alt={articleTitle || 'Article'} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
       </div>
       <div className={`${featured ? 'p-7 md:p-9' : 'p-7 md:p-8'}`}>
         {article.author && <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].by} {article.author}</p>}
-        <h4 className={`${featured ? 'text-3xl md:text-5xl' : 'text-2xl'} mt-3 font-normal leading-tight text-[#FFFDF8]`} style={editorialHeadingStyle}>{articleTitle}</h4>
-        {articleExcerpt ? <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/62">{articleExcerpt}</p> : null}
-        <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-7 inline-flex text-sm font-semibold text-[#C8A96A] transition hover:text-[#FFFDF8]">{uiText[lang].readMore}</Link>
+        <h4 className={`${featured ? 'text-3xl md:text-5xl' : 'text-2xl'} mt-3 font-normal leading-tight text-[#10233D]`} style={editorialHeadingStyle}>{articleTitle}</h4>
+        {articleExcerpt ? <p className="mt-4 line-clamp-3 text-sm leading-7 text-[#5D7084]">{articleExcerpt}</p> : null}
+        <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-7 inline-flex text-sm font-semibold text-[#C8A96A] transition hover:text-[#10233D]">{uiText[lang].readMore}</Link>
       </div>
     </div>
   );
@@ -1143,10 +1136,10 @@ function ArticleListItem({ article, lang }: { article: any; lang: Lang }) {
   const articleExcerpt = useDisplayText(article.excerpt || article.tagline, lang);
 
   return (
-    <Link href={withLang(`/articles/${article.slug}`, lang)} className="group block p-6 transition hover:bg-white/[0.08] md:p-7">
+    <Link href={withLang(`/articles/${article.slug}`, lang)} className="group block p-6 transition hover:bg-white/54 md:p-7">
       {article.author && <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].by} {article.author}</p>}
-      <h4 className="mt-2 text-xl font-normal leading-snug text-[#FFFDF8] transition group-hover:text-[#C8A96A]" style={editorialHeadingStyle}>{articleTitle}</h4>
-      {articleExcerpt ? <p className="mt-3 line-clamp-2 text-sm leading-7 text-white/58">{articleExcerpt}</p> : null}
+      <h4 className="mt-2 text-xl font-normal leading-snug text-[#10233D] transition group-hover:text-[#C8A96A]" style={editorialHeadingStyle}>{articleTitle}</h4>
+      {articleExcerpt ? <p className="mt-3 line-clamp-2 text-sm leading-7 text-[#5D7084]">{articleExcerpt}</p> : null}
       <span className="mt-4 inline-flex text-sm font-semibold text-[#C8A96A]">{uiText[lang].readMore}</span>
     </Link>
   );
