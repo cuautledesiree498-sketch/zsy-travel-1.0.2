@@ -166,59 +166,61 @@ export default async function Home({ searchParams }: any) {
         </div>
       </nav>
 
-      <main className="relative overflow-hidden bg-[#07111F] px-4 pb-8 pt-24 text-white md:px-8">
-        <div className="mx-auto grid min-h-[88vh] max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/10 bg-[#0B1B2B] shadow-[0_36px_110px_rgba(0,0,0,0.38)] lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="relative z-10 flex flex-col justify-between px-7 py-10 md:px-12 md:py-14 lg:px-14">
-            <div>
-              <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{heroEyebrow}</p>
-              <h1 className="mt-8 max-w-4xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#FFFDF8] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
-              <p className="mt-7 max-w-2xl text-xl leading-8 text-[#FFFDF8]/88 md:text-2xl md:leading-9">{heroSubtitle}</p>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-white/62 md:text-base md:leading-8">{heroSupporting}</p>
+      <main className="relative overflow-hidden bg-[linear-gradient(180deg,#F6F9FC_0%,#E7EEF3_16%,#D7E2EA_42%,#F7F9FC_100%)] px-4 pb-8 pt-24 text-[#10233D] md:px-8">
+        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2.75rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(232,240,246,0.72))] shadow-[0_28px_90px_rgba(16,35,61,0.16)] backdrop-blur">
+          <div className="relative z-10 px-7 pb-8 pt-10 md:px-12 md:pb-10 md:pt-14 lg:px-14">
+            <div className="max-w-5xl">
+              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{heroEyebrow}</p>
+              <h1 className="mt-8 max-w-5xl text-5xl font-normal leading-[0.94] tracking-[-0.045em] text-[#10233D] md:text-7xl xl:text-[6.7rem]" style={editorialHeadingStyle}>{heroTitle}</h1>
+              <p className="mt-7 max-w-3xl text-xl leading-8 text-[#284057] md:text-2xl md:leading-9">{heroSubtitle}</p>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{heroSupporting}</p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(0,0,0,0.22)] transition hover:bg-[#B8914F]">
+                <SmartLink href={heroPrimaryHref} lang={lang} newTab={heroSection?.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#C8A96A] px-8 py-4 text-sm font-bold text-[#07111F] shadow-[0_18px_42px_rgba(16,35,61,0.16)] transition hover:bg-[#B8914F]">
                   {heroPrimaryText}
                 </SmartLink>
                 {heroSecondaryText && heroSecondaryHref ? (
-                  <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10">
+                  <SmartLink href={heroSecondaryHref} lang={lang} newTab={heroSection?.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[#10233D]/18 px-8 py-4 text-sm font-semibold text-[#10233D] transition hover:bg-white/70">
                     {heroSecondaryText}
                   </SmartLink>
                 ) : null}
               </div>
             </div>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 md:grid-cols-3">
-              {trustDecisionItems.map((item) => (
-                <div key={item.label} className="bg-white/[0.055] p-5">
-                  <div className={eyebrowClass(lang, 'text-[#C8A96A]')}>{item.label}</div>
-                  <p className="mt-2 text-sm leading-6 text-white/66">{item.value}</p>
-                </div>
-              ))}
-            </div>
           </div>
-          <div className="relative min-h-[32rem] lg:min-h-full">
+          <div className="relative mx-3 mb-3 min-h-[34rem] overflow-hidden rounded-[2.35rem] bg-[#D7E2EA] md:mx-5 md:mb-5 lg:min-h-[42rem]">
             {heroVideoUrl ? (
               <video className="hidden h-full w-full object-cover md:block" autoPlay muted loop playsInline poster={imageUrlFor(heroImage, 1800, fallbackImages.hero)}>
                 <source src={heroVideoUrl} />
               </video>
             ) : null}
             <div className={`absolute inset-0 ${heroVideoUrl ? 'block md:hidden' : 'block'}`}>
-              <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-contain" sizes="(max-width: 1024px) 100vw, 54vw" preload />
+              <Image src={imageUrlFor(heroImage, 1800, fallbackImages.hero)} alt={heroTitle || siteTitle} fill className="object-contain" sizes="100vw" preload />
             </div>
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,27,43,0.82),rgba(11,27,43,0.16)_42%,rgba(11,27,43,0.08))]"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,249,252,0.78)_0%,rgba(246,249,252,0.18)_18%,rgba(7,17,31,0.06)_58%,rgba(7,17,31,0.42)_100%)]"></div>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-[linear-gradient(90deg,rgba(246,249,252,0.92),rgba(246,249,252,0))]"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-[linear-gradient(270deg,rgba(246,249,252,0.92),rgba(246,249,252,0))]"></div>
+          </div>
+          <div className="grid gap-px border-t border-white/70 bg-[#C8D6E0]/70 md:grid-cols-3">
+            {trustDecisionItems.map((item) => (
+              <div key={item.label} className="bg-white/42 p-5 md:p-6">
+                <div className={eyebrowClass(lang, 'text-[#B98D45]')}>{item.label}</div>
+                <p className="mt-2 text-sm leading-6 text-[#5D7084]">{item.value}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="mx-auto mt-5 max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/10 bg-[#0B1B2B] shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
-          <div className="grid gap-px bg-white/10 lg:grid-cols-[0.92fr_1.08fr]">
-            <div className="bg-[#0B1B2B] p-6 md:p-8 lg:p-10">
-              <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{trustSectionEyebrow}</p>
-              <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#FFFDF8] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/62 md:text-base md:leading-8">{trustSectionBody}</p>
+        <div className="mx-auto mt-5 max-w-[88rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(226,236,244,0.72))] shadow-[0_20px_70px_rgba(16,35,61,0.12)]">
+          <div className="grid gap-px bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="bg-white/46 p-6 md:p-8 lg:p-10">
+              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
+              <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{trustSectionBody}</p>
             </div>
-            <div className="grid bg-[#10233D] md:grid-cols-3">
+            <div className="grid bg-white/34 md:grid-cols-3">
               {trustDecisionItems.map((item, index) => (
-                <div key={item.label} className="border-t border-white/10 p-6 md:border-l md:border-t-0 md:p-8">
-                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C8A96A]">{String(index + 1).padStart(2, '0')}</div>
-                  <h3 className="mt-4 text-base font-semibold leading-6 text-white">{item.label}</h3>
-                  <p className="mt-2 text-sm leading-7 text-white/62">{item.value}</p>
+                <div key={item.label} className="border-t border-white/70 p-6 md:border-l md:border-t-0 md:p-8">
+                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</div>
+                  <h3 className="mt-4 text-base font-semibold leading-6 text-[#10233D]">{item.label}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#5D7084]">{item.value}</p>
                 </div>
               ))}
             </div>
@@ -705,16 +707,16 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
   const viewMoreHref = resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) || '/tours';
   const viewMoreText = useDisplayText(section.viewMoreText, lang, lang === 'zh' ? '查看更多路线案例' : 'View More Tour Cases');
   return (
-    <section id={section.anchorId || 'cases'} className="bg-[#07111F] px-4 py-16 text-white md:px-8 md:py-20">
+    <section id={section.anchorId || 'cases'} className="bg-[linear-gradient(180deg,#F7F9FC_0%,#E7EEF3_45%,#F7F9FC_100%)] px-4 py-16 text-[#10233D] md:px-8 md:py-20">
       <div className="mx-auto max-w-[88rem]">
         <div className="grid gap-8 lg:grid-cols-[0.64fr_1.36fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
             <div className="mb-8 max-w-4xl">
-              <p className={eyebrowClass(lang, 'text-[#C8A96A]')}>{uiText[lang].sampleCases}</p>
-              <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#FFFDF8] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}</h2>
-              <p className="mt-5 text-base leading-8 text-white/62 md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
+              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{uiText[lang].sampleCases}</p>
+              <h2 className="mt-4 text-4xl font-normal leading-[1.02] tracking-[-0.04em] text-[#10233D] md:text-6xl" style={editorialHeadingStyle}>{useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}</h2>
+              <p className="mt-5 text-base leading-8 text-[#5D7084] md:text-lg">{useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}</p>
             </div>
-            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-white/16 px-6 py-3 text-sm font-semibold text-white/82 transition hover:border-white/32 hover:text-white">
+            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[#10233D]/16 px-6 py-3 text-sm font-semibold text-[#10233D] transition hover:bg-[#10233D] hover:text-white">
               {viewMoreText}
             </SmartLink>
           </div>
@@ -1090,7 +1092,7 @@ function TourCard({ tour, lang, index = 0 }: { tour: any; lang: Lang; index?: nu
   const idealFor = useDisplayText(tour.idealFor, lang);
 
   return (
-    <div className={`${index % 2 === 1 ? 'md:grid-cols-[0.58fr_0.42fr]' : 'md:grid-cols-[0.42fr_0.58fr]'} group grid overflow-hidden rounded-[1.9rem] border border-white/10 bg-[#FBFDFF] text-[#142033] shadow-[0_22px_62px_rgba(0,0,0,0.18)] transition hover:-translate-y-0.5`}>
+    <div className={`${index % 2 === 1 ? 'md:grid-cols-[0.58fr_0.42fr]' : 'md:grid-cols-[0.42fr_0.58fr]'} group grid overflow-hidden rounded-[1.9rem] border border-[#D9E3EA] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(238,244,248,0.88))] text-[#10233D] shadow-[0_22px_62px_rgba(16,35,61,0.12)] backdrop-blur transition hover:-translate-y-0.5`}>
       <div className={`${index % 2 === 1 ? 'md:order-2' : ''} relative min-h-56 md:min-h-full`}>
         <Image src={imageUrlFor(tour.image, 1000, fallbackImages.tour)} alt={tourTitle || 'Tour'} fill sizes="(max-width: 768px) 100vw, 44vw" className="object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
