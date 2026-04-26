@@ -185,7 +185,7 @@ export default async function Home({ searchParams }: any) {
           <div className="text-white">
             <p className="mb-5 text-xs uppercase tracking-[0.38em] text-[#d8c49a]">{heroEyebrow}</p>
             <div className="mb-3 inline-flex rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-[rgba(255,255,255,0.82)]">{heroBrandLabel}</div>
-            <h1 className="max-w-5xl text-5xl font-semibold leading-[1.02] md:text-7xl">{heroTitle}</h1>
+            <h1 className="max-w-5xl text-5xl font-normal leading-[1.02] md:text-7xl" style={editorialHeadingStyle}>{heroTitle}</h1>
             <p className="mt-4 max-w-3xl text-lg font-medium leading-[1.4] text-[rgba(255,255,255,0.95)] md:text-[1.55rem]">{heroSubtitle}</p>
             <p className="mt-2.5 max-w-3xl text-[15px] leading-6.5 text-[rgba(255,255,255,0.82)] md:text-[15px]">{heroSupporting}</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -349,6 +349,14 @@ function useDisplayText(value: any, lang: Lang, fallback = '') {
   return markPlaceholder(picked);
 }
 
+const editorialHeadingStyle = { fontFamily: 'Georgia, "Times New Roman", serif' };
+
+function eyebrowClass(lang: Lang, color = 'text-[#b9965b]') {
+  return lang === 'zh'
+    ? `text-sm font-medium ${color}`
+    : `text-xs font-semibold uppercase tracking-[0.32em] ${color}`;
+}
+
 function SmartLink({ href, newTab, className, children, lang }: any) {
   if (!href) return <span className={className}>{children}</span>;
   const finalHref = withLang(href, lang || 'en');
@@ -370,9 +378,9 @@ function getSectionArticles(section: any, articles: any[]) {
 
 function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; title?: string; subtitle?: string }) {
   return (
-    <div className="mx-auto mb-14 max-w-3xl px-6 text-center">
-      {eyebrow && <p className="text-xs uppercase tracking-[0.34em] text-[var(--color-muted)]">{eyebrow}</p>}
-      {title && <p className="mt-4 text-3xl font-semibold tracking-[0.02em] text-[var(--color-navy)] md:text-5xl">{title}</p>}
+    <div className="mb-14 max-w-4xl">
+      {eyebrow && <p className="text-sm font-medium text-[#b9965b]">{eyebrow}</p>}
+      {title && <p className="mt-4 text-4xl font-normal leading-[1.05] tracking-[-0.02em] text-[var(--color-navy)] md:text-6xl" style={editorialHeadingStyle}>{title}</p>}
       {subtitle && <p className="mt-4 text-base leading-8 text-[var(--color-muted)] md:text-lg">{subtitle}</p>}
     </div>
   );
@@ -588,13 +596,10 @@ function getPlanningSteps(lang: Lang) {
 
 function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
-    <section id={section.anchorId || 'travel-styles'} className="bg-white py-28">
-      <div className="mx-auto mb-8 max-w-7xl px-6">
-        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
-      </div>
+    <section id={section.anchorId || 'travel-styles'} className="bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)] py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].capabilities} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-[rgba(16,35,61,0.1)] bg-[rgba(16,35,61,0.1)] md:grid-cols-2 xl:grid-cols-5">
           {(section.items || []).map((item: any, index: number) => <IconInfoCard key={index} item={item} lang={lang} />)}
         </div>
       </div>
@@ -604,13 +609,10 @@ function FeatureIconsSection({ section, lang }: { section: any; lang: Lang }) {
 
 function AudienceSolutionsSection({ section, lang }: { section: any; lang: Lang }) {
   return (
-    <section id={section.anchorId || 'audiences'} className="bg-[#f8fbff] py-28">
-      <div className="mx-auto mb-8 max-w-7xl px-6">
-        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
-      </div>
+    <section id={section.anchorId || 'audiences'} className="bg-[var(--color-panel-2)] py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].audienceSolutions} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {(section.items || []).map((item: any, index: number) => <AudienceCard key={index} item={item} lang={lang} />)}
         </div>
       </div>
@@ -644,25 +646,18 @@ function DestinationCardsSection({ section, destinations, lang }: { section: any
     }));
   const items = manualItems.length > 0 ? manualItems : autoItems;
   return (
-    <section id={section.anchorId || 'destinations'} className="bg-white py-28">
-      <div className="mx-auto mb-8 max-w-7xl px-6">
-        <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(10,27,52,0.12),transparent)]"></div>
-      </div>
+    <section id={section.anchorId || 'destinations'} className="bg-white py-30">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].destinations} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="mb-10 rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-5 shadow-[0_20px_60px_rgba(10,27,52,0.08)]">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="text-sm uppercase tracking-[0.2em] text-[var(--color-muted)]">{uiText[lang].featuredDestinations}</div>
-            <div className="flex flex-wrap gap-3">
-              {items.map((item: any, index: number) => (
-                <SmartLink key={index} href={resolveManagedLink(item.linkTarget, item.link) || '/contact'} lang={lang} newTab={item.newTab} className="rounded-full border border-[rgba(10,27,52,0.12)] px-4 py-2 text-sm text-[var(--color-navy)] transition hover:border-[var(--color-navy)] hover:bg-white">
-                  {useDisplayText(item.title, lang)}
-                </SmartLink>
-              ))}
-            </div>
+        <div className="mb-12 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+          <SectionHeader eyebrow={uiText[lang].destinations} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+          <div className="rounded-[2rem] border border-[rgba(16,35,61,0.1)] bg-[var(--color-soft-white)] p-6 text-sm leading-7 text-[var(--color-muted)] lg:mb-3">
+            <div className="mb-3 h-px w-20 bg-[#b9965b]"></div>
+            {lang === 'zh'
+              ? '每个目的地都先作为路线判断的一部分来呈现：适合谁、放在行程哪一段、和哪些城市组合更顺。'
+              : 'Each destination is presented as part of route judgment: who it fits, where it belongs in the journey, and how it can connect with other cities.'}
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           {items.map((item: any, index: number) => <DestinationCard key={index} item={item} index={index} lang={lang} />)}
         </div>
         <div className="mt-12 text-center">
@@ -681,24 +676,28 @@ function CaseInspirationsSection({ section, tours, lang }: { section: any; tours
   const viewMoreHref = resolveManagedLink(section.viewMoreTarget, section.viewMoreLink) || '/tours';
   const viewMoreText = useDisplayText(section.viewMoreText, lang, lang === 'zh' ? '查看更多路线案例' : 'View More Tour Cases');
   return (
-    <section id={section.anchorId || 'cases'} className="bg-[#f8fbff] py-28">
+    <section id={section.anchorId || 'cases'} className="bg-[linear-gradient(180deg,#eef3f9_0%,#f7f9fc_100%)] py-30">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader
-          eyebrow={uiText[lang].sampleCases}
-          title={useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}
-          subtitle={useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}
-        />
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <SectionHeader
+              eyebrow={uiText[lang].sampleCases}
+              title={useDisplayText(section.title, lang, lang === 'zh' ? '三条最容易理解的中国旅行主线' : 'Three Clear China Travel Directions')}
+              subtitle={useDisplayText(section.subtitle, lang, lang === 'zh' ? '它们更像 3 条容易理解的咨询入口，而不是只能照搬的固定团。先选一个最接近你的方向，再继续按日期、人数和预算往下收束。' : 'Think of these as three clear inquiry entry points rather than rigid fixed packages. Start with the direction closest to your idea, then tighten it around your dates, group size and budget.')}
+            />
+            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full bg-[var(--color-navy)] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-navy-soft)]">
+              {viewMoreText}
+            </SmartLink>
+          </div>
+          <div>
         {focusedTours && focusedTours.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{focusedTours.map((tour: any, index: number) => <TourCard key={tour._id} tour={tour} lang={lang} index={index} />)}</div>
+          <div className="space-y-6">{focusedTours.map((tour: any, index: number) => <TourCard key={tour._id} tour={tour} lang={lang} index={index} />)}</div>
         ) : (
           <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-white px-6 py-16 text-center text-[var(--color-muted)]">
             <p className="text-lg">{uiText[lang].sampleCasesCanBeAdded}</p>
           </div>
         )}
-        <div className="mt-12 text-center">
-          <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-            {viewMoreText}
-          </SmartLink>
+          </div>
         </div>
       </div>
     </section>
@@ -710,23 +709,23 @@ function ArticleListSection({ section, articles, lang }: { section: any; article
   const viewMoreText = useDisplayText(section.viewMoreText, lang, lang === 'zh' ? '查看更多灵感' : 'Explore More Insights');
 
   return (
-    <section id={section.anchorId || 'articles'} className="bg-white py-28">
+    <section id={section.anchorId || 'articles'} className="bg-white py-30">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow={uiText[lang].insights} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHeader eyebrow={uiText[lang].insights} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
+          {viewMoreText && viewMoreHref ? (
+            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="mb-3 inline-flex rounded-full border border-[rgba(16,35,61,0.16)] px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
+              {viewMoreText}
+            </SmartLink>
+          ) : null}
+        </div>
         {articles && articles.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">{articles.map((article: any) => <ArticleCard key={article._id || article.slug} article={article} lang={lang} />)}</div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">{articles.map((article: any) => <ArticleCard key={article._id || article.slug} article={article} lang={lang} />)}</div>
         ) : (
           <div className="rounded-[2rem] border border-dashed border-[rgba(10,27,52,0.12)] bg-[var(--color-soft-white)] px-6 py-16 text-center text-[var(--color-muted)]">
             <p className="text-lg">{uiText[lang].planningInsightsCanBeAdded}</p>
           </div>
         )}
-        {viewMoreText && viewMoreHref ? (
-          <div className="mt-12 text-center">
-            <SmartLink href={viewMoreHref} lang={lang} newTab={section.viewMoreNewTab} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
-              {viewMoreText}
-            </SmartLink>
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -747,13 +746,13 @@ function StatsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="bg-[var(--color-navy)] py-28 text-white">
+    <section className="bg-[var(--color-night)] py-28 text-white">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].whyUs} title={useDisplayText(section.title, lang, lang === 'zh' ? '为什么选择 Infinite Travel' : 'Why Infinite Travel')} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 md:grid-cols-3">
           {items.map((item: any, index: number) => (
-            <div key={index} className="rounded-[1.75rem] border border-white/10 bg-white/6 p-8 text-center backdrop-blur-sm">
-              <div className="text-2xl font-semibold tracking-[0.03em] text-white md:text-3xl">{useDisplayText(item.number, lang)}</div>
+            <div key={index} className="bg-[rgba(255,255,255,0.06)] p-8 text-left backdrop-blur-sm md:p-10">
+              <div className="text-3xl font-normal tracking-[-0.02em] text-white md:text-4xl" style={editorialHeadingStyle}>{useDisplayText(item.number, lang)}</div>
               {useDisplayText(item.label, lang) ? <div className="mt-3 text-sm uppercase tracking-[0.18em] text-[rgba(255,255,255,0.72)]">{useDisplayText(item.label, lang)}</div> : null}
             </div>
           ))}
@@ -808,15 +807,15 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
   const items = Array.isArray(section.items) && section.items.length > 0 ? section.items : defaultItems;
 
   return (
-    <section className="bg-white py-28">
+    <section className="bg-[var(--color-soft-white)] py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={uiText[lang].testimonials} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {items.map((item: any, index: number) => (
-            <div key={index} className="rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-8 shadow-[0_20px_50px_rgba(10,27,52,0.06)]">
-              <div className="mb-4 text-[var(--color-navy)]">{'★'.repeat(Math.max(1, Math.min(5, Number(item.rating || 5))))}</div>
-              <p className="text-base leading-8 text-[var(--color-slate)]">“{useDisplayText(item.quote, lang)}”</p>
-              <div className="mt-6 text-sm uppercase tracking-[0.18em] text-[var(--color-muted)]">{item.name} · {item.country}</div>
+            <div key={index} className="rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-white p-8 shadow-[0_18px_45px_rgba(10,27,52,0.05)]">
+              <div className="mb-5 h-px w-16 bg-[#b9965b]"></div>
+              <p className="text-lg leading-8 text-[var(--color-slate)]" style={editorialHeadingStyle}>“{useDisplayText(item.quote, lang)}”</p>
+              <div className="mt-7 text-sm text-[var(--color-muted)]">{item.name} · {item.country}</div>
             </div>
           ))}
         </div>
@@ -833,13 +832,16 @@ function TestimonialsSection({ section, lang }: { section: any; lang: Lang }) {
 function FaqPreviewSection({ section, faqItems, lang }: { section: any; faqItems: any[]; lang: Lang }) {
   const list = faqItems.slice(0, section.maxItems || 4);
   return (
-    <section className="bg-[#f8fbff] py-28">
+    <section className="bg-[var(--color-panel-2)] py-28">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeader eyebrow={uiText[lang].faq} title={useDisplayText(section.title, lang)} subtitle={useDisplayText(section.subtitle, lang)} />
-        <div className="space-y-4">
+        <div className="space-y-3 border-y border-[rgba(16,35,61,0.12)] py-3">
           {list.map((faq: any, index: number) => (
-            <details key={index} className="rounded-[1.5rem] border border-[rgba(10,27,52,0.08)] bg-white p-6 shadow-[0_12px_30px_rgba(10,27,52,0.05)]">
-              <summary className="cursor-pointer text-base font-semibold text-[var(--color-navy)]">{useDisplayText(faq.question, lang)}</summary>
+            <details key={index} className="group rounded-[1.5rem] bg-white p-6">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-[var(--color-navy)]">
+                {useDisplayText(faq.question, lang)}
+                <span className="text-[#b9965b] transition group-open:rotate-45">+</span>
+              </summary>
               <div className="mt-4 text-[var(--color-muted)] leading-8">{useDisplayText(faq.answer, lang)}</div>
             </details>
           ))}
@@ -872,21 +874,25 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
   const secondaryButtonHref = resolveManagedLink(section.secondaryButtonTarget, section.secondaryButtonLink) || '/contact';
 
   return (
-    <section className="bg-white py-28">
+    <section className="bg-white px-6 py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="relative overflow-hidden rounded-[2.25rem] border border-[rgba(10,27,52,0.08)] bg-[linear-gradient(135deg,#0f2239,#183459)] px-8 py-14 text-center text-white shadow-[0_35px_80px_rgba(10,27,52,0.14)] md:px-16">
+        <div className="relative overflow-hidden rounded-[2.4rem] bg-[var(--color-night)] px-8 py-16 text-white shadow-[0_30px_80px_rgba(8,19,33,0.18)] md:px-16 lg:px-20">
           {section.backgroundImage && (
-            <div className="absolute inset-0 opacity-16">
+            <div className="absolute inset-0 opacity-30">
               <Image src={imageUrlFor(section.backgroundImage, 1400, fallbackImages.destination)} alt={useDisplayText(section.title, lang) || 'CTA background'} fill className="object-cover" />
             </div>
           )}
-          <div className="relative z-10">
-            <h3 className="text-3xl font-semibold md:text-5xl">{ctaTitle}</h3>
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{ctaSubtitle}</p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-night)] transition hover:bg-[var(--color-accent)]">{primaryButtonText}</SmartLink>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,19,33,0.96),rgba(8,19,33,0.8)_62%,rgba(8,19,33,0.5))]"></div>
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+            <div>
+              <div className="mb-5 h-px w-20 bg-[#d8c49a]"></div>
+              <h3 className="text-4xl font-normal leading-tight md:text-6xl" style={editorialHeadingStyle}>{ctaTitle}</h3>
+              <p className="mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.8)] md:text-lg">{ctaSubtitle}</p>
+            </div>
+            <div className="flex flex-col gap-4 lg:items-end">
+              <SmartLink href={primaryButtonHref} lang={lang} newTab={section.primaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#d8c49a] px-8 py-4 text-sm font-semibold text-[var(--color-night)] transition hover:bg-[#ead9b6]">{primaryButtonText}</SmartLink>
               {secondaryButtonText && secondaryButtonHref ? (
-                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{secondaryButtonText}</SmartLink>
+                <SmartLink href={secondaryButtonHref} lang={lang} newTab={section.secondaryButtonNewTab} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/24 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10">{secondaryButtonText}</SmartLink>
               ) : null}
             </div>
           </div>
@@ -899,12 +905,12 @@ function CtaSection({ section, lang }: { section: any; lang: Lang }) {
 function IconInfoCard({ item, lang }: { item: any; lang: Lang }) {
   const icon = renderManagedIcon(item, 'text-4xl');
   return (
-    <div className="flex h-full flex-col rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] p-7 shadow-[0_16px_40px_rgba(10,27,52,0.06)] transition hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(10,27,52,0.08)]">
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(10,27,52,0.08)] bg-white text-[var(--color-navy)] shadow-sm">{icon}</div>
+    <div className="flex h-full flex-col bg-white p-7 transition hover:bg-[var(--color-soft-white)] md:p-8">
+      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-panel-2)] text-2xl text-[var(--color-navy)]">{icon}</div>
       <h4 className="text-xl font-semibold text-[var(--color-navy)]">{useDisplayText(item.title, lang)}</h4>
       {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
       {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
-        <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
+        <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="mt-6 inline-flex text-sm font-semibold text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
           {useDisplayText(item.linkText, lang)}
         </SmartLink>
       )}
@@ -915,9 +921,9 @@ function IconInfoCard({ item, lang }: { item: any; lang: Lang }) {
 function AudienceCard({ item, lang }: { item: any; lang: Lang }) {
   const icon = renderManagedIcon(item, 'text-4xl');
   return (
-    <div className="flex h-full flex-col rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_16px_40px_rgba(10,27,52,0.06)]">
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] text-[var(--color-navy)]">{icon}</div>
-      <h4 className="text-xl font-semibold text-[var(--color-navy)]">{useDisplayText(item.title, lang)}</h4>
+    <div className="flex h-full flex-col rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-white p-7 shadow-[0_18px_45px_rgba(10,27,52,0.05)]">
+      <div className="mb-8 flex items-center gap-4 text-[#b9965b]"><span className="text-3xl">{icon}</span><span className="h-px flex-1 bg-[rgba(16,35,61,0.12)]"></span></div>
+      <h4 className="text-2xl font-normal leading-snug text-[var(--color-navy)]" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
       {item.description && <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">{useDisplayText(item.description, lang)}</p>}
       {resolveManagedLink(item.linkTarget, item.link) && item.linkText && (
         <SmartLink href={resolveManagedLink(item.linkTarget, item.link)} lang={lang} newTab={item.newTab} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
@@ -940,13 +946,13 @@ function DestinationCard({ item, index, lang }: { item: any; index: number; lang
     : (item.backgroundImage ? imageUrlFor(item.backgroundImage, 1000, fallback) : fallback);
 
   return (
-    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className="group relative block min-h-[24rem] overflow-hidden rounded-[2rem] shadow-[0_30px_70px_rgba(10,27,52,0.16)]">
-      <div className="relative h-[24rem] bg-[var(--color-navy)]">
-        <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill className="object-cover transition duration-700 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.78),rgba(4,10,18,0.14),rgba(4,10,18,0.08))]"></div>
-        <div className="absolute left-0 right-0 top-0 flex justify-end p-6 text-4xl text-white/90">{renderManagedIcon(item, 'text-4xl')}</div>
+    <SmartCardLink href={resolvedLink} lang={lang} newTab={item.newTab} className="group relative block overflow-hidden rounded-[2rem] bg-[var(--color-night)] shadow-[0_22px_60px_rgba(10,27,52,0.14)]">
+      <div className="relative h-[29rem] bg-[var(--color-navy)]">
+        <Image src={cardImageSrc} alt={useDisplayText(item.title, lang) || 'Destination'} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105 group-hover:brightness-105" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,10,18,0.9),rgba(4,10,18,0.34)_55%,rgba(4,10,18,0.06))]"></div>
+        <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">{String(index + 1).padStart(2, '0')}</div>
         <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-          <h4 className="text-2xl font-semibold">{useDisplayText(item.title, lang)}</h4>
+          <h4 className="text-3xl font-normal leading-tight" style={editorialHeadingStyle}>{useDisplayText(item.title, lang)}</h4>
           <p className="mt-3 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.8)]">{useDisplayText(item.description, lang)}</p>
         </div>
       </div>
@@ -976,78 +982,54 @@ function prioritizeTours(tours: any[]) {
   return list.sort((a, b) => score(b) - score(a));
 }
 
-function TourCard({ tour, lang, index }: { tour: any; lang: Lang; index: number }) {
-  const featuredCopy = getFeaturedJourneyCopy(index, lang);
-  const tourTitle = featuredCopy?.title || useDisplayText(tour.title, lang);
-  const tourDescription = featuredCopy?.description || useDisplayText(tour.description, lang);
+function TourCard({ tour, lang }: { tour: any; lang: Lang; index?: number }) {
+  const tourTitle = useDisplayText(tour.title, lang);
+  const tourDescription = useDisplayText(tour.tagline || tour.description, lang);
+  const duration = useDisplayText(tour.duration, lang);
+  const idealFor = useDisplayText(tour.idealFor, lang);
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-white shadow-[0_20px_50px_rgba(10,27,52,0.08)] transition hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(10,27,52,0.12)]">
-      <div className="relative h-64">
-        <Image src={imageUrlFor(tour.image, 900, fallbackImages.tour)} alt={tourTitle || 'Tour'} fill className="object-cover" />
+    <div className="group grid overflow-hidden rounded-[2.1rem] border border-[rgba(16,35,61,0.08)] bg-white shadow-[0_20px_55px_rgba(10,27,52,0.08)] transition hover:-translate-y-0.5 md:grid-cols-[0.47fr_0.53fr]">
+      <div className="relative min-h-72 md:min-h-full">
+        <Image src={imageUrlFor(tour.image, 1000, fallbackImages.tour)} alt={tourTitle || 'Tour'} fill sizes="(max-width: 768px) 100vw, 44vw" className="object-cover transition duration-700 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
       </div>
-      <div className="p-7">
-        <div className="mb-4 inline-flex rounded-full border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)]">{uiText[lang].sampleCase}</div>
-        <h4 className="text-2xl font-semibold text-[var(--color-navy)]">{tourTitle}</h4>
-        <p className="mt-3 line-clamp-3 text-sm leading-7 text-[var(--color-muted)]">{tourDescription}</p>
-        <div className="mt-6 flex items-center justify-between border-t border-[rgba(10,27,52,0.08)] pt-5">
-          <div>
-            <span className="text-sm text-[var(--color-muted)]">{uiText[lang].reference}</span>
-            <span className="ml-2 text-lg font-semibold text-[var(--color-navy)]">{uiText[lang].privatePlanning}</span>
+      <div className="flex min-h-72 flex-col justify-between p-7 md:p-9">
+        <div>
+          <div className="mb-5 flex flex-wrap gap-3 text-xs text-[var(--color-muted)]">
+            <span className="rounded-full border border-[rgba(16,35,61,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{uiText[lang].sampleCase}</span>
+            {duration ? <span className="rounded-full border border-[rgba(16,35,61,0.1)] bg-[var(--color-soft-white)] px-3 py-1.5">{duration}</span> : null}
           </div>
-          <Link href={withLang(`/tours/${encodeURIComponent(tour.slug)}`, lang)} className="inline-flex rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'View' : '查看'}</Link>
+          <h4 className="text-3xl font-normal leading-tight text-[var(--color-navy)]" style={editorialHeadingStyle}>{tourTitle}</h4>
+          <p className="mt-4 line-clamp-4 text-sm leading-7 text-[var(--color-muted)]">{tourDescription}</p>
+        </div>
+        <div className="mt-7 flex flex-col gap-4 border-t border-[rgba(16,35,61,0.1)] pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-sm leading-6 text-[var(--color-slate)]">
+            <span className="font-semibold text-[var(--color-navy)]">{uiText[lang].reference}</span>
+            {idealFor ? <span className="ml-2 text-[var(--color-muted)]">{idealFor}</span> : <span className="ml-2 text-[var(--color-muted)]">{uiText[lang].privatePlanning}</span>}
+          </div>
+          <Link href={withLang(`/tours/${encodeURIComponent(tour.slug)}`, lang)} className="inline-flex rounded-full bg-[var(--color-navy)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'View route' : '查看路线'}</Link>
         </div>
       </div>
     </div>
   );
 }
 
-function getFeaturedJourneyCopy(index: number, lang: Lang) {
-  const items = lang === 'zh'
-    ? [
-        {
-          title: '20 天中国初次深度之旅',
-          description: '在城市、人文与自然之间取得平衡的首次中国旅行方案。',
-        },
-        {
-          title: '新疆风景导向型路线',
-          description: '适合更重视自然景观与行程节奏的旅行者。',
-        },
-        {
-          title: '城市、人文与自然结合路线',
-          description: '适合希望一次行程兼顾现代城市、本地特色与自然风景的旅行者。',
-        },
-      ]
-    : [
-        {
-          title: 'A First China Journey in 20 Days',
-          description: 'A balanced first trip across cities, culture and landscape.',
-        },
-        {
-          title: 'Xinjiang for Landscape-Focused Travel',
-          description: 'Designed for travelers who want stronger scenery and a better route rhythm.',
-        },
-        {
-          title: 'Cities, Culture and Nature in One Route',
-          description: 'For travelers who want modern China, local character and natural contrast in one trip.',
-        },
-      ];
-
-  return items[index] || null;
-}
-
 function ArticleCard({ article, lang }: { article: any; lang: Lang }) {
   const articleTitle = useDisplayText(article.title, lang);
+  const articleExcerpt = useDisplayText(article.excerpt || article.tagline, lang);
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-[rgba(10,27,52,0.08)] bg-[var(--color-soft-white)] shadow-[0_20px_50px_rgba(10,27,52,0.06)]">
-      <div className="relative h-56">
-        <Image src={imageUrlFor(article.mainImage, 700, fallbackImages.article)} alt={articleTitle || 'Article'} fill className="object-cover" />
+    <div className="group overflow-hidden rounded-[2rem] border border-[rgba(16,35,61,0.08)] bg-[var(--color-soft-white)] transition hover:bg-white">
+      <div className="relative h-64 overflow-hidden">
+        <Image src={imageUrlFor(article.mainImage, 800, fallbackImages.article)} alt={articleTitle || 'Article'} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,19,33,0.36),transparent)]"></div>
       </div>
-      <div className="p-7">
-        <h4 className="text-2xl font-semibold text-[var(--color-navy)]">{articleTitle}</h4>
-        {article.author && <p className="mt-3 text-sm uppercase tracking-[0.15em] text-[var(--color-muted)]">{uiText[lang].by} {article.author}</p>}
-        <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">{uiText[lang].readMore}</Link>
+      <div className="p-7 md:p-8">
+        {article.author && <p className={eyebrowClass(lang, 'text-[var(--color-muted)]')}>{uiText[lang].by} {article.author}</p>}
+        <h4 className="mt-3 text-2xl font-normal leading-tight text-[var(--color-navy)]" style={editorialHeadingStyle}>{articleTitle}</h4>
+        {articleExcerpt ? <p className="mt-4 line-clamp-3 text-sm leading-7 text-[var(--color-muted)]">{articleExcerpt}</p> : null}
+        <Link href={withLang(`/articles/${article.slug}`, lang)} className="mt-7 inline-flex text-sm font-semibold text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">{uiText[lang].readMore}</Link>
       </div>
     </div>
   );
