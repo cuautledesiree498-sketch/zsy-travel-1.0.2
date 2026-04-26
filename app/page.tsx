@@ -202,24 +202,22 @@ export default async function Home({ searchParams }: any) {
         </div>
       </main>
 
-      <section className="relative z-20 -mt-16 bg-[linear-gradient(180deg,rgba(7,17,31,0)_0%,rgba(7,17,31,0.9)_28%,rgba(7,17,31,0.96)_100%)] px-4 pb-12 pt-8 md:px-8">
-        <div className="mx-auto max-w-[88rem] rounded-[2.65rem] border border-white/10 bg-[linear-gradient(135deg,rgba(7,17,31,0.78),rgba(16,35,61,0.62)_55%,rgba(234,240,245,0.16))] p-3 shadow-[0_32px_100px_rgba(7,17,31,0.38)] backdrop-blur-xl md:p-5">
-          <div className="overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.88),rgba(226,236,244,0.8))] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] md:p-4">
-            <div className="grid gap-px overflow-hidden rounded-[1.65rem] bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
-              <div className="bg-white/56 p-6 md:p-8 lg:p-10">
-                <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
-                <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{trustSectionBody}</p>
-              </div>
-              <div className="grid bg-white/40 md:grid-cols-3">
-                {trustDecisionItems.map((item, index) => (
-                  <div key={item.label} className="border-t border-white/70 p-6 transition hover:bg-white/48 md:border-l md:border-t-0 md:p-8">
-                    <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</div>
-                    <h3 className="mt-4 text-base font-semibold leading-6 text-[#10233D]">{item.label}</h3>
-                    <p className="mt-2 text-sm leading-7 text-[#5D7084]">{item.value}</p>
-                  </div>
-                ))}
-              </div>
+      <section className="relative z-20 bg-[#07111F] px-4 pb-12 pt-14 md:px-8 md:pt-18">
+        <div className="mx-auto max-w-[88rem] overflow-hidden rounded-[2.15rem] border border-white/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.88),rgba(226,236,244,0.8))] p-3 shadow-[0_28px_90px_rgba(7,17,31,0.3),inset_0_1px_0_rgba(255,255,255,0.72)] md:p-4">
+          <div className="grid gap-px overflow-hidden rounded-[1.65rem] bg-[#BFCFDC]/70 lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="bg-white/56 p-6 md:p-8 lg:p-10">
+              <p className={eyebrowClass(lang, 'text-[#B98D45]')}>{trustSectionEyebrow}</p>
+              <h2 className="mt-3 max-w-2xl text-3xl font-normal leading-[1.05] tracking-[-0.035em] text-[#10233D] md:text-5xl" style={editorialHeadingStyle}>{trustSectionTitle}</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5D7084] md:text-base md:leading-8">{trustSectionBody}</p>
+            </div>
+            <div className="grid bg-white/40 md:grid-cols-3">
+              {trustDecisionItems.map((item, index) => (
+                <div key={item.label} className="border-t border-white/70 p-6 transition hover:bg-white/48 md:border-l md:border-t-0 md:p-8">
+                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B98D45]">{String(index + 1).padStart(2, '0')}</div>
+                  <h3 className="mt-4 text-base font-semibold leading-6 text-[#10233D]">{item.label}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#5D7084]">{item.value}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
