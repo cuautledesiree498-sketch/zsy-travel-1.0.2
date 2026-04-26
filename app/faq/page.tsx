@@ -1,16 +1,40 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
 import { normalizeLang, withLang } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'FAQ - Infinite Travel',
-  description: 'Frequently asked questions about planning a tailor-made China journey with Infinite Travel.',
-};
-
 type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '常见问题 | 无限旅途' : 'FAQ | Infinite Travel';
+  const description = lang === 'zh'
+    ? '关于中国定制旅行咨询、需求信息、报价、支付时点与出行准备边界的常见问题。'
+    : 'Answers to common questions about custom China trip planning, inquiry information, quotation, payment timing and travel preparation boundaries.';
+  const alternates = buildLocalizedAlternates('/faq', lang);
+
+  return {
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
+}
 
 const faqs = [
   { q: { en: 'Do you provide bilingual communication?', zh: '你们提供中英双语沟通吗？' }, a: { en: 'Yes. We can communicate in English and Chinese for planning and follow-up.', zh: '可以，我们支持英文和中文沟通，方便前期规划与后续确认。' } },
@@ -48,8 +72,19 @@ const faqs = [
 export default async function FAQPage({ searchParams }: { searchParams: SearchParamsInput }) {
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: lang === 'zh' ? '常见问题' : 'FAQ', url: withLang('/faq', lang) },
+  ]);
+  const faqJsonLd = buildFaqJsonLd(faqs.map((item) => ({
+    question: lang === 'zh' ? item.q.zh : item.q.en,
+    answer: lang === 'zh' ? item.a.zh : item.a.en,
+  })));
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-24">
+      <JsonLd id="faq-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="faq-page-jsonld" data={faqJsonLd} />
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{lang === 'zh' ? '无限旅途' : 'Infinite Travel'}</p>
       <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{lang === 'zh' ? '常见问题' : 'Frequently Asked Questions'}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{lang === 'zh' ? '如果你还在判断这趟旅行适不适合、该怎么开始，先看这里。这里回答的是咨询前最常见、也最实际的问题。' : 'If you are still figuring out whether this trip fits you or how to start, begin here. These are the practical questions travelers usually ask before moving into a real inquiry.'}</p>

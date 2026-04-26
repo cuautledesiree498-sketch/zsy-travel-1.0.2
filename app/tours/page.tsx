@@ -1,27 +1,60 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import { normalizeLang, withLang, pickLocalized, markPlaceholder } from '@/lib/i18n';
 import { getTours } from '@/lib/sanity';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
-  const lang = normalizeLang(searchParams?.lang);
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '路线案例 | 无限旅途' : 'Route Cases | Infinite Travel';
+  const description = lang === 'zh'
+    ? '中国定制旅行路线案例。先选择最接近的路线起点，再根据日期、节奏、人数、酒店与服务范围调整后报价。'
+    : 'Reference route cases for custom China travel. Choose the closest starting point, then adjust dates, pace, group size, hotels and service scope before quotation.';
+  const alternates = buildLocalizedAlternates('/tours', lang);
 
   return {
-    title: lang === 'zh' ? '可定制路线参考 - 无限旅途' : 'Route Cases You Can Start From - Infinite Travel',
-    description: lang === 'zh'
-      ? '先看一条接近你需求的路线参考，再继续改成更适合你的版本。适合先看路线组合、后做定制调整的旅行方式。'
-      : 'Start with a route case that feels close to what you want, then adapt it into your own version. Best for travelers who want a route reference before refining the final plan.',
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
-export default async function ToursPage({ searchParams }: any) {
-  const lang = normalizeLang(searchParams?.lang);
+export default async function ToursPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
   const tours = dedupeTours(await getTours());
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: isZh ? '路线案例' : 'Route Cases', url: withLang('/tours', lang) },
+  ]);
+  const tourListJsonLd = buildItemListJsonLd(isZh ? '路线案例' : 'Route Cases', tours.map((tour: any) => ({
+    name: markPlaceholder(pickLocalized(tour.title, lang) || (lang === 'zh' ? '案例路线' : 'Tour Package')),
+    description: markPlaceholder(pickLocalized(tour.description, lang) || pickLocalized(tour.tagline, lang) || (lang === 'zh' ? '可进一步定制的中国旅行案例。' : 'A China travel case that can be further customized.')),
+    url: withLang(`/tours/${encodeURIComponent(tour.slug || '')}`, lang),
+  })));
+
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
+      <JsonLd id="tours-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="tours-itemlist-jsonld" data={tourListJsonLd} />
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{isZh ? '无限旅途' : 'Infinite Travel'}</p>
       <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{isZh ? '可定制路线参考' : 'Route Cases You Can Start From'}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{isZh ? '这页不是让你直接照搬固定产品，而是先看一条接近你需求的路线参考。它更适合“先看路线组合，再改成自己版本”的旅行方式。' : 'This page is not for copying a fixed package. It is for starting with a route case that feels close to what you want, then adapting it into your own version.'}</p>

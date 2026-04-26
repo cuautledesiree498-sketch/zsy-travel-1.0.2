@@ -1,29 +1,64 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import { getDestinationFallbackImage } from '@/lib/sanity';
 import { normalizeLang, withLang } from '@/lib/i18n';
 import { destinationContent, getDestinationContent } from '@/lib/destinationContent';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
-  const lang = normalizeLang(searchParams?.lang);
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '中国目的地 | 无限旅途' : 'China Destinations | Infinite Travel';
+  const description = lang === 'zh'
+    ? '浏览中国经典城市、风景路线与文化主题目的地，把它们作为定制行程的起点，而不是固定产品。'
+    : 'Explore China destination ideas across classic cities, scenic routes and culture-focused journeys. Use them as starting points for a custom itinerary.';
+  const alternates = buildLocalizedAlternates('/destinations', lang);
 
   return {
-    title: lang === 'zh' ? '中国目的地选择 - 无限旅途' : 'Explore China by Destination - Infinite Travel',
-    description: lang === 'zh'
-      ? '从你最想先展开的中国目的地开始。适合先有地点偏好、再继续整理完整路线的旅行方式。'
-      : 'Start with the part of China you already feel drawn to. Best for travelers who have a place preference first and want to shape the full route after that.',
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
-export default async function DestinationsPage({ searchParams }: any) {
-  const lang = normalizeLang(searchParams?.lang);
+export default async function DestinationsPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const destinations = getStableDestinations();
   const isZh = lang === 'zh';
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: isZh ? '中国目的地' : 'China Destinations', url: withLang('/destinations', lang) },
+  ]);
+  const destinationListJsonLd = buildItemListJsonLd(isZh ? '中国目的地' : 'China Destinations', destinations.map((item) => {
+    const meta = getDestinationContent(item.slug);
+    return {
+      name: meta?.name?.[lang] || item.slug,
+      description: meta?.summary?.[lang],
+      url: withLang(`/destinations/${encodeURIComponent(item.slug || '')}`, lang),
+    };
+  }));
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
+      <JsonLd id="destinations-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="destinations-itemlist-jsonld" data={destinationListJsonLd} />
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{isZh ? '无限旅途' : 'Infinite Travel'}</p>
       <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{isZh ? '中国目的地选择' : 'Explore China by Destination'}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{isZh ? '如果你已经大致知道自己更想去什么地方——比如古都、城市、山水、草原，或者长线风景——可以先从目的地开始。这里更适合“先有地点偏好、后定完整路线”的旅行方式。' : 'If you already have a rough sense of the kind of place you want to begin with — historic cities, big-city contrast, landscapes, grasslands, or a longer scenic region — start here. This page is for travelers who have a place preference first and want to build the full route after that.'}</p>

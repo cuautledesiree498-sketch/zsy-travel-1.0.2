@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
+import { SITE_URL } from '@/lib/seo';
+
+const siteTitle = 'Infinite Travel';
+const siteDescription = 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://infinitravel.net'),
+  metadataBase: new URL(SITE_URL),
   title: 'Infinite Travel | Tailor-Made China Journeys',
-  description: 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.',
+  description: siteDescription,
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -12,15 +16,28 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Infinite Travel — Tailor-Made China Journeys',
-    description: 'Multi-city private travel across China for global travelers.',
-    images: ['/opengraph-image'],
+    description: siteDescription,
+    siteName: siteTitle,
+    url: SITE_URL,
     type: 'website',
+    images: ['/opengraph-image'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Infinite Travel — Tailor-Made China Journeys',
-    description: 'Multi-city private travel across China for global travelers.',
+    description: siteDescription,
     images: ['/opengraph-image'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
 };
 

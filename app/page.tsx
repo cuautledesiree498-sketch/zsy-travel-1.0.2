@@ -1,10 +1,43 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import LegalLinks from '@/components/LegalLinks';
+import JsonLd from '@/components/JsonLd';
 import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
+import { SITE_URL, buildLocalizedAlternates, buildOrganizationJsonLd, buildWebSiteJsonLd, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
+
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const description = lang === 'zh'
+    ? '为全球旅行者设计的中国多城市私人定制旅行，覆盖北京、上海、成都、新疆等多个目的地。'
+    : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.';
+  const alternates = buildLocalizedAlternates('/', lang);
+
+  return {
+    title: `${siteTitle} | ${lang === 'zh' ? '中国定制旅行顾问' : 'Tailor-Made China Journeys'}`,
+    description,
+    alternates,
+    openGraph: {
+      title: `${siteTitle} | ${lang === 'zh' ? '中国定制旅行顾问' : 'Tailor-Made China Journeys'}`,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      siteName: siteTitle,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${siteTitle} | ${lang === 'zh' ? '中国定制旅行顾问' : 'Tailor-Made China Journeys'}`,
+      description,
+    },
+  };
+}
 
 export default async function Home({ searchParams }: any) {
   const tours = await getTours();
@@ -93,7 +126,9 @@ export default async function Home({ searchParams }: any) {
       ];
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+    <>
+      <HomeStructuredData lang={lang} settings={settings} siteTitle={siteTitle} siteDescription={siteDescription} />
+      <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-4">
@@ -268,7 +303,8 @@ export default async function Home({ searchParams }: any) {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -276,6 +312,28 @@ function resolveManagedLink(target?: string, custom?: string) {
   if (!target || target === 'none') return custom || '';
   if (target === 'custom') return custom || '';
   return target;
+}
+
+function HomeStructuredData({ lang, settings, siteTitle, siteDescription }: { lang: Lang; settings: any; siteTitle: string; siteDescription: string }) {
+  const contactEmail = pickLocalized(settings?.contactEmail, lang) || settings?.contactEmail || undefined;
+  const organization = buildOrganizationJsonLd({
+    name: siteTitle,
+    description: siteDescription,
+    email: contactEmail,
+    url: SITE_URL,
+  });
+  const website = buildWebSiteJsonLd({
+    name: siteTitle,
+    description: siteDescription,
+    url: SITE_URL,
+  });
+
+  return (
+    <>
+      <JsonLd id="home-organization-jsonld" data={organization} />
+      <JsonLd id="home-website-jsonld" data={website} />
+    </>
+  );
 }
 
 function useDisplayText(value: any, lang: Lang, fallback = '') {

@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
 import { getTourBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { getFeaturedCaseCopy } from '@/lib/featuredCases';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,28 +17,66 @@ function text(value: any, lang: 'en' | 'zh', fallback = '') {
   return markPlaceholder(pickLocalized(value, lang) || fallback);
 }
 
-export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
+type PageParams = Promise<{ slug: string }> | { slug: string };
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+function resolvePublicImageUrl(source: any) {
+  const imageUrl = imageUrlFor(source, 1600, '');
+  if (!imageUrl) return undefined;
+  return toAbsoluteUrl(imageUrl);
+}
+
+export async function generateMetadata({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }): Promise<Metadata> {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const path = `/tours/${encodeURIComponent(slug)}`;
+  const alternates = buildLocalizedAlternates(path, lang);
 
   if (!tour) {
     return {
       title: lang === 'zh' ? `路线未找到 - ${siteTitle}` : `Tour Not Found - ${siteTitle}`,
+      alternates,
     };
   }
 
+  const title = `${text(tour.title, lang, lang === 'zh' ? '路线案例' : 'Route Case')} | ${siteTitle}`;
+  const description = text(
+    tour.description || tour.tagline,
+    lang,
+    lang === 'zh'
+      ? '中国定制旅行路线案例，可作为咨询起点，并根据日期、人数、节奏和服务范围继续调整。'
+      : 'A custom China travel route case to use as a planning starting point, then adjust by dates, group size, pace and service scope.'
+  );
+  const image = resolvePublicImageUrl(tour.image);
+
   return {
-    title: `${text(tour.title, lang, lang === 'zh' ? '案例详情' : 'Tour Details')} - ${siteTitle}`,
-    description: text(tour.description, lang, lang === 'zh' ? '中国高端定制旅行案例参考。' : 'A premium China travel inspiration case.'),
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+      images: image ? [image] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
   };
 }
 
-export default async function TourDetailPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }) {
+export default async function TourDetailPage({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }) {
   const { slug } = await params;
   const tour = await getTourBySlug(slug);
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
 
   if (!tour) notFound();
 
@@ -74,9 +114,22 @@ export default async function TourDetailPage({ params, searchParams }: { params:
         description: text(day?.description, lang, lang === 'zh' ? '行程描述待补充' : 'Itinerary description coming soon'),
       }))
     : fallback.itinerary.map((day: any, index: number) => ({ day: index + 1, ...day }));
+  const tourPath = `/tours/${encodeURIComponent(slug)}`;
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: lang === 'zh' ? '路线案例' : 'Route Cases', url: withLang('/tours', lang) },
+    { name: title, url: withLang(tourPath, lang) },
+  ]);
+  const itineraryJsonLd = buildItemListJsonLd(lang === 'zh' ? `${title} 行程步骤` : `${title} itinerary steps`, itinerary.map((day: any) => ({
+    name: lang === 'zh' ? `第${day.day}天：${day.title}` : `Day ${day.day}: ${day.title}`,
+    description: day.description,
+    url: withLang(tourPath, lang),
+  })));
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <JsonLd id="tour-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="tour-itinerary-jsonld" data={itineraryJsonLd} />
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href={withLang('/', lang)} className="flex items-center gap-3">

@@ -3,8 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
 import { getArticleBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,28 +14,60 @@ function text(value: any, lang: 'en' | 'zh', fallback = '') {
   return markPlaceholder(pickLocalized(value, lang) || fallback);
 }
 
-export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
+type PageParams = Promise<{ slug: string }> | { slug: string };
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+function resolvePublicImageUrl(source: any) {
+  const imageUrl = imageUrlFor(source, 1600, '');
+  if (!imageUrl) return undefined;
+  return toAbsoluteUrl(imageUrl);
+}
+
+export async function generateMetadata({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const path = `/articles/${encodeURIComponent(slug)}`;
+  const alternates = buildLocalizedAlternates(path, lang);
 
   if (!article) {
     return {
       title: lang === 'zh' ? `文章未找到 - ${siteTitle}` : `Article Not Found - ${siteTitle}`,
+      alternates,
     };
   }
 
+  const title = `${text(article.title, lang, lang === 'zh' ? '文章详情' : 'Article Details')} | ${siteTitle}`;
+  const description = text(article.excerpt || article.tagline, lang, lang === 'zh' ? '旅行灵感与定制策划内容。' : 'Travel inspiration and tailor-made planning insights.');
+  const image = resolvePublicImageUrl(article.mainImage);
+
   return {
-    title: `${text(article.title, lang, lang === 'zh' ? '文章详情' : 'Article Details')} - ${siteTitle}`,
-    description: text(article.excerpt, lang, lang === 'zh' ? '旅行灵感与定制策划内容。' : 'Travel inspiration and tailor-made planning insights.'),
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'article',
+      images: image ? [image] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
   };
 }
 
-export default async function ArticleDetailPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }) {
+export default async function ArticleDetailPage({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }) {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
 
   if (!article) notFound();
 
@@ -48,9 +82,28 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
     ? new Date(article.publishDate).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : (lang === 'zh' ? '发布日期待补充' : 'Publish date coming soon');
   const heroFacts = Array.isArray(article.heroFacts) ? article.heroFacts : [];
+  const articlePath = `/articles/${encodeURIComponent(slug)}`;
+  const articleUrl = toAbsoluteUrl(withLang(articlePath, lang));
+  const articleImage = resolvePublicImageUrl(article.mainImage);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: lang === 'zh' ? '灵感内容' : 'Insights', url: withLang('/insights', lang) },
+    { name: title, url: withLang(articlePath, lang) },
+  ]);
+  const articleJsonLd = buildArticleJsonLd({
+    headline: title,
+    description: excerpt,
+    image: articleImage,
+    url: articleUrl,
+    author: article.author || undefined,
+    datePublished: article.publishDate || undefined,
+    dateModified: article.publishDate || undefined,
+  });
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <JsonLd id="article-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="article-blogposting-jsonld" data={articleJsonLd} />
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href={withLang('/', lang)} className="flex items-center gap-3">

@@ -1,506 +1,166 @@
-# Phase 1 — Legal / Policy 真实化 pass
-
-Project root:
-C:\Users\Administrator\travel-website\my-travel-site
-
-You are OpenCode. Your role is code execution only. Product direction, legal/policy copy direction, scope, and acceptance criteria are defined in this task file. Do not expand scope.
-
-## 0. Mandatory execution protocol
-
-1. Fully read this task file before editing anything.
-2. Inspect the current project files before modifying them.
-3. Keep existing visual style, bilingual structure, and component conventions.
-4. Prefer small, targeted edits.
-5. Run `npm run build` after edits.
-6. Write the final report to:
-   `C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`
-
-## 1. Goal
-
-Make the legal and policy layer of the ZSY Travel / Infinite Travel website reflect the confirmed business information collected from the user.
-
-The output should make the site feel more like a real travel service business, but it must remain cautious and truthful.
-
-Main target pages:
-- Terms & Conditions / 服务条款
-- Privacy Policy / 隐私政策
-- Refund & Cancellation Policy / 退款与取消政策
-- Inquiry form consent text, if present
-
-## 2. Strict scope
-
-Allowed files to inspect and edit:
-- `app/terms/page.tsx`
-- `app/privacy/page.tsx`
-- `app/refund-cancellation/page.tsx`
-- `app/refund-policy/page.tsx`
-- `components/InquiryForm.tsx`
-- `components/LegalLinks.tsx` only if needed for existing legal links
-
-Do NOT edit unrelated pages.
-Do NOT edit Sanity schemas.
-Do NOT edit route architecture.
-Do NOT create a new legal CMS.
-Do NOT upload contract files.
-Do NOT copy full contract text.
-Do NOT add new public downloads.
-Do NOT invent company registration, license, address, phone, WhatsApp, email, or partner names.
-
-If there are two refund-related routes, inspect both. If both are live public routes, keep them consistent. If one is clearly a redirect/legacy alias, edit the active content page and preserve the alias behavior.
-
-## 3. Confirmed business facts you MAY use
-
-Use only these confirmed facts. If a detail is not listed here, treat it as unconfirmed.
-
-### Brand / identity
-
-English brand:
-- Infinite Travel
-
-Chinese brand:
-- 无限旅途国际旅行社
-
-Site display name:
-- 无限旅途 / Infinite Travel
-
-Working hours:
-- 9:00–19:00
-
-Communication languages:
-- Chinese and English supported
-
-### Service scope that may be stated
-
-Infinite Travel may help with:
-- itinerary planning
-- route design
-- hotel booking
-- hotel area guidance
-- private car arrangements
-- airport transfers
-- domestic rail / transport assistance
-- attraction ticket assistance
-- guide arrangement
-- translation / bilingual escort
-- restaurant suggestions / booking assistance
-- business reception
-- corporate team building
-- educational travel
-- family travel
-- premium private customization
-- destination consulting
-- travel photography / accompanying photography
-
-### Payment methods and currencies
-
-Payment methods that may be listed cautiously:
-- PingPong
-- bank transfer
-- Alipay
-- WeChat Pay
-- cash
-
-Supported currencies that may be listed cautiously:
-- RMB
-- USD
-- EUR
-- GBP
-- HKD
-
-Deposit / balance facts:
-- Deposit may be 10%, 50%, or project-dependent.
-- Final balance may be due 7 days before departure, before trip start, upon order confirmation, or project-dependent.
-- Payment method, currency, exchange rate, platform fee, invoice, and receipt handling may vary by arrangement.
-
-### Cancellation / refund facts
-
-Cancellation and refund handling may depend on:
-- cancellation timing
-- confirmed service scope
-- signed contract or written confirmation
-- supplier rules
-- actual non-refundable costs already incurred
-- payment platform / bank processing rules
-
-Non-refundable or potentially non-refundable items may include:
-- issued flight tickets
-- train tickets
-- attraction tickets
-- hotel prepayments
-- car / guide reservations
-- activity venue fees
-- educational course fees
-- third-party supplier non-refundable costs
-- planning or service fees
-- payment fees
-- remittance fees
-
-Force majeure examples may include:
-- extreme weather
-- natural disasters
-- public health events
-- policy changes
-- traffic control
-- temporary attraction closure
-- war
-- strikes
-- other events beyond reasonable control
-
-Force majeure handling principle:
-- first try to adjust the itinerary
-- then coordinate supplier refunds where possible
-- then refund remaining recoverable amounts after deducting incurred and non-refundable costs
-- otherwise resolve by mutual discussion
-
-Refund timing:
-- may vary by payment provider, bank, platform, and case complexity
-
-### Privacy facts
-
-The inquiry form may collect:
-- name
-- email
-- WhatsApp
-- destination
-- travel dates
-- number of travelers
-- budget
-- hotel preference
-- notes / special requirements
-
-Information may be used for:
-- replying to inquiries
-- route design
-- quotation
-- order confirmation
-- payment communication
-- customer follow-up
-- after-sales support
-- marketing emails or future travel updates, where allowed
-
-Necessary information may be shared with:
-- hotels
-- car services
-- guides
-- translators
-- attraction / activity suppliers
-- educational institutions
-- payment providers
-- email providers
-- website hosting providers
-- analytics providers
-- government or regulators if required by law
-
-User rights that may be stated:
-- request access to their information
-- request correction
-- withdraw authorization where applicable
-- stop marketing contact
-
-Do NOT promise permanent deletion unless the implementation and legal basis are confirmed.
-
-Cross-border processing note:
-- Because the site may serve overseas customers and use external service providers, data may be processed in China and/or service provider locations.
-
-## 4. Unconfirmed facts you MUST NOT state
-
-Do NOT state or imply:
-- a unified social credit code
-- registered office address
-- physical office address
-- public phone number
-- public WhatsApp number
-- customer service email if not already in the current site
-- complaint / after-sales email if not already in the current site
-- exact partner company name
-- exact license name or license number
-- “licensed travel agency” unless already legally confirmed in the current website data
-- “official guarantee”
-- guaranteed visa approval
-- guaranteed full refund
-- guaranteed transport punctuality
-- guaranteed weather
-- guaranteed attraction availability
-- guaranteed hotel/guide/car availability before confirmation
-
-If existing site content already contains one of these claims, do not strengthen it. If it appears risky and is inside the allowed files, soften it.
-
-## 5. Tone and legal copy style
-
-Use restrained bilingual copy.
-
-Preferred English phrases:
-- “subject to the confirmed contract or written confirmation”
-- “depending on the confirmed itinerary and supplier rules”
-- “after deducting actual incurred and non-refundable costs”
-- “where applicable”
-- “where legally required”
-- “as agreed in the confirmed service terms”
-
-Preferred Chinese phrases:
-- “以双方确认的合同或书面确认单为准”
-- “视已确认行程和供应商规则而定”
-- “扣除已发生且不可退费用后”
-- “如适用”
-- “根据法律要求”
-- “以确认后的服务条款为准”
-
-Avoid:
-- aggressive marketing language
-- fake legal certainty
-- absolute refund promises
-- excessive legalese
-- long walls of text that damage readability
-
-## 6. Required page coverage
-
-### 6.1 Terms page
-
-The Terms page must cover:
-
-1. Who the terms apply to
-2. Service scope
-3. Quotes and availability
-4. Order confirmation
-5. Customer responsibilities
-6. Third-party suppliers
-7. Limits and non-guarantees
-8. Contract / written confirmation priority
-9. Applicable law and dispute resolution
-10. Contact / working-hours note if the page already has a contact section
-
-Suggested English copy blocks. Adapt to current structure; do not paste blindly if structure differs.
-
-Title:
-- Terms & Conditions
-
-Intro:
-- “These Terms & Conditions explain how Infinite Travel handles travel planning, quotations, confirmations, payments, cancellations, and related service communication. They are a general website-level reference. The final arrangement is subject to the contract, written confirmation, quotation, and supplier rules confirmed by both parties.”
-
-Service scope:
-- “Infinite Travel may assist with itinerary planning, route design, hotel and hotel-area advice, private car arrangements, airport transfers, domestic transport assistance, attraction ticket assistance, guide or bilingual escort coordination, restaurant suggestions, business reception, educational travel, family trips, premium private customization, destination consulting, and travel photography support.”
-
-Quotes and availability:
-- “Quotations may depend on travel dates, seasonality, hotel availability, vehicle and guide resources, exchange rates, holidays, supplier pricing, and the final confirmed service scope. A quotation is not a guarantee of availability until the relevant arrangements are confirmed.”
-
-Order confirmation:
-- “A travel request becomes a confirmed arrangement only after the service scope, quotation, contract or written confirmation, and agreed payment terms are confirmed by both parties.”
-
-Customer responsibilities:
-- “Customers are responsible for providing accurate personal information, travel dates, traveler numbers, flight or transport details, health or dietary notes, document information where required, and any changes that may affect the itinerary. Customers are also responsible for complying with applicable laws, entry requirements, local customs, and agreed meeting times.”
-
-Third-party suppliers:
-- “Some services may be provided or supported by third-party suppliers such as hotels, transport providers, guides, translators, attractions, activity operators, educational institutions, payment providers, and other service partners. Their availability, cancellation rules, and non-refundable costs may affect the final arrangement.”
-
-Non-guarantees:
-- “Infinite Travel does not guarantee visa results, weather conditions, absolute transport punctuality, continuous attraction availability, or unconfirmed third-party resources. We are not responsible for losses caused by inaccurate information provided by the customer, personal shopping decisions, personal unlawful behavior, or circumstances beyond reasonable control.”
-
-Contract priority:
-- “If there is any inconsistency between this website page and a signed contract, written confirmation, or confirmed supplier rule, the signed or written arrangement will prevail.”
-
-Dispute handling:
-- “Disputes should first be handled through friendly communication. If no agreement can be reached, the matter may be handled under the laws of the People’s Republic of China or the law / forum agreed in the confirmed document.”
-
-Suggested Chinese copy blocks:
-
-标题：
-- 服务条款
-
-说明：
-- “本服务条款用于说明无限旅途 / Infinite Travel 在旅行规划、报价、确认、付款、取消及相关服务沟通中的基本规则。本文为网站层面的通用说明，最终安排以双方确认的合同、书面确认单、报价及供应商规则为准。”
-
-服务范围：
-- “无限旅途可协助提供行程规划、路线设计、酒店预订与酒店区域建议、用车安排、接送机、国内交通协助、景区门票协助、导游或双语陪同协调、餐厅建议与预订协助、商务接待、研学旅行、亲子旅行、高端私人定制、目的地咨询、旅拍或跟拍等服务。”
-
-报价与资源：
-- “报价可能受出行日期、淡旺季、酒店房态、车导资源、汇率、节假日、供应商价格及最终服务范围影响。报价不等同于资源锁定，相关安排需在确认后方可执行。”
-
-订单确认：
-- “旅行需求通常在双方确认服务范围、报价、合同或书面确认单，并完成约定付款条件后，才视为正式确认安排。”
-
-客户责任：
-- “客户应提供真实准确的个人信息、出行日期、人数、航班或交通信息、健康或饮食需求、必要证件信息及会影响行程的变更信息，并遵守相关法律法规、入境要求、当地习俗和约定集合时间。”
-
-第三方供应商：
-- “部分服务可能由酒店、车队、导游、翻译、景区、活动供应商、研学机构、支付服务商及其他合作服务方提供或协助。其资源可用性、取消规则和不可退费用可能影响最终安排。”
-
-不承诺事项：
-- “无限旅途不保证签证结果、天气情况、交通绝对准点、景点持续开放或未确认第三方资源的可用性。因客户提供信息不准确、个人购物行为、个人违法行为或不可合理控制情形造成的损失，不应由无限旅途承担。”
-
-合同优先：
-- “如本页面内容与双方签署的合同、书面确认单或已确认供应商规则不一致，以签署或书面确认的安排为准。”
-
-争议处理：
-- “争议应优先通过友好协商解决；协商不成的，可依据中华人民共和国法律或双方确认文件中约定的法律及争议解决方式处理。”
-
-### 6.2 Privacy page
-
-The Privacy page must cover:
-
-1. Information collected
-2. How information is used
-3. Sharing with service providers
-4. Marketing / follow-up contact
-5. Data retention
-6. User rights
-7. Cross-border processing
-8. Security / limited access principle
-
-Suggested English copy blocks:
-
-Intro:
-- “This Privacy Policy explains how Infinite Travel collects, uses, shares, and stores information submitted through the website or during travel planning communication.”
+# ZSY Travel Phase 5C Task: Dynamic Detail Pages Metadata / Schema
+
+## Role boundary
+You are OpenCode. Execute only the code implementation requested here.
+
+Important:
+- Do not make product, business, legal, pricing, refund, qualification, licensing, partner, address, phone, or payment-policy decisions.
+- Do not invent company licenses, supplier resources, public phone numbers, WhatsApp, addresses, guarantees, fixed prices, fixed deposits, or fixed refund/cancellation rules.
+- Do not rewrite page marketing copy unless required for metadata/schema consistency.
+- Do not edit Sanity schemas or content data.
+- Do not edit long-term memory files.
+- Do not commit.
+
+## Project
+Path:
+`C:\Users\Administrator\travel-website\my-travel-site`
+
+## Phase goal
+Phase 5 is SEO / Schema / Search readiness.
+
+Phase 5A completed shared SEO utilities and homepage/global metadata.
+Phase 5B completed core static page metadata/schema.
+
+This chunk, Phase 5C, should add cautious metadata and limited schema to dynamic detail pages only.
+
+## Pages in scope
+Edit only these pages:
+- `app/articles/[slug]/page.tsx`
+- `app/tours/[slug]/page.tsx`
+- `app/destinations/[slug]/page.tsx`
+
+Do not edit:
+- static pages from Phase 5B
+- legal pages
+- Sanity schemas
+- memory files
+- article/tour/destination source content files unless strictly required for type/build correctness
+
+## Context files to read first
+Read before editing:
+1. `C:\Users\Administrator\.openclaw\workspace\memory\projects\zsytravel\roadmap-2026-04-25\OPENCODE_WORKFLOW.md`
+2. `C:\Users\Administrator\.openclaw\workspace\memory\projects\zsytravel\roadmap-2026-04-25\progress.md`
+3. `C:\Users\Administrator\.openclaw\workspace\memory\projects\zsytravel\zsytravel-phase3-xiaxia-judgement-2026-04-25.md`
+4. `lib/seo.ts`
+5. `components/JsonLd.tsx`
+6. `lib/i18n.ts`
+7. `lib/sanity.ts`
+8. `lib/featuredCases.ts`
+9. `lib/destinationContent.ts`
+10. each in-scope page before editing it
+
+## Business / wording boundary
+The site must remain cautious:
+- Infinite Travel / 无限旅途 is a China custom travel planning / tailor-made journey service.
+- Route cases and destination pages are references / starting points, not fixed products.
+- Final itinerary, quote, payment and cancellation terms depend on dates, group size, route, service scope and written confirmation.
+- Payment should remain after route, dates, group size, service scope and confirmation are clear.
+
+Do not write or imply:
+- confirmed travel agency license / licensed travel agency
+- official guarantee
+- guaranteed booking / guaranteed refund
+- fixed prices unless an existing real field is already present and already rendered
+- fixed deposit percentage
+- fixed refund or cancellation fee
+- public phone / WhatsApp / address unless already present in page data
+- named partners or supplier resources
+- TravelAgency schema
+- Product / Offer schema for route cases, because route cases are not fixed bookable products
+
+Use neutral schema types only:
+- `BreadcrumbList`
+- `BlogPosting` for articles only
+- `ItemList` only if a page visibly renders a list and it is safe
+
+## Required implementation
+
+### A. Shared searchParams / params handling
+Use Next.js 16 compatible async handling.
+For each page, safely read:
+- `params.slug`
+- `searchParams.lang`
+
+Follow patterns already used in Phase 5A/5B pages.
+
+### B. Dynamic metadata
+For each in-scope page, add/improve `generateMetadata()` with:
+- language-aware title
+- cautious description from visible source fields/fallbacks
+- canonical + alternates using `buildLocalizedAlternates(path, lang)`
+- OpenGraph title/description/url/type
+- Twitter title/description/card
+- image only if safely available as a public absolute URL; otherwise skip image rather than forcing one
+
+Important path handling:
+- `/articles/${encodeURIComponent(slug)}`
+- `/tours/${encodeURIComponent(slug)}`
+- `/destinations/${encodeURIComponent(slug)}`
+
+### C. `app/articles/[slug]/page.tsx`
+Add:
+- Breadcrumb JSON-LD: Home -> Insights -> Article title
+- BlogPosting JSON-LD using `buildArticleJsonLd()`
 
-Information collected:
-- “We may collect your name, email address, WhatsApp or other contact details, destination preferences, travel dates, number of travelers, budget range, hotel preferences, special requirements, and any notes you choose to provide.”
+Use only existing article fields:
+- title
+- excerpt/tagline
+- mainImage if safe to convert to absolute/public URL through existing image helpers
+- author
+- publishDate
+- url
 
-Use:
-- “We use this information to respond to your inquiry, prepare route suggestions, provide quotations, confirm arrangements, communicate payment or service details, support after-sales communication, and, where allowed, send relevant travel updates.”
+If author/date missing, omit or use safe fallback only if already visibly rendered. Do not invent expert credentials.
 
-Sharing:
-- “Where necessary for a confirmed or requested itinerary, we may share relevant information with hotels, transport providers, guides, translators, attractions, activity suppliers, educational institutions, payment providers, email service providers, hosting providers, analytics providers, or government and regulatory authorities where required by law.”
+Do not change PortableText rendering or article UI.
 
-Marketing:
-- “If we send travel updates or marketing messages, you may ask us to stop such contact.”
+### D. `app/tours/[slug]/page.tsx`
+Add:
+- Breadcrumb JSON-LD: Home -> Route Cases/Tours -> current route case
 
-Retention:
-- “We retain information only for as long as needed for inquiry handling, service arrangement, after-sales support, finance records, legal obligations, or legitimate business purposes.”
+Optional:
+- If useful and safe, add ItemList JSON-LD from visible itinerary days only. This should describe itinerary steps as a list, not sell as a product.
 
-User rights:
-- “You may request access to your information, correction of inaccurate information, withdrawal of authorization where applicable, or cessation of marketing contact.”
+Do not add:
+- Product schema
+- Offer schema
+- TravelAgency schema
+- fixed price metadata unless already present and already rendered
 
-Cross-border:
-- “Because we may serve overseas customers and use service providers in different locations, your information may be processed in China and/or in the locations of relevant service providers.”
+Metadata description should clearly treat this as a reference route / route case, not a fixed package.
 
-Suggested Chinese copy blocks:
+### E. `app/destinations/[slug]/page.tsx`
+Add:
+- Breadcrumb JSON-LD: Home -> China Destinations -> current destination
 
-说明：
-- “本隐私政策说明无限旅途 / Infinite Travel 如何收集、使用、共享和保存你通过网站或旅行规划沟通中提供的信息。”
+Optional:
+- If useful and safe, add ItemList JSON-LD from visible sample plan or highlights only.
 
-收集信息：
-- “我们可能收集你的姓名、邮箱、WhatsApp 或其他联系方式、目的地偏好、出行日期、出行人数、预算范围、酒店偏好、特殊需求以及你主动填写的备注信息。”
+Metadata description should treat the page as destination inspiration / route planning reference, not a fixed product.
 
-使用目的：
-- “我们会将这些信息用于回复咨询、设计路线、提供报价、确认安排、沟通付款或服务细节、进行售后跟进，并在允许的情况下发送相关旅行信息。”
+### F. Keep UI stable
+Do not redesign pages.
+Do not change CTA logic.
+Do not alter legal/payment/quote wording except metadata/schema.
 
-共享范围：
-- “为完成已确认或正在沟通的行程安排，我们可能在必要范围内向酒店、交通服务方、导游、翻译、景区、活动供应商、研学机构、支付服务商、邮件服务商、网站托管服务商、数据分析服务商，或依法要求的政府及监管机构共享相关信息。”
-
-营销联系：
-- “如我们发送旅行资讯或营销信息，你可以要求停止此类联系。”
-
-保存期限：
-- “我们仅会在处理咨询、服务安排、售后支持、财务记录、法律义务或合理业务目的所需期间保存相关信息。”
-
-用户权利：
-- “你可以要求查询个人信息、更正不准确信息、在适用情况下撤回授权，或停止营销联系。”
-
-跨境处理：
-- “由于我们可能服务海外客户并使用不同地区的服务提供商，你的信息可能在中国及相关服务商所在地被处理。”
-
-### 6.3 Refund & Cancellation page
-
-The Refund / Cancellation page must cover:
-
-1. Reference nature of policy
-2. Cancellation timing principle
-3. Potential non-refundable items
-4. Rescheduling
-5. Force majeure
-6. Refund processing time
-7. Supplier rules and confirmed contract priority
-
-Suggested English copy blocks:
-
-Intro:
-- “This Refund & Cancellation Policy is a reference framework for travel planning and arranged services. The final handling is subject to the confirmed service terms, contract or written confirmation, actual incurred costs, and supplier rules.”
-
-Cancellation timing:
-- “Cancellation fees may increase as the departure date approaches because hotels, transport providers, guides, attractions, activity operators, and other suppliers may already have reserved resources or charged non-refundable costs.”
-
-Reference tiers:
-- “As a general reference, cancellations made more than 30 days before departure may involve lower deductions; cancellations within 15–30 days, 7–14 days, 3–7 days, or within 72 hours may involve progressively higher deductions; cancellations after the trip starts or no-shows may result in substantial or full deductions. The actual amount depends on the confirmed arrangement and supplier rules.”
-
-Non-refundable items:
-- “Potentially non-refundable items may include issued flight tickets, train tickets, attraction tickets, hotel prepayments, car or guide reservations, activity venue fees, educational course fees, third-party supplier non-refundable charges, planning or service fees, payment fees, and remittance fees.”
-
-Rescheduling:
-- “Rescheduling may be possible depending on hotel, transport, guide, attraction, activity, and supplier availability. Any price difference, extra supplier cost, or already incurred cost will be handled according to the confirmed arrangement and the reason for the change.”
-
-Force majeure:
-- “For events beyond reasonable control, such as extreme weather, natural disasters, public health events, policy changes, traffic control, attraction closures, war, strikes, or similar events, we will first try to adjust the itinerary. If adjustment is not possible, we will coordinate with suppliers where possible and handle refunds after deducting actual incurred and non-refundable costs.”
-
-Refund timing:
-- “Refund processing time may vary depending on the payment channel, bank, platform, currency, and case complexity.”
-
-Suggested Chinese copy blocks:
-
-说明：
-- “本退款与取消政策是旅行规划及已安排服务的参考框架。最终处理以双方确认的服务条款、合同或书面确认单、实际已发生费用及供应商规则为准。”
-
-取消时间：
-- “随着出发日期临近，酒店、交通、导游、景区、活动供应商及其他服务方可能已经预留资源或产生不可退费用，因此取消扣费可能逐步增加。”
-
-参考分段：
-- “一般情况下，出发前 30 天以上取消可能产生较低扣费；出发前 15–30 天、7–14 天、3–7 天或 72 小时内取消，扣费比例可能逐步提高；行程开始后取消或未出现，可能产生较高甚至全部扣费。实际金额以确认安排和供应商规则为准。”
-
-不可退项目：
-- “可能不可退的项目包括已出票机票、火车票、景区门票、酒店预付款、车导预留费、活动场地费、研学课程费、第三方供应商不可退费用、规划或服务费、支付手续费和汇款手续费等。”
-
-改期：
-- “是否可以改期取决于酒店、交通、导游、景区、活动及供应商资源情况。由改期产生的差价、额外费用或已发生费用，将根据确认安排、变更原因及供应商规则处理。”
-
-不可抗力：
-- “如发生极端天气、自然灾害、公共卫生事件、政策变化、交通管制、景区临时关闭、战争、罢工或其他不可合理控制事件，我们会优先尝试调整行程；如无法调整，将尽量协调供应商退款，并在扣除已发生且不可退费用后处理可退部分。”
-
-退款时间：
-- “退款到账时间可能受支付渠道、银行、平台、币种及个案复杂程度影响。”
-
-### 6.4 Inquiry form consent text
-
-If the inquiry form has a submit note / consent text, update it to:
-
-English:
-- “By submitting this inquiry, you agree that we may use the information you provide to respond to your request and prepare travel planning support. Please review our Terms & Conditions, Privacy Policy, and Refund & Cancellation Policy.”
-
-Chinese:
-- “提交咨询即表示你同意我们使用你提供的信息来回复需求并提供旅行规划支持。请阅读我们的服务条款、隐私政策以及退款与取消政策。”
-
-If the component already has links to policy pages, preserve and update them. If it only uses plain text, keep plain text to avoid unnecessary component refactoring.
-
-## 7. Validation
-
+## Validation
 Run:
-- `npm run build`
+`npm run build`
 
-If build fails:
-- Fix only errors caused by your edits.
-- If the error is unrelated or pre-existing, document it in `reply.txt`.
+If build fails, fix build errors within allowed scope.
 
-## 8. Required reply.txt format
+Also run:
+`git diff --stat`
 
-Write final report to:
-`C:\Users\Administrator\travel-website\my-travel-site\.opencode\reply.txt`
-
-The report must include:
+## Reply format
+Write final report to `.opencode/reply.txt` with:
 
 1. Changed files
-2. What changed in each file
-3. Key diff or key code snippets
-4. Build result
-5. Errors / risks / unfinished items
-6. Whether Phase 1 is complete
-7. Whether the pages now reflect the confirmed business facts
-8. Whether any unconfirmed legal/contact/license facts were introduced
-9. Whether any contract files or policy documents were uploaded/copied to public assets
+2. Summary of edits by dynamic page
+3. Build result
+4. `git diff --stat` summary
+5. Boundary checks
+6. Any skipped schema/image fields with reason
+7. Risks or follow-up needed
 
-## 9. Acceptance criteria
-
-PASS only if:
-- Terms, Privacy, and Refund/Cancellation pages are updated or confirmed already aligned.
-- Inquiry form consent text is updated if present.
-- Copy is bilingual where the current site is bilingual.
-- No unconfirmed company/license/contact facts are fabricated.
-- No contract files are uploaded.
-- No full contract text is displayed.
-- `npm run build` passes, or any failure is clearly proven unrelated.
+Do not commit.

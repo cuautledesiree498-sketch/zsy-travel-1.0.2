@@ -1,133 +1,232 @@
-# Phase 1 Execution Report
+# Phase 5C Reply: Dynamic Detail Pages Metadata / Schema
 
 ## 1. Changed files
-- `app/terms/page.tsx`
-- `app/privacy/page.tsx`
-- `app/refund-policy/page.tsx`
-- `components/InquiryForm.tsx`
-- `components/LegalLinks.tsx`
+
+本轮按任务要求编辑的动态详情页：
+
+- `app/articles/[slug]/page.tsx`
+- `app/tours/[slug]/page.tsx`
+- `app/destinations/[slug]/page.tsx`
+
+回传文件：
+
 - `.opencode/reply.txt`
 
-Inspected but not edited:
-- `app/refund-cancellation/page.tsx` remains a legacy redirect to `/refund-policy`, preserving alias behavior.
+工作区中仍存在前序 Phase 5A/5B 已有未提交变更：
 
-## 2. What changed in each file
+- `.opencode/task.txt`
+- `app/contact/page.tsx`
+- `app/destinations/page.tsx`
+- `app/faq/page.tsx`
+- `app/layout.tsx`
+- `app/page.tsx`
+- `app/payment/page.tsx`
+- `app/robots.ts`
+- `app/services/page.tsx`
+- `app/sitemap.ts`
+- `app/tours/page.tsx`
+- `components/JsonLd.tsx`（untracked）
+- `lib/seo.ts`（untracked）
 
-### `app/terms/page.tsx`
-- Replaced the general terms copy with restrained bilingual Terms & Conditions content for Infinite Travel / 无限旅途.
-- Added/expanded coverage for applicability, service scope, quotes and availability, order confirmation/payment, customer responsibilities, third-party suppliers, changes/cancellations/refunds, non-guarantees, contract/written confirmation priority, dispute handling, and working-hours/contact note.
-- Preserved the existing visual layout, card structure, language handling, and legal link component.
+## 2. Summary of edits by dynamic page
 
-### `app/privacy/page.tsx`
-- Updated the bilingual Privacy Policy to reflect confirmed inquiry-form data fields and permitted usage purposes.
-- Added clearer coverage for service-provider sharing, marketing/follow-up contact, retention, user rights, cross-border processing, and limited-access/security principles.
-- Removed the previous deletion-right wording and replaced it with access, correction, applicable withdrawal, and stopping marketing contact to avoid promising deletion.
+### `app/articles/[slug]/page.tsx`
 
-### `app/refund-policy/page.tsx`
-- Updated page metadata and H1 from a generic Refund Policy to Refund & Cancellation Policy / 退款与取消政策.
-- Reworked bilingual content to cover reference nature, cancellation timing, possible non-refundable items, rescheduling, force majeure, refund timing, supplier rules, and confirmed contract/written confirmation priority.
-- Kept `/refund-policy` as the active content route while `app/refund-cancellation/page.tsx` continues redirecting to it.
+- 更新 `params` / `searchParams` 类型与读取方式，兼容 Next.js 16 async pattern，并安全处理 `searchParams.lang` 为数组的情况。
+- 增加语言感知 metadata：title、description、canonical、alternates、OpenGraph、Twitter。
+- 仅在 `article.mainImage` 可通过现有 `imageUrlFor()` 转成 public URL 时添加 metadata image。
+- 增加 Breadcrumb JSON-LD：`Home / 首页 -> Insights / 灵感内容 -> Article title`。
+- 增加 BlogPosting JSON-LD，使用现有字段：title、excerpt/tagline、mainImage、author、publishDate、url。
+- 未改 PortableText 渲染和文章 UI。
 
-### `components/InquiryForm.tsx`
-- Updated the submit consent text to the required bilingual wording.
-- Preserved existing policy links and added/kept links to Terms & Conditions, Privacy Policy, and Refund & Cancellation Policy.
-- Pointed the refund/cancellation link to the active `/refund-policy` route.
+关键片段：
 
-### `components/LegalLinks.tsx`
-- Updated the refund link label to `Refund & Cancellation Policy` / `退款与取消政策`.
-- Kept the active href as `/refund-policy`.
-
-### `.opencode/reply.txt`
-- Replaced the previous task report with this Phase 1 report.
-
-## 3. Key diff / key code snippets
-
-### Terms intro and scope
 ```tsx
-const intro = isZh
-  ? '本服务条款用于说明无限旅途 / Infinite Travel 在旅行规划、报价、确认、付款、取消及相关服务沟通中的基本规则。本文为网站层面的通用说明，最终安排以双方确认的合同、书面确认单、报价及供应商规则为准。'
-  : 'These Terms & Conditions explain how Infinite Travel handles travel planning, quotations, confirmations, payments, cancellations, and related service communication. They are a general website-level reference. The final arrangement is subject to the contract, written confirmation, quotation, and supplier rules confirmed by both parties.';
+const path = `/articles/${encodeURIComponent(slug)}`;
+const alternates = buildLocalizedAlternates(path, lang);
+
+return {
+  title,
+  description,
+  alternates,
+  openGraph: {
+    title,
+    description,
+    url: toAbsoluteUrl(alternates.canonical),
+    type: 'article',
+    images: image ? [image] : undefined,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: image ? [image] : undefined,
+  },
+};
 ```
 
-### Terms non-guarantees and confirmation priority
 ```tsx
-{
-  title: 'Limits and Non-Guarantees',
-  items: [
-    'Infinite Travel does not guarantee visa results, weather conditions, absolute transport punctuality, continuous attraction availability, or unconfirmed third-party resources.',
-    'We are not responsible for losses caused by inaccurate information provided by the customer, personal shopping decisions, personal unlawful behavior, or circumstances beyond reasonable control.',
-  ],
-}
-{
-  title: 'Contract and Written Confirmation Priority',
-  items: [
-    'If there is any inconsistency between this website page and a signed contract, written confirmation, or confirmed supplier rule, the signed or written arrangement will prevail.',
-    'Matters not described here may be clarified in later confirmation documents.',
-  ],
-}
+const articleJsonLd = buildArticleJsonLd({
+  headline: title,
+  description: excerpt,
+  image: articleImage,
+  url: articleUrl,
+  author: article.author || undefined,
+  datePublished: article.publishDate || undefined,
+  dateModified: article.publishDate || undefined,
+});
 ```
 
-### Privacy data collection, use, sharing, and rights
+### `app/tours/[slug]/page.tsx`
+
+- 更新 `params` / `searchParams` 类型与读取方式，兼容 Next.js 16 async pattern，并安全处理 `searchParams.lang` 为数组的情况。
+- 增加语言感知 metadata：title、description、canonical、alternates、OpenGraph、Twitter。
+- metadata description 明确为 route case / planning starting point，避免固定产品口径。
+- 仅在 `tour.image` 可通过现有 `imageUrlFor()` 转成 public URL 时添加 metadata image。
+- 增加 Breadcrumb JSON-LD：`Home / 首页 -> Route Cases / 路线案例 -> current route case`。
+- 增加 ItemList JSON-LD，来源为页面实际 visibly rendered 的 itinerary steps；描述为行程步骤列表，不使用 Product / Offer schema。
+- 未改 UI、CTA、价格展示或付款/报价 wording。
+
+关键片段：
+
 ```tsx
-{
-  title: 'Information We Collect',
-  items: [
-    'We may collect your name, email address, WhatsApp or other contact details.',
-    'We may also collect destination preferences, travel dates, number of travelers, budget range, hotel preferences, special requirements, and any notes you choose to provide.',
-  ],
-}
-{
-  title: 'Your Rights',
-  items: [
-    'You may request access to your information, correction of inaccurate information, withdrawal of authorization where applicable, or cessation of marketing contact.',
-  ],
-}
+const description = text(
+  tour.description || tour.tagline,
+  lang,
+  lang === 'zh'
+    ? '中国定制旅行路线案例，可作为咨询起点，并根据日期、人数、节奏和服务范围继续调整。'
+    : 'A custom China travel route case to use as a planning starting point, then adjust by dates, group size, pace and service scope.'
+);
 ```
 
-### Refund & Cancellation title and reference framework
 ```tsx
-title: lang === 'zh' ? '退款与取消政策 - 无限旅途' : 'Refund & Cancellation Policy - Infinite Travel'
-
-const intro = isZh
-  ? '本退款与取消政策是旅行规划及已安排服务的参考框架。最终处理以双方确认的服务条款、合同或书面确认单、实际已发生费用及供应商规则为准。'
-  : 'This Refund & Cancellation Policy is a reference framework for travel planning and arranged services. The final handling is subject to the confirmed service terms, contract or written confirmation, actual incurred costs, and supplier rules.';
+const itineraryJsonLd = buildItemListJsonLd(lang === 'zh' ? `${title} 行程步骤` : `${title} itinerary steps`, itinerary.map((day: any) => ({
+  name: lang === 'zh' ? `第${day.day}天：${day.title}` : `Day ${day.day}: ${day.title}`,
+  description: day.description,
+  url: withLang(tourPath, lang),
+})));
 ```
 
-### Inquiry consent text
-```tsx
-By submitting this inquiry, you agree that we may use the information you provide to respond to your request and prepare travel planning support. Please review our Terms & Conditions, Privacy Policy, and Refund & Cancellation Policy.
+### `app/destinations/[slug]/page.tsx`
 
-提交咨询即表示你同意我们使用你提供的信息来回复需求并提供旅行规划支持。请阅读我们的服务条款、隐私政策以及退款与取消政策。
+- 更新 `params` / `searchParams` 类型与读取方式，兼容 Next.js 16 async pattern，并安全处理 `searchParams.lang` 为数组的情况。
+- 增加语言感知 metadata：title、description、canonical、alternates、OpenGraph、Twitter。
+- metadata title/description 使用 destination reference / route planning reference 口径，避免固定产品口径。
+- 使用现有 local fallback destination image 转成 absolute public URL，作为 OpenGraph/Twitter image。
+- 增加 Breadcrumb JSON-LD：`Home / 首页 -> China Destinations / 中国目的地 -> current destination`。
+- 增加 ItemList JSON-LD：优先从页面 visibly rendered 的 `samplePlan` 生成；如果没有 sample plan，则从 visibly rendered 的 highlights 生成。
+- 未编辑 `lib/destinationContent.ts` 或 destination 源内容。
+
+关键片段：
+
+```tsx
+const destinationListItems = samplePlan.length > 0
+  ? samplePlan.map((item) => ({
+      name: item.title,
+      description: item.description,
+      url: withLang(destinationPath, lang),
+    }))
+  : highlights.map((item) => ({
+      name: item[lang],
+      description: item[lang],
+      url: withLang(destinationPath, lang),
+    }));
 ```
 
-### LegalLinks label
 ```tsx
-{ href: '/refund-policy', label: lang === 'zh' ? '退款与取消政策' : 'Refund & Cancellation Policy' }
+const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+  { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+  { name: lang === 'zh' ? '中国目的地' : 'China Destinations', url: withLang('/destinations', lang) },
+  { name, url: withLang(destinationPath, lang) },
+]);
 ```
 
-## 4. Build result
-- Ran `npm run build` after edits.
-- Result: passed.
-- Build completed successfully with Next.js 16.2.2 / Turbopack.
+## 3. Build result
 
-## 5. Errors / risks / unfinished items
-- No build errors occurred.
-- No unfinished items remain within the requested scope.
-- Existing worktree had other modified/untracked files before/while this task was executed, including files outside the allowed scope; those were not reverted or edited for this task.
-- `app/refund-policy/` is currently shown by git as untracked in this workspace, but it was one of the explicitly allowed files and was already present for inspection/editing.
-- No unconfirmed company registration, license number, office address, phone number, WhatsApp number, partner names, public guarantees, visa guarantees, or full-refund guarantees were introduced.
-- Existing contact email in the allowed pages was preserved because it was already present in the current site content.
+`npm run build` 通过。
 
-## 6. Phase 1 completion status
-- Phase 1 complete: yes.
+关键输出：
 
-## 7. Confirmed business facts reflected
-- Yes. The legal/policy pages now reflect the confirmed brand, bilingual support, working hours, service scope, cautious payment/deposit handling, cancellation/refund dependency factors, non-refundable cost categories, force majeure handling principle, privacy collection/use/sharing categories, user rights, and cross-border processing note.
+```txt
+✓ Compiled successfully in 15.9s
+Running TypeScript ...
+Finished TypeScript in 2.2s ...
+✓ Generating static pages using 19 workers (9/9) in 218ms
+```
 
-## 8. Unconfirmed legal/contact/license facts introduced
-- No. No new unconfirmed legal identity, registration, license, address, phone, WhatsApp, partner, or guarantee facts were added.
+## 4. `git diff --stat` summary
 
-## 9. Contract files or public policy documents uploaded/copied
-- No. No contract files were uploaded.
-- No policy documents were copied to public assets.
-- No full contract text was displayed.
+运行了 `git diff --stat`，输出如下：
+
+```txt
+ .opencode/reply.txt              | 161 ++--------
+ .opencode/task.txt               | 660 ++++++++++-----------------------------
+ app/articles/[slug]/page.tsx     |  65 +++-
+ app/contact/page.tsx             |  53 +++-
+ app/destinations/[slug]/page.tsx |  64 +++-
+ app/destinations/page.tsx        |  51 ++-
+ app/faq/page.tsx                 |  45 ++-
+ app/layout.tsx                   |  31 +-
+ app/page.tsx                     |  62 +++-
+ app/payment/page.tsx             |  43 ++-
+ app/robots.ts                    |   7 +-
+ app/services/page.tsx            |  49 ++-
+ app/sitemap.ts                   |   5 +-
+ app/tours/[slug]/page.tsx        |  65 +++-
+ app/tours/page.tsx               |  49 ++-
+ 15 files changed, 689 insertions(+), 721 deletions(-)
+```
+
+说明：`git diff --stat` 包含本轮前已存在的 Phase 5A/5B/task/reply 变更；本轮代码实现只编辑了 3 个 dynamic detail pages 和 `.opencode/reply.txt`。
+
+当前 `git status --short`：
+
+```txt
+ M .opencode/reply.txt
+ M .opencode/task.txt
+ M app/articles/[slug]/page.tsx
+ M app/contact/page.tsx
+ M app/destinations/[slug]/page.tsx
+ M app/destinations/page.tsx
+ M app/faq/page.tsx
+ M app/layout.tsx
+ M app/page.tsx
+ M app/payment/page.tsx
+ M app/robots.ts
+ M app/services/page.tsx
+ M app/sitemap.ts
+ M app/tours/[slug]/page.tsx
+ M app/tours/page.tsx
+?? components/JsonLd.tsx
+?? lib/seo.ts
+```
+
+## 5. Boundary checks
+
+- 未 commit。
+- 未编辑 long-term memory files，只按任务要求读取。
+- 未编辑静态页面 from Phase 5B。
+- 未编辑 legal pages。
+- 未编辑 Sanity schemas。
+- 未编辑 `lib/featuredCases.ts`、`lib/destinationContent.ts` 或其他 source content files。
+- 未添加 TravelAgency schema。
+- 未添加 Product / Offer schema。
+- 未添加 confirmed license、official guarantee、guaranteed booking/refund、fixed deposit percentage、fixed refund/cancellation fee、named partners 或 supplier resources。
+- 未新增 public phone / WhatsApp / address。
+- 未改 UI、CTA、PortableText 渲染、付款/报价/legal wording。
+
+## 6. Any skipped schema/image fields with reason
+
+- Article image：如果 `article.mainImage` 不能通过 `imageUrlFor()` 得到 public URL，则 metadata image 和 BlogPosting image 会省略。
+- Tour image：如果 `tour.image` 不能通过 `imageUrlFor()` 得到 public URL，则 metadata image 会省略。
+- Tour Product / Offer schema：按任务明确禁止，未添加。
+- Destination Product / Offer schema：目的地是 inspiration / planning reference，不是固定产品，未添加。
+- Destination ItemList：只有在页面有 visible `samplePlan` 或 highlights 时输出；无可见列表则不输出。
+- Article ItemList：文章页不是列表页，未添加。
+
+## 7. Risks or follow-up needed
+
+- `git diff --stat` 输出中有 LF/CRLF warning；这是换行符提示，build 已通过。
+- `lib/seo.ts` 和 `components/JsonLd.tsx` 仍显示为 untracked，它们是 Phase 5A 后续页面依赖；后续验收/提交时需要确认纳入 git。
+- 工作区包含 Phase 5A/5B 的既有未提交改动，本轮未回退或重写。
+- 后续可单独做搜索预览/structured data validation，但本轮已按要求完成 build 验证。

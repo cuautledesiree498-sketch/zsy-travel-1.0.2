@@ -2,27 +2,53 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
 import { getDestinationFallbackImage } from '@/lib/sanity';
 import { getDestinationContent } from '@/lib/destinationContent';
 import { normalizeLang, withLang } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
+type PageParams = Promise<{ slug: string }> | { slug: string };
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }): Promise<Metadata> {
   const { slug } = await params;
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const meta = getDestinationContent(slug);
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
   const displayName = meta?.name?.[lang] || slug;
-  const title = meta ? (lang === 'zh' ? `${displayName} 目的地详情 - ${siteTitle}` : `${displayName} Destination - ${siteTitle}`) : (lang === 'zh' ? `目的地详情 - ${siteTitle}` : `Destination Details - ${siteTitle}`);
-  const description = meta ? meta.summary[lang] : (lang === 'zh' ? '中国定制旅行目的地详情。' : 'Destination details for tailor-made China travel.');
+  const title = meta ? (lang === 'zh' ? `${displayName} 目的地参考 | ${siteTitle}` : `${displayName} Destination Reference | ${siteTitle}`) : (lang === 'zh' ? `目的地参考 | ${siteTitle}` : `Destination Reference | ${siteTitle}`);
+  const description = meta ? meta.summary[lang] : (lang === 'zh' ? '中国定制旅行目的地灵感与路线规划参考。' : 'Destination inspiration and route planning reference for tailor-made China travel.');
+  const path = `/destinations/${encodeURIComponent(slug)}`;
+  const alternates = buildLocalizedAlternates(path, lang);
 
-  return { title, description };
+  return {
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+      images: [toAbsoluteUrl(getDestinationFallbackImage(slug))],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [toAbsoluteUrl(getDestinationFallbackImage(slug))],
+    },
+  };
 }
 
-export default async function DestinationDetailPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ lang?: string }> }) {
+export default async function DestinationDetailPage({ params, searchParams }: { params: PageParams; searchParams: SearchParamsInput }) {
   const { slug } = await params;
-  const lang = normalizeLang((await searchParams)?.lang);
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const meta = getDestinationContent(slug);
 
   if (!meta) notFound();
@@ -46,9 +72,31 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const highlights = meta?.highlights || [];
   const experiences = meta?.experiences || [];
   const samplePlan = meta?.samplePlan?.[lang] || [];
+  const destinationPath = `/destinations/${encodeURIComponent(slug)}`;
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: lang === 'zh' ? '中国目的地' : 'China Destinations', url: withLang('/destinations', lang) },
+    { name, url: withLang(destinationPath, lang) },
+  ]);
+  const destinationListItems = samplePlan.length > 0
+    ? samplePlan.map((item) => ({
+        name: item.title,
+        description: item.description,
+        url: withLang(destinationPath, lang),
+      }))
+    : highlights.map((item) => ({
+        name: item[lang],
+        description: item[lang],
+        url: withLang(destinationPath, lang),
+      }));
+  const destinationItemListJsonLd = destinationListItems.length > 0
+    ? buildItemListJsonLd(lang === 'zh' ? `${name} 路线参考` : `${name} route reference`, destinationListItems)
+    : null;
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <JsonLd id="destination-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      {destinationItemListJsonLd ? <JsonLd id="destination-reference-jsonld" data={destinationItemListJsonLd} /> : null}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href={withLang('/', lang)} className="flex items-center gap-3">

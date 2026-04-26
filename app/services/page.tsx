@@ -1,21 +1,43 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import { withLang, normalizeLang } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
-  const lang = normalizeLang((await searchParams)?.lang);
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '服务 | 无限旅途' : 'Services | Infinite Travel';
+  const description = lang === 'zh'
+    ? '面向私人小团、家庭、商务访问与主题旅行的中国定制旅行规划服务，在需求明确后协助梳理行程、交通、酒店、活动与咨询确认。'
+    : 'Custom China travel planning services for private groups, families, business visits and themed journeys, with itinerary, logistics and inquiry support shaped after requirements are clear.';
+  const alternates = buildLocalizedAlternates('/services', lang);
+
   return {
-    title: lang === 'zh' ? '服务类型 - 无限旅途' : 'Services - Infinite Travel',
-    description: lang === 'zh'
-      ? '查看无限旅途提供的团队游、研学游、个人定制与企业定制服务。'
-      : 'Explore Infinite Travel services including group tours, educational tours, private tailor-made trips, and corporate travel solutions.',
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
-export default async function ServicesPage({ searchParams }: any) {
-  const lang = normalizeLang((await searchParams)?.lang);
+export default async function ServicesPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
 
   const services = [
@@ -105,9 +127,20 @@ export default async function ServicesPage({ searchParams }: any) {
         ],
         footnote: 'This page helps you judge the service format, but it does not replace a formal contract. The final terms are subject to the contract confirmed and signed by both parties.',
       };
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: isZh ? '服务' : 'Services', url: withLang('/services', lang) },
+  ]);
+  const serviceListJsonLd = buildItemListJsonLd(isZh ? '服务' : 'Services', services.map((item) => ({
+    name: item.title,
+    description: item.desc,
+    url: withLang('/services', lang),
+  })));
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-24">
+      <JsonLd id="services-breadcrumb-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="services-itemlist-jsonld" data={serviceListJsonLd} />
       <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">{isZh ? '无限旅途' : 'Infinite Travel'}</p>
       <h1 className="mt-4 text-4xl font-semibold text-[var(--color-navy)] md:text-6xl">{isZh ? '服务类型' : 'Our Services'}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">{pageIntro}</p>

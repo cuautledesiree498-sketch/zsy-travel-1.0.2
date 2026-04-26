@@ -1,22 +1,44 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
 import { withLang, normalizeLang } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
-  const lang = normalizeLang((await searchParams)?.lang);
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '支付说明 | 无限旅途' : 'Payment Guidance | Infinite Travel';
+  const description = lang === 'zh'
+    ? '定制旅行支付说明。支付方式、币种与金额以已确认行程、服务范围和书面确认为准。'
+    : 'Payment guidance for custom travel planning. Payment method, currency and amount depend on confirmed itinerary, service scope and written confirmation.';
+  const alternates = buildLocalizedAlternates('/payment', lang);
+
   return {
-    title: lang === 'zh' ? '支付与确认 - 无限旅途' : 'Payment & Confirmation - Infinite Travel',
-    description: lang === 'zh'
-      ? '查看无限旅途的支付与确认流程，了解在行程确认后如何继续付款。'
-      : 'Review Infinite Travel payment and confirmation steps, and see how payment proceeds after the trip details are confirmed.',
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
-export default async function PaymentPage({ searchParams }: any) {
-  const lang = normalizeLang((await searchParams)?.lang);
+export default async function PaymentPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
 
   const pageTitle = isZh ? '付款前，我们会先把事情确认清楚' : 'Before Payment, We Make the Important Parts Clear';
@@ -101,9 +123,14 @@ export default async function PaymentPage({ searchParams }: any) {
         title: 'Contract & Payment Note',
         body: 'After the route, service scope, pricing, and execution method are confirmed, we can provide the relevant travel contract template before the related payment step when one applies. This page explains the process only and does not replace a formal contract. The final terms are subject to the contract confirmed and signed by both parties.',
       };
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: isZh ? '支付说明' : 'Payment Guidance', url: withLang('/payment', lang) },
+  ]);
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <JsonLd id="payment-breadcrumb-jsonld" data={breadcrumbJsonLd} />
       <section className="px-6 py-24 md:py-28">
         <div className="mx-auto max-w-6xl">
           <Link href={withLang('/', lang)} className="text-sm text-[var(--color-muted)] hover:text-[var(--color-navy)]">

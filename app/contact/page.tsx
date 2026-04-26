@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import InquiryForm from '@/components/InquiryForm';
+import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
-import { getSiteSettings } from '@/lib/sanity';
-import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
+import { normalizeLang, uiText, withLang } from '@/lib/i18n';
+import { buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,21 +15,38 @@ const WECHAT_ID = 'Superstar-_o';
 const OFFICE_LOCATION_ZH = '中国（服务范围覆盖北京、上海、深圳、重庆、成都、陕西、新疆等目的地）';
 const OFFICE_LOCATION_EN = 'China (service coverage includes Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, Xinjiang and more)';
 
-export async function generateMetadata({ searchParams }: any): Promise<Metadata> {
-  const settings = await getSiteSettings();
-  const lang = normalizeLang((await searchParams)?.lang);
-  const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
-  const title = lang === 'zh' ? `联系我们 - ${siteTitle}` : `Contact - ${siteTitle}`;
-  const description = pickLocalized(settings?.contactHeroSubtitle, lang)
-    || pickLocalized(settings?.siteDescription, lang)
-    || 'Contact Infinite Travel for tailor-made China travel planning.';
+type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
 
-  return { title, description };
+export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const title = lang === 'zh' ? '联系咨询 | 无限旅途' : 'Contact | Infinite Travel';
+  const description = lang === 'zh'
+    ? '提交中国旅行咨询，说明日期、人数、目的地兴趣与服务需求。关键需求明确后再进入报价与确认。'
+    : 'Send your China travel inquiry with dates, group size, destination interests and service needs. A quote is prepared only after key requirements are clear.';
+  const alternates = buildLocalizedAlternates('/contact', lang);
+
+  return {
+    title,
+    description,
+    alternates,
+    openGraph: {
+      title,
+      description,
+      url: toAbsoluteUrl(alternates.canonical),
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
 }
 
-export default async function ContactPage({ searchParams }: any) {
-  const settings = await getSiteSettings();
-  const lang = normalizeLang((await searchParams)?.lang);
+export default async function ContactPage({ searchParams }: { searchParams: SearchParamsInput }) {
+  const rawParams = await searchParams;
+  const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
@@ -65,9 +83,14 @@ export default async function ContactPage({ searchParams }: any) {
   const contactCtaSubtitle = lang === 'zh'
     ? '我们不会在信息还不清楚的时候就急着报价或收款。先看你的时间、人数、目的地和预算，再判断路线该怎么收、节奏是否合适，以及下一步是否需要进入报价或支付。'
     : 'We do not rush into pricing or payment while the trip is still unclear. We first review your timing, group size, destinations, and budget, then decide how the route should take shape and whether the next step should be quotation or payment.';
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
+    { name: lang === 'zh' ? '联系咨询' : 'Contact', url: withLang('/contact', lang) },
+  ]);
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]">
+      <JsonLd id="contact-breadcrumb-jsonld" data={breadcrumbJsonLd} />
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href={withLang('/', lang)} className="flex items-center gap-3">
