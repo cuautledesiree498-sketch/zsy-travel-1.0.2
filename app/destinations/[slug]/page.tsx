@@ -76,8 +76,8 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const destinationPath = `/destinations/${encodeURIComponent(slug)}`;
   const whatsappUrl = buildWhatsAppUrl(
     lang === 'zh'
-      ? `你好 Infinite Travel，我想咨询 ${displayName} 相关路线。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
-      : `Hi Infinite Travel, I'd like to ask about a route involving ${displayName}. My travel dates are ___, group size is ___, and rough budget is ___.`
+      ? `你好 Infinite Travel，我想咨询 ${displayName} 相关路线。我的出行日期是 ___，人数是 ___，预算大概是 ___。\n\nHi Infinite Travel, I would like to ask about a route involving ${displayName}. My travel dates are ___, group size is ___, and rough budget is ___.`
+      : `Hi Infinite Travel, I'd like to ask about a route involving ${displayName}. My travel dates are ___, group size is ___, and rough budget is ___.\n\n你好 Infinite Travel，我想咨询 ${displayName} 相关路线。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
   );
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },

@@ -88,8 +88,8 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
   const articlePath = `/articles/${encodeURIComponent(slug)}`;
   const whatsappUrl = buildWhatsAppUrl(
     lang === 'zh'
-      ? `你好 Infinite Travel，我看了这篇文章：${title}。我想基于这个方向咨询中国旅行。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
-      : `Hi Infinite Travel, I read this guide: ${title}. I'd like to plan a China trip around this direction. My travel dates are ___, group size is ___, and rough budget is ___.`
+      ? `你好 Infinite Travel，我看了这篇文章：${title}。我想基于这个方向咨询中国旅行。我的出行日期是 ___，人数是 ___，预算大概是 ___。\n\nHi Infinite Travel, I read this guide: ${title}. I would like to plan a China trip around this direction. My travel dates are ___, group size is ___, and rough budget is ___.`
+      : `Hi Infinite Travel, I read this guide: ${title}. I'd like to plan a China trip around this direction. My travel dates are ___, group size is ___, and rough budget is ___.\n\n你好 Infinite Travel，我看了这篇文章：${title}。我想基于这个方向咨询中国旅行。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
   );
   const articleUrl = toAbsoluteUrl(withLang(articlePath, lang));
   const articleImage = resolvePublicImageUrl(article.mainImage);

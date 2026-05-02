@@ -92,8 +92,8 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   const routeKey = String(tour.slug || slug).toLowerCase();
   const whatsappUrl = buildWhatsAppUrl(
     lang === 'zh'
-      ? `你好 Infinite Travel，我想咨询这条路线：${title}。我的出行日期是 ___，人数是 ___，想调整的部分是 ___。`
-      : `Hi Infinite Travel, I'd like to ask about this route: ${title}. My travel dates are ___, group size is ___, and I may want to adjust ___.`
+      ? `你好 Infinite Travel，我想咨询这条路线：${title}。我的出行日期是 ___，人数是 ___，想调整的部分是 ___。\n\nHi Infinite Travel, I would like to ask about this route: ${title}. My travel dates are ___, group size is ___, and I may want to adjust ___.`
+      : `Hi Infinite Travel, I'd like to ask about this route: ${title}. My travel dates are ___, group size is ___, and I may want to adjust ___.\n\n你好 Infinite Travel，我想咨询这条路线：${title}。我的出行日期是 ___，人数是 ___，想调整的部分是 ___。`
   );
   const bestTime = text(
     tour.bestTime,
