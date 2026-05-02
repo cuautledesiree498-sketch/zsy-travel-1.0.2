@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LegalLinks from '@/components/LegalLinks';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl, defaultWhatsAppMessage, WHATSAPP_DISPLAY } from '@/lib/contact';
 import { getTours, getArticles, getDestinations, getSiteSettings, getHomeSettings, imageUrlFor, fallbackImages, getDestinationFallbackImage, normalizeDestinationSlug, shouldForceLocalDestinationImage } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, uiText, withLang, markPlaceholder, type Lang } from '@/lib/i18n';
 import { SITE_URL, buildLocalizedAlternates, buildOrganizationJsonLd, buildWebSiteJsonLd, toAbsoluteUrl } from '@/lib/seo';
@@ -69,6 +70,7 @@ export default async function Home({ searchParams }: any) {
   const navCtaLink = settings?.headerCtaLink || '/contact#inquiry-form';
   const siteTitle = pickLocalized(settings?.siteTitle, lang) || (lang === 'zh' ? '无限旅途' : 'Infinite Travel');
   const siteDescription = pickLocalized(settings?.siteDescription, lang) || (lang === 'zh' ? '为全球旅行者设计的中国多城市私人定制旅行，覆盖北京、上海、成都、新疆等多个目的地。' : 'Private multi-city travel across China designed for global travelers. Custom itineraries covering Beijing, Shanghai, Chengdu, Xinjiang and more.');
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const faqItems = Array.isArray(settings?.faqItems) ? settings.faqItems : [];
   const languageSwitchLabel = t.language;
   const switchLang: Lang = lang === 'en' ? 'zh' : 'en';
@@ -284,6 +286,7 @@ export default async function Home({ searchParams }: any) {
               <h5 className="text-sm uppercase tracking-[0.25em] text-[var(--color-muted)]">{t.contact}</h5>
               <ul className="mt-4 space-y-3 text-sm text-[var(--color-slate)]">
                 {settings?.contactEmail && <li>{settings.contactEmail}</li>}
+                <li><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="transition hover:text-[var(--color-navy)]">WhatsApp: {WHATSAPP_DISPLAY}</a></li>
                 {(settings?.contactPhone || settings?.whatsappNumber) && <li>{settings.contactPhone || settings.whatsappNumber}</li>}
                 {settings?.wechat && <li>WeChat: {settings.wechat}</li>}
                 {contactAddress && <li>{contactAddress}</li>}

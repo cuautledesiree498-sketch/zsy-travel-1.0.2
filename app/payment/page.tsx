@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { withLang, normalizeLang } from '@/lib/i18n';
 import { buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
@@ -40,6 +41,7 @@ export default async function PaymentPage({ searchParams }: { searchParams: Sear
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
 
   const pageTitle = isZh ? '付款前，我们会先把事情确认清楚' : 'Before Payment, We Make the Important Parts Clear';
   const pageSubtitle = isZh
@@ -228,6 +230,9 @@ export default async function PaymentPage({ searchParams }: { searchParams: Sear
           </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#25D366] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[#1fb75a]">
+              WhatsApp
+            </a>
             <Link href={withLang('/contact', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">
               {isZh ? '先把需求聊清楚' : 'Talk Through the Details First'}
             </Link>

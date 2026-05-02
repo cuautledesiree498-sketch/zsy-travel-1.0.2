@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { normalizeLang, withLang, pickLocalized, markPlaceholder } from '@/lib/i18n';
 import { getTours } from '@/lib/sanity';
 import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
@@ -40,6 +41,7 @@ export default async function ToursPage({ searchParams }: { searchParams: Search
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const tours = dedupeTours(await getTours());
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
@@ -150,6 +152,9 @@ export default async function ToursPage({ searchParams }: { searchParams: Search
           <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
             {isZh ? '按路线参考发起咨询' : 'Start from a Route Case'}
           </Link>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#1fb75a]">
+            WhatsApp
+          </a>
           <Link href={withLang('/', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
             {lang === 'zh' ? '回首页继续看' : 'Back to Home'}
           </Link>

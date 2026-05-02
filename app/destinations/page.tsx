@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { getDestinationFallbackImage } from '@/lib/sanity';
 import { normalizeLang, withLang } from '@/lib/i18n';
 import { destinationContent, getDestinationContent } from '@/lib/destinationContent';
@@ -42,6 +43,7 @@ export default async function DestinationsPage({ searchParams }: { searchParams:
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const destinations = getStableDestinations();
   const isZh = lang === 'zh';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: isZh ? '首页' : 'Home', url: withLang('/', lang) },
     { name: isZh ? '中国目的地' : 'China Destinations', url: withLang('/destinations', lang) },
@@ -122,6 +124,9 @@ export default async function DestinationsPage({ searchParams }: { searchParams:
                 <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
                 </Link>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#1fb75a]">
+                  WhatsApp
+                </a>
               </div>
               </div>
             </article>
@@ -138,6 +143,9 @@ export default async function DestinationsPage({ searchParams }: { searchParams:
         <Link href={withLang('/contact#inquiry-form', lang)} className="mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
           {isZh ? '从目的地开始咨询' : 'Start from a Destination'}
         </Link>
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="ml-0 mt-4 inline-flex text-sm font-semibold uppercase tracking-[0.2em] text-[#1f9f55] md:ml-8">
+          WhatsApp
+        </a>
       </div>
     </main>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl, defaultWhatsAppMessage, WHATSAPP_DISPLAY } from '@/lib/contact';
 import { withLang, normalizeLang } from '@/lib/i18n';
 import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
@@ -39,6 +40,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Sea
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
 
   const services = [
     {
@@ -188,6 +190,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Sea
         <p className="mt-4 max-w-3xl leading-8 text-[rgba(255,255,255,0.82)]">{isZh ? '没关系，很多人一开始也说不清自己到底算哪一种。你可以先把时间、人数、预算和旅行目标告诉我们，我们会先帮你判断更接近哪种服务组织方式，再往下谈路线怎么做。' : 'That is normal. Many travelers do not know the right format at the beginning either. Start with your dates, group size, budget, and travel goal, and we will help judge which service structure is closest before moving into the route itself.'}</p>
         <div className="mt-8">
           <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)]">{isZh ? '提交咨询' : 'Submit an Inquiry'}</Link>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-white/35 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">WhatsApp</a>
         </div>
       </section>
     </main>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getSiteSettings, imageUrlFor, fallbackImages } from '@/lib/sanity';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { normalizeLang, pickLocalized, uiText, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -24,6 +25,7 @@ export default async function AboutPage({ searchParams }: any) {
   const t = uiText[lang];
   const switchLang = lang === 'en' ? 'zh' : 'en';
   const siteTitle = lang === 'zh' ? '无限旅途' : 'Infinite Travel';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const footerIntro = lang === 'zh' ? '无限旅途更关注路线逻辑、沟通清晰度和执行衔接，让中国旅行规划更容易确认和落地。' : 'Infinite Travel puts more weight on route logic, communication clarity, and execution coordination so a China trip is easier to confirm and carry through.';
   const aboutHeroTitle = lang === 'zh' ? '我们更在意把一趟中国旅行先理顺' : 'We Care More About Getting a China Trip Properly Straightened Out First';
   const aboutHeroSubtitle = lang === 'zh'
@@ -130,6 +132,9 @@ export default async function AboutPage({ searchParams }: any) {
           <h2 className="mt-4 text-3xl font-semibold md:text-5xl">{aboutCtaTitle}</h2>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[rgba(255,255,255,0.82)] md:text-lg">{aboutCtaSubtitle}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#25D366] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[#1fb75a]">
+              WhatsApp
+            </a>
             <Link href={withLang('/contact#inquiry-form', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-accent)]">{lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}</Link>
             <Link href={withLang('/', lang)} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-white/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10">{t.home}</Link>
           </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { normalizeLang, withLang, pickLocalized, markPlaceholder } from '@/lib/i18n';
 import { getArticles } from '@/lib/sanity';
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function InsightsPage({ searchParams }: any) {
   const lang = normalizeLang(searchParams?.lang);
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const articles = dedupeArticles(await getArticles());
 
   return (
@@ -64,6 +66,9 @@ export default async function InsightsPage({ searchParams }: any) {
       </section>
 
       <div className="mt-14">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="mr-8 text-sm font-semibold uppercase tracking-[0.2em] text-[#1f9f55]">
+          WhatsApp
+        </a>
         <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
           {lang === 'zh' ? '提交咨询' : 'Submit an Inquiry'}
         </Link>

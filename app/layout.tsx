@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { SITE_URL } from '@/lib/seo';
 
 const siteTitle = 'Infinite Travel';
@@ -48,7 +49,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-[var(--color-background)] text-[var(--color-foreground)]">{children}</body>
+      <body className="min-h-full flex flex-col bg-[var(--color-background)] text-[var(--color-foreground)]">
+        {children}
+        <FloatingWhatsAppButton />
+      </body>
     </html>
   );
 }

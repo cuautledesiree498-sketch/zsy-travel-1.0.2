@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { normalizeLang, withLang } from '@/lib/i18n';
 import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
@@ -72,6 +73,7 @@ const faqs = [
 export default async function FAQPage({ searchParams }: { searchParams: SearchParamsInput }) {
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
     { name: lang === 'zh' ? '常见问题' : 'FAQ', url: withLang('/faq', lang) },
@@ -105,6 +107,9 @@ export default async function FAQPage({ searchParams }: { searchParams: SearchPa
       </section>
 
       <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1f9f55]">
+          WhatsApp
+        </a>
         <Link href={withLang('/contact#inquiry-form', lang)} className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-navy)]">
           {lang === 'zh' ? '还是拿不准？直接发咨询' : 'Still unsure? Start an inquiry'}
         </Link>

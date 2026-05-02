@@ -3,6 +3,7 @@ import Link from 'next/link';
 import InquiryForm from '@/components/InquiryForm';
 import JsonLd from '@/components/JsonLd';
 import LegalLinks from '@/components/LegalLinks';
+import { buildWhatsAppUrl, defaultWhatsAppMessage, WHATSAPP_DISPLAY } from '@/lib/contact';
 import { normalizeLang, uiText, withLang } from '@/lib/i18n';
 import { buildBreadcrumbJsonLd, buildLocalizedAlternates, toAbsoluteUrl } from '@/lib/seo';
 
@@ -61,6 +62,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
     ? ['1️⃣ 出行日期、大致天数，以及日期是否灵活', '2️⃣ 同行人数和成员类型（家庭、朋友、商务、研学等）', '3️⃣ 想去的城市、地区或体验方向', '4️⃣ 预算范围和期望的服务深度', '5️⃣ 酒店风格、舒适度或希望入住的区域', '6️⃣ 特殊需求：饮食、语言、行动能力、儿童、商务、研学或旅拍']
     : ['1️⃣ Travel dates, trip length, and whether your dates are flexible', '2️⃣ Group size and traveler type, such as family, friends, business, or study travel', '3️⃣ Preferred cities, regions, or experience direction', '4️⃣ Budget range and expected service depth', '5️⃣ Hotel style, comfort level, or preferred area', '6️⃣ Special needs: diet, language, mobility, children, business, education, or photography'];
   const contactStatusNote = lang === 'zh' ? '通常会在正常工作时段内 24 小时左右回复，具体视咨询量和需求复杂度而定。' : 'We usually reply within 24 hours during normal working periods, depending on inquiry volume and request complexity.';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
   const notBookingNote = lang === 'zh' ? '提交表单只是开始规划沟通，不代表订单成立、付款义务或行程已确认。' : 'Submitting this form starts the planning conversation. It does not create a booking, payment obligation, or confirmed travel arrangement.';
   const afterSubmitSteps = lang === 'zh'
     ? [
@@ -123,6 +125,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
           <div className="grid gap-6">
             <InfoCard title={lang === 'en' ? 'Brand' : '品牌'} value={lang === 'zh' ? BRAND_NAME_ZH : BRAND_NAME_EN} desc={lang === 'en' ? 'Private China travel planning for overseas guests, families, couples, small groups and business visitors.' : '为海外游客、家庭、情侣、私人小团和商务访客提供中国私人定制旅行规划。'} />
             <InfoCard title={lang === 'en' ? 'Email' : '邮箱'} value={CONTACT_EMAIL} desc={lang === 'en' ? 'Send your trip request here. Please include dates, group size, destinations and budget if possible.' : '你可以把行程需求发到这里。建议同时写明日期、人数、目的地和预算。'} />
+            <InfoCard title="WhatsApp" value={WHATSAPP_DISPLAY} desc={lang === 'en' ? 'Fastest for trip planning follow-up. You can send your dates, group size, destination interests and rough budget directly.' : '适合快速继续沟通行程。你可以直接发送出行日期、人数、目的地兴趣和大致预算。'} href={whatsappUrl} cta={lang === 'en' ? 'Message us on WhatsApp' : '通过 WhatsApp 咨询'} />
             <InfoCard title="WeChat" value={WECHAT_ID} desc={lang === 'en' ? 'Available for follow-up communication after we receive your initial request.' : '收到初步需求后，可通过微信继续沟通路线细节。'} />
             <InfoCard title={lang === 'en' ? 'Follow-Up Channel' : '后续沟通方式'} value={lang === 'zh' ? '请先通过邮箱或微信联系' : 'Email or WeChat first'} desc={lang === 'en' ? 'After receiving your inquiry, we will confirm the most suitable follow-up channel for route details, quotation, and confirmation documents.' : '收到咨询后，我们会根据情况确认后续沟通方式，用于路线细节、报价和确认文件沟通。'} />
             <InfoCard title={lang === 'en' ? 'Service Area' : '服务范围'} value={contactAddress} desc={lang === 'en' ? 'China route planning and destination coordination across key cities, heritage routes and scenic regions.' : '覆盖中国核心城市、文化线路与风景目的地的路线规划和目的地协同服务。'} />
@@ -158,6 +161,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#25D366] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[#1fb75a]">WhatsApp</a>
                 <a href="#inquiry-form" className="inline-flex min-w-[220px] items-center justify-center rounded-full bg-[var(--color-navy)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-navy-soft)]">{lang === 'en' ? 'Go to Inquiry Form' : '前往咨询表单'}</a>
                 <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-w-[220px] items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">{lang === 'en' ? 'Email Us Directly' : '直接邮件联系'}</a>
               </div>
@@ -205,12 +209,17 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
   );
 }
 
-function InfoCard({ title, value, desc }: { title: string; value: string; desc: string }) {
+function InfoCard({ title, value, desc, href, cta }: { title: string; value: string; desc: string; href?: string; cta?: string }) {
   return (
     <div className="rounded-[1.75rem] border border-[rgba(10,27,52,0.08)] bg-white p-7 shadow-[0_16px_40px_rgba(10,27,52,0.04)]">
       <p className="text-xs uppercase tracking-[0.26em] text-[var(--color-muted)]">{title}</p>
       <h3 className="mt-3 text-xl font-semibold text-[var(--color-navy)] break-words">{value}</h3>
       <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{desc}</p>
+      {href && cta ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
+          {cta} →
+        </a>
+      ) : null}
     </div>
   );
 }

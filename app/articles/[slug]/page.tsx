@@ -5,6 +5,7 @@ import { PortableText } from '@portabletext/react';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { buildWhatsAppUrl } from '@/lib/contact';
 import { localizePortableText } from '@/lib/portableTextLocale';
 import { getArticleBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
@@ -85,6 +86,11 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
     : (lang === 'zh' ? '发布日期待补充' : 'Publish date coming soon');
   const heroFacts = Array.isArray(article.heroFacts) ? article.heroFacts : [];
   const articlePath = `/articles/${encodeURIComponent(slug)}`;
+  const whatsappUrl = buildWhatsAppUrl(
+    lang === 'zh'
+      ? `你好 Infinite Travel，我看了这篇文章：${title}。我想基于这个方向咨询中国旅行。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
+      : `Hi Infinite Travel, I read this guide: ${title}. I'd like to plan a China trip around this direction. My travel dates are ___, group size is ___, and rough budget is ___.`
+  );
   const articleUrl = toAbsoluteUrl(withLang(articlePath, lang));
   const articleImage = resolvePublicImageUrl(article.mainImage);
   const localizedContent = localizePortableText(article.content, lang);
@@ -187,6 +193,9 @@ export default async function ArticleDetailPage({ params, searchParams }: { para
                 <Link href={withLang('/insights', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '查看更多内容' : 'More Insights'}
                 </Link>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#1fb75a]">
+                  WhatsApp
+                </a>
                 <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full border border-[rgba(10,27,52,0.14)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:bg-[var(--color-navy)] hover:text-white">
                   {lang === 'zh' ? '联系咨询' : 'Contact Us'}
                 </Link>

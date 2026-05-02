@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl, WHATSAPP_DISPLAY } from '@/lib/contact';
 import { getTourBySlug, imageUrlFor, fallbackImages } from '@/lib/sanity';
 import { getFeaturedCaseCopy } from '@/lib/featuredCases';
 import { normalizeLang, pickLocalized, withLang, markPlaceholder } from '@/lib/i18n';
@@ -89,6 +90,11 @@ export default async function TourDetailPage({ params, searchParams }: { params:
   const travelStyle = text(tour.travelStyle, lang, fallback.style);
   const howToUse = text(tour.howToUse, lang, fallback.cta);
   const routeKey = String(tour.slug || slug).toLowerCase();
+  const whatsappUrl = buildWhatsAppUrl(
+    lang === 'zh'
+      ? `你好 Infinite Travel，我想咨询这条路线：${title}。我的出行日期是 ___，人数是 ___，想调整的部分是 ___。`
+      : `Hi Infinite Travel, I'd like to ask about this route: ${title}. My travel dates are ___, group size is ___, and I may want to adjust ___.`
+  );
   const bestTime = text(
     tour.bestTime,
     lang,
@@ -253,6 +259,7 @@ export default async function TourDetailPage({ params, searchParams }: { params:
                 <InfoRow label={lang === 'zh' ? '时长参考' : 'Suggested length'} value={tour.duration ? `${tour.duration} ${lang === 'zh' ? '天' : 'Days'}` : (lang === 'zh' ? '可调整' : 'Flexible')} />
                 <InfoRow label={lang === 'zh' ? '预算方式' : 'Budget style'} value={tour.price ? `$${tour.price}` : (lang === 'zh' ? '按人数与标准定制' : 'Customized by group size and service level')} />
                 <InfoRow label={lang === 'zh' ? '联系邮箱' : 'Email'} value={CONTACT_EMAIL} />
+                <InfoRow label="WhatsApp" value={WHATSAPP_DISPLAY} />
                 <InfoRow label="WeChat" value={WECHAT_ID} />
               </div>
               <div className="mt-6 rounded-[1.5rem] bg-[var(--color-soft-white)] p-5 text-sm leading-7 text-[var(--color-slate)]">
@@ -266,6 +273,9 @@ export default async function TourDetailPage({ params, searchParams }: { params:
                 </ul>
               </div>
               <div className="mt-7 flex flex-col gap-3">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#1fb75a]">
+                  WhatsApp
+                </a>
                 <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(lang === 'zh' ? `咨询路线：${title}` : `Inquiry about route: ${title}`)}`} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '按这条线发起咨询' : 'Inquire About This Route'}
                 </a>

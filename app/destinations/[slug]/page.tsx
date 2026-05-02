@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
+import { buildWhatsAppUrl } from '@/lib/contact';
 import { getDestinationFallbackImage } from '@/lib/sanity';
 import { getDestinationContent } from '@/lib/destinationContent';
 import { normalizeLang, withLang } from '@/lib/i18n';
@@ -73,6 +74,11 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
   const experiences = meta?.experiences || [];
   const samplePlan = meta?.samplePlan?.[lang] || [];
   const destinationPath = `/destinations/${encodeURIComponent(slug)}`;
+  const whatsappUrl = buildWhatsAppUrl(
+    lang === 'zh'
+      ? `你好 Infinite Travel，我想咨询 ${displayName} 相关路线。我的出行日期是 ___，人数是 ___，预算大概是 ___。`
+      : `Hi Infinite Travel, I'd like to ask about a route involving ${displayName}. My travel dates are ___, group size is ___, and rough budget is ___.`
+  );
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: lang === 'zh' ? '首页' : 'Home', url: withLang('/', lang) },
     { name: lang === 'zh' ? '中国目的地' : 'China Destinations', url: withLang('/destinations', lang) },
@@ -185,6 +191,9 @@ export default async function DestinationDetailPage({ params, searchParams }: { 
               <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{valueLine}</p>
               <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">{consultLine}</p>
               <div className="mt-7 flex flex-col gap-3">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#1fb75a]">
+                  WhatsApp
+                </a>
                 <Link href={withLang('/contact', lang)} className="inline-flex items-center justify-center rounded-full bg-[var(--color-navy)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[var(--color-navy-soft)]">
                   {lang === 'zh' ? '开始定制你的路线' : 'Start Planning Your Journey'}
                 </Link>

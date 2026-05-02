@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import LegalLinks from '@/components/LegalLinks';
+import { buildWhatsAppUrl, defaultWhatsAppMessage } from '@/lib/contact';
 import { normalizeLang, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
@@ -23,6 +24,7 @@ export default async function TermsPage({ searchParams }: { searchParams: Search
   const rawParams = await searchParams;
   const lang = normalizeLang(Array.isArray(rawParams?.lang) ? rawParams.lang[0] : rawParams?.lang);
   const isZh = lang === 'zh';
+  const whatsappUrl = buildWhatsAppUrl(defaultWhatsAppMessage(lang));
 
   const intro = isZh
     ? '本服务条款用于说明无限旅途 / Infinite Travel 在旅行规划、报价、确认、付款、取消及相关服务沟通中的基本规则。本文为网站层面的通用说明，最终安排以双方确认的合同、书面确认单、报价及供应商规则为准。'
@@ -221,6 +223,9 @@ export default async function TermsPage({ searchParams }: { searchParams: Search
           <p className="text-xs uppercase tracking-[0.28em] text-[var(--color-muted)]">{isZh ? '继续查看' : 'Continue'}</p>
           <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-muted)]">{isZh ? '如需继续看隐私、退款取消或直接发起咨询，可从以下入口继续。' : 'If you want to review privacy, cancellations, or move into inquiry, continue from the links below.'}</p>
           <LegalLinks lang={lang} className="mt-6 space-y-3 text-sm text-[var(--color-slate)]" />
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-6 mr-6 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-[#1f9f55] transition hover:text-[#167c42]">
+            WhatsApp
+          </a>
           <Link href={withLang('/contact#inquiry-form', lang)} className="mt-6 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-navy)] transition hover:text-[var(--color-navy-soft)]">
             {isZh ? '提交咨询' : 'Submit an Inquiry'}
           </Link>
