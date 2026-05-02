@@ -200,6 +200,7 @@ export async function POST(request: Request) {
     SignatureNonce: nonce,
     RegionId: 'cn-hangzhou',
     AccountName: ACCOUNT_NAME,
+    FromAlias: 'Infinite Travel',
     AddressType: '1',
     ReplyToAddress: 'true',
     ToAddress: TO_ADDRESS,

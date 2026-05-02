@@ -6,7 +6,7 @@ import { normalizeLang, withLang } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
-const CONTACT_EMAIL = '1484818239@qq.com';
+const CONTACT_EMAIL = 'contact@infinitravel.net';
 type SearchParamsInput = Promise<{ lang?: string | string[] }> | { lang?: string | string[] };
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParamsInput }): Promise<Metadata> {

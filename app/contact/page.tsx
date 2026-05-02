@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 
 const BRAND_NAME_ZH = '无限旅途';
 const BRAND_NAME_EN = 'Infinite Travel';
-const CONTACT_EMAIL = '1484818239@qq.com';
+const CONTACT_EMAIL = 'contact@infinitravel.net';
 const WECHAT_ID = 'Superstar-_o';
 const OFFICE_LOCATION_ZH = '中国（服务范围覆盖北京、上海、深圳、重庆、成都、陕西、新疆等目的地）';
 const OFFICE_LOCATION_EN = 'China (service coverage includes Beijing, Shanghai, Shenzhen, Chongqing, Chengdu, Shaanxi, Xinjiang and more)';

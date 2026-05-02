@@ -11,7 +11,7 @@ import { buildBreadcrumbJsonLd, buildItemListJsonLd, buildLocalizedAlternates, t
 
 export const dynamic = 'force-dynamic';
 
-const CONTACT_EMAIL = '1484818239@qq.com';
+const CONTACT_EMAIL = 'contact@infinitravel.net';
 const WECHAT_ID = 'Superstar-_o';
 
 function text(value: any, lang: 'en' | 'zh', fallback = '') {
